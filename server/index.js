@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import logger from 'morgan';
+import router from './routes/index';
 
 
 // Set up the express app
@@ -13,10 +14,7 @@ app.use(logger('dev'));
 //use body parser to parse requests
 app.use(bodyParser.json());
 
-//catch-all route
-app.get('*', (req, res) => res.status(200).send({
-    message: 'Welcome to the beginning of nothingness.',
-  }));
+app.use(router);
 
 //listen for requests
 const port = parseInt(process.env.PORT, 10) || 1991;
