@@ -1,24 +1,32 @@
-// import centers from '../models/center.json';
-// /**
-//  * @param{req} -request from the user
-//  * @param{res} -response from the server
-//  * @return{json} -return a json object, indicating success or failure
-//  */
-// export default class AddCenter {
-//   /**
-//    * 
-//    */
-//  static createCenter(req, res) {
-//     if (!req.body.center_name && !req.body.center_location && !req.body.center_capacity && !req.body.center_price && !req.body.center_type) {
-//       return res.json({
-//         message: 'Please fill in appropriate field',
-//         error: true
-//       });
-//     }
-//     centers.push(req.body);
-//     return res.json({
-//       message: 'Center created',
-//       error: false
-//     });
-//   }
-// };
+import events from '../models/event.json';
+/**
+ *
+ */
+export default class AddEvent {
+ /**
+   * @static
+   * @param {req} -returns request object
+   * @param {res} -returns response object
+   * @return{json} -return a json object, indicating success or failure
+   */
+ static create(req, res) {
+    if (!req.body.event_title || !req.body.event_location || !req.body.event_date || !req.body.event_organizers || !req.body.event_center) {
+      return res.json({
+        message: 'Please fill in the required field',
+        error: true
+      });
+    }
+    
+    if (Date.parse(req.body.event_date)) {
+      events.push(req.body);
+      return res.json({
+        message: 'Event Created successfully',
+        error: false
+      });
+    }
+    return res.json({
+      message: 'Wrong format, enter in dd-mm-yy',
+      error: true
+    });
+  }
+}
