@@ -4,6 +4,7 @@ import GetSingleCenter from '../controllers/singlecenter';
 import ModifyCenter from '../controllers/editcenter';
 import AddCenter from '../controllers/newcenter';
 import AddEvent from '../controllers/createvent';
+import ModifyEvent from '../controllers/editevent';
 
 const router = express.Router();
 
@@ -15,11 +16,12 @@ router.put('/centers/:centerId', ModifyCenter.editCenter);
 router.post('/centers', AddCenter.createCenter);
 router.post('/centers', AddCenter.createCenter);
 router.post('/events', AddEvent.create);
+router.put('/events/:eventId', ModifyEvent.update);
 
 
 
 router.get('*', (req, res) => res.status(200).send({
-    message: 'Welcome to the Event Manager.',
+    message: 'Hi there, Welcome to the Event Manager.',
   }));
 
 
