@@ -1,6 +1,6 @@
 [
     {
-        "id": "110",
+        "id": 110,
         "event_title": "The Nigeria Education Fair",
         "event_location": "Ikeja, Lagos",
         "event_date": "12-12-17",
@@ -11,7 +11,7 @@
     },
 
     {
-        "id": "111",
+        "id": 1,
         "event_title": "Global Trade Fair",
         "event_location": "Victoria Island, Lagos",
         "event_date": "19-12-17",
@@ -21,7 +21,7 @@
     },
 
     {
-        "id": "112",
+        "id": 112,
         "event_title": "NodeJs Interactive Seminar",
         "event_location": "Maitama, Abuja",
         "event_date": "28-12-17",
