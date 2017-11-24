@@ -5,6 +5,7 @@ import ModifyCenter from '../controllers/editcenter';
 import AddCenter from '../controllers/newcenter';
 import AddEvent from '../controllers/createvent';
 import ModifyEvent from '../controllers/editevent';
+import DeleteEvent from '../controllers/deletevent';
 
 const router = express.Router();
 
@@ -17,6 +18,7 @@ router.post('/centers', AddCenter.createCenter);
 router.post('/centers', AddCenter.createCenter);
 router.post('/events', AddEvent.create);
 router.put('/events/:eventId', ModifyEvent.update);
+router.delete('/events/:eventId', DeleteEvent.delete);
 
 
 
