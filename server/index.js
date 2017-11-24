@@ -13,6 +13,8 @@ app.use(logger('dev'));
 
 //use body parser to parse requests
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 app.use(router);
 

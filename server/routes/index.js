@@ -1,11 +1,13 @@
 import express from 'express';
-import getAllcenters from '../controllers/allcenter';
+import GetAllCenters from '../controllers/allcenter';
+import GetSingleCenter from '../controllers/singlecenter';
 
 const router = express.Router();
 
 
 
-router.get('/centers', getAllcenters.getAll);
+router.get('/centers', GetAllCenters.getAllCenters);
+router.get('/centers/:centerid', GetSingleCenter.getOneCenter);
 
 router.get('*', (req, res) => res.status(200).send({
     message: 'Welcome to the Event Manager.',
