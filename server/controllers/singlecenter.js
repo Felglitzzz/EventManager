@@ -7,7 +7,7 @@ export default class GetSingleCenter {
    * @static
    * @param {req} -returns request object
    * @param {res} -returns response object
-   * @returns {json} -returns a json object of all centers
+   * @returns {json} -returns a json object of centers
    */
   static getOneCenter(req, res) {
       for( let i = 0; i < centers.length; i++){

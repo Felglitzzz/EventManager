@@ -4,7 +4,9 @@
         "event_title": "The Nigeria Education Fair",
         "event_location": "Ikeja, Lagos",
         "event_date": "12-12-17",
-        "event_organizers": "Mind Smith Limited"
+        "event_organizers": "Mind Smith Limited",
+        "event_center": "KFA"
+        
 
     },
 
@@ -13,7 +15,9 @@
         "event_title": "Global Trade Fair",
         "event_location": "Victoria Island, Lagos",
         "event_date": "19-12-17",
-        "event_organizers": "Felix Conglomerate"
+        "event_organizers": "Felix Conglomerate",
+        "event_center": "Epic Hall"
+        
     },
 
     {
@@ -21,6 +25,8 @@
         "event_title": "NodeJs Interactive Seminar",
         "event_location": "Maitama, Abuja",
         "event_date": "28-12-17",
-        "event_organizers": "Amande Group of Companies"
+        "event_organizers": "Amande Group of Companies",
+        "event_center": "Felglitz Hall"
+        
     }
 ]
