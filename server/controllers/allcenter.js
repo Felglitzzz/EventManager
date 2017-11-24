@@ -12,6 +12,7 @@ export default class GetAllCenters {
   static getAllCenters(req, res) {
       return res.json ({
           Centers: centers,
+          
           error: false
       });
   }

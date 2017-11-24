@@ -11,7 +11,7 @@ export default class GetSingleCenter {
    */
   static getOneCenter(req, res) {
       for( let i = 0; i < centers.length; i++){
-          if (centers[i].id === parseInt(req.params.centerid, 10)) {
+          if (centers[i].id === parseInt(req.params.centerId, 10)) {
               const id = centers[i].id;
               const center_name = centers[i].center_name;
               const center_location = centers[i].center_location;
@@ -32,6 +32,7 @@ export default class GetSingleCenter {
 
                 return res.json({
                     Center: eachCenter,
+                    error: false
                 });
             }
         }
