@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-app.use(router);
+app.use('/api/v1', router);
 
 //listen for requests
 const port = parseInt(process.env.PORT, 10) || 1991;
