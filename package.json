@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon --exec babel-node index",
     "lint": "./node_modules/.bin/eslint",
-    "test": "mocha --require babel-polyfill --compilers js:babel-register"
+    "test": "mocha --require babel-polyfill --compilers js:babel-register server/Test/test"
   },
   "author": "Amande Olaoluwa Felix",
   "license": "ISC",
