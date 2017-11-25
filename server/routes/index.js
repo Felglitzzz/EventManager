@@ -1,5 +1,4 @@
 import express from 'express';
-
 import Event from '../controllers/event';
 import Center from '../controllers/center';
 
