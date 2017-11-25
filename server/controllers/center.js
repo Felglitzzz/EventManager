@@ -12,8 +12,8 @@ export default class Center {
 
   static addCenter(req, res) {
     if (!req.body.center_name || !req.body.center_location || !req.body.center_capacity || !req.body.center_price || !req.body.center_type) {
-      return res.json({
-        message: 'Please fill in required field',
+      return res.status(422).json({
+        message: 'Please fill in the required field',
       });
     }
     centers.push(req.body);

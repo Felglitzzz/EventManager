@@ -21,9 +21,6 @@ export default class Event {
         message: 'Event Created successfully',
       });
     }
-    return res.status(200).json({
-      message: 'Wrong format, enter in dd-mm-yy',
-    });
   }
 
 
