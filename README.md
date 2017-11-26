@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.org/Felglitzzz/EventManager.svg?branch=ch-travis)](https://travis-ci.org/Felglitzzz/EventManager)
 
+[![Coverage Status](https://coveralls.io/repos/github/Felglitzzz/EventManager/badge.svg?branch=develop)](https://coveralls.io/github/Felglitzzz/EventManager?branch=develop)
+
+
 EventManager Application
 
 The UserInterface template for Event Manager is hosted on github. Github link - https://felglitzzz.github.io/EventManager/
