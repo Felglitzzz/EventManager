@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/practice.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
   </head>
   <body>
 
     <header>
-      <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-orange">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-orange">
 
         <a class="navbar-brand" href="index.html">EventManager</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,32 +22,63 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mx-2">
-             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hi, Felix
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item ddown-outline-items" href="createvent.html">Create Event</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item ddown-outline-items" href="editevent.html">Edit Event</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item ddown-outline-items" href="signin.html">Log Out</a>
+             <li class="nav-item">
+              <a class="nav-link text-light" role="button" href="userpage.html">Log out
+              </a>                
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content bg-orange">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body bg-light">
+                          <form>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Email address</label>
+                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">                        
+                              <label for="exampleInputPassword1">Password</label>
+                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-danger border" data-dismiss="modal">Close</button>
+                          <a href="userpage.html"><button type="button" class="btn-resp-height marg rounded btn btn-lg btn-outline-success px-5 ml-2 border">Submit</button></a>
+                        </div>
+                        <div>
+                            <p class="text-center text-light"><a class="text-success" href="signup.html">Sign Up here </a>if u do not have an account yet.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
               </div>
             </li>
           </ul>
           <form class="form-inline">
-            <a class="rounded-0 btn btn-outline-light btn-resp aconform text-orange-hover" role="button" type="submit" href="createvent.html">Create Event</a>
+            <button class="btn-resp-height btn btn-outline-orange-1 rounded-0 px-5 ml-2 border" data-toggle="modal" data-target="#exampleModal" type="button">Get Started</button>
           </form>
         </div>
       </nav>
     </header>
 
     <section>
-      <div class="jumbotron jumbotron-fluid bg-purp">
-        <div class="container">
-          <h1 class="text-center text-light mt-5">Welcome, Felix</h1>
-          <p class="lead text-center text-light">Have fun managing your events</p>
-        </div>
+      <div class="container mt-5">
+        <ul class="nav nav-tabs d-flex">
+          <li class="nav-item">
+            <a class="nav-link text-orange active" href="userpage.html">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-orange" href="#">Centers</a>
+          </li>
+          <li class="nav-item text-orange ml-auto p-2">
+              <p class="text-orange">Hi, Felix</a>
+          </li>
+        </ul>
       </div>
+      
     </section>
     <section class="my-5">
       <div class="container">
@@ -86,6 +117,45 @@
           </div>
         </div>
       </div>
+    </section>
+    <section class="my-5">
+        <div class="container">
+          <div class="card-deck">
+            <div class="card" style="width: 20rem;">
+              <img class="card-img-top" src="img/tradey.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h4 class="card-title">Trade Exhibition Event</h4>
+                <p class="card-text">Ikeja, Lagos</p>
+                <div class="d-flex justify-content-around">
+                  <a href="exhibition.html" class="btn btn-orange d-flex align-self-center">More...</a>
+                </div>
+              </div>
+            </div>
+  
+            <div class="card" style="width: 20rem;">
+              <img class="card-img-top" src="img/awardy.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h4 class="card-title">The Legacy Awards</h4>
+                <p class="card-text">Accra, Ghana</p>
+                <div class="d-flex justify-content-around">
+                  <a href="awardevent.html" class="btn btn-orange d-flex align-self-center">More...</a>
+                </div>
+              </div>
+            </div>
+  
+            <div class="card" style="width: 20rem;">
+              <img class="card-img-top" src="img/fair.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h4 class="card-title">The Nigeria Education Fair</h4>
+                <p class="card-text">Ajah, Lagos</p>
+                <div class="d-flex justify-content-around">
+                  <a href="fairevent.html" class="btn btn-orange d-flex align-self-center">More...</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
    <!--  </section>
       <section class="my-5">
       <div class="container">
