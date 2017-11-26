@@ -1,5 +1,7 @@
 #EventManager
 
+[![Build Status](https://travis-ci.org/Felglitzzz/EventManager.svg?branch=ch-travis)](https://travis-ci.org/Felglitzzz/EventManager)
+
 EventManager Application
 
 The UserInterface template for Event Manager is hosted on github. Github link - https://felglitzzz.github.io/EventManager/
