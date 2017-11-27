@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/practice.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
   </head>
   <body>
@@ -23,18 +23,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mx-2">
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-light" href="adminlogin.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sign In
+              <a class="nav-link text-light" data-toggle="modal" data-target="#exampleModal" role= "button">Sign In
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item ddown-outline-items" href="signin.html">User</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item ddown-outline-items" href="adminlogin.html">Admin</a>
-              </div>
             </li>
           </ul>
           <form class="form-inline">
-            <a href="getstarted.html"><button class="btn btn-outline-light rounded-0 text-orange-hover" type="button">Get Started</button></a>
-
+          <button class="btn-resp-height btn btn-outline-orange-1 rounded-0 px-5 ml-2 border" data-toggle="modal" data-target="#exampleModall" type="button">Get Started</button>
           </form>
         </div>
       </nav>
@@ -43,18 +37,66 @@
     <section>
       <div class="container-fluid fill_screen img-fluid d-flex align-items-center">
         <div class="container justify-content-center">
-           <div class="col-sm-10 col-md-10 col-lg-10 bg-black col-xl-10 mr-auto ml-auto pb-sm-5">
-            <div class="row justify-content-center second-section">
-              <h1 class="text-orange pt-sm-4 padd">
-                Find your next event
-              </h1>
-            </div>
             <div class="row justify-content-center">
-              <form class="form-inline justify-content-center">
-                <input class="btn-resp-height rounded-0 col-md-4 col-sm-4 form-control form-control-lg" type="search" placeholder="Name" aria-label="Search">
-                <input class="btn-resp-height rounded-0 col-md-4 col-sm-4 form-control form-control-lg" type="search" placeholder="Location" aria-label="Search">
-                <button class="btn-resp-height marg rounded-0 btn btn-lg btn-outline-orange px-5 ml-2 border" type="submit">Search</button>
-              </form>
+                <button type="button" class="btn-resp-height marg rounded btn btn-lg btn-outline-orange px-5 ml-2 border-dark" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Explore</button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content bg-orange">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body bg-light">
+                        <form>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">                        
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger border" data-dismiss="modal">Close</button>
+                        <a href="userpage.html"><button type="button" class="btn-resp-height marg rounded btn btn-lg btn-outline-success px-5 ml-2 border">Submit</button></a>
+                      </div>
+                      <div>
+                          <p class="text-center text-light"><a class="text-success" href="signup.html">Sign Up here </a>if u do not have an account yet.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content bg-orange">
+                        <div class="modal-header">
+                          <h5 class="modal-title text-light text-center" id="exampleModalLabel">Let's Get Started</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body bg-light">
+                          <form>
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Email address</label>
+                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">                        
+                              <label for="exampleInputPassword1">Password</label>
+                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                              <label for="exampleInputPassword1">Repeat Password</label>
+                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Repeat Password">
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-danger border" data-dismiss="modal">Close</button>
+                          <a href="userpage.html"><button type="button" class="btn-resp-height marg rounded btn btn-lg btn-outline-success px-5 ml-2 border">Submit</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
           </div>
         </div>

@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/practice.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
   </head>
   <body>
 
     <header>
-      <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-orange">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-orange">
 
         <a class="navbar-brand" href="index.html">EventManager</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,31 +22,91 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mx-2">
-             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hi, Felix
+             <li class="nav-item">
+              <a class="nav-link text-light" role="button" href="index.html">Log out
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item ddown-outline-items" href="createvent.html">Create Event</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item ddown-outline-items" href="editevent.html">Edit Event</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item ddown-outline-items" href="signin.html">Log Out</a>
-              </div>
-            </li>
-          </ul>
+                 <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content bg-orange">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-light" id="exampleModalLabel">Create Event</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body bg-light">
+                        <form class="form-group justify-content-center">
+                            <label class="lead text-secondary" for="exampleInputPassword1">Name of Event</label>
+                            <input class="btn-resp-height rounded-0 form-control form-control-lg" type="name" aria-label="name">
+                            <label class="lead text-secondary" for="exampleInputUsername">Location of event</label>
+                            <input class="btn-resp-height rounded-0 form-control form-control-lg" type="name" aria-label="Username">
+                            <label class="lead text-secondary" for="comment">Description of Event</label>
+                            ​<textarea class="form-control form-rounded" rows="3"></textarea>
+                            <label class="lead text-secondary" for="exampleInputPassword1">Organizers</label>
+                            <input class="btn-resp-height rounded-0 form-control form-control-lg" type="name" aria-label="name">
+                            <label class="lead text-secondary" for="exampleInputPassword1">Date</label>
+                            <input class="btn-resp-height rounded-0 form-control form-control-lg" type="date" aria-label="date">
+                            <label class="lead text-secondary text-second" for="exampleFormControlFile1">Upload Event Image</label>
+                            <input type="file" class="form-control-file btn-resp-height text-secondary" id="exampleFormControlFile1" accept="image/*">
+                            <!-- <a class="button btn-resp-height rounded-0 btn btn-lg btn-outline-orange mt-4 mx-auto d-block" href="eventcreated.html" type="submit">Create Event</a> -->
+                          </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger border" data-dismiss="modal">Close</button>
+                        <button type="button" data-toggle="modal" tabindex="1" data-target="#exampleModall" data-dismiss="modal" class="btn-resp-height marg rounded btn btn-lg btn-outline-success px-5 ml-2 border">Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
           <form class="form-inline">
-            <a class="rounded-0 btn btn-outline-light btn-resp aconform text-orange-hover" role="button" type="submit" href="createvent.html">Create Event</a>
+            <button class="btn-resp-height btn btn-outline-orange-1 rounded-0 px-5 ml-2 border" data-toggle="modal" data-target="#exampleModal" type="button">Create Event</button>
           </form>
+          <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title text-secondary" id="exampleModalLabel">Status</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Event Created!
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div> 
         </div>
       </nav>
     </header>
 
     <section>
-      <div class="jumbotron jumbotron-fluid bg-purp">
-        <div class="container">
-          <h1 class="text-center text-light mt-5">Welcome, Felix</h1>
-          <p class="lead text-center text-light">Have fun managing your events</p>
-        </div>
+      <div class="container mt-5">
+        <ul class="nav nav-tabs d-flex">
+          <li class="nav-item">
+            <a class="nav-link text-orange active" href="userpage.html">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-orange" href="#center">Centers</a>
+          </li>
+          <li class="nav-item text-orange ml-auto p-2">
+              <p class="text-orange">Hi, Felix</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <div class="container w-100 bg-dark">
+        <h2 class="text-center text-light mt-5 py-2">
+            Events
+        </h2>
       </div>
     </section>
     <section class="my-5">
@@ -86,6 +146,45 @@
           </div>
         </div>
       </div>
+    </section>
+    <section class="my-5">
+        <div class="container">
+          <div class="card-deck">
+            <div class="card" style="width: 20rem;">
+              <img class="card-img-top" src="img/tradey.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h4 class="card-title">Trade Exhibition Event</h4>
+                <p class="card-text">Ikeja, Lagos</p>
+                <div class="d-flex justify-content-around">
+                  <a href="exhibition.html" class="btn btn-orange d-flex align-self-center">More...</a>
+                </div>
+              </div>
+            </div>
+  
+            <div class="card" style="width: 20rem;">
+              <img class="card-img-top" src="img/awardy.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h4 class="card-title">The Legacy Awards</h4>
+                <p class="card-text">Accra, Ghana</p>
+                <div class="d-flex justify-content-around">
+                  <a href="awardevent.html" class="btn btn-orange d-flex align-self-center">More...</a>
+                </div>
+              </div>
+            </div>
+  
+            <div class="card" style="width: 20rem;">
+              <img class="card-img-top" src="img/fair.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h4 class="card-title">The Nigeria Education Fair</h4>
+                <p class="card-text">Ajah, Lagos</p>
+                <div class="d-flex justify-content-around">
+                  <a href="fairevent.html" class="btn btn-orange d-flex align-self-center">More...</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
    <!--  </section>
       <section class="my-5">
       <div class="container">
@@ -125,6 +224,61 @@
         </div>
       </div>
     </section> -->
+      <section>
+        <div class="container w-100 bg-dark">
+          <h2 class="text-center text-light mt-5 py-2" id="center">
+              Centers
+          </h2>
+        </div>
+      </section>
+      <section class="my-5">
+          <div class="container">
+            <div class="card-deck">
+              <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="img/felglitz.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><h4 class="card-title">Felglitz Hall</h4></li>
+                    <li class="list-group-item"><p class="card-text">Ikeja, Lagos</p></li>
+                    <li class="list-group-item"><p class="card-text">700 Capacity</p></li>
+                  </ul>
+                  <div class="d-flex justify-content-center mt-2">
+                    <a type="button" class="d-flex btn btn-outline-orange aconform" href="exhibition.html">Trade Exhibition Event</a>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="img/texas.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><h4 class="card-title">Beefal Center</h4></li>
+                    <li class="list-group-item"><p class="card-text">Accra, Ghana</p></li>
+                    <li class="list-group-item"><p class="card-text">200 Capacity</p></li>
+                  </ul>
+                  <div class="d-flex justify-content-center mt-2">
+                    <a type="button" class="d-flex btn btn-outline-orange aconform" href="awardevent.html">The Legacy Awards</a>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="img/orlando.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-blue"><h4 class="card-title">Havillah Hall</h4></li>
+                    <li class="list-group-item bg-blue"><p class="card-text">Ajah, Lagos</p></li>
+                    <li class="list-group-item bg-blue"><p class="card-text">400 Capacity</p></li>
+                  </ul>
+                  <div class="d-flex justify-content-center mt-2">
+                    <a type="button" class="d-flex btn btn-outline-orange aconform" href="fairevent.html">The Nigeria Education Fair</a>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
     
    
