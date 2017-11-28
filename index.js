@@ -14,6 +14,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Routes
 app.use('/api/v1', router);
 
 // listen for requests

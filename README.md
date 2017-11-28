@@ -1,6 +1,6 @@
 #EventManager
 
-[![Build Status](https://travis-ci.org/Felglitzzz/EventManager.svg?branch=ch-travis)](https://travis-ci.org/Felglitzzz/EventManager)
+[![Build Status](https://travis-ci.org/Felglitzzz/EventManager.svg?branch=develop)](https://travis-ci.org/Felglitzzz/EventManager)
 [![Coverage Status](https://coveralls.io/repos/github/Felglitzzz/EventManager/badge.svg?branch=develop)](https://coveralls.io/github/Felglitzzz/EventManager?branch=develop)
 
 
