@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const event = sequelize.define('event', {
     name: {
       type: DataTypes.STRING,
@@ -8,17 +8,20 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    dateBooked: {
-      type: DataTypes.DATE,
+    date: {
+      type: DataTypes.DATEONLY,
       allowNull: false,
-    },
-    center: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: Date.now(),
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'UserId Field Required!',
+        },
+      },
       onDelete: 'CASCADE',
       references: {
         model: 'event',
@@ -29,6 +32,12 @@ module.exports = (sequelize, DataTypes) => {
     centerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'CenterId Field Required!',
+        },
+      },
       onDelete: 'CASCADE',
       references: {
         model: 'event',
@@ -44,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     event.belongsTo(models.user, {
-      foreignKey: 'userId',      
+      foreignKey: 'userId',
     });
   };
   return event;
