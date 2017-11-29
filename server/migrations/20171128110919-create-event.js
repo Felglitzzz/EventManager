@@ -15,7 +15,7 @@ module.exports = {
       type: Sequelize.STRING,
     },
     date: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
     },
     userId: {
       type: Sequelize.INTEGER,
@@ -25,11 +25,11 @@ module.exports = {
     },
     createdAt: {
       allowNull: false,
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
     },
     updatedAt: {
       allowNull: false,
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
     },
   }),
   down: queryInterface => queryInterface.dropTable('events'),

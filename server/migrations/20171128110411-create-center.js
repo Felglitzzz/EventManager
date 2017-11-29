@@ -8,7 +8,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        allowNull: false,        
+        allowNull: false,
+        unique: true,       
         type: Sequelize.STRING
       },
       location: {
@@ -32,16 +33,16 @@ module.exports = {
         type: Sequelize.STRING
       },
       dateBooked: {
-        allowNull: false,        
-        type: Sequelize.DATE
+        allowNull: true,        
+        type: Sequelize.DATEONLY
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       }
     });
   },
