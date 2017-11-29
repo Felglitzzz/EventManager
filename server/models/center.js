@@ -3,6 +3,10 @@ export default (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: {
+        args: true,
+        msg: 'A center with this name exist'
+      },
       validate: {
         notEmpty: {
           args: true,
@@ -61,7 +65,7 @@ export default (sequelize, DataTypes) => {
       },
     },
     facility: {
-      type: DataTypes.ARRAY(DataTypes.TEXT),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     type: {
@@ -69,8 +73,9 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
     },
     dateBooked: {
-      type: DataTypes.DATE,
-      allowNull: false,
+      type: DataTypes.DATEONLY,
+      allowNull: true,
+      defaultValue: Date.now(),
     },
   });
 
