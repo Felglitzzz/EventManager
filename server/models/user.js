@@ -76,13 +76,14 @@ export default (sequelize, DataTypes) => {
           msg: 'Password is required',
         },
         len: {
-          args: [8, 30],
+          args: [8],
           msg: 'Password should not be less than 8 characters',
         },
       },
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
+      allowNull: true,
       defaultValue: false,
     },
   });
