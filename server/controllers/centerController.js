@@ -57,13 +57,12 @@ export default class Center {
             type: req.body.type || center.type,
             dateBooked: req.body.dateBooked || center.dateBooked,
           })
+        // Send back the updated center too.
           .then(modifiedCenter => res.status(200).json({
             message: 'Center Update Successful', modifiedCenter,
           }))
-          // Send back the updated center too.
           .catch(error => res.status(400).json({ message: error.message }));
-      })
-      .catch(error => res.status(400).json({ message: error.message }));
+      });
   }
   /**
     * get one center
@@ -105,6 +104,7 @@ export default class Center {
     *@memberof Center
     */
   static getAllCenters(req, res) {
+    console.log(req.decoded);
     return centers
       .all()
       .then(center => res.status(200).json({

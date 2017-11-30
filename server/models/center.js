@@ -5,7 +5,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       unique: {
         args: true,
-        msg: 'A center with this name exist'
+        msg: 'A center with this name exist',
       },
       validate: {
         notEmpty: {
@@ -71,11 +71,6 @@ export default (sequelize, DataTypes) => {
     type: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    dateBooked: {
-      type: DataTypes.DATEONLY,
-      allowNull: true,
-      defaultValue: Date.now(),
     },
   });
 
