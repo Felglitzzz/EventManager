@@ -87,9 +87,6 @@ export default (sequelize, DataTypes) => {
       defaultValue: false,
     },
   });
-  // hooks: {
-  //   beforeCreate
-  // }
   user.associate = (models) => {
     user.hasMany(models.event, {
       foreignKey: 'userId',

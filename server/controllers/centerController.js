@@ -7,7 +7,6 @@ const events = db.event;
 /**
  * @class center
  */
-
 export default class Center {
   /**
     * add new center into the database
@@ -49,13 +48,13 @@ export default class Center {
         /* updating centers details
         if no details inputed, defaults to the details the center already have */
           .update({
-            name: req.body.name || center.name,
-            location: req.body.location || center.location,
-            capacity: req.body.capacity || center.capacity,
-            price: req.body.price || center.price,
-            facility: req.body.facility || center.facility,
-            type: req.body.type || center.type,
-            dateBooked: req.body.dateBooked || center.dateBooked,
+            name: req.body.name,
+            location: req.body.location,
+            capacity: req.body.capacity,
+            price: req.body.price,
+            facility: req.body.facility,
+            type: req.body.type,
+            dateBooked: req.body.dateBooked,
           })
         // Send back the updated center too.
           .then(modifiedCenter => res.status(200).json({
@@ -104,7 +103,6 @@ export default class Center {
     *@memberof Center
     */
   static getAllCenters(req, res) {
-    console.log(req.decoded);
     return centers
       .all()
       .then(center => res.status(200).json({

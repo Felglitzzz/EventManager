@@ -16,11 +16,9 @@ export default class User {
    * @static
    * @param {object} req
    * @param {object} res
-   * @returns {json}
+   * @returns {json} json
    */
-
   static createUser(req, res) {
-    console.log(hashSync(req.body.password, 5));
     return users
       .create({
         surname: req.body.username,
@@ -31,33 +29,29 @@ export default class User {
         isAdmin: req.body.isAdmin,
       })
       .then((createduser) => {
-        // console.log(createduser);
         const userData = {
           username: createduser.username,
           email: createduser.email,
           userId: createduser.dataValues.id,
           isAdmin: createduser.dataValues.isAdmin,
         };
-        const token = jwt.sign(userData, secret, { expiresIn: '24h' });
+        const token = jwt.sign(userData, secret, { expiresIn: '96h' });
         //     return token;
         res.status(201).json({ message: 'User created', token });
       })
       .catch(error => res.status(501).send({ message: error.message }));
   }
-
-
   /**
    * sign in
-   * @static
+   *
    * @param {object} req
    * @param {object} res
-   * @returns {json}
+   * @returns {json} json
    */
   static login(req, res) {
     const { username, password } = req.body;
     users.findOne({ where: { username } })
       .then((user) => {
-        console.log(user);
         if (user && bcrypt.compareSync(req.body.password, user.dataValues.password)) {
           const userData = {
             username: user.username,

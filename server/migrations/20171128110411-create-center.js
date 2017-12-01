@@ -32,10 +32,6 @@ module.exports = {
         allowNull: false,        
         type: Sequelize.STRING
       },
-      dateBooked: {
-        allowNull: true,        
-        type: Sequelize.DATEONLY
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATEONLY
