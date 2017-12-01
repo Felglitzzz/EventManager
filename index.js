@@ -1,4 +1,5 @@
 import express from 'express';
+import expressValidator from 'express-validator';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 import router from './server/routes/index';
@@ -13,6 +14,7 @@ app.use(logger('dev'));
 // use body parser to parse requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
 
 // Routes
 app.use('/api/v1', router);
