@@ -13,23 +13,9 @@ export default class Event {
     *@memberof Event
     */
   static addEvent(req, res) {
-    const query = {
-      where: {
-        $and: [
-          { date: req.body.date },
-          { centerId: req.body.centerId }
-        ]
-      }
-    };
-    // checks to see if center is booked
-    events.find(query)
-      .then((event) => {
-        if (event) return res.status(409).json({ message: 'Center has already been chosen for the specified date' });
-        events.create(req.body)
-          .then(newEvent => res.status(201).json({ message: 'Event created', event: newEvent }))
-          .catch(error => res.status(400).json({ message: error.message }));
-      })
-      .catch(err => res.status(500).json({ error: err }));
+    return events.create(req.body)
+      .then(newEvent => res.status(201).json({ message: 'Event Created!', event: newEvent }))
+      .catch(error => res.status(400).json({ message: error.message }));
   }
   /**
    * deletes one event
@@ -97,7 +83,7 @@ export default class Event {
           .then(modifiedEvent => res.status(200).json({
             message: 'Event Update Successful', modifiedEvent,
           }))
-          .catch(res.status(400).json({ message: 'FIll up the empty field(s)' }));
+          .catch(error => res.status(400).json({ message: error }));
       });
   }
 }
