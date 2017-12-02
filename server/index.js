@@ -1,4 +1,5 @@
 import express from 'express';
+import expressValidator from 'express-validator';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 import router from './routes/index';
