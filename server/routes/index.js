@@ -22,7 +22,7 @@ router.post('/users/login', Validate.signIn, User.login);
 /**
  * catch all route
  */
-router.get('*', (req, res) => res.status(200).send({
+router.get('/*', (req, res) => res.status(200).send({
   message: 'Hi there, Welcome to Event Manager.',
 }));
 

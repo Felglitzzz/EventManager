@@ -1,0 +1,8 @@
+const path = require('path');
+
+module.exports = {
+  config: path.resolve('./server/config', 'config.json'),
+  modelsPath: path.resolve('./server/models'),
+  seedersPath: path.resolve('./server/seeders/'),
+  migrationsPath: path.resolve('./server/migrations')
+};
