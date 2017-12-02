@@ -85,6 +85,13 @@ body, html {
 	-webkit-appearance: inherit!important;
 }
 
+.tconform{
+  color: #f6682f!important;
+}
+.tconform:hover{
+  color: #fff!important;
+}
+
 .blue-outline{
 	border-color: #007bff!important;
 }

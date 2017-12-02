@@ -58,30 +58,87 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-outline-danger border" data-dismiss="modal">Close</button>
-                      <button type="button" data-toggle="modal" tabindex="1" data-target="#exampleModall" data-dismiss="modal" class="btn-resp-height marg rounded btn btn-lg btn-outline-success px-5 ml-2 border">Submit</button>
+                      <button type="button" class="btn btn-outline-danger text-light border" data-dismiss="modal">Close</button>
+                      <button type="button" data-toggle="modal" tabindex="1" data-target="#exampleModall" data-dismiss="modal" class="btn-resp-height marg text-light rounded btn btn-lg btn-outline-success px-5 ml-2 border">Submit</button>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModalll" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+                    <div class="modal-content bg-orange">
                       <div class="modal-header">
-                        <h5 class="modal-title text-secondary" id="exampleModalLabel">Status</h5>
+                        <h5 class="modal-title text-light" id="exampleModalLabel">Edit Center</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
-                      <div class="modal-body">
-                        Centers Created!
+                      <div class="modal-body bg-light">
+                        <form class="form-group justify-content-center">
+                            <form class="form-group justify-content-center">
+                                <label class="lead text-secondary" for="exampleInputPassword1">Name of center</label>
+                                <input class="btn-resp-height rounded-0 form-control form-control-lg" type="name" aria-label="name">
+                                <label class="lead text-secondary" for="exampleInputUsername">Location of center</label>
+                                <input class="btn-resp-height rounded-0 form-control form-control-lg" type="name" aria-label="Username">
+                                <!-- <label class="lead text-secondary" for="comment">Description of Center</label>
+                                ​<textarea class="form-control form-rounded" rows="3"></textarea> -->
+                                <label class="lead text-secondary" for="number">Capacity</label>
+                                <input class="btn-resp-height rounded-0 form-control form-control-lg mt-2" type="number" aria-label="number">
+                                <label class="lead text-secondary" for="inlineFormInputGroup">Price</label>
+                                  <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="number" class="btn-resp-height rounded-0 form-control form-control-lg" id="inlineFormInputGroup" placeholder="Enter Price" aria-label="number">
+                                  </div>
+                                <label class="lead text-secondary" for="exampleFormControlFile1">Upload Center's Image</label>
+                                <input type="file" class="form-control-file btn-resp-height text-secondary" id="exampleFormControlFile1" accept="image/*">
+                                <!-- <a class="button btn-resp-height rounded-0 btn btn-lg btn-outline-orange mt-4 mx-auto d-block" href="centercreated.html" type="submit">Create Center</a> -->
+                              </form>
+                          </form>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-outline-danger text-light border" data-dismiss="modal">Close</button>
+                        <button type="button" data-toggle="modal" tabindex="1" data-toggle="modal" data-target="#exampleModallll" data-dismiss="modal" class="btn-resp-height marg text-light rounded btn btn-lg btn-outline-success px-5 ml-2 border">Submit</button>
                       </div>
                     </div>
                   </div>
-                </div> 
+                </div>
+              <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title text-orange" id="exampleModalLabel">Status</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body text-orange lead">
+                      Event Created!
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-orange" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" id="exampleModallll" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-orange" id="exampleModalLabel">Status</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body text-orange lead">
+                        Event Edited!
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-orange" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </li>
           </ul>
             </div>
@@ -130,7 +187,7 @@
                   <li class="list-group-item"><p class="card-text">700 Capacity</p></li>
                 </ul>
                 <div class="d-flex justify-content-center mt-2">
-                  <button class="d-flex btn btn-outline-orange" data-toggle="modal" href="">Edit</a>
+                  <button class="d-flex btn btn-outline-orange aconform tconform" data-toggle="modal" data-target="#exampleModalll" data-dismiss ="modal">Edit</a>
                 </div>
               </div>
             </div>
@@ -144,7 +201,7 @@
                   <li class="list-group-item"><p class="card-text">200 Capacity</p></li>
                 </ul>
                 <div class="d-flex justify-content-center mt-2">
-                  <a type="button" class="d-flex btn btn-outline-orange aconform" href="editcenter.html">Edit</a>
+                  <a type="button" class="d-flex btn btn-outline-orange aconform tconform" data-toggle="modal" data-target="#exampleModalll" data-dismiss ="modal">Edit</a>
                 </div>
               </div>
             </div>
@@ -158,7 +215,7 @@
                   <li class="list-group-item"><p class="card-text">400 Capacity</p></li>
                 </ul>
                 <div class="d-flex justify-content-center mt-2">
-                  <a type="button" class="d-flex btn btn-outline-orange aconform" href="editcenter.html">Edit</a>
+                  <a type="button" class="d-flex btn btn-outline-orange tconform aconform" data-toggle="modal" data-target="#exampleModalll" data-dismiss ="modal">Edit</a>
                 </div>
               </div>
             </div>
