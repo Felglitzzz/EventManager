@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && node ./dist/index.js",
+    "start": "npm run build && node dist/index.js",
     "clean": "rimraf ./dist",
     "build": "npm run clean && babel server --out-dir dist --copy-files",
     "dev:start": "nodemon --exec babel-node ./server/index.js",
@@ -60,6 +60,7 @@
     "sequelize": "^4.23.1"
   },
   "engines": {
-    "node": "8.9.1"
+    "node": "8.9.1",
+    "npm": "5.5.1"
   }
 }
