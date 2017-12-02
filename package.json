@@ -11,7 +11,7 @@
     "lint": "eslint --fix index",
     "migrate:test": "sequelize db:migrate --env test",
     "coveralls:report": "nyc report --reporter=text-lcov | coveralls",
-    "test": "cross-env NODE_ENV=test nyc --reporter=lcov mocha --require babel-polyfill --compilers js:babel-register server/Test/*.spec.js"
+    "test": "cross-env NODE_ENV=test nyc --reporter=lcov mocha --require babel-polyfill --compilers js:babel-register server/test/*.spec.js"
   },
   "keywords": [
     "example",
