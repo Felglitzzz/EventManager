@@ -4,7 +4,7 @@ node_js:
   - node
 
 before_script:
-  - npm install -g codeclimate-test-reporter sequelize
+  - npm install -g codeclimate-test-reporter sequelize-cli
   - psql -c 'drop database if exists eventdb_test;' -U postgres
   - psql -c 'create database eventdb_test;' -U postgres
   - npm run migrate:test
