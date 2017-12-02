@@ -1,5 +1,5 @@
 import faker from 'faker';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 
 const password = 'pass123';
 
