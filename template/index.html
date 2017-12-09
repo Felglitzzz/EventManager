@@ -9,99 +9,241 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montez|Montserrat+Alternates" rel="stylesheet">
+    <link rel="stylesheet" href="./css/font-awesome/css/font-awesome.min.css">
   </head>
   <body>
-
     <header>
-      <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-orange">
+      <nav class="navbar navbar-expand-lg transparent navbar-dark bg-orange">
 
-        <a class="navbar-brand font-weight-bold" href="index.html">EventManager</a>
+        <a class="navbar-brand font-weight-bold montfont" href="index.html">EVENTMANAGER</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ml-auto mx-2">
+          <!-- <ul class="navbar-nav ml-auto mx-2">
             <li class="nav-item dropdown">
-              <a class="nav-link text-light" data-toggle="modal" data-target="#exampleModal" role= "button">Sign In
+              <a class="nav-link text-light" data-toggle="modal" data-target="#exampleModal" role= "button"><i class="fa fa-user" aria-hidden="true"> Sign in</i>
               </a>
             </li>
-          </ul>
+          </ul> -->
+          <form class="form-inline ml-auto mx-2">
+              <button class="btn-resp-height btn btn-outline-orange-1 rounded-0 px-3 ml-2 border" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-user" aria-hidden="true"> Sign In</i></button>
+            </form>
           <form class="form-inline">
-          <button class="btn-resp-height btn btn-outline-orange-1 rounded-0 px-5 ml-2 border" data-toggle="modal" data-target="#exampleModall" type="button">Get Started</button>
+            <button class="btn-resp-height btn btn-outline-orange-1 rounded-0 px-3 ml-2 border" data-toggle="modal" data-target="#exampleModall" type="button"><i class="fa fa-user-plus" aria-hidden="true"> Sign Up</i></button>
           </form>
         </div>
       </nav>
-    </header>
 
-    <section>
-      <div class="container-fluid fill_screen img-fluid d-flex align-items-center">
-        <div class="container justify-content-center">
-            <div class="row justify-content-center">
-                <button type="button" class="btn-resp-height marg rounded btn btn-lg btn-outline-orange px-5 ml-2 border-dark" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Explore</button>
-
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content bg-orange">
-                      <div class="modal-header">
-                        <h5 class="modal-title text-light" id="exampleModalLabel">Sign In</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body bg-light">
-                        <form>
-                          <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">                        
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                          </div>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-danger text-light border" data-dismiss="modal">Close</button>
-                        <a href="userpage.html"><button type="button" class="btn-resp-height marg rounded btn btn-lg text-light btn-outline-success px-5 ml-2 border">Submit</button></a>
-                      </div>
-                      <div>
-                          <p class="text-center text-light" data-toggle="modal" data-target="#exampleModall"><a class="text-success" data-toggle="modal" data-target="#exampleModall">Sign Up here </a>if u do not have an account yet.</p>
-                      </div>
-                    </div>
-                  </div>
+      <!--Modal for sign in-->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content bg-orange">
+            <div class="modal-header">
+              <h5 class="modal-title text-light" id="exampleModalLabel">Sign In</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body bg-light">
+              <form>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">                        
+                  <label for="exampleInputPassword1">Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                 </div>
-                <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content bg-orange">
-                        <div class="modal-header">
-                          <h5 class="modal-title text-light text-center" id="exampleModalLabel">Let's Get Started</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body bg-light">
-                          <form>
-                            <div class="form-group">
-                              <label for="exampleInputEmail1">Email address</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">                        
-                              <label for="exampleInputPassword1">Password</label>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                              <label for="exampleInputPassword1">Repeat Password</label>
-                              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Repeat Password">
-                            </div>
-                          </form>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-outline-danger text-light border" data-dismiss="modal">Close</button>
-                          <a href="userpage.html"><button type="button" class="btn-resp-height marg rounded btn btn-lg btn-outline-success text-light px-5 ml-2 border">Submit</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-light text-light border" data-dismiss="modal">Close</button>
+              <a href="userpage.html"><button type="button" class="btn-resp-height marg rounded btn text-light btn-outline-light ml-2 border">Submit</button></a>
+            </div>
+            <div>
+              <p class="text-center text-light" data-toggle="modal" data-target="#exampleModall"><a class="text-light" data-toggle="modal" data-target="#exampleModall"><u>Sign Up here</u> </a>if you do not have an account yet.</p>
             </div>
           </div>
         </div>
       </div>
+
+       <!--Modal for sign in-->
+      <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content bg-orange">
+            <div class="modal-header">
+              <h5 class="modal-title text-light text-center" id="exampleModalLabel">Sign up</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body bg-light">
+              <form>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">                        
+                  <label for="exampleInputPassword1">Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <label for="exampleInputPassword1">Confirm Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-light text-light border" data-dismiss="modal">Close</button>
+              <a href="userpage.html"><button type="button" class="btn-resp-height marg rounded btn btn-outline-light text-light ml-2 border">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="container-fluid fill_screen img-fluid d-flex align-items-center">
+        <div id="carouselExampleSlidesOnly" class="container-fluid carousel slide" data-ride="carousel">
+          <div class="carousel-inner h-auto">
+            <div class="carousel-item active">
+              <p class="text-center text-light montezfont display-4">
+                We help your event communicate beauty
+              </p> 
+            </div>
+            <div class="carousel-item">
+              <p class="text-center text-light montezfont display-4">
+                Event Management has evolved and we are the leading pack
+              </p>
+            </div>
+            <div class="carousel-item">
+              <p class="text-center text-light montezfont display-4">
+                Your events, Amplified! Managing It, Simplified!
+              </p>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center">
+            <a class="btn-resp-height d-flex marg btn btn-outline-orange aconform text-white px-5 border-white" href="#discover" type="button">Explore</a>                  
+          </div>
+        </div>
+      </div>
     </section>
+
+    <section>
+      <div class="container-fluid my-5">
+        <p class="display-3 montezfont text-center text-orange">
+          What we do
+        </p>
+        <h3 class="text-center">
+          We are the leading event technology platform in Africa. We cover your event and make it more <span class="text-orange "><u>colourful</u>.</span>
+          Our technology is a foremost and deft custodian for your events.
+        </h3>
+      </div>
+    </section>
+
+    <section class="bg-secondary">
+      <div class="container-fluid">
+        <p class="display-3 montezfont text-center text-orange pt-5 pb-3" id="discover">
+          Discover Events
+        </p>
+      </div>
+
+      <div class="container wrap d-flex pb-5">
+        <div class="box zoom">
+          <img src="./img/felglitz.jpg" class="img-fluid">
+        </div>
+        <div class="box zoom">
+          <img src="./img/awardy.jpg" class="img-fluid">
+        </div>
+        <div class="box zoom">
+          <img src="./img/userevent.jpg" class="img-fluid">
+        </div>
+        <div class="box zoom">
+          <img src="./img/texas.jpg" class="img-fluid">
+        </div>
+        <div class="box zoom">
+          <img src="./img/wed.jpg" class="img-fluid">
+        </div>
+        <div class="box zoom">
+          <img src="./img/felglitz.jpg" class="img-fluid">
+        </div>
+        <div class="box zoom">
+          <img src="./img/awardy.jpg" class="img-fluid">
+        </div>
+        <div class="box zoom">
+          <img src="./img/texas.jpg" class="img-fluid">
+        </div>
+        <div class="box zoom">
+          <img src="./img/wed.jpg" class="img-fluid">
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-fluid">
+        <p class="display-3 text-center montezfont my-5 text-orange">
+          Our Clients Say
+        </p>
+      </div>
+      <div class="container">
+          <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner h-auto">
+              <div class="carousel-item active">
+                <div class="row">
+                  <div class="col-md-2">
+                      <img src="./img/me.jpg" class="img-fluid border-10 border-orange">
+                  </div>
+                  <div class="col-md-10 d-flex align-items-center">
+                    <p class="text-center lead ">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae nunc auctor, malesuada est eu, pellentesque nisi. Nam in enim lacinia, hendrerit neque non, placerat quam.Mauris eu tortor congue purus congue iaculis sit amet tincidunt neque. 
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row">
+                  <div class="col-md-2">
+                      <img src="./img/me.jpg" class="img-fluid border-10 border-orange">
+                  </div>
+                  <div class="col-md-10 d-flex align-items-center">
+                    <p class="text-center lead ">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae nunc auctor, malesuada est eu, pellentesque nisi. Nam in enim lacinia, hendrerit neque non, placerat quam.Mauris eu tortor congue purus congue iaculis sit amet tincidunt neque. 
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row">
+                  <div class="col-md-2">
+                      <img src="./img/me.jpg" class="img-fluid border-10 border-orange">
+                  </div>
+                  <div class="col-md-10 d-flex align-items-center">
+                    <p class="text-center lead ">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae nunc auctor, malesuada est eu, pellentesque nisi. Nam in enim lacinia, hendrerit neque non, placerat quam.Mauris eu tortor congue purus congue iaculis sit amet tincidunt neque. 
+                    </p>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark mt-5 h-15 pb-3">
+      <div class= "container pt-5">
+        <ul class="link">
+          <li class="d-flex justify-content-center">
+            <a href="#" class="text-light border-2 border-orange icon facebook mr-1"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+            <a href="#" class="text-light border-2 border-orange icon twitter mr-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            <a href="#" class="text-light border-2 border-orange icon instagram mr-1"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+            <a href="#" class="text-light border-2 border-orange icon envelope"><i class="fa fa-envelope" aria-hidden="true"></i></a>            
+          </li>
+        </ul>
+      </div>
+
+      <div class="container d-flex justify-content-center">
+        <h5 class="text-center mb-0 text-light">
+          © 2017 EventManager. All rights reserved
+        </h5>
+      </div>
+    </footer>
+
 
     
    
