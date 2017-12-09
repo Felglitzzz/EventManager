@@ -8,7 +8,7 @@ require('dotenv').config();
 const users = db.user;
 const secret = process.env.SECRET;
 /**
- * @class User
+ * creates class User
  * controller to handle all user based routes
  */
 export default class User {
@@ -49,7 +49,7 @@ export default class User {
    * @returns {json} json
    */
   static login(req, res) {
-    const { username, password } = req.body;
+    const { username } = req.body;
     users.findOne({ where: { username } })
       .then((user) => {
         if (user && bcrypt.compareSync(req.body.password, user.dataValues.password)) {
