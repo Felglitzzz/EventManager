@@ -9,6 +9,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montez|Montserrat+Alternates" rel="stylesheet">
+    <link rel="stylesheet" href="./css/font-awesome/css/font-awesome.min.css">
   </head>
   <body>
 
@@ -26,16 +28,16 @@
               <a class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hi, Felix
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item ddown-outline-items" data-toggle="modal" data-target="#exampleModal">Create Event</a>
+                <a class="dropdown-item ddown-outline-items">Account Profile</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item ddown-outline-items" data-toggle="modal" data-target="#exampleModall">Edit Event</a>
+                <a class="dropdown-item ddown-outline-items">Account Setting</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item ddown-outline-items" href="index.html">Log Out</a>
               </div>
             </li>
           </ul>
           <form class="form-inline">
-            <button class="btn-resp-height btn btn-outline-orange-1 rounded-0 px-5 ml-2 border" data-toggle="modal" data-target="#exampleModal" type="button">Create Event</button>
+            <button class="btn-resp-height btn btn-outline-orange-1 rounded-0 ml-2 border" data-toggle="modal" data-target="#exampleModal" type="button">Create Event</button>
           </form>
           
 
@@ -84,6 +86,8 @@
       <div class="jumbotron jumbotron-fluid bg-light mb-0 h-100">
         <div class="container">
           <h1 class="text-center text-purp mt-5">Trade Exhibition Event</h1>
+          <p class="lead text-center text-secondary">Federal Palace Hotel, Victoria Island</p>
+          <p class="lead text-center text-secondary">Saturday, Dec 10, 2017</p>
             <div class="row mt-5">
               <div class="col-md-6">
                 <img src="img/tradey.jpg" class="img-fluid">
@@ -97,8 +101,14 @@
                   </div>
                   
                   <div class="pb-0">
-                    <a type="button" class="btn btn-outline-orange aconform tconform" data-toggle="modal" data-target="#exampleModall">Edit</a>
-                    <a type="button" class="btn btn-outline-danger aconform tconform" data-toggle="modal" data-target="#exampleModallll">Trash</a>
+                    <ul class="pl-0">
+                      <li class="d-flex justify-content-center">
+                        <a class="text-orange border-2 border-orange icon twitter mr-1" data-toggle="modal" data-target="#exampleModall" ><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a class="text-orange border-2 border-orange icon instagram mr-1" data-toggle="modal" data-target="#exampleModallll"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                      </li>
+                    </ul>
+                    <!-- <a type="button" class="btn btn-outline-orange aconform tconform" data-toggle="modal" data-target="#exampleModall">Edit</a>
+                    <a type="button" class="btn btn-outline-danger aconform tconform" data-toggle="modal" data-target="#exampleModallll">Delete</a> -->
                   </div>
                 </div>
                 <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -173,23 +183,23 @@
                       </div>
                     </div>
                   <div class="modal fade" id="exampleModallll" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title text-orange" id="exampleModalLabel">Status</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body text-orange lead">
-                            Event Deleted!
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-orange" data-dismiss="modal">Close</button>
-                          </div>
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title text-orange" id="exampleModalLabel">Status</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body text-orange lead">
+                          Event Deleted!
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-orange" data-dismiss="modal">Close</button>
                         </div>
                       </div>
                     </div>
+                  </div>
               </div>
             </div>
           </div>
