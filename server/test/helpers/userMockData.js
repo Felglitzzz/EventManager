@@ -1,7 +1,7 @@
 import faker from 'faker';
 import bcrypt from 'bcrypt';
 
-const password = 'pass123';
+const password = 'pass1234';
 
 const mockData = {
   admin: {
@@ -15,20 +15,24 @@ const mockData = {
     },
     login: {
       username: 'admin',
-      password
+      password,
     }
   },
   validUser: {
     signup: {
-      surname: faker.name.lastName(0),
-      firstname: faker.name.firstName(0),
-      email: faker.internet.email(),
+      surname: 'Random',
+      firstname: 'User',
+      email: 'randomuser@gmail.com',
       username: 'randomUser',
-      password: bcrypt.hashSync(password, 10)
+      password
     },
     login: {
       username: 'randomUser',
       password
+    },
+    invalidLogin: {
+      username: 'randomUser',
+      password: 'pasword'
     }
   },
   invalidUser: {
@@ -37,12 +41,8 @@ const mockData = {
       firstname: faker.name.firstName(0),
       email: '',
       username: '',
-      password: bcrypt.hashSync(password, 10),
+      password
     },
-    login: {
-      username: '',
-      password: ''
-    }
   }
 };
 

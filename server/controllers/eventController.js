@@ -13,9 +13,28 @@ export default class Event {
     *@memberof Event
     */
   static addEvent(req, res) {
-    return events.create(req.body)
-      .then(newEvent => res.status(201).json({ message: 'Event Created!', event: newEvent }))
-      .catch(error => res.status(400).json({ message: error.message }));
+    const query = {
+      where: {
+        $and: [
+          { date: req.body.date },
+          { centerId: req.body.centerId }
+        ]
+      }
+    };
+    events.find(query).then((event) => {
+      if (event) {
+        return res.status(409).json({ message: `center has already being booked for ${req.body.date}, kindly book another date` });
+      }
+      return events.create({
+        name: req.body.name,
+        location: req.body.location,
+        date: req.body.date,
+        centerId: req.body.centerId,
+        userId: req.decoded.id
+      })
+        .then(newEvent => res.status(201).json({ message: 'Event Created!', event: newEvent }))
+        .catch(() => res.status(400).json({ error: 'Kindly fill the required fields' }));
+    });
   }
   /**
    * deletes one event
@@ -61,6 +80,7 @@ export default class Event {
     *@memberof event
     */
   static modifyEvent(req, res) {
+    console.log(req.decoded);
     return events
     // finding event whose Id matches the eventId supplied
       .findById(req.params.eventId)
@@ -76,14 +96,14 @@ export default class Event {
             name: req.body.name,
             location: req.body.location,
             date: req.body.date,
-            userId: req.body.userId,
+            userId: req.decoded.id,
             centerId: req.body.centerId,
           })
           // Send back the updated event too.
           .then(modifiedEvent => res.status(200).json({
             message: 'Event Update Successful', modifiedEvent,
           }))
-          .catch(error => res.status(400).json({ message: error }));
+          .catch(error => res.status(400).json({ message: 'Kindly fill in the required field(s)' }));
       });
   }
 }

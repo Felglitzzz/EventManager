@@ -1,15 +1,15 @@
 import jwt from 'jsonwebtoken';
 import models from '../models';
 
-const secret = process.env.SECRET;
 const userModel = models.user;
+const secret = process.env.SECRET;
 
 require('dotenv').config();
 /**
  * verifies user
  * @param {object} req express request object
  * @param {object} res express response object
- * @param {next} next
+ * @param {function} next
  * @returns {json} json
  */
 export default class Auth {
@@ -17,8 +17,8 @@ export default class Auth {
    * verifies user
    * @param {object} req express request object
    * @param {object} res express response object
-   * @param {next} next
-   * @returns {json} json
+   * @param {next} next runs the next function
+   * @returns {null} no return value
    */
   static verifyUser(req, res, next) {
     const token = req.headers['x-access-token'];
@@ -26,19 +26,25 @@ export default class Auth {
       return res.status(403).json({ message: 'No token provided' });
     }
     const decoded = jwt.verify(token, secret);
-    if (!decoded) { return res.status(403).json({ message: 'Failed to authenticate token' }); }
-    req.decoded = decoded;
-    next();
+    if (!decoded) {
+      return res.status(403).json({ message: 'Failed to authenticate token' });
+    }
+    userModel.findOne({ where: { username: decoded.username, id: decoded.id } })
+      .then((user) => {
+        if (!user) { return res.status(404).json({ message: 'user not found' }); }
+        req.decoded = decoded;
+        next();
+      });
   }
   /**
    * verifies admin
    * @param {object} req express request object
    * @param {object} res express response object
-   * @param {next} next
-   * @returns {json} json
+   * @param {next} next runs the next function
+   * @returns {null} no return value
    */
   static checkAdminStatus(req, res, next) {
-    const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    const token = req.headers['x-access-token'];
     if (!token) {
       return res.status(403).json({ message: 'No token provided' });
     }
