@@ -25,5 +25,4 @@ router.get('/*', (req, res) => res.status(200).send({
   message: 'Hi there, Welcome to Event Manager.',
 }));
 
-
 export default router;

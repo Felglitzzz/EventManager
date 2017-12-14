@@ -28,22 +28,21 @@ export default class User {
         password: hashSync(req.body.password, 10),
         isAdmin: req.body.isAdmin,
       })
-      .then((createduser) => {
+      .then((user) => {
         const userData = {
-          username: createduser.username,
-          email: createduser.email,
-          userId: createduser.dataValues.id,
-          isAdmin: createduser.dataValues.isAdmin,
+          username: user.username,
+          email: user.email,
+          id: user.id,
+          isAdmin: user.isAdmin,
         };
         const token = jwt.sign(userData, secret, { expiresIn: '96h' });
         //     return token;
         res.status(201).json({ message: 'User created', token });
       })
-      .catch(error => res.status(501).send({ message: error.message }));
+      .catch(() => res.status(400).send({ message: 'Kindly fill the required fields' }));
   }
   /**
    * sign in
-   *
    * @param {object} req
    * @param {object} res
    * @returns {json} json
@@ -52,17 +51,17 @@ export default class User {
     const { username } = req.body;
     users.findOne({ where: { username } })
       .then((user) => {
-        if (user && bcrypt.compareSync(req.body.password, user.dataValues.password)) {
+        if (user && bcrypt.compareSync(req.body.password, user.password)) {
           const userData = {
             username: user.username,
             email: user.email,
-            userId: user.dataValues.id,
-            isAdmin: user.dataValues.isAdmin,
+            id: user.id,
+            isAdmin: user.isAdmin
           };
-          const token = jwt.sign(userData, secret, { expiresIn: '24h' });
+          const token = jwt.sign(userData, secret, { expiresIn: '96h' });
           return res.status(200).json({ message: 'User logged in', token });
         }
-        return res.status(401).json({ message: 'Authentication failed!' });
+        return res.status(400).json({ message: 'Username/Password Incorrect' });
       });
   }
 }
