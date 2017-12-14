@@ -1,6 +1,16 @@
 import db from '../models';
 
 const events = db.event;
+const reqBody = (req) => {
+  const data = {
+    name: req.body.name,
+    location: req.body.location,
+    date: req.body.date,
+    centerId: req.body.centerId,
+    userId: req.decoded.id
+  };
+  return data;
+};
 /**
  * handles all center-based routes
  */
@@ -25,13 +35,7 @@ export default class Event {
       if (event) {
         return res.status(409).json({ message: `center has already being booked for ${req.body.date}, kindly book another date` });
       }
-      return events.create({
-        name: req.body.name,
-        location: req.body.location,
-        date: req.body.date,
-        centerId: req.body.centerId,
-        userId: req.decoded.id
-      })
+      return events.create(reqBody(req))
         .then(newEvent => res.status(201).json({ message: 'Event Created!', event: newEvent }))
         .catch(() => res.status(400).json({ error: 'Kindly fill the required fields' }));
     });
@@ -80,7 +84,6 @@ export default class Event {
     *@memberof event
     */
   static modifyEvent(req, res) {
-    console.log(req.decoded);
     return events
     // finding event whose Id matches the eventId supplied
       .findById(req.params.eventId)
@@ -90,20 +93,15 @@ export default class Event {
             message: 'Event Not Found!',
           });
         }
+        console.log(req.decoded);
         return event
         /* updating events details */
-          .update({
-            name: req.body.name,
-            location: req.body.location,
-            date: req.body.date,
-            userId: req.decoded.id,
-            centerId: req.body.centerId,
-          })
+          .update(reqBody(req))
           // Send back the updated event too.
           .then(modifiedEvent => res.status(200).json({
             message: 'Event Update Successful', modifiedEvent,
           }))
-          .catch(error => res.status(400).json({ message: 'Kindly fill in the required field(s)' }));
+          .catch(() => res.status(400).json({ message: 'Kindly fill in the required field(s)' }));
       });
   }
 }

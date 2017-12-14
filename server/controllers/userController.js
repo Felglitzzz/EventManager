@@ -29,7 +29,6 @@ export default class User {
         isAdmin: req.body.isAdmin,
       })
       .then((user) => {
-        console.log(user);
         const userData = {
           username: user.username,
           email: user.email,
