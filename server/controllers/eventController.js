@@ -93,7 +93,6 @@ export default class Event {
             message: 'Event Not Found!',
           });
         }
-        console.log(req.decoded);
         return event
         /* updating events details */
           .update(reqBody(req))
