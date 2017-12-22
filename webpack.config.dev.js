@@ -3,7 +3,8 @@ const path = require('path');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
-  entry: './client/src/index.js',
+  entry: path.join(__dirname, 'client/src/index'),
+
   output: {
     path: path.join(__dirname, 'client/src'),
     filename: 'bundle.js',
@@ -17,7 +18,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)?$/,
+        test: /\.(js|jsx)$/,
         exclude: [
           /node_modules/
         ],
@@ -72,5 +73,8 @@ module.exports = {
         ]
       },
     ]
+  },
+  resolve: {
+    extensions: ['.jsx', '.js', '.scss']
   }
 };
