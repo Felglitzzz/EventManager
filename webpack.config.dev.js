@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 // import path from 'path';
 
 module.exports = {
@@ -15,6 +16,15 @@ module.exports = {
     contentBase: path.join(__dirname, 'client/src'),
     historyApiFallback: true
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.$': 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default']
+    })
+  ],
   module: {
     rules: [
       {
