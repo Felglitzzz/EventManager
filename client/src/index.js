@@ -1,5 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Home from './components/home';
+import { render } from 'react-dom';
+import 'bootstrap';
 
-ReactDOM.render(<Home />, document.querySelector('#app'));
+import Routes from './routes';
+import '../../node_modules/font-awesome/css/font-awesome.min.css';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../public/css/style.css';
+
+render(<Routes />, document.querySelector('#app'));
