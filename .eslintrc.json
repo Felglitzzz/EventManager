@@ -40,7 +40,7 @@
               "ClassDeclaration": true
           }
       }],
-      "class-methods-use-this": ["error", { "exceptMethods": ["render"] }],
+      "class-methods-use-this": ["error", { "exceptMethods": ["render", "getInitialState"] }],
       "jsx-quotes": 1,
       "react/display-name": [ 1, {"ignoreTranspilerName": false }],
       "react/forbid-prop-types": [1, {"forbid": ["any"]}],
