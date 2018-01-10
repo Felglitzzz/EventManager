@@ -17,7 +17,7 @@ export default class NavBar extends React.Component {
         <nav className="navbar navbar-expand-lg transparent navbar-dark bg-orange">
           <a className="navbar-brand font-weight-bold text-white montfont">EVENTMANAGER</a>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <form className="form-inline ml-auto mx-2">

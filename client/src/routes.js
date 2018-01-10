@@ -4,9 +4,9 @@ import App from './components/App';
 
 const Routes = () => (
         <BrowserRouter>
-            <div>
-                <Route path="/" exact component={App} />
-            </div>
+                <div>
+                    <Route exact path="/*" component={App} />
+                </div>
         </BrowserRouter>
 );
 

@@ -4,21 +4,59 @@ import React from 'react';
  */
 export default class SignUpModal extends React.Component {
 /**
- *
- * @returns {react} sign in modal component
+ * constructor function
+ * @param {object} props
  */
+  constructor(props) {
+    super(props);
+
+    // The Initial State of the form component
+    this.state = {
+      surname: '',
+      firstname: '',
+      username: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+  /**
+   * onChange event function
+   * @param {object} event
+   * @returns {void}
+   */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+  /**
+   * onSubmit event function
+   * @param {object} event
+   * @returns {void}
+   */
+  onSubmit(event) {
+    event.preventDefault();
+    console.log(this.state);
+  }
+
+  /**
+   * @returns {react} sign in modal component
+   */
   render() {
     /**
        * @returns {react} component
        */
     return (
         <div>
-                                        {/* Modal for sign up */}
-          <div className="modal fade"
-          id="exampleModall"
-          role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
+          <div
+            onSubmit={this.onSubmit}
+            className="modal fade"
+            id="exampleModall"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
             <div className="modal-dialog" role="document">
               <div className="modal-content bg-orange">
                 <div className="modal-header">
@@ -31,25 +69,64 @@ export default class SignUpModal extends React.Component {
                 <div className="modal-body bg-light">
                   <form>
                     <div className="form-group">
+                      <label>Surname</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter surname"
+                        name="surname"
+                        value={this.state.surname}
+                        onChange = {this.onChange} />
+                      <label>Firstname</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter firstname"
+                        name="firstname"
+                        onChange = {this.onChange}
+                        value={this.state.firstname} />
+                      <label>Username</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Enter username"
+                        name="username"
+                        value={this.state.username}
+                        onChange = {this.onChange} />
                       <label>Email address</label>
-                      <input type="email" className="form-control" id="exampleInputEmail1"
-                      aria-describedby="emailHelp" placeholder="Enter email" />
+                      <input
+                        type="email"
+                        className="form-control"
+                        placeholder="Enter email"
+                        name="email"
+                        onChange = {this.onChange}
+                        value={this.state.email} />
                       <label>Password</label>
-                      <input type="password" className="form-control" id="exampleInputPassword1"
-                      placeholder="Password" />
+                      <input
+                        type="password"
+                        className="form-control"
+                        placeholder="Password"
+                        name="password"
+                        onChange = {this.onChange}
+                        value={this.state.password} />
                       <label>Confirm Password</label>
-                      <input type="password" className="form-control" id="exampleInputPassword1"
-                      placeholder="Confirm Password" />
+                      <input
+                        type="password"
+                        className="form-control"
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
+                        onChange = {this.onChange}
+                        value={this.state.confirmPassword} />
                     </div>
                   </form>
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-outline-light text-light border"
                   data-dismiss="modal">Close</button>
-                  <a href="userpage.html"><button type="button"
+                  <a><button type="button"
                   className="marg rounded btn text-light btn-outline-light ml-2 border">
                   Submit</button></a>
-                  </div>
+                </div>
               </div>
             </div>
           </div>

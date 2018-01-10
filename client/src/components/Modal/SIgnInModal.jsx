@@ -1,15 +1,14 @@
 import React from 'react';
 /**
- * class signinmodal
+ * class SignInModal
  */
 export default class SignInModal extends React.Component {
 /**
- *
  * @returns {react} sign in modal component
  */
   render() {
     /**
-       * @returns {react} component
+       * @returns {react} sign-in modal component
        */
     return (
         <div>
@@ -28,11 +27,14 @@ export default class SignInModal extends React.Component {
                 <form>
                   <div className="form-group">
                     <label>Email address</label>
-                    <input type="email" className="form-control" id="exampleInputEmail1"
-                    aria-describedby="emailHelp" placeholder="Enter email" />
-                    <label>Password</label>
-                    <input type="password" className="form-control" id="exampleInputPassword1"
-                    placeholder="Password" />
+                    <input
+                      type="email"
+                      className="form-control"
+                      placeholder="Enter email" />
+                      <label>Password</label>
+                      <input type="password"
+                      className="form-control"
+                      placeholder="Password" />
                   </div>
                 </form>
               </div>
