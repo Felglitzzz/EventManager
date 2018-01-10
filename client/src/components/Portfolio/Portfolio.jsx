@@ -18,31 +18,31 @@ export default class Portfolio extends React.Component {
                 </div>
                 <div className="container wrap d-flex pb-5">
                     <div className="box zoom">
-                        <img src="../../../public/img/felglitz.jpg" className="img-fluid" />
+                        <img src="http://res.cloudinary.com/felglitz/image/upload/v1515539253/felglitz_y7kuvr.jpg" className="img-fluid" />
                     </div>
                     <div className="box zoom">
-                        <img src="../../../public/img/awardy.jpg" className="img-fluid" />
+                        <img src="http://res.cloudinary.com/felglitz/image/upload/v1515539253/awardy_hqtlun.jpg" className="img-fluid" />
                     </div>
                     <div className="box zoom">
-                        <img src="../../../public/img/userevent.jpg" className="img-fluid" />
+                        <img src="http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg" className="img-fluid" />
                     </div>
                     <div className="box zoom">
-                        <img src="../../../public/img/texas.jpg" className="img-fluid" />
+                        <img src="http://res.cloudinary.com/felglitz/image/upload/v1515539276/texas_i8mp46.jpg" className="img-fluid" />
                     </div>
                     <div className="box zoom">
-                        <img src="../../../public/img/wed.jpg" className="img-fluid" />
+                        <img src="http://res.cloudinary.com/felglitz/image/upload/v1515539276/wed_qgkzve.jpg" className="img-fluid" />
                     </div>
                     <div className="box zoom">
-                        <img src="../../../public/img/felglitz.jpg" className="img-fluid" />
+                        <img src="http://res.cloudinary.com/felglitz/image/upload/v1515539253/felglitz_y7kuvr.jpg" className="img-fluid" />
                     </div>
                     <div className="box zoom">
-                        <img src="../../../public/img/awardy.jpg" className="img-fluid" />
+                        <img src="http://res.cloudinary.com/felglitz/image/upload/v1515539253/awardy_hqtlun.jpg" className="img-fluid" />
                     </div>
                     <div className="box zoom">
-                        <img src="../../../public/img/texas.jpg" className="img-fluid" />
+                        <img src="http://res.cloudinary.com/felglitz/image/upload/v1515539276/texas_i8mp46.jpg" className="img-fluid" />
                     </div>
                     <div className="box zoom">
-                        <img src="../../../public/img/wed.jpg" className="img-fluid" />
+                        <img src="http://res.cloudinary.com/felglitz/image/upload/v1515539276/wed_qgkzve.jpg" className="img-fluid" />
                     </div>
                 </div>
             </section>

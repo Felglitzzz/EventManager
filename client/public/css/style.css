@@ -15,7 +15,7 @@ a {
 }
 
 .fill_screen {
-  background: url(../img/evenn.png);
+  background: url('http://res.cloudinary.com/felglitz/image/upload/v1515535208/evenn_ymwcen.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;

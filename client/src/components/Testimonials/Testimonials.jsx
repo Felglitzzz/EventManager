@@ -21,7 +21,7 @@ export default class Testimonials extends React.Component {
                         <div className="carousel-item active">
                             <div className="row">
                                 <div className="col-md-2">
-                                    <img src="./img/me.jpg" className="img-fluid border-10 border-orange" />
+                                    <img src="http://res.cloudinary.com/felglitz/image/upload/v1515539305/me_xqrngf.jpg" className="img-fluid border-10 border-orange" />
                                 </div>
                                 <div className="col-md-10 d-flex align-items-center">
                                     <p className="text-center lead ">
@@ -33,7 +33,7 @@ export default class Testimonials extends React.Component {
                         <div className="carousel-item">
                             <div className="row">
                                 <div className="col-md-2">
-                                    <img src="./img/me.jpg" className="img-fluid border-10 border-orange" />
+                                    <img src="http://res.cloudinary.com/felglitz/image/upload/v1515539305/me_xqrngf.jpg" className="img-fluid border-10 border-orange" />
                                 </div>
                                 <div className="col-md-10 d-flex align-items-center">
                                     <p className="text-center lead ">
@@ -45,7 +45,7 @@ export default class Testimonials extends React.Component {
                         <div className="carousel-item">
                             <div className="row">
                                 <div className="col-md-2">
-                                    <img src="./img/me.jpg" className="img-fluid border-10 border-orange" />
+                                    <img src="http://res.cloudinary.com/felglitz/image/upload/v1515539305/me_xqrngf.jpg" className="img-fluid border-10 border-orange" />
                                 </div>
                                 <div className="col-md-10 d-flex align-items-center">
                                     <p className="text-center lead ">
