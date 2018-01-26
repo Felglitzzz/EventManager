@@ -6,6 +6,7 @@ import Portfolio from './Portfolio/Portfolio';
 import Testimonials from './Testimonials/Testimonials';
 import Footer from './Footer/Footer';
 
+
 /**
  * class App
  * React Component for Landing page

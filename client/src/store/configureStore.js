@@ -1,5 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+
+import rootReducer from '../reducers/rootReducer';
 // import reduxImmutableStateInvariant from 'redux-immutable-state-invariant'; // eslint-disable-line
 /**
  * Configure redux store
@@ -15,7 +17,7 @@ import thunk from 'redux-thunk';
 //   );
 // }
 const store = createStore(
-  (state = {}) => state,
+  rootReducer,
   applyMiddleware(thunk)
 );
 

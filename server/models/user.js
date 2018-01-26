@@ -1,4 +1,4 @@
-export default (sequelize, DataTypes) => {
+const userModel = (sequelize, DataTypes) => {
   const user = sequelize.define('user', {
     surname: {
       type: DataTypes.STRING,
@@ -9,14 +9,14 @@ export default (sequelize, DataTypes) => {
           msg: 'Surname cannot be empty',
         },
         is: {
-          args: /([A-Za-z])+/,
+          args: ['^[a-z]+$', 'i'],
           msg: 'Surname can only contain letters',
         },
         len: {
-          args: [3, 100],
-          msg: 'Surname should be longer than two characters',
-        },
-      },
+          args: [3, 30],
+          msg: 'Surname should be more than two characters',
+        }
+      }
     },
     firstname: {
       type: DataTypes.STRING,
@@ -27,27 +27,29 @@ export default (sequelize, DataTypes) => {
           msg: 'Firstname cannot be empty',
         },
         is: {
-          args: /([A-Za-z])+/,
+          args: ['^[a-z]+$', 'i'],
           msg: 'Firstname can only contain letters',
         },
         len: {
-          args: [3, 100],
-          msg: 'Firstname should be longer than two characters',
-        },
-      },
+          args: [3, 30],
+          msg: 'Firstname should be more than two characters',
+        }
+      }
     },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: {
         args: true,
-        msg: 'Username taken, use another',
+        msg: 'Username taken, Please use another',
       },
       validate: {
-        is: {
-          args: /([a-zA-Z0-9])+/,
+        notEmpty: {
+          args: true,
+          msg: 'Username is required',
         },
-      },
+        is: [/([a-zA-Z0-9])+/]
+      }
     },
     email: {
       type: DataTypes.STRING,
@@ -59,13 +61,12 @@ export default (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Email cannot be empty',
+          msg: 'Email field cannot be empty',
         },
         isEmail: {
-          args: true,
-          msg: 'Field must contain a valid email address',
-        },
-      },
+          msg: 'Invalid email, Enter a valid email, like so: you@mail.com'
+        }
+      }
     },
     password: {
       type: DataTypes.STRING,
@@ -74,12 +75,8 @@ export default (sequelize, DataTypes) => {
         notEmpty: {
           args: true,
           msg: 'Password is required',
-        },
-        len: {
-          args: [8],
-          msg: 'Password should not be less than 8 characters',
-        },
-      },
+        }
+      }
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
@@ -95,3 +92,5 @@ export default (sequelize, DataTypes) => {
   };
   return user;
 };
+
+export default userModel;
