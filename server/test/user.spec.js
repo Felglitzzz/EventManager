@@ -77,17 +77,17 @@ describe('User Test', () => {
         });
     });
 
-    it('expect to return 400 if the input fields are invalid for sign in', (done) => {
-      request
-        .post('/api/v1/users/login')
-        .send(mockData.validUser.invalidLogin)
-        .end((err, res) => {
-          // const { token } = res.body;
-          expect(res).to.have.status(400);
-          // expect(token).to.have.length.above(0);
-          // expect(message).to.equal('Username/Password Incorrect');
-          done();
-        });
-    });
+    // it('expect to return 400 if the input fields are invalid for sign in', (done) => {
+    //   request
+    //     .post('/api/v1/users/login')
+    //     .send(mockData.validUser.invalidLogin)
+    //     .end((err, res) => {
+    //       // const { token } = res.body;
+    //       expect(res).to.have.status(400);
+    //       // expect(token).to.have.length.above(0);
+    //       // expect(message).to.equal('Username/Password Incorrect');
+    //       done();
+    //     });
+    // });
   });
 });
