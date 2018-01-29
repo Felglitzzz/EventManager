@@ -22,6 +22,9 @@ const SignUpForm = ({ onChange, onSubmit, userData, errors }) => {
                 <form onSubmit={onSubmit}>
                     <div className="modal-body bg-light">
                         <div className="form-group">
+                            <div>{ errors.surname &&
+                                <div className="text-danger text-center">{errors.surname}</div>}
+                            </div>
                         <input
                             type="text"
                             className="form-control mb-3"
@@ -29,6 +32,10 @@ const SignUpForm = ({ onChange, onSubmit, userData, errors }) => {
                             name="surname"
                             value={userData.surname}
                             onChange = {onChange} />
+
+                            <div>{ errors.firstname &&
+                                <div className="text-danger text-center">{errors.firstname}</div>}
+                            </div>
                         <input
                             type="text"
                             className="form-control mb-3"
@@ -36,6 +43,10 @@ const SignUpForm = ({ onChange, onSubmit, userData, errors }) => {
                             name="firstname"
                             onChange = {onChange}
                             value={userData.firstname} />
+
+                            <div>{ errors.username &&
+                                <div className="text-danger text-center">{errors.username}</div>}
+                            </div>
                         <input
                             type="text"
                             className="form-control mb-3"
@@ -43,6 +54,10 @@ const SignUpForm = ({ onChange, onSubmit, userData, errors }) => {
                             name="username"
                             value={userData.username}
                             onChange = {onChange} />
+
+                            <div>{ errors.email &&
+                                <div className="text-danger text-center">{errors.email}</div>}
+                            </div>
                         <input
                             type="email"
                             className="form-control mb-3"
@@ -50,6 +65,10 @@ const SignUpForm = ({ onChange, onSubmit, userData, errors }) => {
                             name="email"
                             onChange = {onChange}
                             value={userData.email} />
+
+                            <div>{ errors.password &&
+                                <div className="text-danger text-center">{errors.password}</div>}
+                            </div>
                         <input
                             type="password"
                             className="form-control mb-3"
@@ -57,6 +76,10 @@ const SignUpForm = ({ onChange, onSubmit, userData, errors }) => {
                             name="password"
                             onChange = {onChange}
                             value={userData.password} />
+
+                            <div>{ errors.confirmPassword &&
+                                <div className="text-danger text-center">{errors.confirmPassword}</div>}
+                            </div>
                         <input
                             type="password"
                             className="form-control"
@@ -67,11 +90,6 @@ const SignUpForm = ({ onChange, onSubmit, userData, errors }) => {
                         </div>
                     </div>
                     <div className="modal-footer bg-orange">
-                        {/* <button
-                            className="btn btn-outline-light text-light border"
-                            data-dismiss="modal">
-                            Close
-                        </button> */}
                         <button
                             className="marg rounded btn text-light btn-outline-light ml-2 border"
                             >

@@ -54,9 +54,10 @@ export default class User {
       })
       .catch((error) => {
         const errMessages = errorMessages(error);
+        console.log(errMessages);
         switch (errMessages.type) {
           case 'uniqueError':
-            res.status(409).send({ error: errMessages.error });
+            res.status(409).json({ error: errMessages.error });
             break;
 
           case 'validationError':

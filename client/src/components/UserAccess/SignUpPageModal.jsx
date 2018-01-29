@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import toastr from 'toastr';
+
+import validate from '../../helpers/validations/signUpValidate';
 import history from '../../helpers/history';
 // import bindActionCreators from 'redux';
 import { addNewUser } from '../../actions/userAccessActions';
@@ -27,11 +30,13 @@ class SignUpPageModal extends React.Component {
         password: '',
         confirmPassword: ''
       },
-      errors: {}
+      errors: {},
+      isLoading: false
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.redirect = this.redirect.bind(this);
   }
   /**
    * onChange event function
@@ -45,7 +50,17 @@ class SignUpPageModal extends React.Component {
     return this.setState({ userData });
   }
 
-  
+  /**
+   * @returns {object} error or isValid status
+   */
+  isValid() {
+    const { errors, isValid } = validate(this.state.userData);
+    if (!isValid) {
+      this.setState({ errors });
+    }
+    return isValid;
+  }
+
   /**
    * onSubmit event function
    * @param {object} event
@@ -53,15 +68,26 @@ class SignUpPageModal extends React.Component {
    */
   onSubmit(event) {
     event.preventDefault();
+    const { userData } = this.state;
+    if (!this.isValid()) {
+      return;
+    }
     this.props.addNewUser(this.state.userData)
-      .then(() => {
-        history.push('/dashboard');
-        // this.setState({ redirect: true, loading: false });
-      })
+      .then(() => this.redirect())
       .catch((error) => {
-        this.setState({ error, loading: false });
+        toastr.error(error);
+        this.setState({ isLoading: false });
       });
   }
+  /**
+   * @returns {void}
+   */
+  redirect() {
+    this.setState({ isLoading: false });
+    toastr.success('Sign Up Successful');
+    history.push('/dashboard');
+  }
+
   /**
    * @returns {react} sign in modal component
    */
@@ -84,7 +110,7 @@ class SignUpPageModal extends React.Component {
 
 SignUpPageModal.propTypes = {
   // actions: PropTypes.object.isRequired
-  addNewUser: PropTypes.func.isRequired
+  addNewUser: PropTypes.func.isRequired,
 };
 
 /**

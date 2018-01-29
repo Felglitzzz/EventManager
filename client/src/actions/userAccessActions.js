@@ -44,12 +44,13 @@ export function addNewUser(userData) { //eslint-disable-line
     return axios.post('/api/v1/users', userData)
       .then((response) => {
         dispatch(addUserSuccess(response.data));
-        window.localStorage.setItem('x-access-token', response.data.token);
+        const { token } = response.data;
+        window.localStorage.setItem('x-access-token', token);
         console.log(response);
       })
-      .catch((error) => {
-        console.log(error);
-        dispatch(addUserFail(error));
+      .catch((errors) => {
+        dispatch(addUserFail(errors));
+        throw (errors.response.data.error);
       });
   };
 }
@@ -96,7 +97,8 @@ export function loginUser(loginData) { //eslint-disable-line
     return axios.post('/api/v1/users/login', loginData)
       .then((response) => {
         dispatch(loginUserSuccess(response.data));
-        window.localStorage.setItem('x-access-token', response.data.token);
+        const { token } = response.data;
+        window.localStorage.setItem('x-access-token', token);
         // history.push('/dashboard');
       })
       .catch((errors) => {

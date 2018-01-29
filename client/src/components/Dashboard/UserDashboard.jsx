@@ -1,4 +1,6 @@
 import React from 'react';
+import Navbar from '../Navbar/Navbar';
+import NavHeader from '../NavHeader/NavHeader';
 /**
  * class UserDashboard
  */
@@ -8,9 +10,19 @@ export default class UserDashboard extends React.Component {
    */
   render() {
     return (
-        <div className="jumbotron-fluid display-3 bg-dark text-light">
-        User Dashboard Page
-        </div>
+      <div>
+        <Navbar />
+        <NavHeader />
+
+        <section>
+          <div className="container w-100 bg-dark">
+            <p className="text-center display-3 montezfont text-orange mt-5 py-2">
+                Events
+            </p>
+          </div>
+        </section>
+
+      </div>
     );
   }
 }

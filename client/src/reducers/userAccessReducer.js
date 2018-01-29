@@ -26,8 +26,7 @@ export default function userAccessReducer(state = {}, action) {
       });
     case LOGIN_USER_SUCCESS:
       return Object.assign({}, state, {
-        loginData: action.loginData,
-        redirect: true
+        loginData: action.loginData
       });
     case LOGIN_USER_FAIL:
       return Object.assign({}, state, {

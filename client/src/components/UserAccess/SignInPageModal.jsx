@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import toastr from 'toastr';
 
-import validate from '../../helpers/validations/error';
+import validate from '../../helpers/validations/loginValidate';
 import { loginUser } from '../../actions/userAccessActions';
 import SignInForm from './SignInForm';
 import history from '../../helpers/history';
@@ -25,7 +25,7 @@ class SignInPageModal extends React.Component {
         password: '',
       },
       errors: {},
-      saving: false
+      isLoading: false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -66,28 +66,22 @@ class SignInPageModal extends React.Component {
     if (!this.isValid()) {
       return;
     }
-    this.setState({ saving: true, errors: {} });
+    this.setState({ isLoading: true, errors: {} });
     this.props.loginUser(loginData)
       .then(() => this.redirect())
       .catch((error) => {
         toastr.error(error);
-        this.setState({ saving: false });
+        this.setState({ isLoading: false });
       });
   }
   /**
    * @returns {void}
    */
   redirect() {
-    this.setState({ saving: false });
+    this.setState({ isLoading: false });
     toastr.success('Login Successful');
     history.push('/dashboard');
   }
-
-
-  // if (this.isValid()) {
-  //   this.setState({ errors: {}, isLoading: true });
-  //   this.props.loginUser(loginData);
-  // }
 
   /**
    * @returns {react} sign in modal component

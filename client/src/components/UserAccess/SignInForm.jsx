@@ -23,7 +23,9 @@ const SignInForm = ({ onChange, onSubmit, loginData, errors }) => {
                 <form onSubmit={onSubmit}>
                     <div className="modal-body bg-light">
                         <div className="form-group">
-                        {/* { errors && <div className="alert alert-danger">{errors}</div> } */}
+                            <div>{ errors.username &&
+                                <div className="text-danger text-center">{errors.username}</div>}
+                            </div>
                         <input
                             type="text"
                             className="form-control mb-3"
@@ -33,8 +35,10 @@ const SignInForm = ({ onChange, onSubmit, loginData, errors }) => {
                             onChange = {onChange}
                             error = {errors.username}
                             />
-                            <div>{ errors.username && <div className="text-danger text-center mb-2">{errors.username}</div>}</div>
 
+                            <div>{ errors.password &&
+                                <div className="text-danger text-center">{errors.username}</div>}
+                            </div>
                         <input
                             type="password"
                             className="form-control mb-3"
@@ -43,8 +47,6 @@ const SignInForm = ({ onChange, onSubmit, loginData, errors }) => {
                             onChange = {onChange}
                             value={loginData.password}
                             error = {errors.password} />
-                            <div>{ errors.password && <div className="text-danger text-center mb-2">{errors.password}</div>}</div>
-
                             
                         </div>
                     </div>
