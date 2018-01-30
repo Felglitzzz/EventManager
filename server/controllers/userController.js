@@ -57,11 +57,9 @@ export default class User {
           case 'uniqueError':
             res.status(409).json({ error: errMessages.error });
             break;
-
           case 'validationError':
             res.status(400).json({ error: errMessages.error });
             break;
-
           default:
             res.status(501).json({ error: errMessages.error });
         }
