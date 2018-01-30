@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SignUpForm = ({ onChange, onSubmit, userData, errors }) => {
-  return (
+const SignUpForm = ({
+  onChange, onSubmit, userData, errors
+}) => (
     <div
         className="modal fade"
         id="exampleModall"
@@ -78,7 +79,9 @@ const SignUpForm = ({ onChange, onSubmit, userData, errors }) => {
                             value={userData.password} />
 
                             <div>{ errors.confirmPassword &&
-                                <div className="text-danger text-center">{errors.confirmPassword}</div>}
+                                <div className="text-danger text-center">
+                                {errors.confirmPassword}
+                                </div>}
                             </div>
                         <input
                             type="password"
@@ -100,8 +103,7 @@ const SignUpForm = ({ onChange, onSubmit, userData, errors }) => {
             </div>
         </div>
     </div>
-  );
-};
+);
 
 SignUpForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,

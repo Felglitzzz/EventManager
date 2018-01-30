@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextInput = ({ type, label, id, name, value, onChange, error }) => { 
-  return (
+const TextInput = ({
+  type, label, id, name, value, onChange, error
+}) => (
       <div className="form-control">
          <div className="label"><label htmlFor={id}>{label}</label></div>
          <input
@@ -17,8 +18,7 @@ const TextInput = ({ type, label, id, name, value, onChange, error }) => {
         {error && <div className= "alert alert-danger">{error}</div>}}
 
       </div>
-  );
-};
+);
 
 TextInput.propTypes = {
   type: PropTypes.string.isRequired,

@@ -20,7 +20,7 @@ export default class User {
    * @returns {json} json
    */
   static createUser(req, res) {
-    const { username } = req.body;
+    // const { username } = req.body;
     // const query = {
     //   where: {
     //     $and: [
@@ -49,12 +49,10 @@ export default class User {
           isAdmin: user.isAdmin,
         };
         const token = jwt.sign(userData, secret, { expiresIn: '96h' });
-        //     return token;
         res.status(201).json({ message: 'User created', token });
       })
       .catch((error) => {
         const errMessages = errorMessages(error);
-        console.log(errMessages);
         switch (errMessages.type) {
           case 'uniqueError':
             res.status(409).json({ error: errMessages.error });
@@ -97,8 +95,6 @@ export default class User {
         }
         return res.status(400).json({ message: 'Username/Password Incorrect' });
       })
-      .catch(() => {
-        return res.status(400).json({ message: 'Username/Password Incorrect' });
-      });
+      .catch(() => res.status(400).json({ message: 'Username/Password Incorrect' }));
   }
 }

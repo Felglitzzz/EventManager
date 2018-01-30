@@ -1,13 +1,10 @@
 import isEmpty from 'lodash/isEmpty';
 
-
 const validate = (data) => {
   const errors = {};
   const expectedLength = 8;
 
-
   Object.keys(data).forEach((field) => {
-
     if (!data[field].length) {
       errors[field] = 'This field is required';
     }

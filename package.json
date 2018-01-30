@@ -11,7 +11,7 @@
     "lint": "eslint --fix index",
     "migrate:test": "sequelize db:migrate --env test",
     "coveralls:report": "nyc report --reporter=text-lcov | coveralls",
-    "test": "cross-env NODE_ENV=test nyc --reporter=lcov mocha --require babel-polyfill --compilers js:babel-register server/test/*.spec.js",
+    "test": "cross-env NODE_ENV=test nyc --reporter=lcov mocha --timeout 15000 --require babel-polyfill --compilers js:babel-register server/test/*.spec.js",
     "postinstall": "npm run build",
     "dev:webpack": "webpack-dev-server --config ./webpack.config.dev.js --watch",
     "webpack": "webpack --config ./webpack.config.dev.js --watch",

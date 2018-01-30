@@ -11,16 +11,12 @@ describe('User Test', () => {
   // teardown and setup database
   before((done) => {
     db.user.sync({ force: true })
-      .then(() => {
-        done();
-      });
+      .then(() => done());
   });
 
   before((done) => {
     db.user.create(mockData.admin.signup)
-      .then(() => {
-        done();
-      });
+      .then(() => done());
   });
 
   describe('Admin test', () => {
@@ -70,9 +66,9 @@ describe('User Test', () => {
         .post('/api/v1/users')
         .send(mockData.invalidUser.signup)
         .end((err, res) => {
-          const { message } = res.body;
+          const { error } = res.body;
           expect(res).to.have.status(400);
-          expect(message).to.equal('Kindly fill the required fields');
+          expect(error).to.equal('Surname cannot be empty');
           done();
         });
     });

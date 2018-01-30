@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SignInForm = ({ onChange, onSubmit, loginData, errors }) => {
-  return (
+const SignInForm = ({
+  onChange, onSubmit, loginData, errors
+}) => (
     <div
         onSubmit={onSubmit}
         className="modal fade"
@@ -82,7 +83,6 @@ const SignInForm = ({ onChange, onSubmit, loginData, errors }) => {
         </div>
     </div>
   );
-};
 
 SignInForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,

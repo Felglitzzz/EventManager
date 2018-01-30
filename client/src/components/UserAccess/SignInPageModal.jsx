@@ -40,7 +40,7 @@ class SignInPageModal extends React.Component {
    */
   onChange(event) {
     const field = event.target.name;
-    let { loginData } = this.state;
+    const { loginData } = this.state;
     loginData[field] = event.target.value;
     return this.setState({ loginData });
   }
@@ -106,7 +106,6 @@ class SignInPageModal extends React.Component {
 SignInPageModal.propTypes = {
   loginUser: PropTypes.func.isRequired,
 };
-
 /**
  * @param {object} state 
  * @param {object} ownProps 

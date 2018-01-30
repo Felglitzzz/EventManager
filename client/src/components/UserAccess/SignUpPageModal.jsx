@@ -45,7 +45,7 @@ class SignUpPageModal extends React.Component {
    */
   onChange(event) {
     const field = event.target.name;
-    let { userData } = this.state;
+    const { userData } = this.state;
     userData[field] = event.target.value;
     return this.setState({ userData });
   }
@@ -72,7 +72,7 @@ class SignUpPageModal extends React.Component {
     if (!this.isValid()) {
       return;
     }
-    this.props.addNewUser(this.state.userData)
+    this.props.addNewUser(userData)
       .then(() => this.redirect())
       .catch((error) => {
         toastr.error(error);
