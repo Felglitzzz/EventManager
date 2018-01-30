@@ -1,13 +1,17 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import App from './components/App';
+import UserDashboard from './components/Dashboard/UserDashboard';
+import history from './helpers/history';
+
 
 const Routes = () => (
-        <BrowserRouter>
-                <div>
-                    <Route exact path="/*" component={App} />
-                </div>
-        </BrowserRouter>
+        <Router history={history}>
+                <Switch>
+                    <Route exact path="/" component={App} />
+                    <Route path="/dashboard" component={UserDashboard} />
+                </Switch>
+        </Router>
 );
 
 export default Routes;

@@ -1,12 +1,13 @@
 import jwt from 'jsonwebtoken';
 import bcrypt, { hashSync } from 'bcrypt';
 import db from '../models';
-import Helper from '../utils/helper';
+import errorMessages from '../utils/handleErrors';
 
 require('dotenv').config();
 
 const users = db.user;
 const secret = process.env.SECRET;
+
 /**
  * creates class User
  * controller to handle all user based routes
@@ -19,9 +20,21 @@ export default class User {
    * @returns {json} json
    */
   static createUser(req, res) {
+    // const { username } = req.body;
+    // const query = {
+    //   where: {
+    //     $and: [
+    //       { username }
+    //     ]
+    //   }
+    // };
+    // users.find(query).then((foundUser) => {
+    //   if (foundUser) {
+    //     return res.status(409).json({ message: `username ${username} is already taken` });
+    //   }
     return users
       .create({
-        surname: req.body.username,
+        surname: req.body.surname,
         firstname: req.body.firstname,
         username: req.body.username,
         email: req.body.email,
@@ -36,10 +49,21 @@ export default class User {
           isAdmin: user.isAdmin,
         };
         const token = jwt.sign(userData, secret, { expiresIn: '96h' });
-        //     return token;
         res.status(201).json({ message: 'User created', token });
       })
-      .catch(() => res.status(400).send({ message: 'Kindly fill the required fields' }));
+      .catch((error) => {
+        const errMessages = errorMessages(error);
+        switch (errMessages.type) {
+          case 'uniqueError':
+            res.status(409).json({ error: errMessages.error });
+            break;
+          case 'validationError':
+            res.status(400).json({ error: errMessages.error });
+            break;
+          default:
+            res.status(501).json({ error: errMessages.error });
+        }
+      });
   }
   /**
    * sign in
@@ -48,7 +72,13 @@ export default class User {
    * @returns {json} json
    */
   static login(req, res) {
-    const { username } = req.body;
+    const { username, password } = req.body;
+    if (!username) {
+      res.status(400).json({ message: 'Kindly provide your username' });
+    }
+    if (!password) {
+      res.status(400).json({ message: 'Kindly provide your password' });
+    }
     users.findOne({ where: { username } })
       .then((user) => {
         if (user && bcrypt.compareSync(req.body.password, user.password)) {
@@ -62,6 +92,7 @@ export default class User {
           return res.status(200).json({ message: 'User logged in', token });
         }
         return res.status(400).json({ message: 'Username/Password Incorrect' });
-      });
+      })
+      .catch(() => res.status(400).json({ message: 'Username/Password Incorrect' }));
   }
 }

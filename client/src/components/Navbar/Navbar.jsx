@@ -1,8 +1,8 @@
 import React from 'react';
 
 // import SignIn from '../Signin/Signin';
-import SignInModal from '../Modal/SIgnInModal';
-import SignUpModal from '../Modal/SIgnUpModal';
+import SignInPageModal from '../UserAccess/SignInPageModal';
+import SignUpPageModal from '../UserAccess/SignUpPageModal';
 /**
  * Navbar Class
  */
@@ -28,11 +28,11 @@ export default class NavBar extends React.Component {
             </form>
           </div>
         </nav>
-                              { /* Modal for sign in */ }
-        < SignInModal />
+        { /* Modal for sign in */ }
+        < SignInPageModal />
 
-                              {/* Modal for sign up */}
-        < SignUpModal />
+        {/* Modal for sign up */}
+        < SignUpPageModal />
       </div>
     );
   }
