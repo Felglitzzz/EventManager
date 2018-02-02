@@ -13,137 +13,42 @@
     <link rel="stylesheet" href="./css/font-awesome/css/font-awesome.min.css">
   </head>
   <body>
-    <header>
-      <nav class="navbar navbar-expand-lg transparent navbar-dark bg-orange">
-
-        <a class="navbar-brand font-weight-bold montfont" href="index.html">EVENTMANAGER</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <!-- <ul class="navbar-nav ml-auto mx-2">
-            <li class="nav-item dropdown">
-              <a class="nav-link text-light" data-toggle="modal" data-target="#exampleModal" role= "button"><i class="fa fa-user" aria-hidden="true"> Sign in</i>
-              </a>
-            </li>
-          </ul> -->
-          <form class="form-inline ml-auto mx-2">
-              <button class="btn-resp-height btn btn-outline-orange-1 rounded-0 px-3 ml-2 border" data-toggle="modal" data-target="#exampleModal" type="button"><i class="fa fa-user" aria-hidden="true"> Sign In</i></button>
-            </form>
-          <form class="form-inline">
-            <button class="btn-resp-height btn btn-outline-orange-1 rounded-0 px-3 ml-2 border" data-toggle="modal" data-target="#exampleModall" type="button"><i class="fa fa-user-plus" aria-hidden="true"> Sign Up</i></button>
-          </form>
-        </div>
-      </nav>
-
-      <!--Modal for sign in-->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content bg-orange">
-            <div class="modal-header">
-              <h5 class="modal-title text-light" id="exampleModalLabel">Sign In</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body bg-light">
-              <form>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">                        
-                  <label for="exampleInputPassword1">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-light text-light border" data-dismiss="modal">Close</button>
-              <a href="userpage.html"><button type="button" class="btn-resp-height marg rounded btn text-light btn-outline-light ml-2 border">Submit</button></a>
-            </div>
-            <div>
-              <p class="text-center text-light" data-toggle="modal" data-target="#exampleModall"><a class="text-light" data-toggle="modal" data-target="#exampleModall"><u>Sign Up here</u> </a>if you do not have an account yet.</p>
-            </div>
+    <nav class="navbar navbar-expand-lg transparent navbar-dark bg-orange">
+      <a class="navbar-brand font-weight-bold montfont" href="index.html">EVENTMANAGER</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+    <div class="py-5">
+      <div class="form-width mx-auto bg-white">
+        <header>
+          <p class=" form-head text-center text-orange">Create Event</p>
+        </header>
+        <section>
+          <div class="container-fluid img-fluid d-flex justify-content-center align-items-center mt-5">
+              <div>
+                <form>
+                    <div>
+                        <p class="p-3 bg-orange text-light text-center lead">
+                            Fill the form to sign up
+                        </p>
+                    </div>
+                    <div class="form-group p-5">
+                        <!-- <label for="exampleInputEmail1">Email address</label> -->
+                        <input type="email" class="form-control mb-3" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+                        <!-- <label for="exampleInputPassword1">Password</label> -->
+                        <input type="password" class="form-control mb-3" id="exampleInputPassword1" placeholder="Password">
+                        <!-- <label for="exampleInputPassword1">Confirm Password</label> -->
+                        <input type="password" class="form-control mb-3" id="exampleInputPassword1" placeholder="Confirm Password">
+                        <button type="button" class="btn btn-outline-light text-light border" href="userpage.html" type="button" class="btn-resp-height marg rounded btn btn-outline-light text-light ml-2 border">Submit</button>
+                    </div>
+                </form>
+              </div>
           </div>
-        </div>
+        </section>
       </div>
+    </div>
 
-       <!--Modal for sign in-->
-      <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content bg-orange">
-            <div class="modal-header">
-              <h5 class="modal-title text-light text-center" id="exampleModalLabel">Sign up</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body bg-light">
-              <form>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">                        
-                  <label for="exampleInputPassword1">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                  <label for="exampleInputPassword1">Confirm Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-outline-light text-light border" data-dismiss="modal">Close</button>
-              <a href="userpage.html"><button type="button" class="btn-resp-height marg rounded btn btn-outline-light text-light ml-2 border">Submit</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <section>
-      <div class="container-fluid img-fluid d-flex justify-content-center align-items-center mt-5">
-          <div>
-            <form class="border-orange">
-                <div>
-                    <p class="p-3 bg-orange text-light text-center lead">
-                        Fill the form to sign up
-                    </p>
-                </div>
-                <div class="form-group p-5">
-                    <!-- <label for="exampleInputEmail1">Email address</label> -->
-                    <input type="email" class="form-control mb-3" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
-                    <!-- <label for="exampleInputPassword1">Password</label> -->
-                    <input type="password" class="form-control mb-3" id="exampleInputPassword1" placeholder="Password">
-                    <!-- <label for="exampleInputPassword1">Confirm Password</label> -->
-                    <input type="password" class="form-control mb-3" id="exampleInputPassword1" placeholder="Confirm Password">
-                    <button type="button" class="btn btn-outline-light text-light border" href="userpage.html" type="button" class="btn-resp-height marg rounded btn btn-outline-light text-light ml-2 border">Submit</button>
-                </div>
-            </form>
-          </div>
-      </div>
-    </section>
-
-    <footer class="bg-dark mt-5 h-15 pb-3 fixed-bottom">
-      <div class= "container pt-5">
-        <ul class="link">
-          <li class="d-flex justify-content-center">
-            <a href="#" class="text-light border-2 border-orange icon facebook mr-1"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-            <a href="#" class="text-light border-2 border-orange icon twitter mr-1"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            <a href="#" class="text-light border-2 border-orange icon instagram mr-1"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-            <a href="#" class="text-light border-2 border-orange icon envelope"><i class="fa fa-envelope" aria-hidden="true"></i></a>            
-          </li>
-        </ul>
-      </div>
-
-      <div class="container d-flex justify-content-center">
-        <h5 class="text-center mb-0 text-light">
-          © 2017 EventManager. All rights reserved
-        </h5>
-      </div>
-    </footer>
-
-
-    
-   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script type="text/javascript" src="js/jquery-slim.min.js"></script>
