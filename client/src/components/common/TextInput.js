@@ -1,23 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 const TextInput = ({
-  type, label, id, name, value, onChange, error
+  type, label, id, name, value, onChange, errors
 }) => (
-      <div className="form-control">
-         <div className="label"><label htmlFor={id}>{label}</label></div>
-         <input
-          type={type}
-          id={id}
-          name={name}
-          className="tbox"
-          value={value}
-          onChange={onChange}
-        />
-        {error && <div style={{ color: 'red', fontSize: '0.7rem' }}>{error}</div>}
-        {error && <div className= "alert alert-danger">{error}</div>}}
+  <div className={classnames('form-group', { 'has-error': errors })}>
+    <div className="label"><label htmlFor={id}>{label}</label></div>
+    <input
+      type={type}
+      id={id}
+      name={name}
+      className="form-control"
+      value={value}
+      onChange={onChange}
+    />
+    {errors && <div style={{ color: 'red', fontSize: '0.7rem' }}>{errors}</div>}
+    {errors && <div className= "alert alert-danger">{errors}</div>}}
 
-      </div>
+  </div>
 );
 
 TextInput.propTypes = {
@@ -27,7 +28,7 @@ TextInput.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  error: PropTypes.string.isRequired
+  errors: PropTypes.string.isRequired
 };
 
 export default TextInput;

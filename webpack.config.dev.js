@@ -3,7 +3,7 @@ const webpack = require('webpack');
 // import path from 'path';
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'cheap-module-source-map',
   entry: path.join(__dirname, 'client/src/index'),
 
   output: {
@@ -64,7 +64,7 @@ module.exports = {
             options: {
               name: '[name].[ext]',
               outputPath: 'fonts/',
-              publicPath: './'
+              publicPath: '/'
             }
           }
         ],

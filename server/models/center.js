@@ -17,8 +17,8 @@ export default (sequelize, DataTypes) => {
           msg: 'Name can contain only alphabets and numbers',
         },
         len: {
-          args: [3, 20],
-          msg: 'Name should be longer than 3 words and less than 40 words',
+          args: [3],
+          msg: 'Name should be longer than 3 characters',
         },
       },
     },
@@ -35,8 +35,8 @@ export default (sequelize, DataTypes) => {
           msg: 'Location can contain alphabets and numbers',
         },
         len: {
-          args: [3, 20],
-          msg: 'Name should be longer than 3 words and less than 40 words',
+          args: [3],
+          msg: 'Name should be longer than 3 words',
         },
       },
     },
@@ -49,7 +49,7 @@ export default (sequelize, DataTypes) => {
       },
       isInt: {
         args: true,
-        msg: 'Capacity should contain only Numbers',
+        msg: 'Capacity should contain only numbers',
       },
     },
     price: {
@@ -71,6 +71,34 @@ export default (sequelize, DataTypes) => {
     type: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Description Field Required!',
+        },
+        is: {
+          args: /([a-zA-Z0-9])+/,
+          msg: 'Name can contain only alphabets and numbers',
+        },
+      },
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Image field is required'
+        },
+        is: {
+          args: /(\w)/i,
+          msg: 'Image url can only contain strings'
+        }
+      }
     },
   });
 

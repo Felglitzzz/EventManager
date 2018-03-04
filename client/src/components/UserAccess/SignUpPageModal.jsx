@@ -30,6 +30,7 @@ class SignUpPageModal extends React.Component {
         password: '',
         confirmPassword: ''
       },
+      isAuthenticated: false,
       errors: {},
       isLoading: false
     };
@@ -85,7 +86,7 @@ class SignUpPageModal extends React.Component {
   redirect() {
     this.setState({ isLoading: false });
     toastr.success('Sign Up Successful');
-    history.push('/dashboard');
+    history.replace('/dashboard');
   }
 
   /**
@@ -96,14 +97,14 @@ class SignUpPageModal extends React.Component {
        * @returns {react} component
        */
     return (
-        <div>
-          < SignUpForm
-            userData={this.state.userData}
-            errors={this.state.errors}
-            onChange={this.onChange}
-            onSubmit={this.onSubmit}
-          />
-        </div>
+      <div>
+        < SignUpForm
+          userData={this.state.userData}
+          errors={this.state.errors}
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
+        />
+      </div>
     );
   }
 }
@@ -126,10 +127,9 @@ function mapDispatchToProps(dispatch) {
 
 /**
  * @param {object} state
- * @param {object} ownProps
  * @returns {object} userdata
  */
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     userData: state.userAccess
   };

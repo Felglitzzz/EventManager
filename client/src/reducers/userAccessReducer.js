@@ -4,7 +4,8 @@ const {
   ADD_USER_SUCCESS,
   ADD_USER_FAIL,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAIL
+  LOGIN_USER_FAIL,
+  LOG_OUT
 } = actionTypes;
 
 /**
@@ -12,27 +13,40 @@ const {
  * @param {object} action
  * @returns {object} action implemented and resulting payload
  */
-export default function userAccessReducer(state = {}, action) {
+const userAccessReducer = (state = { isAuthenticated: false }, action) => {
   const { type } = action;
 
   switch (type) {
-    case ADD_USER_SUCCESS:
-      return Object.assign({}, state, {
-        userData: action.userData
-      });
-    case ADD_USER_FAIL:
-      return Object.assign({}, state, {
-        error: action.error
-      });
-    case LOGIN_USER_SUCCESS:
-      return Object.assign({}, state, {
-        loginData: action.loginData
-      });
-    case LOGIN_USER_FAIL:
-      return Object.assign({}, state, {
-        loginError: action.error
-      });
-    default:
-      return state;
+  case ADD_USER_SUCCESS:
+    return {
+      ...state,
+      userData: action.userData
+    };
+  case ADD_USER_FAIL:
+    return {
+      ...state,
+      error: action.error
+    };
+  case LOGIN_USER_SUCCESS:
+    return {
+      ...state,
+      loginData: action.loginData,
+      isAuthenticated: true,
+    };
+  case LOGIN_USER_FAIL:
+    return {
+      ...state,
+      loginError: action.error,
+      isAuthenticated: false
+    };
+  case LOG_OUT:
+    return {
+      ...state,
+      isAuthenticated: false
+    };
+  default:
+    return state;
   }
-}
+};
+
+export default userAccessReducer;

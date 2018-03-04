@@ -10,18 +10,41 @@ module.exports = {
     },
     name: {
       type: Sequelize.STRING,
+      allowNull: false,
     },
-    location: {
+    description: {
+      type: Sequelize.TEXT,
+      allowNull: false,
+    },
+    image: {
       type: Sequelize.STRING,
+      allowNull: false,
     },
     date: {
       type: Sequelize.DATEONLY,
+      allowNull: false,
+    },
+    time: {
+      type: Sequelize.STRING,
+      allowNull: false,
     },
     userId: {
       type: Sequelize.INTEGER,
+      allowNull: false,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'users',
+        key: 'id',
+      },
     },
     centerId: {
       type: Sequelize.INTEGER,
+      allowNull: false,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'centers',
+        key: 'id',
+      }
     },
     createdAt: {
       allowNull: false,

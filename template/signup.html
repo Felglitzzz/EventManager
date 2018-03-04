@@ -13,34 +13,35 @@
     <link rel="stylesheet" href="./css/font-awesome/css/font-awesome.min.css">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg transparent navbar-dark bg-orange">
-      <a class="navbar-brand font-weight-bold montfont" href="index.html">EVENTMANAGER</a>
+    <nav class="navbar navbar-expand-lg transparent navbar-dark bg-white shadow">
+      <a class="navbar-brand font-weight-bold montfont text-orange" href="index.html">EVENTMANAGER</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     </nav>
     <div class="py-5">
       <div class="form-width mx-auto bg-white">
-        <header>
+        <header class="shadow-down">
           <p class=" form-head text-center text-orange">Create Event</p>
         </header>
         <section>
-          <div class="container-fluid img-fluid d-flex justify-content-center align-items-center mt-5">
-              <div>
+          <div class="img-fluid d-flex justify-content-center mt-5">
+              <div class="container">
                 <form>
                     <div>
                         <p class="p-3 bg-orange text-light text-center lead">
-                            Fill the form to sign up
+                            Fill the form to create event
                         </p>
                     </div>
-                    <div class="form-group p-5">
-                        <!-- <label for="exampleInputEmail1">Email address</label> -->
-                        <input type="email" class="form-control mb-3" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
-                        <!-- <label for="exampleInputPassword1">Password</label> -->
-                        <input type="password" class="form-control mb-3" id="exampleInputPassword1" placeholder="Password">
-                        <!-- <label for="exampleInputPassword1">Confirm Password</label> -->
-                        <input type="password" class="form-control mb-3" id="exampleInputPassword1" placeholder="Confirm Password">
-                        <button type="button" class="btn btn-outline-light text-light border" href="userpage.html" type="button" class="btn-resp-height marg rounded btn btn-outline-light text-light ml-2 border">Submit</button>
+                    <div class="p-5">
+                        <div class="form-group"><input type="name" class="form-control" id="examp class="form-group"leInput" aria-label="name" placeholder="Event Name"></div>
+                        <div class="form-group"><input type="name" class="form-control" id="examp class="form-group"leInput" aria-label="name" placeholder="Event Centre"></div>
+                        <div class="form-group"><input type="date" class="form-control text-secondary" id="examp class="form-group"leInput" value="2011-08-19" placeholder="Event Date"></div>
+                        <div class="form-group"><input type="time" class="form-control text-secondary" id="examp class="form-group"leInput"  aria-label="name" value="13:45:00" placeholder="Event Time"></div>
+                        <textarea class="form-control form-rounded mb-3" rows="3" placeholder="Event Description"></textarea>
+                        <div class="form-group"><input type="password" class="form-control" id="examp class="form-group"leInputPassword1" placeholder="Password"></div>
+                        <div class="form-group"><input type="password" class="form-control" id="examp class="form-group"leInputPassword1" placeholder="Confirm Password"></div>
+                        <div class="form-group"><button type="button" class="btn btn-outline-orange px-5" type="button">Submit</button></div>
                     </div>
                 </form>
               </div>

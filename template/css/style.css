@@ -20,6 +20,10 @@ a {
   text-align: center;
 }
 
+.shadow-down {
+  box-shadow: 0 5px 15px 0 rgba(46,61,73,.12);
+}
+
 .fill_screen {
   background: url(../img/evenn.png);
   background-repeat: no-repeat;

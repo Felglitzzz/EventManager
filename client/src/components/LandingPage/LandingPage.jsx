@@ -16,14 +16,14 @@ export default class LandingPage extends React.Component {
  */
   render() {
     return (
-        <div>
-            <Navbar />
-            <Home />
-            <About />
-            <Portfolio />
-            <Testimonials />
-            <Footer />
-        </div>
+      <div>
+        <Navbar />
+        <Home />
+        <About />
+        <Portfolio />
+        <Testimonials />
+        <Footer />
+      </div>
     );
   }
 }

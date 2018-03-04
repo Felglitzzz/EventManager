@@ -49,19 +49,27 @@ export default class User {
           isAdmin: user.isAdmin,
         };
         const token = jwt.sign(userData, secret, { expiresIn: '96h' });
-        res.status(201).json({ message: 'User created', token });
+        res.status(201).json({
+          message: 'User created',
+          token,
+          user: {
+            userId: user.id,
+            username: user.username,
+            isAdmin: user.isAdmin
+          }
+        });
       })
       .catch((error) => {
         const errMessages = errorMessages(error);
         switch (errMessages.type) {
-          case 'uniqueError':
-            res.status(409).json({ error: errMessages.error });
-            break;
-          case 'validationError':
-            res.status(400).json({ error: errMessages.error });
-            break;
-          default:
-            res.status(501).json({ error: errMessages.error });
+        case 'uniqueError':
+          res.status(409).json({ error: errMessages.error });
+          break;
+        case 'validationError':
+          res.status(400).json({ error: errMessages.error });
+          break;
+        default:
+          res.status(501).json({ error: errMessages.error });
         }
       });
   }
@@ -89,10 +97,38 @@ export default class User {
             isAdmin: user.isAdmin
           };
           const token = jwt.sign(userData, secret, { expiresIn: '96h' });
-          return res.status(200).json({ message: 'User logged in', token });
+          return res.status(200).json({
+            message: 'User logged in',
+            token,
+            user: {
+              userId: user.id,
+              username: user.username,
+              isAdmin: user.isAdmin
+            }
+          });
         }
         return res.status(400).json({ message: 'Username/Password Incorrect' });
       })
       .catch(() => res.status(400).json({ message: 'Username/Password Incorrect' }));
+  }
+
+  /**
+   * get one user
+   *@static
+   *@param {object} req express request object
+   *@param {object} res express response object
+   *@returns {void}
+   *@memberof Event
+   */
+  static getOneUser(req, res) {
+    return users
+      .findById(req.params.userId)
+      .then((user) => {
+        if (!user) {
+          return res.status(400).send({ message: 'User Not Found!' });
+        }
+        return user
+          .then(res.status(200).json({ message: 'User Found!', user }));
+      });
   }
 }

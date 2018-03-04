@@ -1,7 +1,7 @@
 import axios from 'axios';
-import toastr from 'toastr';
+import jwt from 'jsonwebtoken';
 import * as actionTypes from './actionTypes';
-import history from '../helpers/history';
+import setAuthorizationToken from '../utils/setAuthorizationToken';
 
 // axios.defaults.baseURL = 'https://eventmanager-app.herokuapp.com';
 
@@ -10,7 +10,8 @@ const {
   ADD_USER_FAIL,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
-  LOGIN_USER_PENDING
+  LOGIN_USER_PENDING,
+  LOG_OUT
 } = actionTypes;
 
 /**
@@ -45,7 +46,8 @@ export function addNewUser(userData) { //eslint-disable-line
       .then((response) => {
         dispatch(addUserSuccess(response.data));
         const { token } = response.data;
-        window.localStorage.setItem('x-access-token', token);
+        localStorage.setItem('x-access-token', token);
+        setAuthorizationToken(token);
         console.log(response);
       })
       .catch((errors) => {
@@ -87,24 +89,29 @@ export function loginUserFail(error) {
     error
   };
 }
+/**
+ * @returns {object} action type and payload
+ */
+export function logOutUser() {
+  return {
+    type: LOG_OUT
+  };
+}
 
 /**
  * @param {object} loginData
  * @returns {func} dispatch
  */
-export function loginUser(loginData) { //eslint-disable-line
-  return (dispatch) => { //eslint-disable-line
-    return axios.post('/api/v1/users/login', loginData)
-      .then((response) => {
-        dispatch(loginUserSuccess(response.data));
-        const { token } = response.data;
-        window.localStorage.setItem('x-access-token', token);
-        // history.push('/dashboard');
-      })
-      .catch((errors) => {
-        dispatch(loginUserFail(errors.response.data.message));
-        console.log(errors.response.data.message);
-        throw (errors.response.data.message);
-      });
-  };
-}
+export const loginUser = loginData => dispatch =>
+  axios.post('/api/v1/users/login', loginData)
+    .then((response) => {
+      dispatch(loginUserSuccess(response.data));
+      const { token } = response.data;
+      localStorage.setItem('x-access-token', token);
+    })
+    .catch((errors) => {
+      dispatch(loginUserFail(errors.response.data.message));
+      console.log(errors.response);
+      console.log(errors.response.message);
+      throw (errors.response.data.message);
+    });

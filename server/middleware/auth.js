@@ -21,9 +21,9 @@ export default class Auth {
    * @returns {null} no return value
    */
   static verifyUser(req, res, next) {
-    const token = req.headers['x-access-token'];
+    const token = req.headers.authorization;
     if (!token) {
-      return res.status(403).json({ message: 'No token provided' });
+      return res.status(401).json({ message: 'Only logged in user can perform such action' });
     }
     const decoded = jwt.verify(token, secret);
     if (!decoded) {
@@ -31,7 +31,7 @@ export default class Auth {
     }
     userModel.findOne({ where: { username: decoded.username, id: decoded.id } })
       .then((user) => {
-        if (!user) { return res.status(404).json({ message: 'user not found' }); }
+        if (!user) { return res.status(404).json({ message: 'User not found' }); }
         req.decoded = decoded;
         next();
       });
@@ -44,7 +44,7 @@ export default class Auth {
    * @returns {null} no return value
    */
   static checkAdminStatus(req, res, next) {
-    const token = req.headers['x-access-token'];
+    const token = req.headers.authorization;
     if (!token) {
       return res.status(403).json({ message: 'No token provided' });
     }
