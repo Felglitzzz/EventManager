@@ -40,22 +40,20 @@ export function addUserFail(error) {
  * @param {object} userData
  * @returns {func} dispatch
  */
-export function addNewUser(userData) { //eslint-disable-line
-  return (dispatch) => { //eslint-disable-line
+export const addNewUser = userData => (dispatch) => {
     return axios.post('/api/v1/users', userData)
       .then((response) => {
         dispatch(addUserSuccess(response.data));
         const { token } = response.data;
         localStorage.setItem('x-access-token', token);
-        setAuthorizationToken(token);
         console.log(response);
       })
       .catch((errors) => {
         dispatch(addUserFail(errors));
+        console.log(errors);
         throw (errors.response.data.error);
       });
   };
-}
 
 /**
  * @param {object} loginData

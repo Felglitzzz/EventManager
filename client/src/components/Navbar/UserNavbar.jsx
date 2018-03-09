@@ -32,7 +32,7 @@ class UserNavbar extends React.Component {
 
     return (
       <div>
-        <nav className="navbar navbar-expand-lg bg-white shadow d-flex px-5">
+        <nav className="navbar navbar-expand-lg bg-white mx-3 d-flex px-5">
           <p className="font-weight-bold montfont text-orange">Dashboard</p>
           <p className="font-weight-bold montfont text-orange ml-auto">
             Hello, {lodash.capitalize(username)}</p>
@@ -59,7 +59,7 @@ UserNavbar.propTypes = {
  */
 function mapStateToProps(state) {
   return {
-    userInfo: state.userAccess.loginData.user
+    userInfo: state.userAccess.userData.user
   };
 }
 /**

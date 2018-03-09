@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
+import { cloudinaryPreset } from '../utils/cloudinary';
 
 const {
   ADD_EVENT_SUCCESS,
@@ -9,7 +10,9 @@ const {
   UPDATE_EVENT_SUCCESS,
   UPDATE_EVENT_FAIL,
   LOAD_ONE_EVENT_FAIL,
-  LOAD_ONE_EVENT_SUCCESS
+  LOAD_ONE_EVENT_SUCCESS,
+  SAVE_IMAGE_FAIL,
+  SAVE_IMAGE_SUCCESS
 } = actionTypes;
 
 /**
@@ -114,7 +117,6 @@ export const updateEventFail = error => ({
  * @returns {object} updated event
  */
 export function updateEvent(updateEventData) {
-  debugger;
   const token = localStorage.getItem('x-access-token');
   return (dispatch) => {
     return axios.put(`/api/v1/events/${updateEventData.id}`, updateEventData, {
@@ -129,7 +131,7 @@ export function updateEvent(updateEventData) {
         console.log(errors.response.data.message);
         throw (errors.response.data.message);
       });
-  }
+  };
 }
 
 export const loadOneEventSuccess = eventReturned => ({
@@ -158,18 +160,31 @@ export const loadOneEvent = eventId => (dispatch) => {
     });
 };
 
-// export const loadEventById = id => (dispatch) => {
-//   const token = localStorage.getItem('x-access-token');
-//   axios.get(`api/v1/events/${id}`, {
-//     headers: { Authorization: token }
-//   })
-//     .then((response) => {
-//       dispatch(loadOneEventSuccess(response.data))
-//     })
-//     .catch((errors) => {
-//       dispatch(loadOneEventFail(errors))
-//       console.log(errors.response.data.message);
-//       throw (errors.response.data.message);
-//     })
-// };
+export const saveImageSuccess = saveImage => ({
+  type: SAVE_IMAGE_SUCCESS,
+  saveImage
+});
+
+export const saveImageFail = error => ({
+  type: SAVE_IMAGE_FAIL,
+  error
+});
+
+export const uploadToCloudinary = (image) => {
+  const formData = new FormData();
+  formData.append('file', image);
+  formData.append('upload_preset', cloudinaryPreset);
+
+  return dispatch =>
+    axios.post('https://api.cloudinary.com/v1_1/felglitz/image/upload', formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    })
+      .then((response) => {
+        dispatch(saveImageSuccess(response.data));
+        console.log(response.data);
+      })
+      .catch((error) => {
+        dispatch(saveImageFail(error));
+      });
+};
 

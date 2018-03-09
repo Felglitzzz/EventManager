@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import history from '../../helpers/history';
-import validate from '../../helpers/validations/inputValidate';
 
-import { addNewEvent } from '../../actions/eventActions';
+import { addNewEvent, uploadToCloudinary } from '../../actions/eventActions';
 import { loadCenters } from '../../actions/centerActions';
 import EventForm from './Form/EventForm';
 /**
@@ -28,13 +27,15 @@ class CreateEventForm extends React.Component {
         description: '',
         image: ''
       },
+      chosenImage: '',
       errors: {},
       options: []
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.redirect = this.redirect.bind(this);
+    this.redirectToEvents = this.redirectToEvents.bind(this);
+    this.imageOnChange = this.imageOnChange.bind(this);
   }
   /**
    * Component lifecycle
@@ -54,6 +55,15 @@ class CreateEventForm extends React.Component {
         options: nextProps.options.Centers
       });
     }
+    console.log(nextProps.imageUrl);
+    if (nextProps.imageUrl) {
+      this.setState({
+        eventData: {
+          ...this.state.eventData,
+          image: nextProps.imageUrl.secure_url
+        }
+      });
+    }
   }
   /**
    * onchange event function
@@ -61,6 +71,9 @@ class CreateEventForm extends React.Component {
    * @returns {object} new state
    */
   onChange(event) {
+    event.persist();
+    console.log(event);
+    console.log(event.target.files);
     const field = event.target.name;
     const { eventData } = this.state;
     eventData[field] = event.target.value;
@@ -68,14 +81,27 @@ class CreateEventForm extends React.Component {
   }
 
   /**
-   * @returns {object} error or isValid status
+   * @description handler for image upload - imageOnChange
+   * @param {object} event
+   * @returns {object} selected file
    */
-  isValid() {
-    const { errors, isValid } = validate(this.state.eventData);
-    if (!isValid) {
-      this.setState({ errors });
+  imageOnChange(event) {
+    const chosenImage = event.target.files[0];
+    const imageReader = new FileReader();
+    if (chosenImage) {
+      imageReader.onload = () => {
+        const upload = new Image();
+        upload.src = imageReader.result;
+        upload.onload = () => {
+          this.setState({
+            uploadHeight: upload.height,
+            uploadWidth: upload.width,
+            chosenImage
+          });
+        };
+      };
     }
-    return isValid;
+    imageReader.readAsDataURL(chosenImage);
   }
 
   /**
@@ -86,15 +112,16 @@ class CreateEventForm extends React.Component {
   onSubmit(event) {
     event.persist();
     event.preventDefault();
-    const { eventData } = this.state;
-    if (!this.isValid()) {
-      return;
-    }
-
-    this.props.addNewEvent(eventData)
-      .then(() => this.redirect())
-      .catch((error) => {
-        toastr.error(error);
+    const { eventData, chosenImage } = this.state;
+    this.props.uploadToCloudinary(chosenImage)
+      .then(() => {
+        if (this.state.eventData.image) {
+          this.props.addNewEvent(eventData)
+            .then(() => this.redirectToEvents())
+            .catch((error) => {
+              toastr.error(error);
+            });
+        }
       });
   }
 
@@ -102,7 +129,7 @@ class CreateEventForm extends React.Component {
    * @param {string} status
    * @returns {void}
    */
-  redirect() {
+  redirectToEvents() {
     this.setState({ isLoading: false });
     toastr.success('Event Created');
     history.replace('/dashboard/events');
@@ -120,6 +147,7 @@ class CreateEventForm extends React.Component {
           eventData={this.state.eventData}
           errors={this.state.errors}
           options={this.state.options}
+          imageOnChange={this.imageOnChange}
         />
       </div>
     );
@@ -129,6 +157,8 @@ CreateEventForm.propTypes = {
   addNewEvent: PropTypes.func.isRequired,
   loadCenters: PropTypes.func.isRequired,
   options: PropTypes.object.isRequired,
+  uploadToCloudinary: PropTypes.func.isRequired,
+  imageUrl: PropTypes.string
 
 };
 
@@ -138,8 +168,10 @@ CreateEventForm.propTypes = {
  * @returns {object} state
  */
 function mapStateToProps(state) {
+  console.log(state);
   return {
-    options: state.centers.loadedCenters
+    options: state.centers.loadedCenters,
+    imageUrl: state.events.image
   };
 }
 /**
@@ -151,6 +183,7 @@ function mapDispatchToProps(dispatch) {
   return {
     loadCenters: () => dispatch(loadCenters()),
     addNewEvent: eventData => dispatch(addNewEvent(eventData)),
+    uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
   };
 }
 

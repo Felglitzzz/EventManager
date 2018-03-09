@@ -7,12 +7,19 @@ body, html {
 	padding: 0;
 	margin: 0;
   height: 100%;
-  background-color: #f0f0f0 !important;
+  background-color: hsla(224, 15%, 76%, 0.3) !important;
 }
 
 a {
   text-decoration: none !important;
 
+}
+.no-border {
+  border: 0px !important;
+}
+
+.top-order {
+  z-index: 3
 }
 
 .is-error {
@@ -90,6 +97,18 @@ a {
 
 .border-white {
   border-color: #fff !important;
+}
+.list-group-item {
+  border-radius: 0px !important;
+}
+.button-anim {
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+}
+
+.button-anim:active {
+  transform: translateY(4px);
 }
 
 .wrapper {

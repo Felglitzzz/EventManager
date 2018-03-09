@@ -13,7 +13,9 @@
   "globals": {
   "localStorage": true,
   "document": true,
-  "$": true
+  "$": true,
+  "FileReader": true,
+  "Image": true
   },
   
   "parserOptions": {

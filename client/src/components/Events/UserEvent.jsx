@@ -13,14 +13,16 @@ const UserEvent = ({ events }) => (
     <h6>Loading events...</h6>
     :
     events.map((event, id) => (
-      <section className="my-5" key={id}>
+      <section className="mt-3 mx-3" key={id}>
         <div className="container">
-          <div className="row bg-white border border-white shadow p-3">
+          <div className="row bg-white p-3">
             <div className="col-md-4">
               <div className="img-fluid">
                 <img
                   className="img-fluid"
-                  src="http://res.cloudinary.com/felglitz/image/upload/v1515539253/felglitz_y7kuvr.jpg"
+                  width="400"
+                  height="264"
+                  src={event.image}
                   alt={event.name}/>
               </div>
             </div>

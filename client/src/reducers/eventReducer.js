@@ -8,7 +8,9 @@ const {
   LOAD_ONE_EVENT_SUCCESS,
   LOAD_ONE_EVENT_FAIL,
   UPDATE_EVENT_SUCCESS,
-  UPDATE_EVENT_FAIL
+  UPDATE_EVENT_FAIL,
+  SAVE_IMAGE_SUCCESS,
+  SAVE_IMAGE_FAIL
 } = actionTypes;
 
 /**
@@ -72,6 +74,16 @@ const eventReducer = (state = {}, action) => {
     };
   }
   case UPDATE_EVENT_FAIL:
+    return {
+      ...state,
+      error: action.error
+    };
+  case SAVE_IMAGE_SUCCESS:
+    return {
+      ...state,
+      image: action.saveImage
+    };
+  case SAVE_IMAGE_FAIL:
     return {
       ...state,
       error: action.error

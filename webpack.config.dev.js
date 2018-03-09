@@ -1,5 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
+
 // import path from 'path';
 
 module.exports = {
@@ -23,7 +25,8 @@ module.exports = {
       'window.$': 'jquery',
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default']
-    })
+    }),
+    new Dotenv()
   ],
   module: {
     rules: [
@@ -86,5 +89,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.jsx', '.js', '.scss']
+  },
+
+  node: {
+    fs: 'empty'
   }
 };

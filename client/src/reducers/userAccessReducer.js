@@ -30,7 +30,7 @@ const userAccessReducer = (state = { isAuthenticated: false }, action) => {
   case LOGIN_USER_SUCCESS:
     return {
       ...state,
-      loginData: action.loginData,
+      userData: action.loginData,
       isAuthenticated: true,
     };
   case LOGIN_USER_FAIL:

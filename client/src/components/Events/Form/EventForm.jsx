@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const EventForm = ({
-  onChange, onSubmit, eventData, options
+  onChange, onSubmit, eventData, options, imageOnChange
 }) => (
   <div>
     <div className="py-5">
@@ -16,7 +16,7 @@ const EventForm = ({
               <form onSubmit={onSubmit} >
                 <div>
                   <p className="p-3 bg-orange text-light text-center lead">
-                                        Fill the form to create event
+                    Fill the form to create event
                   </p>
                 </div>
                 <div className="p-5">
@@ -84,26 +84,24 @@ const EventForm = ({
                       onChange={onChange}
                       required
                     />
-
                   </div>
                   <div className="form-group">
                     <input
                       type="file"
                       name="image"
+                      id="file-upload"
                       className="form-control-file text-secondary border"
                       accept="image/*"
-                      placeholder="Choose event Image"
-                      value={eventData.image}
-                      onChange={onChange}
+                      placeholder="Choose Event Image"
+                      onChange={imageOnChange}
                       required
                     />
-
                   </div>
                   <div className="form-group">
                     <button
                       onSubmit={onSubmit}
                       className="btn btn-outline-orange px-5">
-                                            Submit
+                        Submit
                     </button>
                   </div>
                 </div>
@@ -121,7 +119,8 @@ EventForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   eventData: PropTypes.object.isRequired,
   defaultOption: PropTypes.string,
-  options: PropTypes.array.isRequired
+  options: PropTypes.array.isRequired,
+  imageOnChange: PropTypes.func.isRequired
 };
 
 export default EventForm;

@@ -89,37 +89,35 @@ class UserDashboard extends React.Component {
         <Redirect to = "/" />
         :
         <div>
-          <div className="wrapper">
-            <div className="sidebar bg-dark">
-              <div className="sidebar-wrapper">
-                <div className="my-3">
-                  <ul className="nav list-group bg-dark">
-                    <li className="list-group-item bg-dark" />
+          <div className="wrapper top-order">
+            <div className="sidebar bg-dark h-100">
+              <div className="sidebar-wrapper h-100">
+                <div>
+                  <ul className="nav list-group bg-light">
+                    {/* <li className="list-group-item bg-light no-border" />
+                    <li className="list-group-item bg-light no-border" /> */}
                     <Link
                       to = "/dashboard">
-                      <li className="list-group-item text-orange bg-dark">
+                      <li className="text-orange bg-dark waves-effect pl-4 pb-3 mb-1">
                         <i className="text-center fa fa-tachometer fa-2x" />
                         <p className="font-weight-bold text-orange montfont">EVENTMANAGER</p>
                       </li>
                     </Link>
                     <Link
                       to ={isAdmin ? '/dashboard/centers' : '/dashboard/events'}>
-                      <li className="list-group-item bg-dark waves-effect"
-                        type="button">
+                      <li className="list-group-item bg-dark mb-1 button-anim">
                         <i className="text-center text-orange fa fa-folder-open fa-2x" />
                         <p className="font-weight-bold text-orange montfont">{isAdmin ? 'My Centers' : 'My Events'}</p>
                       </li>
                     </Link>
                     <Link
                       to={isAdmin ? '/dashboard/create-center' : '/dashboard/create-event'}>
-                      <li className="list-group-item bg-dark waves-effect"
-                        type="button">
+                      <li className="list-group-item bg-dark mb-1 button-anim">
                         <i className="text-center text-orange fa fa-plus-square fa-2x" />
                         <p className="font-weight-bold text-orange montfont">{isAdmin ? 'Create Centers' : 'Create Events'}</p>
                       </li>
                     </Link>
-                    <li className="list-group-item  text-orange bg-dark waves-effect"
-                      type="button"
+                    <li className="list-group-item text-orange mb-1 bg-dark button-anim"
                       onClick={this.handleLogout}>
                       <i className="text-center text-orange fa fa-power-off fa-2x" />
                       <p className="font-weight-bold text-orange montfont">Logout</p>
@@ -180,7 +178,7 @@ UserDashboard.propTypes = {
  * @returns {object} loadedEvents
  */
 const mapStateToProps = state => ({
-  userInfo: state.userAccess.loginData.user,
+  userInfo: state.userAccess.userData.user,
   isAuthenticated: state.userAccess
 });
 
