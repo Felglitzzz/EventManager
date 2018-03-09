@@ -16,29 +16,21 @@ export default (sequelize, DataTypes) => {
           args: /([a-zA-Z0-9])+/,
           msg: 'Name can contain only alphabets and numbers',
         },
-        len: {
-          args: [3, 20],
-          msg: 'Name should be longer than 3 words and less than 40 words',
-        },
       },
     },
-    location: {
+    image: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Location Field Required!',
+          msg: 'Image field is required'
         },
         is: {
-          args: /([a-zA-Z0-9])+/,
-          msg: 'Location can contain alphabets and numbers',
-        },
-        len: {
-          args: [3, 20],
-          msg: 'Name should be longer than 3 words and less than 40 words',
-        },
-      },
+          args: /(\w)/i,
+          msg: 'Image url can only contain strings'
+        }
+      }
     },
     date: {
       type: DataTypes.DATEONLY,
@@ -47,6 +39,30 @@ export default (sequelize, DataTypes) => {
         notEmpty: {
           args: true,
           msg: 'Date Field Required',
+        },
+      },
+    },
+    time: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Time Field Required!'
+        },
+      },
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Description Field Required!',
+        },
+        is: {
+          args: /([a-zA-Z0-9])+/,
+          msg: 'Name can contain only alphabets and numbers',
         },
       },
     },
@@ -59,12 +75,6 @@ export default (sequelize, DataTypes) => {
           msg: 'UserId Field Required!',
         },
       },
-      onDelete: 'CASCADE',
-      references: {
-        model: 'event',
-        Key: 'id',
-        as: 'userId',
-      },
     },
     centerId: {
       type: DataTypes.INTEGER,
@@ -75,12 +85,6 @@ export default (sequelize, DataTypes) => {
           msg: 'CenterId Field Required!',
         },
       },
-      onDelete: 'CASCADE',
-      references: {
-        model: 'event',
-        Key: 'id',
-        as: 'centerId',
-      },
     },
   });
   event.associate = (models) => {
@@ -88,7 +92,6 @@ export default (sequelize, DataTypes) => {
       foreignKey: 'centerId',
       onDelete: 'CASCADE',
     });
-
     event.belongsTo(models.user, {
       foreignKey: 'userId',
     });

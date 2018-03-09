@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import toastr from 'toastr';
 
-import validate from '../../helpers/validations/signUpValidate';
+import validate from '../../helpers/validations/userAccessValidate';
 import history from '../../helpers/history';
-// import bindActionCreators from 'redux';
 import { addNewUser } from '../../actions/userAccessActions';
 import SignUpForm from './SignUpForm';
 
@@ -28,15 +27,17 @@ class SignUpPageModal extends React.Component {
         username: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        passwordConfirm: ''
       },
+      isAuthenticated: false,
       errors: {},
       isLoading: false
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.redirect = this.redirect.bind(this);
+    this.check = this.check.bind(this);
+    this.redirectToDashboard = this.redirectToDashboard.bind(this);
   }
   /**
    * onChange event function
@@ -50,16 +51,16 @@ class SignUpPageModal extends React.Component {
     return this.setState({ userData });
   }
 
-  /**
-   * @returns {object} error or isValid status
-   */
-  isValid() {
-    const { errors, isValid } = validate(this.state.userData);
-    if (!isValid) {
-      this.setState({ errors });
+  check(input) {
+    const password = document.getElementById("password");
+    const password_confirm = document.getElementById("password_confirm")
+    if (password.value !== password_confirm.value) {
+        password_confirm.setCustomValidity('Password must match.');
+    } else {
+        // input is valid -- reset the error message
+        password_confirm.setCustomValidity('');
     }
-    return isValid;
-  }
+}
 
   /**
    * onSubmit event function
@@ -69,11 +70,8 @@ class SignUpPageModal extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     const { userData } = this.state;
-    if (!this.isValid()) {
-      return;
-    }
     this.props.addNewUser(userData)
-      .then(() => this.redirect())
+      .then(() => this.redirectToDashboard())
       .catch((error) => {
         toastr.error(error);
         this.setState({ isLoading: false });
@@ -82,10 +80,10 @@ class SignUpPageModal extends React.Component {
   /**
    * @returns {void}
    */
-  redirect() {
+  redirectToDashboard() {
     this.setState({ isLoading: false });
     toastr.success('Sign Up Successful');
-    history.push('/dashboard');
+    history.replace('/dashboard');
   }
 
   /**
@@ -96,20 +94,19 @@ class SignUpPageModal extends React.Component {
        * @returns {react} component
        */
     return (
-        <div>
-          < SignUpForm
-            userData={this.state.userData}
-            errors={this.state.errors}
-            onChange={this.onChange}
-            onSubmit={this.onSubmit}
-          />
-        </div>
+      <div>
+        < SignUpForm
+          userData={this.state.userData}
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
+          check={this.check}
+        />
+      </div>
     );
   }
 }
 
 SignUpPageModal.propTypes = {
-  // actions: PropTypes.object.isRequired
   addNewUser: PropTypes.func.isRequired,
 };
 
@@ -117,19 +114,16 @@ SignUpPageModal.propTypes = {
  * @param {func} dispatch
  * @returns {object} action
  */
-function mapDispatchToProps(dispatch) {
-  return {
-    // actions: bindActionCreators(userAccessActions, dispatch)
+const mapDispatchToProps = dispatch => ({
     addNewUser: userData => dispatch(addNewUser(userData))
-  };
-}
+  });
 
 /**
  * @param {object} state
- * @param {object} ownProps
  * @returns {object} userdata
  */
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state) => {
+  console.log(state)
   return {
     userData: state.userAccess
   };

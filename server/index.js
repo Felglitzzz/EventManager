@@ -30,14 +30,12 @@ app.use(expressValidator());
 app.use('/api/v1/', router);
 
 // send index.html
-app.get('/*', (req, res) => res.sendFile(
-  path.join(__dirname, '../client/src/index.html')
-)); //eslint-disable-line
+app.get('/*', (req, res) => res.sendFile(path.join(__dirname, '../client/src/index.html')));
 
 // listen for requests
 const port = parseInt(process.env.PORT, 10) || 1991;
 app.listen(port, () => {
-  console.log(`Hi there, check me out on http://localhost:${port}`);
+  console.log(`Hi there, magic happens on http://localhost:${port}`);
 });
 
 export default app;

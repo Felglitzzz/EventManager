@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import toastr from 'toastr';
 
-import validate from '../../helpers/validations/loginValidate';
+import validate from '../../helpers/validations/inputValidate';
 import { loginUser } from '../../actions/userAccessActions';
 import SignInForm from './SignInForm';
 import history from '../../helpers/history';
@@ -24,6 +24,7 @@ class SignInPageModal extends React.Component {
         username: '',
         password: '',
       },
+      isAuthenticated: false,
       errors: {},
       isLoading: false
     };
@@ -32,7 +33,9 @@ class SignInPageModal extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.redirect = this.redirect.bind(this);
   }
-
+/**
+ * @returns {object} update state
+ */
   /**
    * onChange event function
    * @param {object} event
@@ -71,6 +74,7 @@ class SignInPageModal extends React.Component {
       .then(() => this.redirect())
       .catch((error) => {
         toastr.error(error);
+        console.log(error);
         this.setState({ isLoading: false });
       });
   }
@@ -80,7 +84,7 @@ class SignInPageModal extends React.Component {
   redirect() {
     this.setState({ isLoading: false });
     toastr.success('Login Successful');
-    history.push('/dashboard');
+    history.replace('/dashboard');
   }
 
   /**
@@ -91,14 +95,14 @@ class SignInPageModal extends React.Component {
        * @returns {react} sign-in modal component
        */
     return (
-        <div>
-          < SignInForm
-            loginData={this.state.loginData}
-            onChange={this.onChange}
-            onSubmit={this.onSubmit}
-            errors={this.state.errors}
-          />
-        </div>
+      <div>
+        < SignInForm
+          loginData={this.state.loginData}
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
+          errors={this.state.errors}
+        />
+      </div>
     );
   }
 }
@@ -107,11 +111,11 @@ SignInPageModal.propTypes = {
   loginUser: PropTypes.func.isRequired,
 };
 /**
- * @param {object} state 
- * @param {object} ownProps 
+ * @param {object} state
+ * @param {object} ownProps
  * @returns {object} loginData
  */
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     loginData: state.userAccess.loginData,
   };

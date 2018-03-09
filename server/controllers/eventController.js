@@ -1,15 +1,17 @@
 import db from '../models';
+import errorMessages from '../utils/handleErrors';
 
 const events = db.event;
+const centers = db.center;
 const reqBody = (req) => {
-  const data = {
-    name: req.body.name,
-    location: req.body.location,
-    date: req.body.date,
-    centerId: req.body.centerId,
-    userId: req.decoded.id
+  const {
+    name, date, time, centerId, image, description
+  } = req.body;
+  const { id: userId } = req.decoded;
+
+  return {
+    name, date, time, centerId, image, description, userId
   };
-  return data;
 };
 /**
  * handles all center-based routes
@@ -31,14 +33,29 @@ export default class Event {
         ]
       }
     };
-    events.find(query).then((event) => {
-      if (event) {
-        return res.status(409).json({ message: `center has already being booked for ${req.body.date}, kindly book another date` });
-      }
-      return events.create(reqBody(req))
-        .then(newEvent => res.status(201).json({ message: 'Event Created!', event: newEvent }))
-        .catch(() => res.status(400).json({ error: 'Kindly fill the required fields' }));
-    });
+    events.find(query)
+      .then((event) => {
+        if (event) {
+          return res.status(409).json({ message: `center has already being booked for ${req.body.date}, kindly book another date` });
+        }
+        return events.create(reqBody(req))
+          .then(newEvent => res.status(201).json({ message: 'Event Created!', event: newEvent }))
+          .catch((error) => {
+            const errMessages = errorMessages(error);
+            switch (errMessages.type) {
+            case 'uniqueError':
+              res.status(409).json({ error: errMessages.error });
+              break;
+            case 'validationError':
+              res.status(400).json({ error: errMessages.error });
+              break;
+            default:
+              res.status(501).json({ error: errMessages.error });
+            }
+          });
+      });
+    // .catch(() => res.status(400).json({ error: 'Kindly fill the required fields' }));
+    // });
   }
   /**
    * deletes one event
@@ -60,6 +77,32 @@ export default class Event {
           .then(res.status(200).json({ message: 'Event Successfully Deleted!' }));
       });
   }
+
+  /**
+   * get one event
+   *@static
+   *@param {object} req express request object
+   *@param {object} res express response object
+   *@returns {void}
+   *@memberof Event
+   */
+  static getOneEvent(req, res) {
+    return events
+      .findById(req.params.eventId, {
+        include: [{
+          model: centers,
+          as: 'center'
+        }],
+      })
+      .then((event) => {
+        if (!event) {
+          return res.status(400).send({ message: 'Event Not Found!' });
+        }
+        return event
+          .then(res.status(200).json({ message: 'Event Found!', event }));
+      });
+  }
+  /**
   /**
     * get all events in the database
     *@static
@@ -69,9 +112,17 @@ export default class Event {
     *@memberof Event
     */
   static getAllEvents(req, res) {
+    console.log(req.decoded);
     return events
-      .all()
-      .then(event => res.status(200).json({ message: 'Events Found!', Events: event }))
+      .findAll({
+        where: {
+          userId: req.decoded.id
+        },
+        include: [{
+          model: centers,
+        }],
+      })
+      .then(event => res.status(200).json({ message: 'Events Founded!', event }))
       .catch(error => res.status(500).json({ message: error.message }));
   }
 

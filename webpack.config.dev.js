@@ -1,9 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
+
 // import path from 'path';
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'cheap-module-source-map',
   entry: path.join(__dirname, 'client/src/index'),
 
   output: {
@@ -23,7 +25,8 @@ module.exports = {
       'window.$': 'jquery',
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default']
-    })
+    }),
+    new Dotenv()
   ],
   module: {
     rules: [
@@ -64,7 +67,7 @@ module.exports = {
             options: {
               name: '[name].[ext]',
               outputPath: 'fonts/',
-              publicPath: './'
+              publicPath: '/'
             }
           }
         ],
@@ -86,5 +89,9 @@ module.exports = {
   },
   resolve: {
     extensions: ['.jsx', '.js', '.scss']
+  },
+
+  node: {
+    fs: 'empty'
   }
 };

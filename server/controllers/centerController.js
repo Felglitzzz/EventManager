@@ -1,4 +1,5 @@
 import db from '../models';
+
 /**
  * controller to handle all center based routes
  */
@@ -20,6 +21,19 @@ export default class Center {
     return centers
       .create(req.body)
       .then(center => res.status(201).json({ message: 'Center created!', Center: center }))
+      // .catch((error) => {
+      //   const errMessages = errorMessages(error);
+      //   switch (errMessages.type) {
+      //     case 'uniqueError':
+      //       res.status(409).json({ error: errMessages.error });
+      //       break;
+      //     case 'validationError':
+      //       res.status(400).json({ error: errMessages.error });
+      //       break;
+      //     default:
+      //       res.status(501).json({ error: errMessages.error });
+      //   }
+      // });
       .catch(error => res.status(400).json({ message: error.errors[0].message }));
   }
 
@@ -54,7 +68,7 @@ export default class Center {
             price: req.body.price,
             facility: req.body.facility,
             type: req.body.type,
-            dateBooked: req.body.dateBooked,
+            // dateBooked: req.body.dateBooked,
           })
         // Send back the updated center too.
           .then(modifiedCenter => res.status(200).json({
@@ -72,6 +86,7 @@ export default class Center {
     *@memberof Center
     */
   static getOneCenter(req, res) {
+    console.log(req.params.centerId);
     return centers
       .findById(req.params.centerId, {
         include: [{

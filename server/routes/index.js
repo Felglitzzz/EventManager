@@ -1,5 +1,4 @@
 import express from 'express';
-import path from 'path';
 import Event from '../controllers/eventController';
 import Center from '../controllers/centerController';
 import User from '../controllers/userController';
@@ -12,21 +11,21 @@ router.get('/centers/:centerId', Center.getOneCenter);
 router.put('/centers/:centerId', Auth.checkAdminStatus, Center.modifyCenter);
 router.post('/centers', Auth.checkAdminStatus, Center.addCenter);
 
-router.get('/events', Event.getAllEvents);
+router.get('/events', Auth.verifyUser, Event.getAllEvents);
 router.post('/events', Auth.verifyUser, Event.addEvent);
 router.put('/events/:eventId', Auth.verifyUser, Event.modifyEvent);
 router.delete('/events/:eventId', Auth.verifyUser, Event.deleteEvent);
+router.get('/events/:eventId', Auth.verifyUser, Event.getOneEvent);
 
 router.post('/users', User.createUser);
 router.post('/users/login', User.login);
+router.get('/users/:userId', Auth.verifyUser, User.getOneUser);
 
 // catch all route
 router.get('/', (req, res) =>
   res.status(200).send({
     message: 'Hi there, Welcome to Event Manager.',
-  })
-  // res.sendFile(path.join(__dirname, '../../client/src/index.html'))
-); // eslint-disable-line
+  }));
 
 
 export default router;
