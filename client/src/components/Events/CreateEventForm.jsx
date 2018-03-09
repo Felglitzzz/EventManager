@@ -55,7 +55,6 @@ class CreateEventForm extends React.Component {
         options: nextProps.options.Centers
       });
     }
-    console.log(nextProps.imageUrl);
     if (nextProps.imageUrl) {
       this.setState({
         eventData: {
@@ -72,8 +71,6 @@ class CreateEventForm extends React.Component {
    */
   onChange(event) {
     event.persist();
-    console.log(event);
-    console.log(event.target.files);
     const field = event.target.name;
     const { eventData } = this.state;
     eventData[field] = event.target.value;
@@ -168,7 +165,6 @@ CreateEventForm.propTypes = {
  * @returns {object} state
  */
 function mapStateToProps(state) {
-  console.log(state);
   return {
     options: state.centers.loadedCenters,
     imageUrl: state.events.image
