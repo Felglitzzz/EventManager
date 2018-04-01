@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Loader from 'react-md-spinner';
 
 const SignInForm = ({
-  onChange, onSubmit, loginData, errors
+  onChange, onSubmit, loginData, errors, isLoading, handleFocus
 }) => (
   <div
     className="modal fade"
@@ -23,7 +24,9 @@ const SignInForm = ({
         <form onSubmit={onSubmit}>
           <div className="modal-body bg-light">
             <div className="form-group">
-
+              {errors.username && <div className="alert alert-danger" role="alert">
+                {errors.username}
+              </div>}
               <input
                 type="text"
                 className="form-control mb-3"
@@ -32,8 +35,11 @@ const SignInForm = ({
                 value={loginData.username}
                 onChange = {onChange}
                 error = {errors.username}
+                onFocus = {handleFocus}
               />
-
+              {errors.password && <div className="alert alert-danger" role="alert">
+                {errors.password}
+              </div>}
               <input
                 type="password"
                 className="form-control mb-3"
@@ -41,30 +47,23 @@ const SignInForm = ({
                 name="password"
                 onChange = {onChange}
                 value={loginData.password}
-                error = {errors.password} />
+                error = {errors.password}
+                onFocus = {handleFocus} />
             </div>
           </div>
           <div className="modal-footer bg-orange">
-
+            {isLoading && <Loader
+              size={28}
+              color1="#ffffff"
+              color2="#ffffff"
+              color3="#ffffff"
+              color4="#ffffff"
+            />}
             <button
-              className="marg rounded btn text-light btn-outline-light ml-2 border">
-                Submit
+              className="marg rounded btn text-light btn-outline-light ml-2 border"
+              disabled={isLoading}>
+              Submit
             </button>
-          </div>
-          <div>
-            <p
-              className="text-center text-light"
-              data-toggle="modal"
-              data-target="#exampleModall"
-            >
-              <a className="text-light"
-                data-toggle="modal"
-                data-target="#exampleModall"
-              >
-                <u>Sign Up here</u>
-              </a>
-                                if you do not have an account yet.
-            </p>
           </div>
         </form>
       </div>
@@ -76,7 +75,9 @@ SignInForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   loginData: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  handleFocus: PropTypes.func.isRequired
 };
 
 export default SignInForm;

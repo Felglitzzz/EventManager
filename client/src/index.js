@@ -15,7 +15,7 @@ import { store, persistor } from './store/configureStore';
 
 render( // eslint-disable-line
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <Routes />
-    </PersistGate>
+    {/* <PersistGate loading={null} persistor={persistor}> */}
+    <Routes />
+    {/* </PersistGate> */}
   </Provider>, document.querySelector('#app'));

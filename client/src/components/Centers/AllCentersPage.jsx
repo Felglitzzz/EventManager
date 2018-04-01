@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Loader from 'react-md-spinner';
 import Centers from './Centers';
 // import history from '../../helpers/history';
 import { loadCenters } from '../../actions/centerActions';
@@ -36,28 +37,34 @@ class AllCentersPage extends React.Component {
    * @returns {object} center
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.centers.Centers) {
+    if (nextProps.centers.loadedCenters) {
       this.setState({
-        centers: nextProps.centers.Centers
+        centers: nextProps.centers.loadedCenters.Centers
       });
     }
   }
-  // /**
-  //  * redirctToEdit function
-  //  * @returns {void}
-  //  */
-  // redirectToEdit() {
-  //   history.push('/dashboard/centers/:centerId');
-  // }
+
   /**
    * @returns { react } dashboard component
    */
   render() {
+    const { centers } = this.state;
     return (
-      < Centers
-        centers = {this.state.centers}
-        redirectToEdit = {this.redirectToEdit}
-      />
+      centers.length === 0
+        ?
+        <div className="d-flex justify-content-center pad">
+          <Loader
+            size={96}
+            color1="#f6682f"
+            color2="#f6682f"
+            color3="#f6682f"
+            color4="#f6682f"/>
+        </div>
+        :
+        < Centers
+          centers = {this.state.centers}
+          redirectToEdit = {this.redirectToEdit}
+        />
     );
   }
 }
@@ -74,7 +81,7 @@ AllCentersPage.propTypes = {
  * @returns {object} loadedcenters
  */
 const mapStateToProps = state => ({
-  centers: state.centers.loadedCenters,
+  centers: state.centers,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import history from '../../helpers/history';
-
-import { addNewEvent, uploadToCloudinary } from '../../actions/eventActions';
+import { addNewEvent } from '../../actions/eventActions';
+import { uploadToCloudinary } from '../../actions/imageActions';
 import { loadCenters } from '../../actions/centerActions';
 import EventForm from './Form/EventForm';
+import Validate from '../../helpers/validations/Validate';
 /**
  * class CreateEventForm
  */
@@ -29,13 +30,16 @@ class CreateEventForm extends React.Component {
       },
       chosenImage: '',
       errors: {},
-      options: []
+      options: [],
+      isLoading: false
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.redirectToEvents = this.redirectToEvents.bind(this);
     this.imageOnChange = this.imageOnChange.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
+    this.validate = this.validate.bind(this);
   }
   /**
    * Component lifecycle
@@ -52,7 +56,7 @@ class CreateEventForm extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.options) {
       this.setState({
-        options: nextProps.options.Centers
+        options: nextProps.options.loadedCenters.Centers
       });
     }
     if (nextProps.imageUrl) {
@@ -64,6 +68,24 @@ class CreateEventForm extends React.Component {
       });
     }
   }
+
+  /**
+   * @description handles on focus event
+   * @method handleOnFocus
+   *
+   * @param { object } event - event object containing sign in details
+   *
+   * @returns { object } new sign in details state
+   */
+  handleFocus(event) {
+    const field = event.target.name;
+    const { errors } = this.state;
+    errors[field] = '';
+    this.setState({
+      errors
+    });
+  }
+
   /**
    * onchange event function
    * @param {*} event
@@ -100,7 +122,18 @@ class CreateEventForm extends React.Component {
     }
     imageReader.readAsDataURL(chosenImage);
   }
-
+  /**
+   *@returns {void}
+   */
+  validate() {
+    const { chosenImage, eventData } = this.state;
+    const { errors, isValid } = Validate.createEvent(eventData, chosenImage);
+    if (!isValid) {
+      this.setState({ errors, isLoading: false });
+      return errors;
+    }
+    this.setState({ errors: {}, isLoading: true });
+  }
   /**
    * onSubmit event function
    * @param {*} event
@@ -109,21 +142,27 @@ class CreateEventForm extends React.Component {
   onSubmit(event) {
     event.persist();
     event.preventDefault();
-    const { eventData, chosenImage } = this.state;
+    const errors = this.validate();
+    if (errors) return;
+    const { chosenImage } = this.state;
     this.props.uploadToCloudinary(chosenImage)
       .then(() => {
-        if (this.state.eventData.image) {
+        const { eventData } = this.state;
+        if (eventData.image) {
           this.props.addNewEvent(eventData)
             .then(() => this.redirectToEvents())
             .catch((error) => {
+              this.setState({ isLoading: false });
               toastr.error(error);
             });
         }
+      })
+      .catch(() => {
+        this.setState({ isLoading: false });
       });
   }
 
   /**
-   * @param {string} status
    * @returns {void}
    */
   redirectToEvents() {
@@ -145,18 +184,20 @@ class CreateEventForm extends React.Component {
           errors={this.state.errors}
           options={this.state.options}
           imageOnChange={this.imageOnChange}
+          isLoading={this.state.isLoading}
+          handleFocus={this.handleFocus}
         />
       </div>
     );
   }
 }
+
 CreateEventForm.propTypes = {
   addNewEvent: PropTypes.func.isRequired,
   loadCenters: PropTypes.func.isRequired,
   options: PropTypes.object.isRequired,
   uploadToCloudinary: PropTypes.func.isRequired,
-  imageUrl: PropTypes.string
-
+  imageUrl: PropTypes.object,
 };
 
 /**
@@ -166,8 +207,8 @@ CreateEventForm.propTypes = {
  */
 function mapStateToProps(state) {
   return {
-    options: state.centers.loadedCenters,
-    imageUrl: state.events.image
+    options: state.centers,
+    imageUrl: state.images.image
   };
 }
 /**

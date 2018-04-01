@@ -1,6 +1,7 @@
 import axios from 'axios';
+import toastr from 'toastr';
+
 import * as actionTypes from './actionTypes';
-import { cloudinaryPreset } from '../utils/cloudinary';
 
 const {
   ADD_EVENT_SUCCESS,
@@ -11,8 +12,8 @@ const {
   UPDATE_EVENT_FAIL,
   LOAD_ONE_EVENT_FAIL,
   LOAD_ONE_EVENT_SUCCESS,
-  SAVE_IMAGE_FAIL,
-  SAVE_IMAGE_SUCCESS
+  DELETE_ONE_EVENT_FAIL,
+  DELETE_ONE_EVENT_SUCCESS
 } = actionTypes;
 
 /**
@@ -52,6 +53,9 @@ export const addNewEvent = eventData => (dispatch) => {
     .catch((errors) => {
       dispatch(addEventFail(errors));
       console.log(errors.response.data.message);
+      console.log(errors.response.data.error);
+      toastr.error('error', errors.response.data.error);
+      toastr.error('error', errors.response.data.message);
       throw (errors.response.data.message);
     });
 };
@@ -99,6 +103,9 @@ export function loadAllEvent() {
       .catch((errors) => {
         dispatch(loadAllEventFail(errors));
         console.log(errors.response.data.message);
+        console.log(errors.response.data.message);
+        toastr.error('error', errors.response.data.error);
+        toastr.error('error', errors.response.data.message);
         throw (errors.response.data.message);
       });
 }
@@ -118,8 +125,8 @@ export const updateEventFail = error => ({
  */
 export function updateEvent(updateEventData) {
   const token = localStorage.getItem('x-access-token');
-  return (dispatch) => {
-    return axios.put(`/api/v1/events/${updateEventData.id}`, updateEventData, {
+  return dispatch =>
+    axios.put(`/api/v1/events/${updateEventData.id}`, updateEventData, {
       headers: { Authorization: token }
     })
       .then((response) => {
@@ -127,11 +134,10 @@ export function updateEvent(updateEventData) {
       })
       .catch((errors) => {
         dispatch(updateEventFail(errors));
-        console.log(errors.response);
         console.log(errors.response.data.message);
+        console.log(errors.response.data.error);
         throw (errors.response.data.message);
       });
-  };
 }
 
 export const loadOneEventSuccess = eventReturned => ({
@@ -150,41 +156,48 @@ export const loadOneEvent = eventId => (dispatch) => {
     headers: { Authorization: token }
   })
     .then((response) => {
-      console.log(response);
       dispatch(loadOneEventSuccess(response.data));
     })
     .catch((errors) => {
-      dispatch(loadOneEventFail(errors));
+      dispatch(loadOneEventFail(errors.response.data.error));
       console.log(errors.response.data.message);
+      console.log(errors.response.data.message);
+      toastr.error('error', errors.response.data.error);
+      toastr.error('error', errors.response.data.message);
       throw (errors.response.data.message);
     });
 };
 
-export const saveImageSuccess = saveImage => ({
-  type: SAVE_IMAGE_SUCCESS,
-  saveImage
-});
+export const deleteEventSuccess = (deletedStatus) => {
+  console.log('deletedEvent', deletedStatus);
+  return {
+    type: DELETE_ONE_EVENT_SUCCESS,
+    deletedStatus
+  };
+};
 
-export const saveImageFail = error => ({
-  type: SAVE_IMAGE_FAIL,
+export const deleteEventFail = error => ({
+  type: DELETE_ONE_EVENT_FAIL,
   error
 });
 
-export const uploadToCloudinary = (image) => {
-  const formData = new FormData();
-  formData.append('file', image);
-  formData.append('upload_preset', cloudinaryPreset);
-
-  return dispatch =>
-    axios.post('https://api.cloudinary.com/v1_1/felglitz/image/upload', formData, {
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+export const deleteEvent = eventId => (dispatch) => {
+  console.log('event id in actions', eventId);
+  const token = localStorage.getItem('x-access-token');
+  axios.delete(`/api/v1/events/${eventId}`, {
+    headers: { Authorization: token }
+  })
+    .then((response) => {
+      dispatch(deleteEventSuccess(response.data));
+      console.log('response', response.data);
     })
-      .then((response) => {
-        dispatch(saveImageSuccess(response.data));
-        console.log(response.data);
-      })
-      .catch((error) => {
-        dispatch(saveImageFail(error));
-      });
+    .catch((errors) => {
+      dispatch(deleteEventFail(errors));
+      console.log(errors.response.data.message);
+      console.log(errors.response.data.message);
+      toastr.error('error', errors.response.data.error);
+      toastr.error('error', errors.response.data.message);
+      throw (errors.response.data.message);
+    });
 };
 

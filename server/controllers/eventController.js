@@ -25,6 +25,12 @@ export default class Event {
     *@memberof Event
     */
   static addEvent(req, res) {
+    const now = new Date();
+    const eventDate = req.body.date;
+    const date = new Date(eventDate);
+    if (date && date < now) {
+      return res.status(400).json({ message: 'Date is past, Please choose a future date' });
+    }
     const query = {
       where: {
         $and: [
@@ -44,13 +50,13 @@ export default class Event {
             const errMessages = errorMessages(error);
             switch (errMessages.type) {
             case 'uniqueError':
-              res.status(409).json({ error: errMessages.error });
+              res.status(409).json({ message: errMessages.error });
               break;
             case 'validationError':
-              res.status(400).json({ error: errMessages.error });
+              res.status(400).json({ message: errMessages.error });
               break;
             default:
-              res.status(501).json({ error: errMessages.error });
+              res.status(501).json({ message: errMessages.error });
             }
           });
       });
@@ -66,15 +72,16 @@ export default class Event {
    *@memberof Event
    */
   static deleteEvent(req, res) {
+    const { eventId } = req.params;
     return events
-      .findById(req.params.eventId)
+      .findById(eventId)
       .then((event) => {
         if (!event) {
-          return res.status(400).send({ message: 'Event Not Found!' });
+          return res.status(404).send({ error: 'Event Not Found!' });
         }
         return event
           .destroy()
-          .then(res.status(200).json({ message: 'Event Successfully Deleted!' }));
+          .then(res.status(200).json({ error: 'Event Successfully Deleted!', eventId }));
       });
   }
 
@@ -99,7 +106,7 @@ export default class Event {
           return res.status(400).send({ message: 'Event Not Found!' });
         }
         return event
-          .then(res.status(200).json({ message: 'Event Found!', event }));
+          .then(res.status(200).json({ message: 'Event Found!' }));
       });
   }
   /**
@@ -112,7 +119,6 @@ export default class Event {
     *@memberof Event
     */
   static getAllEvents(req, res) {
-    console.log(req.decoded);
     return events
       .findAll({
         where: {
@@ -151,7 +157,16 @@ export default class Event {
           .then(modifiedEvent => res.status(200).json({
             message: 'Event Update Successful', modifiedEvent,
           }))
-          .catch(() => res.status(400).json({ message: 'Kindly fill in the required field(s)' }));
+          .catch((error) => {
+            const errMessages = errorMessages(error);
+            if (error.name === 'SequelizeValidationError'
+            &&
+            errMessages.type === 'validationError') {
+              res.status(400).json({ message: errMessages.error });
+            } else {
+              res.status(501).json({ message: errMessages.error });
+            }
+          });
       });
   }
 }

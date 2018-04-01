@@ -1,7 +1,8 @@
 import axios from 'axios';
-import jwt from 'jsonwebtoken';
+import toastr from 'toastr';
+// import jwt from 'jsonwebtoken';
 import * as actionTypes from './actionTypes';
-import setAuthorizationToken from '../utils/setAuthorizationToken';
+// import setAuthorizationToken from '../utils/setAuthorizationToken';
 
 // axios.defaults.baseURL = 'https://eventmanager-app.herokuapp.com';
 
@@ -11,7 +12,9 @@ const {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGIN_USER_PENDING,
-  LOG_OUT
+  LOG_OUT,
+  LOAD_ONE_USER_FAIL,
+  LOAD_ONE_USER_SUCCESS
 } = actionTypes;
 
 /**
@@ -40,20 +43,18 @@ export function addUserFail(error) {
  * @param {object} userData
  * @returns {func} dispatch
  */
-export const addNewUser = userData => (dispatch) => {
-    return axios.post('/api/v1/users', userData)
-      .then((response) => {
-        dispatch(addUserSuccess(response.data));
-        const { token } = response.data;
-        localStorage.setItem('x-access-token', token);
-        console.log(response);
-      })
-      .catch((errors) => {
-        dispatch(addUserFail(errors));
-        console.log(errors);
-        throw (errors.response.data.error);
-      });
-  };
+export const addNewUser = userData => dispatch =>
+  axios.post('/api/v1/users', userData)
+    .then((response) => {
+      dispatch(addUserSuccess(response.data));
+      const { token } = response.data;
+      localStorage.setItem('x-access-token', token);
+    })
+    .catch((errors) => {
+      dispatch(addUserFail(errors.response.data.error));
+      console.log(errors.response.data.error);
+      throw (errors.response.data.error);
+    });
 
 /**
  * @param {object} loginData
@@ -108,8 +109,33 @@ export const loginUser = loginData => dispatch =>
       localStorage.setItem('x-access-token', token);
     })
     .catch((errors) => {
-      dispatch(loginUserFail(errors.response.data.message));
-      console.log(errors.response);
-      console.log(errors.response.message);
-      throw (errors.response.data.message);
+      dispatch(loginUserFail(errors.response.data.error));
+      console.log(errors.response.data.error);
+      toastr.error(errors.response.data.error);
+      throw (errors.response.data.error);
     });
+
+export const getOneUserSuccess = userReturned => ({
+  type: LOAD_ONE_USER_SUCCESS,
+  userReturned
+});
+
+export const getOneUserFail = error => ({
+  type: LOAD_ONE_USER_FAIL,
+  error
+});
+
+export const loadOneUser = userId => (dispatch) => {
+  const token = localStorage.getItem('x-access-token');
+  axios.get(`/api/v1/users/${userId}`, {
+    headers: { Authorization: token }
+  })
+    .then((response) => {
+      dispatch(getOneUserSuccess(response.data));
+    })
+    .catch((errors) => {
+      dispatch(getOneUserFail(errors.response.data.error));
+      toastr.error(errors.response.data.error);
+    });
+};
+

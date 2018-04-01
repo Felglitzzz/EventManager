@@ -10,7 +10,9 @@ const {
   UPDATE_EVENT_SUCCESS,
   UPDATE_EVENT_FAIL,
   SAVE_IMAGE_SUCCESS,
-  SAVE_IMAGE_FAIL
+  SAVE_IMAGE_FAIL,
+  DELETE_ONE_EVENT_FAIL,
+  DELETE_ONE_EVENT_SUCCESS
 } = actionTypes;
 
 /**
@@ -22,8 +24,6 @@ const {
  */
 
 const eventReducer = (state = {}, action) => {
-  // console.log(state);
-  // console.log(action);
   const { type } = action;
 
   switch (type) {
@@ -62,7 +62,7 @@ const eventReducer = (state = {}, action) => {
     if (state.events === undefined) {
       return state;
     }
-    state.loadedEvents.event.map((event) => {
+    state.events.loadedEvents.event.map((event) => {
       if (event.id === action.updateEventData.modifiedEvent.id) {
         eventArray.push(action.updateEventData.modifiedEvent);
       } else {
@@ -84,6 +84,21 @@ const eventReducer = (state = {}, action) => {
       image: action.saveImage
     };
   case SAVE_IMAGE_FAIL:
+    return {
+      ...state,
+      error: action.error
+    };
+  case DELETE_ONE_EVENT_SUCCESS: {
+    const remainingEvents = state.loadedEvents.event.filter(event =>
+      event.id !== parseInt(action.deletedStatus.eventId, 10));
+    return {
+      ...state,
+      loadedEvents: {
+        event: remainingEvents
+      }
+    };
+  }
+  case DELETE_ONE_EVENT_FAIL:
     return {
       ...state,
       error: action.error

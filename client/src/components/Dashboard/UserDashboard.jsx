@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import toastr from 'toastr';
-// import { Sidebar, Menu, Icon } from 'semantic-ui-react';
 
 import UserNavbar from '../Navbar/UserNavbar';
 // import NavHeader from '../NavHeader/NavHeader';
 import AllUserEvents from '../Events/AllUserEvents';
-// import { loadAllEvent } from '../../actions/eventActions';
-// import { loadCenters } from '../../actions/centerActions';
+// import { deleteOneEvent } from '../../actions/eventActions';
 import history from '../../helpers/history';
 import CreateEventForm from '../Events/CreateEventForm';
 import EditEventPage from '../Events/EditEventPage';
@@ -17,6 +15,9 @@ import AllCentersPage from '../Centers/AllCentersPage';
 import CreateCenterPage from '../Centers/CreateCenterPage';
 import EditCenterPage from '../Centers/EditCenterPage';
 import ViewCenterPage from '../Centers/ViewCenterPage';
+import showDeleteModal from '../Modal/alertModal';
+// import { loadOneUser } from '../../actions/userAccessActions';
+import getUserInfo from '../../utils/getUserFromToken';
 
 // require('../../../public/_sidebar.scss');
 /**
@@ -34,12 +35,10 @@ class UserDashboard extends React.Component {
     this.state = {
       event: [],
       options: [],
+      userInfo: {},
       redirect: false,
-      isAuthenticated: false
+      isAuthenticated: false,
     };
-
-    // this.redirectToCreate = this.redirectToCreate.bind(this);
-    // this.redirectToEdit = this.redirectToEdit.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
   /**
@@ -75,27 +74,32 @@ class UserDashboard extends React.Component {
     history.replace('/');
   }
 
+  // handleDelete(){
+  //   event.preventDefault();
+
+
+  // }
+
   /**
    * @returns { react } dashboard component
    */
   render() {
     const { isAuthenticated } = this.state;
-    const { isAdmin } = this.props.userInfo;
+    const { isAdmin, error } = getUserInfo();
     return (
-      !isAuthenticated
+      !isAuthenticated || error
         ?
-        toastr.error('Only Logged In Users can access the dashboard')
+        toastr.error('Only Logged in users can access the dashboard')
         &&
         <Redirect to = "/" />
         :
         <div>
+          {/* <ConfirmationModal /> */}
           <div className="wrapper top-order">
             <div className="sidebar bg-dark h-100">
               <div className="sidebar-wrapper h-100">
                 <div>
                   <ul className="nav list-group bg-light">
-                    {/* <li className="list-group-item bg-light no-border" />
-                    <li className="list-group-item bg-light no-border" /> */}
                     <Link
                       to = "/dashboard">
                       <li className="text-orange bg-dark waves-effect pl-4 pb-3 mb-1">
@@ -103,6 +107,7 @@ class UserDashboard extends React.Component {
                         <p className="font-weight-bold text-orange montfont">EVENTMANAGER</p>
                       </li>
                     </Link>
+                    {}
                     <Link
                       to ={isAdmin ? '/dashboard/centers' : '/dashboard/events'}>
                       <li className="list-group-item bg-dark mb-1 button-anim">
@@ -127,7 +132,7 @@ class UserDashboard extends React.Component {
               </div>
             </div>
             <div className="main-panel">
-              <UserNavbar/>
+              <UserNavbar />
               <Switch>
                 <Route
                   path="/dashboard/create-event"
@@ -138,9 +143,25 @@ class UserDashboard extends React.Component {
                   exact
                   component={AllUserEvents}
                 />
+                { isAdmin ? <Route
+                  path="/dashboard"
+                  exact
+                  component={AllCentersPage}/>
+                  :
+                  <Route
+                    path="/dashboard"
+                    exact
+                    component={AllUserEvents}
+                  /> }
                 <Route
                   path="/dashboard/events/:eventId"
+                  exact
                   component={EditEventPage}
+                />
+                <Route
+                  path="/dashboard/events/:eventId"
+                  exact
+                  component={showDeleteModal}
                 />
                 <Route
                   path="/dashboard/centers"
@@ -152,11 +173,11 @@ class UserDashboard extends React.Component {
                   component={CreateCenterPage}
                 />
                 <Route
-                  path="/dashboard/centers/:centerId"
+                  path="/dashboard/centers/edit/:centerId"
                   component={EditCenterPage}
                 />
                 <Route
-                  path="/dashboard/view-center/:centerId"
+                  path="/dashboard/center/view/:centerId"
                   component={ViewCenterPage}
                 />
               </Switch>
@@ -168,18 +189,16 @@ class UserDashboard extends React.Component {
 }
 
 UserDashboard.propTypes = {
-  userInfo: PropTypes.object.isRequired,
-  isAuthenticated: PropTypes.object.isRequired
+  isAuthenticated: PropTypes.object.isRequired,
 };
 
-/**
- * @param {object} state
- * @param {object} ownProps
- * @returns {object} loadedEvents
- */
+// /**
+//  * @param {object} state
+//  * @param {object} ownProps
+//  * @returns {object} loadedEvents
+//  */
 const mapStateToProps = state => ({
-  userInfo: state.userAccess.userData.user,
-  isAuthenticated: state.userAccess
+  isAuthenticated: state.userAccess,
 });
 
 export default connect(mapStateToProps)(UserDashboard);

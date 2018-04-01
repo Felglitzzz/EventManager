@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Loader from 'react-md-spinner';
 import EventCenterList from './EventCenterList';
 import { loadOneCenter } from '../../actions/centerActions';
 
 class ViewCenterPage extends React.Component { //eslint-disable-line
   constructor (props) { //eslint-disable-line
     super(props);
-    console.log(this.props);
 
     this.state = {
-      centerReturned: { ...this.props.centerReturned.center },
+      centerReturned: {}
     };
   }
   /**
@@ -25,9 +25,9 @@ class ViewCenterPage extends React.Component { //eslint-disable-line
    * @returns {void}
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.centerReturned.center) {
+    if (nextProps.centerReturned.centerReturned.center) {
       this.setState({
-        centerReturned: nextProps.centerReturned.center
+        centerReturned: nextProps.centerReturned.centerReturned.center
       });
     }
   }
@@ -38,26 +38,36 @@ class ViewCenterPage extends React.Component { //eslint-disable-line
   render() {
     const { centerReturned } = this.state;
     return (
-      <div>
-        <div>
-          <header className="form-head shadow-down my-3 bg-light">
-            <p className=" text-center text-muted text-orange">{centerReturned.name}</p>
-          </header>
-          <section className="d-flex justify-content-center">
-            <img
-              className="img-fluid"
-              src={centerReturned.image}
-            />
-          </section>
-          <section className="mt-3 shadow-down bg-light">
-            <p className="text-center p-3 text-justify">{centerReturned.description}</p>
-          </section>
+      centerReturned.length === 0 ?
+        <div className="d-flex justify-content-center pad">
+          <Loader
+            size={96}
+            color1="#f6682f"
+            color2="#f6682f"
+            color3="#f6682f"
+            color4="#f6682f"/>
         </div>
-        <header className="shadow-down mt-3 bg-light">
-          <p className=" form-head text-center text-orange">Center-Event Log</p>
-        </header>
-        < EventCenterList centerReturned = {this.state.centerReturned}/>
-      </div>
+        :
+        <div>
+          <div>
+            <header className="form-head shadow-down my-3 bg-light">
+              <p className=" text-center text-muted text-orange">{centerReturned.name}</p>
+            </header>
+            <section className="d-flex justify-content-center">
+              <img
+                className="img-fluid"
+                src={centerReturned.image}
+              />
+            </section>
+            <section className="mt-3 shadow-down bg-light">
+              <p className="text-center p-3 text-justify">{centerReturned.description}</p>
+            </section>
+          </div>
+          <header className="shadow-down mt-3 bg-light">
+            <p className=" form-head text-center text-orange">Center-Event Log</p>
+          </header>
+          < EventCenterList centerevent = {centerReturned.events}/>
+        </div>
     );
   }
 }
@@ -71,7 +81,7 @@ ViewCenterPage.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const centerId = parseInt(ownProps.match.params.centerId, 10);
   return {
-    centerReturned: state.centers.centerReturned,
+    centerReturned: state.centers,
     centerId
   };
 };
