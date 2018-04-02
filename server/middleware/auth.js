@@ -21,19 +21,14 @@ export default class Auth {
    * @returns {object} validation error message or passes control to the next item
   */
   static verifyUser(req, res, next) {
-    console.log('userIdddd', req.params.userId);
     const { authorization } = req.headers;
     if (!authorization) {
       return res.status(401).json({ error: 'You do not have permission to access this page' });
     }
     Helper.decodeToken(authorization)
       .then((decoded) => {
-        console.log('decodedd', decoded);
-
         if (!decoded) {
-          return res.status(403).json({
-            error: 'You do not have the permission to access this page'
-          });
+          return res.status(403).json({ error: 'You do not have the permission to access this page' });
         }
         userModel.findOne({ where: { id: decoded.id } })
           .then((user) => {
@@ -41,23 +36,15 @@ export default class Auth {
             req.decoded = decoded;
             return next();
           })
-          .catch((error) => {
-            console.log(error);
-            return res.status(404).json({ message: 'User not found' });
-          });
+          .catch(() => res.status(404).json({ message: 'User not found' }));
       })
       .catch((err) => {
         const { name, message } = err;
         if (name === 'JsonWebTokenError') {
-          return res.status(401).json({
-            message,
-            err: 'Invalid Token!'
-          });
+          return res.status(401).json({ message, err: 'Invalid Token!' });
         }
         if (name === 'TokenExpiredError') {
-          return res.status(401).json({
-            message: 'Session Expired!'
-          });
+          return res.status(401).json({ essage: 'Session Expired!' });
         }
         return res.status(403).json({ err });
       });
