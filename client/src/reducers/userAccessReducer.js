@@ -5,7 +5,9 @@ const {
   ADD_USER_FAIL,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
-  LOG_OUT
+  LOG_OUT,
+  LOAD_ONE_USER_FAIL,
+  LOAD_ONE_USER_SUCCESS
 } = actionTypes;
 
 /**
@@ -20,12 +22,14 @@ const userAccessReducer = (state = { isAuthenticated: false }, action) => {
   case ADD_USER_SUCCESS:
     return {
       ...state,
-      userData: action.userData
+      userData: action.userData,
+      isAuthenticated: true
     };
   case ADD_USER_FAIL:
     return {
       ...state,
-      error: action.error
+      error: action.error,
+      isAuthenticated: false
     };
   case LOGIN_USER_SUCCESS:
     return {
@@ -43,6 +47,16 @@ const userAccessReducer = (state = { isAuthenticated: false }, action) => {
     return {
       ...state,
       isAuthenticated: false
+    };
+  case LOAD_ONE_USER_SUCCESS:
+    return {
+      ...state,
+      userReturned: action.userReturned
+    };
+  case LOAD_ONE_USER_FAIL:
+    return {
+      ...state,
+      error: action.error
     };
   default:
     return state;

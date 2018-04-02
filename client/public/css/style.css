@@ -22,6 +22,10 @@ a {
   z-index: 3
 }
 
+.pad {
+  padding-top: 15rem;
+}
+
 .is-error {
   border: 1px solid #dc3545;
   color: #dc3545;
@@ -30,6 +34,10 @@ a {
 .shadow {
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align: center;
+}
+
+.alert {
+  padding: 0.25rem 1.25rem !important;
 }
 
 .shadow-down {

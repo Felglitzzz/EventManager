@@ -1,10 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import Loader from 'react-md-spinner';
 
-const EventCenterList = ({ centerReturned }) => {
-  const { events } = centerReturned;
-  return (
+const EventCenterList = ({ centerevent }) => (
+  !centerevent ?
+    <div className="d-flex justify-content-center pad">
+      <Loader
+        size={96}
+        color1="#f6682f"
+        color2="#f6682f"
+        color3="#f6682f"
+        color4="#f6682f"/>
+    </div>
+    :
     <div className="d-flex justify-content-center text-center">
       <table className="table">
         <thead>
@@ -13,7 +22,7 @@ const EventCenterList = ({ centerReturned }) => {
             <th scope="col">Events Slated</th>
           </tr>
         </thead>
-        {events.map((event, id) => (
+        {centerevent.map((event, id) => (
           <tbody key={id}>
             <tr>
               <td>{moment(event.date).format('dddd, MMMM Do YYYY')}</td>
@@ -23,11 +32,10 @@ const EventCenterList = ({ centerReturned }) => {
         ))}
       </table>
     </div>
-  );
-};
+);
 
 EventCenterList.propTypes = {
-  centerReturned: PropTypes.object.isRequired
+  centerevent: PropTypes.array.isRequired
 };
 
 export default EventCenterList;

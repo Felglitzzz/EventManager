@@ -50,7 +50,7 @@ const centerReducer = (state = {}, action) => {
     if (state.centers === undefined) {
       return state;
     }
-    state.loadedCenters.Centers.map((center) => {
+    state.centers.loadedCenters.Centers.map((center) => {
       if (center.id === action.updateCenterData.modifiedCenter.id) {
         centerArray.push(action.updateCenterData.modifiedCenter);
       } else {

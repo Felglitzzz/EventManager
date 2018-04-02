@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Loader from 'react-md-spinner';
 
 const SignUpForm = ({
-  onChange, onSubmit, userData, check
+  onChange, onSubmit, userData, errors, handleFocus, isLoading
 }) => (
   <div
     className="modal fade"
@@ -23,76 +24,93 @@ const SignUpForm = ({
         <form onSubmit={onSubmit}>
           <div className="modal-body bg-light">
             <div className="form-group">
+              {errors.surname && <div className="alert alert-danger" role="alert">
+                {errors.surname}</div>}
               <input
                 type="text"
                 className="form-control mb-3"
-                pattern=".{3,}"
-                title="Surname should be longer than 3 characters"
                 placeholder="Surname"
                 name="surname"
                 value={userData.surname}
                 onChange = {onChange}
-                required />
+                onFocus = {handleFocus}
+              />
 
+              {errors.firstname && <div className="alert alert-danger" role="alert">
+                {errors.firstname}</div>}
               <input
                 type="text"
                 className="form-control mb-3"
                 placeholder="Firstname"
-                pattern=".{3,}"
-                title="Firstname should be longer than 3 characters"
                 name="firstname"
                 onChange = {onChange}
                 value={userData.firstname}
-                required />
-              
+                onFocus = {handleFocus}
+              />
+
+              {errors.username && <div className="alert alert-danger" role="alert">
+                {errors.username}</div>}
               <input
                 type="text"
                 className="form-control mb-3"
                 placeholder="Username"
-                pattern=".{3,}"
-                title="Username should be longer than 3 characters"
                 name="username"
                 value={userData.username}
                 onChange = {onChange}
-                required />
+                onFocus = {handleFocus}
+              />
 
+              {errors.email && <div className="alert alert-danger" role="alert">
+                {errors.email}</div>}
               <input
-                type="email"
+                type="text"
                 className="form-control mb-3"
                 placeholder="Email"
                 name="email"
                 onChange = {onChange}
                 value={userData.email}
-                required />
+                onFocus = {handleFocus}
+              />
 
+              {errors.password && <div className="alert alert-danger" role="alert">
+                {errors.password}</div>}
               <input
                 type="password"
                 className="form-control mb-3"
                 placeholder="Password"
-                pattern="^\S{8,}$"
-                title="Password should be longer than 8 characters"
                 name="password"
                 id="password"
                 onChange = {onChange}
                 value={userData.password}
-                required />
+                onFocus = {handleFocus}
+              />
 
+              {errors.passwordConfirm && <div className="alert alert-danger" role="alert">
+                {errors.passwordConfirm}</div>}
               <input
                 type="password"
                 className="form-control"
                 placeholder="Confirm Password"
                 name="passwordConfirm"
-                id="password_confirm"
-                onInput={check}
+                id="passwordConfirm"
                 onChange = {onChange}
                 value={userData.passwordConfirm}
-                required />
+                onFocus = {handleFocus}
+              />
             </div>
           </div>
 
           <div className="modal-footer bg-orange">
+            {isLoading && <Loader
+              size={28}
+              color1="#ffffff"
+              color2="#ffffff"
+              color3="#ffffff"
+              color4="#ffffff"
+            />}
             <button
-              className="marg rounded btn text-light btn-outline-light ml-2 border">
+              className="marg rounded btn text-light btn-outline-light ml-2 border"
+              disabled={isLoading}>
                 Submit
             </button>
           </div>
@@ -106,7 +124,9 @@ SignUpForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   userData: PropTypes.object.isRequired,
-  check: PropTypes.func.isRequired
+  errors: PropTypes.object.isRequired,
+  handleFocus: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 export default SignUpForm;

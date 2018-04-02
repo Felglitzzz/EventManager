@@ -5,6 +5,17 @@ import db from '../models';
  */
 const centers = db.center;
 const events = db.event;
+
+const reqBody = (req) => {
+  const {
+    name, location, capacity, facility, type, image, description, price
+  } = req.body;
+  const { id: userId } = req.decoded;
+
+  return {
+    name, location, capacity, facility, type, image, description, userId, price
+  };
+};
 /**
  * @class center
  */
@@ -19,7 +30,7 @@ export default class Center {
     */
   static addCenter(req, res) {
     return centers
-      .create(req.body)
+      .create(reqBody(req))
       .then(center => res.status(201).json({ message: 'Center created!', Center: center }))
       // .catch((error) => {
       //   const errMessages = errorMessages(error);
@@ -61,15 +72,7 @@ export default class Center {
         return center
         /* updating centers details
         if no details inputed, defaults to the details the center already have */
-          .update({
-            name: req.body.name,
-            location: req.body.location,
-            capacity: req.body.capacity,
-            price: req.body.price,
-            facility: req.body.facility,
-            type: req.body.type,
-            // dateBooked: req.body.dateBooked,
-          })
+          .update(reqBody(req))
         // Send back the updated center too.
           .then(modifiedCenter => res.status(200).json({
             message: 'Center Update Successful', modifiedCenter,
@@ -86,7 +89,6 @@ export default class Center {
     *@memberof Center
     */
   static getOneCenter(req, res) {
-    console.log(req.params.centerId);
     return centers
       .findById(req.params.centerId, {
         include: [{

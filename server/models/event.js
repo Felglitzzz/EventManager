@@ -10,7 +10,7 @@ export default (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Name Field Required!',
+          msg: 'Name is Required!',
         },
         is: {
           args: /([a-zA-Z0-9])+/,
@@ -24,7 +24,7 @@ export default (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Image field is required'
+          msg: 'Image is Required'
         },
         is: {
           args: /(\w)/i,
@@ -38,7 +38,7 @@ export default (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Date Field Required',
+          msg: 'Date is Required',
         },
       },
     },
@@ -48,7 +48,7 @@ export default (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Time Field Required!'
+          msg: 'Time is Required!'
         },
       },
     },
@@ -82,7 +82,7 @@ export default (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'CenterId Field Required!',
+          msg: 'Center is Required!',
         },
       },
     },

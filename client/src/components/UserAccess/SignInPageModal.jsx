@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import toastr from 'toastr';
 
-import validate from '../../helpers/validations/inputValidate';
 import { loginUser } from '../../actions/userAccessActions';
+import Validate from '../../helpers/validations/Validate';
 import SignInForm from './SignInForm';
 import history from '../../helpers/history';
 
@@ -31,11 +31,10 @@ class SignInPageModal extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.redirect = this.redirect.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
+    this.redirectToDashboard = this.redirectToDashboard.bind(this);
   }
-/**
- * @returns {object} update state
- */
+
   /**
    * onChange event function
    * @param {object} event
@@ -47,16 +46,6 @@ class SignInPageModal extends React.Component {
     loginData[field] = event.target.value;
     return this.setState({ loginData });
   }
-  /**
-   * @returns {object} error or isValid status
-   */
-  isValid() {
-    const { errors, isValid } = validate(this.state.loginData);
-    if (!isValid) {
-      this.setState({ errors });
-    }
-    return isValid;
-  }
 
   /**
    * onSubmit event function
@@ -66,26 +55,47 @@ class SignInPageModal extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     const { loginData } = this.state;
-    if (!this.isValid()) {
+    const { errors, isValid } = Validate.login(loginData);
+
+    if (!isValid) {
+      this.setState({ errors, isLoading: false });
       return;
     }
     this.setState({ isLoading: true, errors: {} });
     this.props.loginUser(loginData)
-      .then(() => this.redirect())
-      .catch((error) => {
-        toastr.error(error);
-        console.log(error);
-        this.setState({ isLoading: false });
+      .then(() => {
+        this.redirectToDashboard();
+      })
+      .catch(() => {
+        this.setState({ isLoading: false, isAuthenticated: false });
       });
   }
   /**
    * @returns {void}
    */
-  redirect() {
-    this.setState({ isLoading: false });
+  redirectToDashboard() {
+    this.setState({ isLoading: false, isAuthenticated: true });
     toastr.success('Login Successful');
     history.replace('/dashboard');
   }
+
+  /**
+   * @description handles on focus event
+   * @method handleOnFocus
+   *
+   * @param { object } event - event object containing sign in details
+   *
+   * @returns { object } new sign in details state
+   */
+  handleFocus(event) {
+    const field = event.target.name;
+    const { errors } = this.state;
+    errors[field] = '';
+    this.setState({
+      errors
+    });
+  }
+
 
   /**
    * @returns {react} sign in modal component
@@ -101,6 +111,8 @@ class SignInPageModal extends React.Component {
           onChange={this.onChange}
           onSubmit={this.onSubmit}
           errors={this.state.errors}
+          isLoading={this.state.isLoading}
+          handleFocus={this.handleFocus}
         />
       </div>
     );
@@ -127,7 +139,6 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
   return {
-    // actions: bindActionCreators(userAccessActions, dispatch)
     loginUser: loginData => dispatch(loginUser(loginData))
   };
 }
