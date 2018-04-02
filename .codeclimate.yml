@@ -18,7 +18,7 @@ ratings:
   - "**.js"
 
 exclude_paths:
-- test/**
+- server/test/**
 - node_modules/**
 - coverage/**
 - .nyc_output/
