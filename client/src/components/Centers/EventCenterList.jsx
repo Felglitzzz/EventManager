@@ -35,7 +35,7 @@ const EventCenterList = ({ centerevent }) => (
 );
 
 EventCenterList.propTypes = {
-  centerevent: PropTypes.array.isRequired
+  centerevent: PropTypes.array
 };
 
 export default EventCenterList;

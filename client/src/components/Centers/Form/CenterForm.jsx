@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-md-spinner';
 
+import facilities from '../../../utils/facilities';
+
 const CenterForm = ({
-  onChange, onSubmit, centerData, imageOnChange, isLoading, handleFocus, errors
+  onChange, onSubmit, centerData, imageOnChange, isLoading, handleFocus, errors, selectOnChange
 }) => (
   <div>
     <div className="py-3">
@@ -17,7 +19,7 @@ const CenterForm = ({
               <form onSubmit={onSubmit} >
                 <div className="pt-3">
                   <p className="p-3 bg-orange text-light text-center lead">
-                              Fill the form to create center
+                      Fill the form to create center
                   </p>
                 </div>
                 <div className="p-5">
@@ -44,20 +46,6 @@ const CenterForm = ({
                       className="form-control text-secondary"
                       value={centerData.location}
                       placeholder="Center's Location"
-                      onChange={onChange}
-                      onFocus={handleFocus}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    {errors.facility && <div className="alert alert-danger" role="alert">
-                      {errors.facility}</div>}
-                    <input
-                      type="text"
-                      name="facility"
-                      className="form-control text-secondary"
-                      value={centerData.facility}
-                      placeholder="Center's Facility"
                       onChange={onChange}
                       onFocus={handleFocus}
                     />
@@ -133,6 +121,26 @@ const CenterForm = ({
                       onFocus={handleFocus}
                     />
                   </div>
+                  <div className="form-check form-check-inline text-secondary">
+                    {errors.facilities && <div className="alert alert-danger" role="alert">
+                      {errors.facilities}</div>}
+                    { facilities.map((facility, id) =>
+                      <div
+                        className="form-check ml-3 px-2 form-check-inline text-secondary"
+                        key={id}
+                        onChange={selectOnChange} >
+                        <input className="form-check-input"
+                          name="facilities"
+                          type="checkbox"
+                          value={facility}
+                          onChange={selectOnChange}
+                          onFocus={handleFocus} />
+                        <label
+                          className="form-check-label">
+                          {facility}
+                        </label>
+                      </div>)}
+                  </div>
                   <div className="form-group">
                     <button
                       onSubmit={onSubmit}
@@ -165,7 +173,8 @@ CenterForm.propTypes = {
   imageOnChange: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   errors: PropTypes.object.isRequired,
-  handleFocus: PropTypes.func.isRequired
+  handleFocus: PropTypes.func.isRequired,
+  selectOnChange: PropTypes.func.isRequired
 };
 
 export default CenterForm;

@@ -64,8 +64,8 @@ export default (sequelize, DataTypes) => {
         msg: 'Price should contain only Numbers',
       },
     },
-    facility: {
-      type: DataTypes.STRING,
+    facilities: {
+      type: DataTypes.ARRAY(DataTypes.TEXT),
       allowNull: false,
     },
     type: {

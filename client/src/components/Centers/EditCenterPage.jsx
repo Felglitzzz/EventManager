@@ -32,6 +32,7 @@ class EditCenterPage extends React.Component {
     this.imageOnChange = this.imageOnChange.bind(this);
     this.validate = this.validate.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
+    this.selectOnChange = this.selectOnChange.bind(this);
   }
 
   /**
@@ -66,6 +67,43 @@ class EditCenterPage extends React.Component {
     const temp = { ...this.state.updateCenterData };
     temp[field] = event.target.value;
     return this.setState({ updateCenterData: temp });
+  }
+
+  /**
+   * onchange event function
+   * @param {*} event
+   * @returns {object} new state
+   */
+  selectOnChange(event) {
+    event.persist();
+    if (event.target.checked) {
+      return this.setState({
+        updateCenterData: {
+          ...this.state.updateCenterData,
+          facilities: this.state.updateCenterData.facilities.concat(event.target.value)
+        }
+      });
+    }
+    const { facilities } = this.state.updateCenterData;
+    const name = event.target.value;
+    for (let i = facilities.length - 1; i >= 0; i -= 1) {
+      if (facilities[i] === name) {
+        facilities.splice(i, 1);
+        this.setState({
+          updateCenterData: {
+            ...this.state.updateCenterData,
+            facilities
+          }
+        });
+      }
+    }
+
+    return this.setState({
+      updateCenterData: {
+        ...this.state.updateCenterData,
+        facilities: this.state.updateCenterData.facilities.slice()
+      }
+    });
   }
 
   /**
@@ -186,6 +224,7 @@ class EditCenterPage extends React.Component {
           imageOnChange={this.imageOnChange}
           isLoading={this.state.isLoading}
           handleFocus={this.handleFocus}
+          selectOnChange={this.selectOnChange}
         />
       </div>
     );

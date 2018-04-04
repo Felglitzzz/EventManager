@@ -212,7 +212,7 @@ export default class Validate {
   static createCenter(req, res, next) {
     const errors = {};
     const {
-      name, capacity, price, description, location, facility, type, image
+      name, capacity, price, description, location, facilities, type, image
     } = req.body;
     if (!name || name === '') {
       errors.name = 'Name is Required';
@@ -248,8 +248,8 @@ export default class Validate {
     if (!type || type === '') {
       errors.type = 'Type is Required';
     }
-    if (!facility || facility === '') {
-      errors.facility = 'Facility is Required';
+    if (!facilities || facilities === '') {
+      errors.facilities = 'Facilities is Required';
     }
     if (!description || description === '') {
       errors.description = 'Description is Required';
@@ -275,7 +275,7 @@ export default class Validate {
   static editCenter(req, res, next) {
     const errors = {};
     const {
-      name, capacity, price, description, location, facility, type, image
+      name, capacity, price, description, location, facilities, type, image
     } = req.body;
     if (!name || name === '') {
       errors.name = 'Name is Required';
@@ -311,8 +311,8 @@ export default class Validate {
     if (!type || type === '') {
       errors.type = 'Type is Required';
     }
-    if (!facility || facility === '') {
-      errors.facility = 'Facility is Required';
+    if (!facilities || facilities === '') {
+      errors.facilities = 'Facilities is Required';
     }
     if (!description || description === '') {
       errors.description = 'Description is Required';

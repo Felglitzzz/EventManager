@@ -38,7 +38,7 @@ class ViewCenterPage extends React.Component { //eslint-disable-line
   render() {
     const { centerReturned } = this.state;
     return (
-      centerReturned.length === 0 ?
+      typeof centerReturned === 'undefined' ?
         <div className="d-flex justify-content-center pad">
           <Loader
             size={96}
@@ -53,11 +53,20 @@ class ViewCenterPage extends React.Component { //eslint-disable-line
             <header className="form-head shadow-down my-3 bg-light">
               <p className=" text-center text-muted text-orange">{centerReturned.name}</p>
             </header>
-            <section className="d-flex justify-content-center">
+            <section
+              className="d-flex justify-content-center">
               <img
-                className="img-fluid"
+                width="500"
+                height="330"
                 src={centerReturned.image}
               />
+              <div className="bg-light">
+                <ul className="list-group text-center">
+                  <li className="list-group-item px-5"><strong>Facilities</strong></li>
+                  {centerReturned.facilities && centerReturned.facilities.map((facility, id) =>
+                    <li className="list-group-item px-5" key={id}>{facility}</li>)}
+                </ul>
+              </div>
             </section>
             <section className="mt-3 shadow-down bg-light">
               <p className="text-center p-3 text-justify">{centerReturned.description}</p>

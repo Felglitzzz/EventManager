@@ -23,9 +23,9 @@ module.exports = {
       allowNull: false,
       type: Sequelize.INTEGER
     },
-    facility: {
+    facilities: {
       allowNull: false,
-      type: Sequelize.STRING
+      type: Sequelize.ARRAY(Sequelize.TEXT)
     },
     description: {
       type: Sequelize.TEXT,

@@ -30,6 +30,8 @@ const Centers = ({ centers }) => (
                 <div className="img-fluid">
                   <img
                     className="img-fluid"
+                    width="400"
+                    height="264"
                     src= {center.image}
                     alt={center.name}/>
                 </div>

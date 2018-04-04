@@ -8,12 +8,12 @@ const events = db.event;
 
 const reqBody = (req) => {
   const {
-    name, location, capacity, facility, type, image, description, price
+    name, location, capacity, facilities, type, image, description, price
   } = req.body;
   const { id: userId } = req.decoded;
 
   return {
-    name, location, capacity, facility, type, image, description, userId, price
+    name, location, capacity, facilities, type, image, description, userId, price
   };
 };
 /**
@@ -58,7 +58,7 @@ export default class Center {
     */
   static modifyCenter(req, res) {
     // const {
-    //   name, location, capacity, price, facility, type, dateBooked,
+    //   name, location, capacity, price, facilities, type, dateBooked,
     // } = req.body;
     return centers
     // finding center whose Id matches the centerId supplied
