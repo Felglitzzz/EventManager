@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-md-spinner';
 
+import facilities from '../../../utils/facilities';
+
 const EditCenterForm = ({
-  onChange, onSubmit, updateCenterData, errors, handleFocus, isLoading, imageOnChange
+  onChange, onSubmit, updateCenterData, errors, handleFocus, isLoading, imageOnChange, selectOnChange
 }) => (
   <div>
     <div className="py-3">
@@ -43,20 +45,6 @@ const EditCenterForm = ({
                       className="form-control text-secondary"
                       value={updateCenterData.location}
                       placeholder="Center's Location"
-                      onChange={onChange}
-                      onFocus={handleFocus}
-                    />
-                  </div>
-                  <div className="form-group">
-                    {errors.facility && <div className="alert alert-danger" role="alert">
-                      {errors.facility}</div>}
-                    <input
-                      type="text"
-                      min="3"
-                      name="facility"
-                      className="form-control text-secondary"
-                      value={updateCenterData.facility}
-                      placeholder="Center's Facility"
                       onChange={onChange}
                       onFocus={handleFocus}
                     />
@@ -132,6 +120,26 @@ const EditCenterForm = ({
                       onFocus={handleFocus}
                     />
                   </div>
+                  <div className="form-check form-check-inline text-secondary">
+                    {errors.facilities && <div className="alert alert-danger" role="alert">
+                      {errors.facilities}</div>}
+                    { facilities.map((facility, id) =>
+                      <div
+                        className="form-check ml-3 px-2 form-check-inline text-secondary"
+                        key={id}
+                        onChange={selectOnChange} >
+                        <input className="form-check-input"
+                          name="facilities"
+                          type="checkbox"
+                          value={updateCenterData.facilities}
+                          onChange={selectOnChange}
+                          onFocus={handleFocus} />
+                        <label
+                          className="form-check-label">
+                          {facility}
+                        </label>
+                      </div>)}
+                  </div>
                   <div className="form-group">
                     <button
                       onSubmit={onSubmit}
@@ -164,7 +172,8 @@ EditCenterForm.propTypes = {
   errors: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
   imageOnChange: PropTypes.func.isRequired,
-  handleFocus: PropTypes.func.isRequired
+  handleFocus: PropTypes.func.isRequired,
+  selectOnChange: PropTypes.func.isRequired
 };
 
 export default EditCenterForm;

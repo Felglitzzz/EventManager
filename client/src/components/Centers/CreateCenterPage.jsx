@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import toastr from 'toastr';
+
 import PropTypes from 'prop-types';
 import history from '../../helpers/history';
 
@@ -25,7 +26,7 @@ class CreateCenterPage extends React.Component {
         location: '',
         capacity: '',
         price: '',
-        facility: '',
+        facilities: [],
         type: '',
         image: '',
       },
@@ -42,6 +43,7 @@ class CreateCenterPage extends React.Component {
     this.handleFocus = this.handleFocus.bind(this);
     this.redirectToCenters = this.redirectToCenters.bind(this);
     this.imageOnChange = this.imageOnChange.bind(this);
+    this.selectOnChange = this.selectOnChange.bind(this);
   }
 
   /**
@@ -71,6 +73,43 @@ class CreateCenterPage extends React.Component {
     const { centerData } = this.state;
     centerData[field] = event.target.value;
     return this.setState({ centerData });
+  }
+
+  /**
+   * onchange event function
+   * @param {*} event
+   * @returns {object} new state
+   */
+  selectOnChange(event) {
+    event.persist();
+    if (event.target.checked) {
+      return this.setState({
+        centerData: {
+          ...this.state.centerData,
+          facilities: this.state.centerData.facilities.concat(event.target.value)
+        }
+      });
+    }
+    const { facilities } = this.state.centerData;
+    const name = event.target.value;
+    for (let i = facilities.length - 1; i >= 0; i -= 1) {
+      if (facilities[i] === name) {
+        facilities.splice(i, 1);
+        this.setState({
+          centerData: {
+            ...this.state.centerData,
+            facilities
+          }
+        });
+      }
+    }
+
+    return this.setState({
+      centerData: {
+        ...this.state.centerData,
+        facilities: this.state.centerData.facilities.slice()
+      }
+    });
   }
 
   /**
@@ -179,6 +218,7 @@ class CreateCenterPage extends React.Component {
           errors={this.state.errors}
           isLoading={this.state.isLoading}
           handleFocus={this.handleFocus}
+          selectOnChange={this.selectOnChange}
         />
       </div>
     );
