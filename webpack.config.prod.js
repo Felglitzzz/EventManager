@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // import path from 'path';
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   entry: path.join(__dirname, 'client/src/index'),
 
   output: {

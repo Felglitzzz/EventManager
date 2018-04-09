@@ -32,19 +32,6 @@ export default class Center {
     return centers
       .create(reqBody(req))
       .then(center => res.status(201).json({ message: 'Center created!', Center: center }))
-      // .catch((error) => {
-      //   const errMessages = errorMessages(error);
-      //   switch (errMessages.type) {
-      //     case 'uniqueError':
-      //       res.status(409).json({ error: errMessages.error });
-      //       break;
-      //     case 'validationError':
-      //       res.status(400).json({ error: errMessages.error });
-      //       break;
-      //     default:
-      //       res.status(501).json({ error: errMessages.error });
-      //   }
-      // });
       .catch(error => res.status(400).json({ message: error.errors[0].message }));
   }
 
@@ -57,9 +44,6 @@ export default class Center {
     *@memberof Center
     */
   static modifyCenter(req, res) {
-    // const {
-    //   name, location, capacity, price, facilities, type, dateBooked,
-    // } = req.body;
     return centers
     // finding center whose Id matches the centerId supplied
       .findById(req.params.centerId)
@@ -127,28 +111,28 @@ export default class Center {
       }))
       .catch(error => res.status(500).json(error));
   }
-  // /**
-  //  * deletes one center
-  //  *@static
-  //  *@param {object} req express request object
-  //  *@param {object} res express response object
-  //  *@returns {void}
-  //  *@memberof Center
-  //  */
 
-  // static deleteCenter(req, res) {
-  //   return centers
-  //     .findById(req.params.id)
-  //     .then((center) => {
-  //       if (!center) {
-  //         return res
-  //           .status(400)
-  //           .send({ message: 'center not Found' });
-  //       }
-  //       return center
-  //         .destroy()
-  //         .then(res.status(200).send({ message: 'center successfully deleted!' }))
-  //         .catch(error => res.status(409).send(error));
-  //     });
-  // }
+  /**
+   * deletes one center
+   *@static
+   *@param {object} req express request object
+   *@param {object} res express response object
+   *@returns {void}
+   *@memberof Center
+   */
+  static deleteCenter(req, res) {
+    return centers
+      .findById(req.params.id)
+      .then((center) => {
+        if (!center) {
+          return res
+            .status(400)
+            .send({ message: 'center not Found' });
+        }
+        return center
+          .destroy()
+          .then(res.status(200).send({ message: 'center successfully deleted!' }))
+          .catch(error => res.status(409).send(error));
+      });
+  }
 }

@@ -22,18 +22,6 @@ export default class User {
    * @returns {object} created User object
    */
   static createUser(req, res) {
-    // const { username } = req.body;
-    // const query = {
-    //   where: {
-    //     $and: [
-    //       { username }
-    //     ]
-    //   }
-    // };
-    // users.find(query).then((foundUser) => {
-    //   if (foundUser) {
-    //     return res.status(409).json({ message: `username ${username} is already taken` });
-    //   }
     users
       .create({
         surname: req.body.surname,

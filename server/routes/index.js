@@ -13,7 +13,7 @@ router.put('/centers/:centerId', Auth.checkAdminStatus, Validate.editCenter, Cen
 router.post('/centers', Auth.checkAdminStatus, Validate.createCenter, Center.addCenter);
 
 router.get('/events', Auth.verifyUser, Event.getAllEvents);
-router.post('/events', Auth.verifyUser, Validate.createEvent, Event.addEvent);
+router.post('/events', Validate.createEvent, Auth.verifyUser, Event.addEvent);
 router.put('/events/:eventId', Auth.verifyUser, Validate.editEvent, Event.modifyEvent);
 router.delete('/events/:eventId', Auth.verifyUser, Event.deleteEvent);
 router.get('/events/:eventId', Auth.verifyUser, Event.getOneEvent);

@@ -60,8 +60,6 @@ export default class Event {
             }
           });
       });
-    // .catch(() => res.status(400).json({ error: 'Kindly fill the required fields' }));
-    // });
   }
   /**
    * deletes one event

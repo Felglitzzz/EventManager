@@ -9,6 +9,8 @@ import webpackHotMiddleware from 'webpack-hot-middleware'; // eslint-disable-lin
 import router from './routes/index';
 // import config from '../webpack.config.dev';
 
+require('dotenv').config();
+
 // Set up the express app
 const app = express();
 // const webpackConfig = webpack(config);

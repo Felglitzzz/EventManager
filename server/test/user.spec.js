@@ -7,7 +7,7 @@ import mockData from './helpers/userMockData';
 chai.use(chaiHttp);
 const request = chai.request(app);
 
-describe('UserAccess Test', () => {
+describe('USER TEST', () => {
   // teardown and setup database
   before((done) => {
     db.user.sync({ force: true })
