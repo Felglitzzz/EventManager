@@ -5,7 +5,8 @@ import Loader from 'react-md-spinner';
 import facilities from '../../../utils/facilities';
 
 const EditCenterForm = ({
-  onChange, onSubmit, updateCenterData, errors, handleFocus, isLoading, imageOnChange, selectOnChange
+  onChange, onSubmit, updateCenterData, errors, handleFocus,
+  isLoading, imageOnChange, selectOnChange
 }) => (
   <div>
     <div className="py-3">

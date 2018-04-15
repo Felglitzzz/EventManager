@@ -1,7 +1,11 @@
 /**
- * @param { object } error sequelize generated errors
- * @return { object } messages to display
- */
+   * This function handles sequelize errors
+   * @name errorMessages
+   *
+   * @param {object} error - error object
+   *
+   * @returns {object} validation error messages object or content of request body object
+   */
 const errorMessages = (error) => {
   if (error.name === 'SequelizeUniqueConstraintError') {
     return {
@@ -9,14 +13,9 @@ const errorMessages = (error) => {
       error: error.errors[0].message,
       type: 'uniqueError'
     };
-  } else if (error.name === 'SequelizeValidationError' && error.errors[0].type === 'notNull Violation') {
+  }
+  if (error.name === 'SequelizeValidationError') {
     return {
-      error: 'Please fill in the required field(s)',
-      type: 'validationError'
-    };
-  } else if (error.name === 'SequelizeValidationError') {
-    return {
-      message: error.errors[0].message,
       error: error.errors[0].message,
       type: 'validationError'
     };

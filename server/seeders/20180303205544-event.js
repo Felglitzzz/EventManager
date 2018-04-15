@@ -23,17 +23,6 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
-      {
-        name: 'The ALC Meet Up',
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/felglitz_y7kuvr.jpg',
-        date: new Date(),
-        time: '10:00:00 AM',
-        description: 'Grooming the next generation of African techies',
-        userId: 3,
-        centerId: 3,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
     ], { individualHooks: true }),
 
   down: queryInterface => queryInterface.bulkDelete('events', null, {})

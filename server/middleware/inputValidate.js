@@ -2,19 +2,19 @@ import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
 /**
- * This class validates signup and login inputs from users
+ * Controller Class implementation to handle input validations
+ * @class Validate
  */
 export default class Validate {
   /**
-   * This middleware validates the signup
-   *
+   * This middleware validates inputs data for sign up
    * @static
    *
    * @param {object} req request object
    * @param {object} res response object
-   * @param {object} next passes action to following controller
+   * @param {object} next - runs the next function
    *
-   * @returns {object} validation error messages object or contents of request.body object
+   * @returns {object} validation error messages object or content of request body object
    * @memberof Validate
    */
   static signUp(req, res, next) {
@@ -81,13 +81,13 @@ export default class Validate {
   }
   /**
    * This middleware validates user login inputs
-   *
    * @static
-   * @param {object} req
-   * @param {object} res
-   * @param {object} next
    *
-   * @returns {object} validation error messages object or contents of request.body object
+   * @param {object} req - express request object
+   * @param {object} res - express response object
+   * @param {object} next - runs next function
+   *
+   * @returns {object} validation error messages object or content of request body object
    * @memberof Validate
    */
   static login(req, res, next) {
@@ -105,15 +105,14 @@ export default class Validate {
     return next();
   }
   /**
-   * This middleware validates inputs for create events
-   *
+   * This middleware validates create event inputs
    * @static
    *
-   * @param {object} req
-   * @param {object} res
-   * @param {object} next
+   * @param {object} req - express request object
+   * @param {object} res - express response object
+   * @param {object} next - runs next function
    *
-   * @returns {object} validation error messages object or contents of request.body object
+   * @returns {object} validation error messages object or content of request body object
    * @memberof Validate
    */
   static createEvent(req, res, next) {
@@ -156,11 +155,11 @@ export default class Validate {
    * This middleware validates inputs for edit event form
    * @static
    *
-   * @param {object} req
-   * @param {object} res
-   * @param {object} next
+   * @param {object} req - express request object
+   * @param {object} res - express response object
+   * @param {object} next - run next function
    *
-   * @returns {object} validation error messages object or contents of request body object
+   * @returns {object} validation error messages object or content of request body object
    * @memberof Validate
    */
   static editEvent(req, res, next) {
@@ -198,15 +197,39 @@ export default class Validate {
   }
 
   /**
-   * This middleware validates inputs for create events
-   *
+   * This middleware validates delete event request
    * @static
    *
-   * @param {object} req
-   * @param {object} res
-   * @param {object} next
+   * @param {object} req - express request object
+   * @param {object} res - express response object
+   * @param {object} next - run next function
    *
-   * @returns {object} validation error messages object or contents of request.body object
+   * @returns {object} validation error messages object or content of request body object
+   * @memberof Validate
+   */
+  static deleteEvent(req, res, next) {
+    const errors = {};
+    const { eventId } = req.params;
+
+    if (isNaN(eventId)) {
+      errors.eventId = 'Event Id is invalid';
+    }
+
+    if (!isEmpty(errors)) {
+      return res.status(400).json({ errors });
+    }
+    return next();
+  }
+
+  /**
+   * This middleware validates inputs for create center
+   * @static
+   *
+   * @param {object} req - express request object
+   * @param {object} res - express response object
+   * @param {object} next - runs next function
+   *
+   * @returns {object} validation error messages object or content of request body object
    * @memberof Validate
    */
   static createCenter(req, res, next) {
@@ -261,15 +284,15 @@ export default class Validate {
   }
 
   /**
-   * This middleware validates inputs for create events
+   * This middleware validates inputs for edit center
    *
    * @static
    *
-   * @param {object} req
-   * @param {object} res
-   * @param {object} next
+   * @param {object} req - express request object
+   * @param {object} res - express response object
+   * @param {object} next - run next function
    *
-   * @returns {object} validation error messages object or contents of request.body object
+   * @returns {object} validation error messages object or content of request body object
    * @memberof Validate
    */
   static editCenter(req, res, next) {
@@ -317,6 +340,31 @@ export default class Validate {
     if (!description || description === '') {
       errors.description = 'Description is Required';
     }
+    if (!isEmpty(errors)) {
+      return res.status(400).json({ errors });
+    }
+    return next();
+  }
+
+  /**
+   * This middleware validates delete center request
+   * @static
+   *
+   * @param {object} req - express request object
+   * @param {object} res - express response object
+   * @param {object} next - run next function
+   *
+   * @returns {object} validation error messages object or content of request body object
+   * @memberof Validate
+   */
+  static deleteCenter(req, res, next) {
+    const errors = {};
+    const { centerId } = req.params;
+
+    if (isNaN(centerId)) {
+      errors.eventId = 'Center Id is invalid';
+    }
+
     if (!isEmpty(errors)) {
       return res.status(400).json({ errors });
     }

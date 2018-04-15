@@ -8,18 +8,22 @@ const userModel = models.user;
 require('dotenv').config();
 
 /**
- * Ensures all routes are protected
+ * Controller Class implementation to ensure all routes are protected
+ * @class Auth
  */
 export default class Auth {
-/**
-   * This methods verifies if a user is a regular user
-   *
-   * @param {object} req express request object
-   * @param {object} res express response object
-   * @param {next} next runs the next function
-   *
-   * @returns {object} validation error message or passes control to the next item
-  */
+  /**
+    * This methods verifies if a user is a regular user
+    * @static
+    *
+    * @param {object} req - express request object
+    * @param {object} res - express response object
+    * @param {object} next - runs the next function
+    *
+    * @returns {object} validation error message or passes control to the next item
+    *
+    * @memberof Auth
+    */
   static verifyUser(req, res, next) {
     const { authorization } = req.headers;
     if (!authorization) {
@@ -27,21 +31,21 @@ export default class Auth {
     }
     Helper.decodeToken(authorization)
       .then((decoded) => {
-        if (!decoded) {
-          return res.status(403).json({ error: 'You do not have the permission to access this page' });
+        if (decoded) {
+          userModel.findOne({ where: { id: decoded.id } })
+            .then((user) => {
+              if (user) {
+                req.decoded = decoded;
+                return next();
+              }
+            })
+            .catch(() => res.status(404).json({ message: 'User not found' }));
         }
-        userModel.findOne({ where: { id: decoded.id } })
-          .then((user) => {
-            if (!user) { return res.status(404).json({ message: 'User not found' }); }
-            req.decoded = decoded;
-            return next();
-          })
-          .catch(() => res.status(404).json({ message: 'User not found' }));
       })
       .catch((err) => {
-        const { name, message } = err;
+        const { name } = err;
         if (name === 'JsonWebTokenError') {
-          return res.status(401).json({ message, err: 'Invalid Token!' });
+          return res.status(401).json({ message: 'Invalid Token/Unauthorised!' });
         }
         if (name === 'TokenExpiredError') {
           return res.status(401).json({ essage: 'Session Expired!' });
@@ -51,15 +55,17 @@ export default class Auth {
   }
 
   /**
-   * This method verifies if a user is an admin
-   *
-   * @param {object} req express request object
-   * @param {object} res express response object
-   * @param {next} next runs the next function
-   *
-   * @returns {object} validation error message or passes control to the next item
-
-   */
+    * This methods verifies if a user is an admin
+    * @static
+    *
+    * @param {object} req - express request object
+    * @param {object} res - express response object
+    * @param {object} next - runs the next function
+    *
+    * @returns {object} validation error message or passes control to the next item
+    *
+    * @memberof Auth
+    */
   static checkAdminStatus(req, res, next) {
     const { authorization } = req.headers;
     if (!authorization) {
@@ -69,11 +75,6 @@ export default class Auth {
     }
     Helper.decodeToken(authorization)
       .then((decoded) => {
-        if (!decoded) {
-          return res.status(403).json({
-            message: 'Authentication failed, Token is Invalid or expired'
-          });
-        }
         if (!decoded.isAdmin) {
           return res.status(403).json({
             message: 'You do not have the permission to access this page!'
@@ -81,6 +82,12 @@ export default class Auth {
         }
         req.decoded = decoded;
         return next();
+      })
+      .catch((err) => {
+        const { name } = err;
+        if (name === 'JsonWebTokenError') {
+          return res.status(401).json({ message: 'Invalid Token/Unauthorised!' });
+        }
       });
   }
 }

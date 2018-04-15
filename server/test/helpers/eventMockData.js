@@ -1,13 +1,23 @@
-const mockData = {
-  userToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJyYW5kb21Vc2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTUyMzI1Mzk3OSwiZXhwIjoxNTIzMzQwMzc5fQ.XlgwMq8Eneuczp7yy4ZTnLRMVdGaXBsKxBZypYLRKRc',
+const eventMockData = {
   valid: {
     name: 'The Nigeria Education Fair',
     image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
-    date: '2018-8-10',
-    time: '09:00:00 AM',
+    date: '2027/10/27',
+    time: '19:59',
     description: 'The largest gathering of premier schools',
-    userId: 1,
     centerId: 1,
+  },
+  validEdit: {
+    name: 'The Nigeria Education Exhibition',
+    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+    date: new Date('2027/10/27'),
+    time: '19:59',
+    description: 'The largest gathering of premier schools',
+    centerId: 1,
+  },
+  validlogin: {
+    username: 'randomUser',
+    password: 'password'
   },
   invalid: {
     noName: {
@@ -16,7 +26,6 @@ const mockData = {
       date: '2018-08-10',
       time: '09:00:00 AM',
       description: 'The largest gathering of premier schools',
-      userId: 1,
       centerId: 1,
     },
     noImage: {
@@ -25,7 +34,6 @@ const mockData = {
       date: '2018-08-10',
       time: '09:00:00 AM',
       description: 'The largest gathering of premier schools',
-      userId: 1,
       centerId: 1,
     },
     noDate: {
@@ -33,7 +41,14 @@ const mockData = {
       image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
       time: '09:00:00 AM',
       description: 'The largest gathering of premier schools',
-      userId: 1,
+      centerId: 1,
+    },
+    pastDate: {
+      name: 'The Nigeria Education Fair',
+      image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+      date: new Date(),
+      time: '09:00',
+      description: 'The largest gathering of premier schools',
       centerId: 1,
     },
     noTime: {
@@ -42,7 +57,6 @@ const mockData = {
       date: '2018-08-10',
       time: '',
       description: 'The largest gathering of premier schools',
-      userId: 1,
       centerId: 1,
     },
     noDesc: {
@@ -51,7 +65,6 @@ const mockData = {
       date: '2018-08-10',
       time: '09:00:00 AM',
       description: '',
-      userId: 1,
       centerId: 1,
     },
     noCenterId: {
@@ -60,10 +73,9 @@ const mockData = {
       date: '2018-08-10',
       time: '09:00:00 AM',
       description: 'The largest gathering of premier schools',
-      userId: 1,
       centerId: '',
     },
   }
 };
 
-export default mockData;
+export default eventMockData;

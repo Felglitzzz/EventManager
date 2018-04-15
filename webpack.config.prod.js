@@ -43,7 +43,7 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
         SECRET: JSON.stringify(process.env.SECRET),
         CLOUDINARY_PRESET: JSON.stringify(process.env.CLOUDINARY_PRESET)
-      }
+      },
     }),
     new HtmlWebpackPlugin({
       template: './client/src/index.html',

@@ -65,7 +65,7 @@ export default (sequelize, DataTypes) => {
       },
     },
     facilities: {
-      type: DataTypes.ARRAY(DataTypes.TEXT),
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     type: {

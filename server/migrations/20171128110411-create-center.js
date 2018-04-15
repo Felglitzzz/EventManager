@@ -25,7 +25,7 @@ module.exports = {
     },
     facilities: {
       allowNull: false,
-      type: Sequelize.ARRAY(Sequelize.TEXT)
+      type: Sequelize.ARRAY(Sequelize.STRING)
     },
     description: {
       type: Sequelize.TEXT,
