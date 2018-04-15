@@ -11,6 +11,7 @@
     "lint": "eslint --fix index",
     "seed": "sequelize db:seed:all",
     "migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
+    "migrate:test": "sequelize db:migrate --env test",
     "coveralls:report": "nyc report --reporter=text-lcov | coveralls",
     "test": "cross-env NODE_ENV=test nyc --reporter=text --reporter=lcov mocha --timeout 15000 --require babel-polyfill --compilers js:babel-register server/test/*.spec.js",
     "heroku-postbuild": "npm run build-server && npm run build-client",
