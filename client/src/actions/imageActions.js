@@ -3,6 +3,8 @@ import axios from 'axios';
 import * as actionTypes from './actionTypes';
 import { cloudinaryPreset } from '../utils/cloudinary';
 
+// console.log(cloudinaryPreset, 'cloudpreset');
+
 const {
   SAVE_IMAGE_FAIL,
   SAVE_IMAGE_SUCCESS,
@@ -21,7 +23,7 @@ export const saveImageFail = error => ({
 export const uploadToCloudinary = (image) => {
   const formData = new FormData();
   formData.append('file', image);
-  formData.append('upload_preset', cloudinaryPreset);
+  formData.append('upload_preset', process.env.CLOUDINARY_PRESET);
 
   return dispatch =>
     axios.post('https://api.cloudinary.com/v1_1/felglitz/image/upload', formData, {

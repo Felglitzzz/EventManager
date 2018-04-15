@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // import path from 'path';
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   entry: path.join(__dirname, 'client/src/index'),
 
   output: {
@@ -43,7 +43,7 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
         SECRET: JSON.stringify(process.env.SECRET),
         CLOUDINARY_PRESET: JSON.stringify(process.env.CLOUDINARY_PRESET)
-      }
+      },
     }),
     new HtmlWebpackPlugin({
       template: './client/src/index.html',

@@ -5,31 +5,37 @@ const events = db.event;
 const centers = db.center;
 const reqBody = (req) => {
   const {
-    name, date, time, centerId, image, description
+    name, date, centerId, image, description
   } = req.body;
   const { id: userId } = req.decoded;
+  const time = '12:59';
 
   return {
     name, date, time, centerId, image, description, userId
   };
 };
 /**
- * handles all center-based routes
+ * Controller Class implementation to handle event based routes
+ * @class Event
  */
 export default class Event {
   /**
-    * add new event into the database
-    *@param {object} req express request object
-    *@param {object} res express response object
-    *@returns {json} json of newly created event
-    *@memberof Event
+    *Add new event into the database
+    * @static
+    *
+    * @param {object} req express request object
+    * @param {object} res express response object
+    *
+    * @returns {object} error message object or object with newly created event and success message
+    *
+    * @memberof Event
     */
   static addEvent(req, res) {
     const now = new Date();
     const eventDate = req.body.date;
     const date = new Date(eventDate);
     if (date && date < now) {
-      return res.status(400).json({ message: 'Date is past, Please choose a future date' });
+      return res.status(400).json({ message: 'Date is past, Please choose a future date!' });
     }
     const query = {
       where: {
@@ -48,75 +54,76 @@ export default class Event {
           .then(newEvent => res.status(201).json({ message: 'Event Created!', event: newEvent }))
           .catch((error) => {
             const errMessages = errorMessages(error);
-            switch (errMessages.type) {
-            case 'uniqueError':
-              res.status(409).json({ message: errMessages.error });
-              break;
-            case 'validationError':
-              res.status(400).json({ message: errMessages.error });
-              break;
-            default:
+            if (errMessages.type) {
               res.status(501).json({ message: errMessages.error });
             }
           });
       });
-    // .catch(() => res.status(400).json({ error: 'Kindly fill the required fields' }));
-    // });
   }
+
   /**
-   * deletes one event
-   *@static
-   *@param {object} req express request object
-   *@param {object} res express response object
-   *@returns {void}
-   *@memberof Event
-   */
+    *Delete selected event
+    * @static
+    *
+    * @param {object} req express request object
+    * @param {object} res express response object
+    *
+    * @returns {object} error message object or object with event Id and success message
+    *
+    * @memberof Event
+    */
   static deleteEvent(req, res) {
     const { eventId } = req.params;
     return events
       .findById(eventId)
       .then((event) => {
         if (!event) {
-          return res.status(404).send({ error: 'Event Not Found!' });
+          return res.status(404).send({ message: 'Event Not Found!' });
         }
         return event
           .destroy()
-          .then(res.status(200).json({ error: 'Event Successfully Deleted!', eventId }));
+          .then(res.status(200).json({ message: 'Event Successfully Deleted!', eventId }));
       });
   }
 
   /**
-   * get one event
-   *@static
-   *@param {object} req express request object
-   *@param {object} res express response object
-   *@returns {void}
-   *@memberof Event
-   */
+    *Get one event from the database
+    * @static
+    *
+    * @param {object} req express request object
+    * @param {object} res express response object
+    *
+    * @returns {object} error message object or object with one fetched event and success message
+    *
+    * @memberof Event
+    */
   static getOneEvent(req, res) {
     return events
       .findById(req.params.eventId, {
         include: [{
           model: centers,
-          as: 'center'
+          as: 'center',
+          attributes: ['id', 'name', 'location'],
         }],
       })
       .then((event) => {
         if (!event) {
-          return res.status(400).send({ message: 'Event Not Found!' });
+          return res.status(404).send({ message: 'Event Not Found!' });
         }
-        return event
-          .then(res.status(200).json({ message: 'Event Found!' }));
+        return res.status(200).json({ message: 'Event Found!', event });
       });
   }
+
   /**
-  /**
-    * get all events in the database
-    *@static
-    *@param {object} req express request object
-    *@param {object} res express response object
-    *@returns {json} json of all events
-    *@memberof Event
+    *Get all events
+    * @static
+    *
+    * @param {object} req express request object
+    * @param {object} res express response object
+    *
+    * @returns {object} error message object or object with newly created event and success message
+    *
+    * @memberof Event
     */
   static getAllEvents(req, res) {
     return events
@@ -126,19 +133,23 @@ export default class Event {
         },
         include: [{
           model: centers,
+          attributes: ['id', 'name', 'location'],
         }],
       })
-      .then(event => res.status(200).json({ message: 'Events Founded!', event }))
+      .then(event => res.status(200).json({ message: 'Events Found!', event }))
       .catch(error => res.status(500).json({ message: error.message }));
   }
 
   /**
-    *edit event
-    *@static
-    *@param {object} req express request object
-    *@param {object} res express response object
-    *@returns {json} json with modified event
-    *@memberof event
+    *Edit selected event
+    * @static
+    *
+    * @param {object} req express request object
+    * @param {object} res express response object
+    *
+    * @returns {object} error message object or object with edited event and success message
+    *
+    * @memberof Event
     */
   static modifyEvent(req, res) {
     return events
@@ -159,11 +170,7 @@ export default class Event {
           }))
           .catch((error) => {
             const errMessages = errorMessages(error);
-            if (error.name === 'SequelizeValidationError'
-            &&
-            errMessages.type === 'validationError') {
-              res.status(400).json({ message: errMessages.error });
-            } else {
+            if (errMessages.type) {
               res.status(501).json({ message: errMessages.error });
             }
           });

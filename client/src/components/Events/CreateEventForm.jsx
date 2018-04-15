@@ -34,6 +34,8 @@ class CreateEventForm extends React.Component {
       isLoading: false
     };
 
+    console.log('date', this.state.eventData.date);
+
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.redirectToEvents = this.redirectToEvents.bind(this);

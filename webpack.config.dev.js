@@ -1,5 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 // import path from 'path';
@@ -9,13 +11,13 @@ module.exports = {
   entry: path.join(__dirname, 'client/src/index'),
 
   output: {
-    path: path.join(__dirname, 'client/src'),
+    path: path.join(__dirname, 'dist-client'),
     filename: 'bundle.js',
     publicPath: '/'
   },
   target: 'web',
   devServer: {
-    contentBase: path.join(__dirname, 'client/src'),
+    contentBase: path.join(__dirname, '/dist-client'),
     historyApiFallback: true
   },
   plugins: [
@@ -26,7 +28,25 @@ module.exports = {
       'window.jQuery': 'jquery',
       Popper: ['popper.js', 'default']
     }),
-    new Dotenv()
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development'),
+      },
+    }),
+    new ExtractTextPlugin('./css/styles.css'),
+    new Dotenv(),
+    new HtmlWebpackPlugin({
+      template: './client/src/index.html',
+      filename: 'index.html',
+      inject: 'body',
+      minify: {
+        collapseWhitespace: true,
+        collapseInlineTagWhitespace: true,
+        removeComments: true,
+        removeRedundantAttributes: true
+      }
+    })
+
   ],
   module: {
     rules: [
@@ -46,18 +66,17 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
-      },
-      {
-        test: /\.(scss|sass)$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader'
+            },
+            {
+              loader: 'sass-loader'
+            }
+          ]
+        })
       },
       {
         test: /\.(eot|ttf|woff|woff2)$/,

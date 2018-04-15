@@ -1,13 +1,12 @@
-import faker from 'faker';
 
 const password = 'pass1234';
 
 const mockData = {
   admin: {
     signup: {
-      surname: faker.name.lastName(0),
-      firstname: faker.name.firstName(0),
-      email: faker.internet.email(),
+      surname: 'amande',
+      firstname: 'felix',
+      email: 'felix.amande@andela.com',
       username: 'admin',
       password: 'password',
       isAdmin: true
