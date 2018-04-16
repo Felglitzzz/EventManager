@@ -234,8 +234,6 @@ export default class Validate {
       name, capacity, price, description, location, facilities, type
     } = req;
 
-    console.log(facilities, '%%%%%&&&&&&&')
-
     if (!name || name === '') {
       errors.name = 'Name is Required';
     }
@@ -281,7 +279,6 @@ export default class Validate {
     }
 
     if (!facilities || facilities === [] || facilities.length === 0) {
-      console.log(facilities, 'ooooooppopopopop');
       errors.facilities = 'Facilities is Required';
     }
 

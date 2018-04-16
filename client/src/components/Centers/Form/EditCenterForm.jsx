@@ -128,11 +128,13 @@ const EditCenterForm = ({
                       <div
                         className="form-check ml-3 px-2 form-check-inline text-secondary"
                         key={id}
+                        id={id}
                         onChange={selectOnChange} >
                         <input className="form-check-input"
                           name="facilities"
                           type="checkbox"
-                          value={updateCenterData.facilities}
+                          checked = {updateCenterData.facilities.includes(facility)}
+                          value={facility}
                           onChange={selectOnChange}
                           onFocus={handleFocus} />
                         <label
@@ -174,7 +176,7 @@ EditCenterForm.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   imageOnChange: PropTypes.func.isRequired,
   handleFocus: PropTypes.func.isRequired,
-  selectOnChange: PropTypes.func.isRequired
+  selectOnChange: PropTypes.func.isRequired,
 };
 
 export default EditCenterForm;
