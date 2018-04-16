@@ -76,32 +76,17 @@ class EditCenterPage extends React.Component {
    */
   selectOnChange(event) {
     event.persist();
-    if (event.target.checked) {
-      return this.setState({
-        updateCenterData: {
-          ...this.state.updateCenterData,
-          facilities: this.state.updateCenterData.facilities.concat(event.target.value)
-        }
-      });
+    const { value: facility } = event.target;
+    let { facilities } = this.state.updateCenterData;
+    if (facilities.includes(facility)) {
+      facilities = facilities.filter(element => element !== facility);
+    } else {
+      facilities = facilities.concat(facility);
     }
-    const { facilities } = this.state.updateCenterData;
-    const name = event.target.value;
-    for (let i = facilities.length - 1; i >= 0; i -= 1) {
-      if (facilities[i] === name) {
-        facilities.splice(i, 1);
-        this.setState({
-          updateCenterData: {
-            ...this.state.updateCenterData,
-            facilities
-          }
-        });
-      }
-    }
-
-    return this.setState({
+    this.setState({
       updateCenterData: {
         ...this.state.updateCenterData,
-        facilities: this.state.updateCenterData.facilities.slice()
+        facilities
       }
     });
   }

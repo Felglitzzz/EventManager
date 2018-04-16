@@ -10,9 +10,6 @@ const reqBody = (req) => {
     name, location, capacity, facilities, type, image, description, price
   } = req.body;
   const { id: userId } = req.decoded;
-
-  console.log('faciliiiiii', facilities);
-
   return {
     name, location, capacity, facilities, type, image, description, userId, price
   };
@@ -39,7 +36,6 @@ export default class Center {
       .create(reqBody(req))
       .then(center => res.status(201).json({ message: 'Center created!', Center: center }))
       .catch((error) => {
-        console.log('error', error);
         const errMessages = errorMessages(error);
         if (errMessages.type) {
           return res.status(501).json({ message: errMessages.error });
