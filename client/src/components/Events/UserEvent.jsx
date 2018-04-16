@@ -58,10 +58,6 @@ const UserEvent = ({ events, handleDelete }) => (
                           id={event.id}
                           aria-hidden="true" />
                       </a>
-                      <a
-                        className="text-orange border-2 border-orange icon twitter mr-1" >
-                        <i className="fa fa-ellipsis-h"
-                          aria-hidden="true" /></a>
                     </li>
                   </ul>
                 </div>
