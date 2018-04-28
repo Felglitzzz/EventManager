@@ -167,6 +167,11 @@ export default class Validate {
     const {
       name, date, time, description, centerId, image
     } = req.body;
+    const eventId = parseInt(req.params.eventId, 10);
+
+    if (!Number.isInteger(eventId)) {
+      errors.eventId = 'Event Id is invalid';
+    }
     if (!name || name === '') {
       errors.name = 'Name is Required';
     }
@@ -207,11 +212,11 @@ export default class Validate {
    * @returns {object} validation error messages object or content of request body object
    * @memberof Validate
    */
-  static deleteEvent(req, res, next) {
+  static checkEventId(req, res, next) {
     const errors = {};
-    const { eventId } = req.params;
+    const eventId = parseInt(req.params.eventId, 10);
 
-    if (isNaN(eventId)) {
+    if (!Number.isInteger(eventId)) {
       errors.eventId = 'Event Id is invalid';
     }
 
@@ -300,6 +305,12 @@ export default class Validate {
     const {
       name, capacity, price, description, location, facilities, type, image
     } = req.body;
+
+    const centerId = parseInt(req.params.centerId, 10);
+
+    if (!Number.isInteger(centerId)) {
+      errors.centerId = 'Center Id is invalid';
+    }
     if (!name || name === '') {
       errors.name = 'Name is Required';
     }
@@ -347,7 +358,7 @@ export default class Validate {
   }
 
   /**
-   * This middleware validates delete center request
+   * This middleware validates delete center request params
    * @static
    *
    * @param {object} req - express request object
@@ -357,12 +368,12 @@ export default class Validate {
    * @returns {object} validation error messages object or content of request body object
    * @memberof Validate
    */
-  static deleteCenter(req, res, next) {
+  static checkCenterId(req, res, next) {
     const errors = {};
-    const { centerId } = req.params;
+    const centerId = parseInt(req.params.centerId, 10);
 
-    if (isNaN(centerId)) {
-      errors.eventId = 'Center Id is invalid';
+    if (!Number.isInteger(centerId)) {
+      errors.centerId = 'Center Id is invalid';
     }
 
     if (!isEmpty(errors)) {

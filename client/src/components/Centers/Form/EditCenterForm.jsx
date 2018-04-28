@@ -10,7 +10,7 @@ const EditCenterForm = ({
 }) => (
   <div>
     <div className="py-3">
-      <div className="form-width mx-auto">
+      <div className="form-width mx-auto z-depth-1 hoverable">
         <header className="shadow-down bg-white">
           <p className=" form-head text-center text-orange">Edit Center</p>
         </header>

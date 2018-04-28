@@ -122,22 +122,23 @@ class AllUserEvents extends React.Component {
               to="/dashboard/create-event">
               <button
                 className="btn btn-orange"
-              // onClick={history.push('/dashboard/create-center')}
               >
               Create Event
               </button></Link>
           </div>
         </div>
         :
-        <div>
-          {/* <ConfirmationModal /> */}
-          < UserEvent
-            events = {this.state.event}
-            redirectToEdit = {this.redirectToEdit}
-            handleDelete={this.handleDelete}
-            // hideDeleteModal={this.hideDeleteModal}
-          />
-        </div>
+        <section>
+          <div className="container">
+            <div className="row">
+              < UserEvent
+                events = {this.state.event}
+                redirectToEdit = {this.redirectToEdit}
+                handleDelete={this.handleDelete}
+              />
+            </div>
+          </div>
+        </section>
     );
   }
 }

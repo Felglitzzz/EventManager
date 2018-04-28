@@ -13,12 +13,15 @@
     "migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "migrate:test": "sequelize db:migrate --env test",
     "coveralls:report": "nyc report --reporter=text-lcov | coveralls",
-    "test": "cross-env NODE_ENV=test nyc --reporter=text --reporter=lcov mocha --timeout 15000 --require babel-polyfill --compilers js:babel-register server/test/*.spec.js",
+    "test": "cross-env NODE_ENV=test nyc --reporter=text --reporter=lcov mocha --timeout 15000 --require babel-polyfill --compilers js:babel-register server/test/index.spec.js",
     "heroku-postbuild": "npm run build-server && npm run build-client",
     "webpack": "webpack -d --config ./webpack.config.dev.js",
+    "webpack:watch": "webpack -d --config ./webpack.config.dev.js --watch",
     "start": "node dist-server/index.js",
     "dev:start": "nodemon --exec babel-node -- ./dist-server/index.js",
-    "start:dev": "npm run clean && npm run build:dev && npm run dev:start"
+    "dev": "nodemon --exec babel-node -- ./server/index.js",
+    "start:dev": "npm run clean && npm run build:dev && npm run dev:start",
+    "start:dev:watch": "npm-run-all --parallel dev webpack:watch"
   },
   "keywords": [
     "event"
@@ -52,6 +55,7 @@
     "webpack-hot-middleware": "^2.21.0"
   },
   "dependencies": {
+    "aos": "^2.2.0",
     "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
