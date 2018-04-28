@@ -5,9 +5,7 @@ import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import toastr from 'toastr';
 
 import UserNavbar from '../Navbar/UserNavbar';
-// import NavHeader from '../NavHeader/NavHeader';
 import AllUserEvents from '../Events/AllUserEvents';
-// import { deleteOneEvent } from '../../actions/eventActions';
 import history from '../../helpers/history';
 import CreateEventForm from '../Events/CreateEventForm';
 import EditEventPage from '../Events/EditEventPage';
@@ -16,10 +14,8 @@ import CreateCenterPage from '../Centers/CreateCenterPage';
 import EditCenterPage from '../Centers/EditCenterPage';
 import ViewCenterPage from '../Centers/ViewCenterPage';
 import showDeleteModal from '../Modal/alertModal';
-// import { loadOneUser } from '../../actions/userAccessActions';
 import getUserInfo from '../../utils/getUserFromToken';
 
-// require('../../../public/_sidebar.scss');
 /**
  * class UserDashboard
  */
@@ -95,37 +91,42 @@ class UserDashboard extends React.Component {
         :
         <div>
           {/* <ConfirmationModal /> */}
-          <div className="wrapper top-order">
-            <div className="sidebar bg-dark h-100">
-              <div className="sidebar-wrapper h-100">
+          <div className="wrapper top-order" id="wrapper">
+            <div className="sidebar bg-dark h-100" >
+              <div>
                 <div>
-                  <ul className="nav list-group bg-light">
+                  <ul className="nav list-group bg-light" id="menu">
                     <Link
                       to = "/dashboard">
-                      <li className="text-orange bg-dark waves-effect pl-4 pb-3 mb-1">
+                      <li className="text-orange bg-dark waves-effect sidenav-title padL">
                         <i className="text-center fa fa-tachometer fa-2x" />
-                        <p className="font-weight-bold text-orange montfont">EVENTMANAGER</p>
+                        <p className="font-weight-bold text-orange montfont">EVENTERIA</p>
                       </li>
                     </Link>
-                    {}
                     <Link
                       to ={isAdmin ? '/dashboard/centers' : '/dashboard/events'}>
-                      <li className="list-group-item bg-dark mb-1 button-anim">
-                        <i className="text-center text-orange fa fa-folder-open fa-2x" />
-                        <p className="font-weight-bold text-orange montfont">{isAdmin ? 'My Centers' : 'My Events'}</p>
+                      <li className="list-group-item bg-dark mb-1 button-anim padL">
+                        <span className="fa-stack mr-2 empty">
+                          <i className="text-center text-orange fa fa-folder-open fa-2x" />
+                        </span>
+                        <p className="font-weight-bold text-orange montfont d-inline-flex">{isAdmin ? 'My Centers' : 'My Events'}</p>
                       </li>
                     </Link>
                     <Link
                       to={isAdmin ? '/dashboard/create-center' : '/dashboard/create-event'}>
-                      <li className="list-group-item bg-dark mb-1 button-anim">
-                        <i className="text-center text-orange fa fa-plus-square fa-2x" />
-                        <p className="font-weight-bold text-orange montfont">{isAdmin ? 'Create Centers' : 'Create Events'}</p>
+                      <li className="list-group-item bg-dark mb-1 button-anim padL">
+                        <span className="fa-stack mr-2 empty">
+                          <i className="text-center text-orange fa fa-plus-square fa-2x" />
+                        </span>
+                        <p className="font-weight-bold text-orange montfont d-inline-flex">{isAdmin ? 'Create Centers' : 'Create Events'}</p>
                       </li>
                     </Link>
-                    <li className="list-group-item text-orange mb-1 bg-dark button-anim"
+                    <li className="list-group-item text-orange mb-1 bg-dark button-anim padL"
                       onClick={this.handleLogout}>
-                      <i className="text-center text-orange fa fa-power-off fa-2x" />
-                      <p className="font-weight-bold text-orange montfont">Logout</p>
+                      <span className="fa-stack mr-2 empty">
+                        <i className="text-center text-orange fa fa-power-off fa-2x" />
+                      </span>
+                      <p className="font-weight-bold text-orange montfont d-inline-flex">Logout</p>
                     </li>
                   </ul>
                 </div>

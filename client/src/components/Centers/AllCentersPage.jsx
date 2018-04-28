@@ -61,10 +61,16 @@ class AllCentersPage extends React.Component {
             color4="#f6682f"/>
         </div>
         :
-        < Centers
-          centers = {this.state.centers}
-          redirectToEdit = {this.redirectToEdit}
-        />
+        <section>
+          <div className="container">
+            <div className="row">
+              < Centers
+                centers = {this.state.centers}
+                redirectToEdit = {this.redirectToEdit}
+              />
+            </div>
+          </div>
+        </section>
     );
   }
 }

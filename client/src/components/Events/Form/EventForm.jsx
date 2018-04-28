@@ -18,7 +18,7 @@ const EventForm = ({
     :
     <div>
       <div className="py-5">
-        <div className="form-width mx-auto bg-white">
+        <div className="form-width mx-auto bg-white z-depth-1 hoverable">
           <header className="shadow-down">
             <p className=" form-head text-center text-orange">Create Event</p>
           </header>
@@ -31,7 +31,7 @@ const EventForm = ({
                     Fill the form to create event
                     </p>
                   </div>
-                  <div className="p-5">
+                  <div className="perd">
                     <div className="form-group">
                       {errors.name && <div className="alert alert-danger" role="alert">
                         {errors.name}</div>}
@@ -116,7 +116,7 @@ const EventForm = ({
                         type="file"
                         name="image"
                         id="file-upload"
-                        className="form-control-file text-secondary border"
+                        className="form-control form-control-file text-secondary border"
                         accept="image/*"
                         placeholder="Choose Event Image"
                         onChange={imageOnChange}
@@ -126,7 +126,7 @@ const EventForm = ({
                     <div className="form-group">
                       <button
                         onSubmit={onSubmit}
-                        className="btn btn-outline-orange px-5">
+                        className="btn btn-outline-orange w-100">
                         Submit
                       </button>
                       { isLoading && <Loader

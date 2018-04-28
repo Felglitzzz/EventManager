@@ -9,24 +9,32 @@ import getUserInfo from '../../utils/getUserFromToken';
  */
 class UserNavbar extends React.Component {
   /**
+   * componentdidmount lifecycle
+   * @returns {any} toggles
+   */
+  componentDidMount() {
+    $('#menu-toggle').click((e) => {
+      e.preventDefault();
+      $('#wrapper').toggleClass('toggled');
+      $('.toggle .sidebar #menu li').empty();
+      $('.toggle .sidebar #menu li').hide();
+
+
+      $('.sidebar #menu ul').hide();
+    });
+  }
+  /**
   * render
   * @returns {Navbar} Navbar component
   */
   render() {
     const { username } = getUserInfo();
     return (
-      <div>
-        <nav className="navbar navbar-expand-lg bg-white d-flex px-5">
-          <p className="font-weight-bold montfont text-orange">Dashboard</p>
-          <p className="font-weight-bold montfont text-orange ml-auto">
+      <div className="container mb-3 hoverable">
+        <nav className="navbar navbar-expand-lg d-flex">
+          <p className="font-weight-bold montfont text-orange ml-auto myAuto">
             Hello, {lodash.capitalize(username)}
           </p>
-          <button className="navbar-toggler"
-            type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon" />
-          </button>
         </nav>
       </div>
     );

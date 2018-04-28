@@ -17,7 +17,7 @@ const EditEventForm = ({
     :
     <div>
       <div className="py-5">
-        <div className="form-width mx-auto bg-white">
+        <div className="form-width mx-auto bg-white z-depth-1 hoverable">
           <header className="shadow-down">
             <p className=" form-head text-center text-orange">Edit Event</p>
           </header>

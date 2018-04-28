@@ -187,7 +187,7 @@ describe('EVENT API TEST', () => {
         });
     });
 
-    it('expect return 400 if eventId provided is not in the database for getting one event', (done) => {
+    it('expect return 404 if eventId provided is not in the database for getting one event', (done) => {
       const invalidEventId = 9999999;
       request
         .get(`/api/v1/events/${invalidEventId}`)
@@ -250,13 +250,13 @@ describe('EVENT API TEST', () => {
     });
 
     it('expect return 404 if eventId provided is not in the database for delete event api', (done) => {
-      const invalidEventId = 9999999;
+      const invalidEventId = 9999;
       request
         .delete(`/api/v1/events/${invalidEventId}`)
         .set('Authorization', token)
         .set('Accept', 'Application/json')
         .end((err, res) => {
-          const { message, event } = res.body;
+          const { event, message } = res.body;
           expect(res).to.have.status(404);
           expect(message).to.equal('Event Not Found!');
           expect(event).to.be.undefined;
