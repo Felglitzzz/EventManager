@@ -13,7 +13,7 @@ services:
   - postgresql
 
 script:
-  - npm test
+  - npm install node-pre-gyp && npm test
 
 after_success:
   - npm run coveralls:report
