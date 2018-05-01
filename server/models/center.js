@@ -16,10 +16,6 @@ export default (sequelize, DataTypes) => {
           args: /([a-zA-Z0-9])+/,
           msg: 'Name can contain only alphabets and numbers',
         },
-        len: {
-          args: [3],
-          msg: 'Name should be longer than 3 characters',
-        },
       },
     },
     location: {
@@ -33,10 +29,6 @@ export default (sequelize, DataTypes) => {
         is: {
           args: /([a-zA-Z0-9])+/,
           msg: 'Location can contain alphabets and numbers',
-        },
-        len: {
-          args: [3],
-          msg: 'Name should be longer than 3 words',
         },
       },
     },

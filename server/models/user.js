@@ -16,8 +16,8 @@ const userModel = (sequelize, DataTypes) => {
             msg: 'Surname can only contain letters',
           },
           len: {
-            args: [3, 30],
-            msg: 'Surname should be more than two characters',
+            args: [2, 30],
+            msg: 'Surname should be more than one character',
           }
         }
       },
@@ -34,8 +34,8 @@ const userModel = (sequelize, DataTypes) => {
             msg: 'Firstname can only contain letters',
           },
           len: {
-            args: [3, 30],
-            msg: 'Firstname should be more than two characters',
+            args: [2, 30],
+            msg: 'Firstname should be more than one characters',
           }
         }
       },
@@ -53,7 +53,7 @@ const userModel = (sequelize, DataTypes) => {
           },
           is: [/([a-zA-Z0-9])+/],
           len: {
-            args: [3],
+            args: [2],
             msg: 'Username should be more than two characters',
           }
         }

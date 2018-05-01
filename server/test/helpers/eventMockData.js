@@ -2,79 +2,90 @@ const eventMockData = {
   valid: {
     name: 'The Nigeria Education Fair',
     image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
-    date: '2027/10/27',
-    time: '19:59',
+    startDate: new Date('2019-03-25'),
+    endDate: new Date('2019-03-27'),
     description: 'The largest gathering of premier schools',
-    centerId: 1,
+    centerId: 1
   },
-  validEdit: {
+  editData: {
     name: 'The Nigeria Education Exhibition',
     image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
-    date: new Date('2027/10/27'),
-    time: '19:59',
+    startDate: new Date('2019-06-25'),
+    endDate: new Date('2019-06-27'),
     description: 'The largest gathering of premier schools',
-    centerId: 1,
+    centerId: 1
   },
-  validlogin: {
-    username: 'randomUser',
-    password: 'password'
+  sameDate: {
+    name: 'The Nigeria Education Exhibition',
+    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+    startDate: new Date('2019-03-25'),
+    endDate: new Date('2019-03-27'),
+    description: 'The largest gathering of premier schools',
+    centerId: 1
   },
-  invalid: {
-    noName: {
-      name: '',
-      image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
-      date: '2018-08-10',
-      time: '09:00:00 AM',
-      description: 'The largest gathering of premier schools',
-      centerId: 1,
-    },
-    noImage: {
-      name: 'The Nigeria Education Fair',
-      image: '',
-      date: '2018-08-10',
-      time: '09:00:00 AM',
-      description: 'The largest gathering of premier schools',
-      centerId: 1,
-    },
-    noDate: {
-      name: 'The Nigeria Education Fair',
-      image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
-      time: '09:00:00 AM',
-      description: 'The largest gathering of premier schools',
-      centerId: 1,
-    },
-    pastDate: {
-      name: 'The Nigeria Education Fair',
-      image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
-      date: new Date(),
-      time: '09:00',
-      description: 'The largest gathering of premier schools',
-      centerId: 1,
-    },
-    noTime: {
-      name: 'The Nigeria Education Fair',
-      image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
-      date: '2018-08-10',
-      time: '',
-      description: 'The largest gathering of premier schools',
-      centerId: 1,
-    },
-    noDesc: {
-      name: 'The Nigeria Education Fair',
-      image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
-      date: '2018-08-10',
-      time: '09:00:00 AM',
-      description: '',
-      centerId: 1,
-    },
-    noCenterId: {
-      name: 'The Nigeria Education Fair',
-      image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
-      date: '2018-08-10',
-      time: '09:00:00 AM',
-      description: 'The largest gathering of premier schools',
-      centerId: '',
-    },
+  noName: {
+    name: '',
+    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+    startDate: new Date('2019-03-25'),
+    endDate: new Date('2019-03-27'),
+    description: 'The largest gathering of premier schools',
+    centerId: 1
+  },
+  noImage: {
+    name: 'The Nigeria Education Fair',
+    image: '',
+    startDate: new Date('2019-03-25'),
+    endDate: new Date('2019-03-27'),
+    description: 'The largest gathering of premier schools',
+    centerId: 1
+  },
+  noStartDate: {
+    name: 'The Nigeria Education Fair',
+    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+    endDate: new Date('2019-03-27'),
+    description: 'The largest gathering of premier schools',
+    centerId: 1
+  },
+
+  noEndDate: {
+    name: 'The Nigeria Education Fair',
+    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+    startDate: new Date('2019-03-25'),
+    endDate: '',
+    description: 'The largest gathering of premier schools',
+    centerId: 1
+  },
+  pastDate: {
+    name: 'The Nigeria Education Fair',
+    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+    startDate: new Date('2018-03-25'),
+    endDate: new Date('2018-03-27'),
+    description: 'The largest gathering of premier schools',
+    centerId: 1
+  },
+  noTime: {
+    name: 'The Nigeria Education Fair',
+    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+    startDate: new Date('2019-03-25'),
+    endDate: new Date('2019-03-27'),
+    description: 'The largest gathering of premier schools',
+    centerId: 1
+  },
+  noDesc: {
+    name: 'The Nigeria Education Fair',
+    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+    startDate: new Date('2019-03-25'),
+    endDate: new Date('2019-03-27'),
+    description: '',
+    centerId: 1
+  },
+  noCenterId: {
+    name: 'The Nigeria Education Fair',
+    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+    startDate: new Date('2019-03-25'),
+    endDate: new Date('2019-03-27'),
+    description: 'The largest gathering of premier schools',
+    centerId: ''
   }
 };
 
