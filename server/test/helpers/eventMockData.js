@@ -15,6 +15,17 @@ const eventMockData = {
     description: 'The largest gathering of premier schools',
     centerId: 1
   },
+  seed: {
+    name: 'The Legacy Awards',
+    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/awardy_hqtlun.jpg',
+    startDate: new Date('2018-11-25'),
+    endDate: new Date('2018-11-27'),
+    description: 'Celebration of teachers who indeed left legacies',
+    userId: 2,
+    centerId: 3,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
   sameDate: {
     name: 'The Nigeria Education Exhibition',
     image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',

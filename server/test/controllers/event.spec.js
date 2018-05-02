@@ -55,7 +55,6 @@ describe('EVENT API TEST', () => {
         .set('Authorization', userToken)
         .set('Accept', 'Application/json')
         .end((err, res) => {
-          console.log('ero', err);
           const { message } = res.body;
           expect(res).to.have.status(409);
           expect(message).to.equal(`This center has already being booked from ${moment(eventMockData.valid.startDate).format('LL')} to ${moment(eventMockData.valid.endDate).format('LL')}, kindly book another date`);

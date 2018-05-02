@@ -25,7 +25,16 @@ const userMockData = {
       }
     }
   },
-
+  seed: {
+    surname: 'user',
+    firstname: 'user',
+    email: 'user@eventmanager.com',
+    username: 'user',
+    password: 'password',
+    isAdmin: false,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
   user: {
     login: {
       valid: {

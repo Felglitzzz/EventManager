@@ -21,6 +21,16 @@ const centerMockData = {
     capacity: 1000,
     price: 5000
   },
+  seed: {
+    name: 'Sheba Event Hall',
+    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+    description: 'Sheba Event Centre are perfect for events like weddings, birthday ,parties, trainings, conferences, exhibitions, product launches, meetings, and entertainment events.',
+    type: 'Classic',
+    location: 'Ilupeju',
+    facilities: ['Parking Space', 'Bar'],
+    price: 13000,
+    capacity: 6000,
+  },
   editData: {
     name: 'Axios Event Center',
     image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',

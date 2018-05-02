@@ -11,9 +11,7 @@ const request = chai.request(app);
 const userToken = tokenData.userToken();
 const { invalidAdminToken, invalidUserToken } = tokenData;
 
-describe('MIDDLEWARE TEST:', () => {
-  // teardown and setup database
-
+describe('MIDDLEWARE AUTH TEST:', () => {
   describe('Auth Middleware For Center Endpoint', () => {
     describe('POST', () => {
       it('should return 403 when user token is provided for create center endpoint', (done) => {
