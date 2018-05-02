@@ -3,10 +3,6 @@ export default (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: {
-        args: true,
-        msg: 'A center with this name exist',
-      },
       validate: {
         notEmpty: {
           args: true,
@@ -32,23 +28,23 @@ export default (sequelize, DataTypes) => {
         }
       }
     },
-    date: {
-      type: DataTypes.DATEONLY,
+    startDate: {
+      type: DataTypes.DATE,
       allowNull: false,
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Date is Required',
+          msg: 'Start Date is Required',
         },
       },
     },
-    time: {
-      type: DataTypes.STRING,
+    endDate: {
+      type: DataTypes.DATE,
       allowNull: false,
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Time is Required!'
+          msg: 'End Date is Required!'
         },
       },
     },

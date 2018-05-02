@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
  * Controller Class implementation to handle input validations
  * @class Validate
  */
-export default class Validate {
+export default class InputValidate {
   /**
    * This middleware validates inputs data for sign up
    * @static
@@ -27,37 +27,38 @@ export default class Validate {
       errors.surname = 'Surname is Required';
     }
     if (surname) {
-      if (surname.length < 3) {
-        errors.surname = 'Surname should be more than two characters';
+      if (surname.length < 2) {
+        errors.surname = 'Surname should be more than one character';
+      }
+      if (/(\d+)/.test(surname.trim()) || /[^a-zA-Z0-9]+/.test(surname.trim())) {
+        errors.surname = 'Surname can only contain letters';
       }
     }
-    if (/(\d+)/.test(surname) || /[^a-zA-Z0-9]+/.test(surname)) {
-      errors.surname = 'Surname can only contain letters';
-    }
+
     if (!firstname || firstname === '') {
       errors.firstname = 'Firstname is Required';
     }
     if (firstname) {
-      if (firstname.length < 3) {
-        errors.firstname = 'Firstname should be more than two characters';
+      if (firstname.length < 2) {
+        errors.firstname = 'Firstname should be more than one character';
       }
-    }
-    if (/(\d+)/.test(firstname) || /[^a-zA-Z0-9]+/.test(firstname)) {
-      errors.firstname = 'Firstname can only contain letters';
+      if (/(\d+)/.test(firstname.trim()) || /[^a-zA-Z0-9]+/.test(firstname.trim())) {
+        errors.firstname = 'Firstname can only contain letters';
+      }
     }
     if (!username || username === '') {
       errors.username = 'Username is Required';
     }
     if (username) {
-      if (username.length < 3) {
-        errors.username = 'Username should be more than two characters';
+      if (username.length < 2) {
+        errors.username = 'Username should be more than one character';
       }
     }
     if (!email || email === '') {
       errors.email = 'Email is Required';
     }
     if (email) {
-      if (!Validator.isEmail(email)) {
+      if (!Validator.isEmail(email.trim())) {
         errors.email = 'Invalid email, Enter a valid email, like so: you@mail.com';
       }
     }
@@ -77,6 +78,15 @@ export default class Validate {
     if (!isEmpty(errors)) {
       return res.status(400).json({ errors });
     }
+
+    req.body = {
+      username: username.trim(),
+      firstname: firstname.trim(),
+      surname: surname.trim(),
+      email: email.trim(),
+      password,
+      passwordConfirm
+    };
     return next();
   }
   /**
@@ -115,34 +125,34 @@ export default class Validate {
    * @returns {object} validation error messages object or content of request body object
    * @memberof Validate
    */
-  static createEvent(req, res, next) {
+  static addEvent(req, res, next) {
     const errors = {};
 
     const {
-      name, image, date, time, description, centerId
+      name, image, startDate, endDate, description, centerId
     } = req.body;
 
-    if (!name || name === '') {
+    if (!name || name.trim() === '') {
       errors.name = 'Name is Required';
     }
     if (name) {
-      if (name.length < 3) {
-        errors.name = 'Event name should be more than two characters';
+      if (name.length < 2) {
+        errors.name = 'Event name should be more than one character';
       }
     }
     if (!image || image === '') {
       errors.image = 'Image is Required';
     }
-    if (!date || date === '') {
-      errors.date = 'Date is Required';
-    }
     if (!centerId || centerId === '') {
       errors.centerId = 'Location is Required';
     }
-    if (!time || time === '') {
-      errors.time = 'Time is Required';
+    if (!startDate || startDate.trim() === '') {
+      errors.startDate = 'Start Date is Required';
     }
-    if (!description || description === '') {
+    if (!endDate || endDate.trim() === '') {
+      errors.endDate = 'End Date is Required';
+    }
+    if (!description || description.trim() === '') {
       errors.description = 'Description is Required';
     }
     if (!isEmpty(errors)) {
@@ -165,19 +175,19 @@ export default class Validate {
   static editEvent(req, res, next) {
     const errors = {};
     const {
-      name, date, time, description, centerId, image
+      name, startDate, endDate, description, centerId, image
     } = req.body;
-    const eventId = parseInt(req.params.eventId, 10);
+    const eventId = parseInt(req.params.eventId.trim(), 10);
 
     if (!Number.isInteger(eventId)) {
       errors.eventId = 'Event Id is invalid';
     }
-    if (!name || name === '') {
+    if (!name || name.trim() === '') {
       errors.name = 'Name is Required';
     }
     if (name) {
-      if (name.length < 3) {
-        errors.name = 'Event name should be more than two characters';
+      if (name.length < 2) {
+        errors.name = 'Event name should be more than one character';
       }
     }
     if (!centerId || centerId === '') {
@@ -186,13 +196,13 @@ export default class Validate {
     if (!image || image === '') {
       errors.image = 'Image is Required';
     }
-    if (!date || date === '') {
-      errors.date = 'Date is Required';
+    if (!startDate || startDate.trim() === '') {
+      errors.startDate = 'Start Date is Required';
     }
-    if (!time || time === '') {
-      errors.time = 'Time is Required';
+    if (!endDate || endDate.trim() === '') {
+      errors.endDate = 'End Date is Required';
     }
-    if (!description || description === '') {
+    if (!description || description.trim() === '') {
       errors.description = 'Description is Required';
     }
     if (!isEmpty(errors)) {
@@ -214,7 +224,7 @@ export default class Validate {
    */
   static checkEventId(req, res, next) {
     const errors = {};
-    const eventId = parseInt(req.params.eventId, 10);
+    const eventId = parseInt(req.params.eventId.trim(), 10);
 
     if (!Number.isInteger(eventId)) {
       errors.eventId = 'Event Id is invalid';
@@ -237,32 +247,34 @@ export default class Validate {
    * @returns {object} validation error messages object or content of request body object
    * @memberof Validate
    */
-  static createCenter(req, res, next) {
+  static addCenter(req, res, next) {
     const errors = {};
     const {
       name, capacity, price, description, location, facilities, type, image
     } = req.body;
-    if (!name || name === '') {
+    if (!name || name.trim() === '') {
       errors.name = 'Name is Required';
     }
     if (name) {
-      if (name.length < 3) {
-        errors.name = 'Center name should be more than two characters';
+      if (name.length < 1) {
+        errors.name = 'Center name should be more than one character';
       }
     }
-    if (!location || location === '') {
+    if (!location || location.trim() === '') {
       errors.location = 'Location is Required';
     }
     if (location) {
-      if (location.length < 3) {
-        errors.location = 'Center name should be more than two characters';
+      if (location.length < 2) {
+        errors.location = 'Center name should be more than one character';
       }
     }
     if (!capacity || capacity === '') {
       errors.capacity = 'Capacity is Required';
     }
-    if (/^[a-zA-Z]+$/.test(capacity) || /[^a-zA-Z0-9]+/.test(capacity)) {
-      errors.capacity = 'Capacity can only contain numbers';
+    if (capacity) {
+      if (/^[a-zA-Z]+$/.test(capacity) || /[^a-zA-Z0-9]+/.test(capacity)) {
+        errors.capacity = 'Capacity can only contain numbers';
+      }
     }
     if (!image || image === '') {
       errors.image = 'Image is Required';
@@ -270,16 +282,18 @@ export default class Validate {
     if (!price || price === '') {
       errors.price = 'Price is Required';
     }
-    if (/^[a-zA-Z]+$/.test(price) || /[^a-zA-Z0-9]+/.test(price)) {
-      errors.price = 'Price can only contain numbers';
+    if (price) {
+      if (/^[a-zA-Z]+$/.test(price) || /[^a-zA-Z0-9]+/.test(price)) {
+        errors.price = 'Price can only contain numbers';
+      }
     }
-    if (!type || type === '') {
+    if (!type || type.trim() === '') {
       errors.type = 'Type is Required';
     }
     if (!facilities || facilities === '') {
       errors.facilities = 'Facilities is Required';
     }
-    if (!description || description === '') {
+    if (!description || description.trim() === '') {
       errors.description = 'Description is Required';
     }
     if (!isEmpty(errors)) {
@@ -306,32 +320,34 @@ export default class Validate {
       name, capacity, price, description, location, facilities, type, image
     } = req.body;
 
-    const centerId = parseInt(req.params.centerId, 10);
+    const centerId = parseInt(req.params.centerId.trim(), 10);
 
     if (!Number.isInteger(centerId)) {
       errors.centerId = 'Center Id is invalid';
     }
-    if (!name || name === '') {
+    if (!name || name.trim() === '') {
       errors.name = 'Name is Required';
     }
     if (name) {
-      if (name.length < 3) {
-        errors.name = 'Name ame should be more than two characters';
+      if (name.length < 2) {
+        errors.name = 'Name ame should be more than one character';
       }
     }
-    if (!location || location === '') {
+    if (!location || location.trim() === '') {
       errors.location = 'Location is Required';
     }
     if (location) {
-      if (location.length < 3) {
-        errors.location = 'Location should be more than two characters';
+      if (location.length < 2) {
+        errors.location = 'Location should be more than one character';
       }
     }
     if (!capacity || capacity === '') {
       errors.capacity = 'Capacity is Required';
     }
-    if (/^[a-zA-Z]+$/.test(capacity) || /[^a-zA-Z0-9]+/.test(capacity)) {
-      errors.capacity = 'Capacity can only contain numbers';
+    if (capacity) {
+      if (/^[a-zA-Z]+$/.test(capacity) || /[^a-zA-Z0-9]+/.test(capacity)) {
+        errors.capacity = 'Capacity can only contain numbers';
+      }
     }
     if (!image || image === '') {
       errors.image = 'Image is Required';
@@ -339,16 +355,18 @@ export default class Validate {
     if (!price || price === '') {
       errors.price = 'Price is Required';
     }
-    if (/^[a-zA-Z]+$/.test(price) || /[^a-zA-Z0-9]+/.test(price)) {
-      errors.price = 'Price can only contain numbers';
+    if (price) {
+      if (/^[a-zA-Z]+$/.test(price) || /[^a-zA-Z0-9]+/.test(price)) {
+        errors.price = 'Price can only contain numbers';
+      }
     }
-    if (!type || type === '') {
+    if (!type || type.trim() === '') {
       errors.type = 'Type is Required';
     }
     if (!facilities || facilities === '') {
       errors.facilities = 'Facilities is Required';
     }
-    if (!description || description === '') {
+    if (!description || description.trim() === '') {
       errors.description = 'Description is Required';
     }
     if (!isEmpty(errors)) {
@@ -370,7 +388,7 @@ export default class Validate {
    */
   static checkCenterId(req, res, next) {
     const errors = {};
-    const centerId = parseInt(req.params.centerId, 10);
+    const centerId = parseInt(req.params.centerId.trim(), 10);
 
     if (!Number.isInteger(centerId)) {
       errors.centerId = 'Center Id is invalid';

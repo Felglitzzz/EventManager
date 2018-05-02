@@ -9,7 +9,7 @@
     "build:dev": "npm run build-server && npm run webpack",
     "clean": "rimraf dist-server && rimraf dist-client",
     "lint": "eslint --fix index",
-    "seed": "sequelize db:seed:all",
+    "seed": "sequelize db:seed:undo:all && sequelize db:seed:all",
     "migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "migrate:test": "sequelize db:migrate --env test",
     "coveralls:report": "nyc report --reporter=text-lcov | coveralls",

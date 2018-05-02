@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 
 import db from '../models';
-import errorMessages from '../utils/handleErrors';
-import Helper from '../utils/helper';
+import errorMessages from '../utils/errorMessages';
+import Helper from '../utils/Helper';
 
 require('dotenv').config();
 

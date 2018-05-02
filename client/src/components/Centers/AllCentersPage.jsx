@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Loader from 'react-md-spinner';
 import Centers from './Centers';
-// import history from '../../helpers/history';
 import { loadCenters } from '../../actions/centerActions';
 
 /**
