@@ -235,7 +235,7 @@ describe('MIDDLEWARE VALIDATION TEST:', () => {
   describe('Event', () => {
     it('should not create event if event name is not provided', (done) => {
       request
-        .post('/api/v1/events/')
+        .post('/api/v1/events')
         .send(eventMockData.noName)
         .set('Authorization', userToken)
         .end((err, res) => {
@@ -248,7 +248,7 @@ describe('MIDDLEWARE VALIDATION TEST:', () => {
 
     it('should not create event if event image is not provided', (done) => {
       request
-        .post('/api/v1/events/')
+        .post('/api/v1/events')
         .send(eventMockData.noImage)
         .set('Authorization', userToken)
         .end((err, res) => {
@@ -261,7 +261,7 @@ describe('MIDDLEWARE VALIDATION TEST:', () => {
 
     it('should not create event if event start date is not provided', (done) => {
       request
-        .post('/api/v1/events/')
+        .post('/api/v1/events')
         .send(eventMockData.noStartDate)
         .set('Authorization', userToken)
         .end((err, res) => {
@@ -274,7 +274,7 @@ describe('MIDDLEWARE VALIDATION TEST:', () => {
 
     it('should not create event if event end date is not provided', (done) => {
       request
-        .post('/api/v1/events/')
+        .post('/api/v1/events')
         .send(eventMockData.noEndDate)
         .set('Authorization', userToken)
         .end((err, res) => {
@@ -287,7 +287,7 @@ describe('MIDDLEWARE VALIDATION TEST:', () => {
 
     it('should not create event if event description is not provided', (done) => {
       request
-        .post('/api/v1/events/')
+        .post('/api/v1/events')
         .send(eventMockData.noDesc)
         .set('Authorization', userToken)
         .end((err, res) => {
@@ -300,7 +300,7 @@ describe('MIDDLEWARE VALIDATION TEST:', () => {
 
     it('should not create event if event centerId is not provided', (done) => {
       request
-        .post('/api/v1/events/')
+        .post('/api/v1/events')
         .send(eventMockData.noCenterId)
         .set('Authorization', userToken)
         .end((err, res) => {
