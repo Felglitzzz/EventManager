@@ -84,6 +84,13 @@ router
     InputValidate.checkEventId,
     Event.getOneEvent
   );
+router
+  .get(
+    '/events/center/:centerId',
+    Auth.verifyUser,
+    InputValidate.checkCenterId,
+    Event.getEventsByCenterId
+  );
 
 
 // User Routes
