@@ -99,7 +99,7 @@ export default class Event {
    */
   static getAllEvents(req, res) {
     const limit = 3;
-    let offset = 0;
+    let offset = Number(0);
     const baseUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}${req.path}`;
     let { page } = req.query;
     page = Number(page);
@@ -162,7 +162,7 @@ export default class Event {
    */
   static getEventsByCenterId(req, res) {
     const limit = 3;
-    let offset = 0;
+    let offset = Number(0);
     const baseUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}${req.path}`;
     let { page } = req.query;
     page = Number(page);

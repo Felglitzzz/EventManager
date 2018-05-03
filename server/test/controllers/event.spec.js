@@ -64,7 +64,7 @@ describe('EVENT API TEST', () => {
 
     it('should return an array of events', (done) => {
       request
-        .get('/api/v1/events')
+        .get('/api/v1/events?page=1')
         .set('Authorization', userToken)
         .set('Accept', 'Application/json')
         .end((err, res) => {
