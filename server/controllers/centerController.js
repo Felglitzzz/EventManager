@@ -22,7 +22,6 @@ export default class Center {
    * @memberof Center
    */
   static addCenter(req, res) {
-    console.log('I got here');
     return centers
       .create(Helper.sanitizedCenterRequest(req))
       .then(center => res.status(201).json({ message: 'Center created!', Center: center }))
@@ -124,14 +123,47 @@ export default class Center {
    * @memberof Center
    */
   static getAllCenters(req, res) {
+    const limit = 3;
+    let offset = Number(0);
+    const baseUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}${req.path}`;
+    let { page } = req.query;
+    page = Number(page);
+    const currentPage = `${baseUrl}?page=${page}`;
+    let previous;
+    let next;
+
     return centers
-      .all()
-      .then(center =>
-        res.status(200).json({
-          message: 'Centers Found!',
-          Centers: center
-        }))
-      .catch(error => res.status(500).json({ message: error }));
+      .findAndCountAll()
+      .then((foundCenters) => {
+        if (foundCenters.count === 0) {
+          return res.status(404).send({
+            message: 'Center Not Found!'
+          });
+        }
+        const pages = Math.ceil(foundCenters.count / limit);
+        offset = limit * (page - 1);
+        if (page !== 1) {
+          previous = `${baseUrl}?page=${page - 1}`;
+        }
+        if (pages > page) {
+          next = `${baseUrl}?page=${page + 1}`;
+        }
+        centers.findAll({
+          limit,
+          offset
+        })
+          .then(center =>
+            res.status(200).json({
+              message: 'Centers Found!',
+              Centers: center,
+              currentPage,
+              previous,
+              next,
+              page,
+              pages
+            }))
+          .catch(error => res.status(500).json({ message: error }));
+      });
   }
 
   /**

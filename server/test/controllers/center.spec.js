@@ -59,7 +59,7 @@ describe('CENTER API TEST:', () => {
     describe('GET', () => {
       it('should return an array of centers', (done) => {
         request
-          .get('/api/v1/centers')
+          .get('/api/v1/centers?page=1')
           .end((err, res) => {
             const { message, center } = res.body;
             expect(res).to.have.status(200);
