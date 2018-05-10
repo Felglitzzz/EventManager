@@ -1,5 +1,4 @@
 import axios from 'axios';
-import toastr from 'toastr';
 import * as actionTypes from './actionTypes';
 
 const {
@@ -13,19 +12,46 @@ const {
   LOAD_ONE_CENTER_SUCCESS
 } = actionTypes;
 
+/**
+ * description - defines load all centers success action
+ *
+ * @export loadAllCenterSuccess
+ *
+ * @param {object} loadedCenters
+ *
+ * @returns {object} dispatched action type and loadedCenters object
+ */
 export const loadCenterSuccess = loadedCenters => ({
   type: LOAD_ALL_CENTERS_SUCCESS,
   loadedCenters
 });
 
+/**
+ * description - defines load all centers failure action
+ *
+ * @export loadAllCenterFail
+ *
+ * @param {object} error
+ *
+ * @returns {object} dispatched action type and error object
+ */
 export const loadCenterFail = error => ({
   type: LOAD_ALL_CENTERS_FAIL,
   error
 });
 
-export const loadCenters = () => (dispatch) => {
+/**
+ * description - handles GET request for all canters for an admin
+ *
+ * @export loadCenters
+ *
+ * @param {object} page
+ *
+ * @returns {object} dispatched action
+ */
+export const loadCenters = page => (dispatch) => {
   const token = localStorage.getItem('x-access-token');
-  axios.get('/api/v1/centers', {
+  axios.get(`/api/v1/centers?page=${page || 1}`, {
     headers: {
       Authorization: token
     }
@@ -35,8 +61,7 @@ export const loadCenters = () => (dispatch) => {
     })
     .catch((errors) => {
       dispatch(loadCenterFail(errors));
-      console.log(errors.response.data.message);
-      toastr.error(errors.response.data.message);
+      throw (errors.response.data.message);
     });
 };
 
@@ -60,8 +85,7 @@ export const createCenter = centerData => (dispatch) => {
     })
     .catch((errors) => {
       dispatch(createCenterFail(errors));
-      console.log(errors.response.data.message);
-      toastr.error(errors.response.data.message);
+      throw (errors.response.data.message);
     });
 };
 
@@ -85,8 +109,7 @@ export const updateCenter = updateCenterData => (dispatch) => {
     })
     .catch((errors) => {
       dispatch(updateCenterFail(errors));
-      console.log(errors.response.data.message);
-      toastr.error(errors.response.data.message);
+      throw (errors.response.data.message);
     });
 };
 
@@ -110,7 +133,6 @@ export const loadOneCenter = centerId => (dispatch) => {
     })
     .catch((errors) => {
       dispatch(loadOneCenterFail(errors));
-      console.log(errors.response.data.message);
-      toastr.error(errors.response.data.message);
+      throw (errors.response.data.message);
     });
 };

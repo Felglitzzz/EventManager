@@ -12,9 +12,9 @@ const userToken = tokenData.userToken();
 const { invalidAdminToken, invalidUserToken } = tokenData;
 
 describe('MIDDLEWARE AUTH TEST:', () => {
-  describe('Auth Middleware For Center Endpoint', () => {
-    describe('POST', () => {
-      it('should return 403 when user token is provided for create center endpoint', (done) => {
+  describe('Auth Middleware for', () => {
+    describe('POST Center Endpoint', () => {
+      it('should return 403 when user token is provided', (done) => {
         request
           .post('/api/v1/centers')
           .send(centerMockData.valid)
@@ -29,7 +29,7 @@ describe('MIDDLEWARE AUTH TEST:', () => {
       });
     });
 
-    describe('PUT', () => {
+    describe('PUT Center Endpoint', () => {
       it('should return 403 if user token is provided', (done) => {
         request
           .put('/api/v1/centers/:centerId')
@@ -45,7 +45,7 @@ describe('MIDDLEWARE AUTH TEST:', () => {
       });
     });
 
-    describe('DELETE', () => {
+    describe('DELETE Center Endpoint', () => {
       it('should return 403 if user token is provided', (done) => {
         request
           .delete('/api/v1/centers/:centerId')
@@ -86,16 +86,16 @@ describe('MIDDLEWARE AUTH TEST:', () => {
     });
   });
 
-  describe('Auth Middleware for Event Endpoint', () => {
-    describe('POST', () => {
+  describe('Auth Middleware for', () => {
+    describe('POST Event Endpoint', () => {
       it('should return 401 if user token is not provided', (done) => {
         request
           .post('/api/v1/events')
           .send(eventMockData.valid)
           .end((err, res) => {
-            const { error } = res.body;
+            const { message } = res.body;
             expect(res).to.have.status(401);
-            expect(error).to.equal('You do not have permission to access this page');
+            expect(message).to.equal('You do not have permission to access this page');
             done();
           });
       });
@@ -114,11 +114,5 @@ describe('MIDDLEWARE AUTH TEST:', () => {
           });
       });
     });
-
-    describe('GET', () => {});
-
-    describe('PUT', () => {});
-
-    describe('DELETE', () => {});
   });
 });

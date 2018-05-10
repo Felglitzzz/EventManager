@@ -6,20 +6,26 @@ const SignUpForm = ({
   onChange, onSubmit, userData, errors, handleFocus, isLoading
 }) => (
   <div
+    aria-hidden="true"
+    aria-labelledby="exampleModalLabel"
     className="modal fade"
     id="exampleModall"
     role="dialog"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
   >
-    <div className="modal-dialog" role="document">
+    <div className="modal-dialog"
+      role="document">
       <div className="modal-content bg-orange modal-breadth">
         <div className="modal-header">
-          <h5 className="modal-title text-light text-center" id="exampleModalLabel">
+          <h5 className="modal-title text-light text-center"
+            id="exampleModalLabel">
             Sign up
           </h5>
-          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-            <span className="text-white" aria-hidden="true">
+          <button aria-label="Close"
+            className="close"
+            data-dismiss="modal"
+            type="button">
+            <span aria-hidden="true"
+              className="text-white">
               &times;
             </span>
           </button>
@@ -28,95 +34,101 @@ const SignUpForm = ({
           <div className="modal-body bg-light">
             <div className="form-group">
               {errors.surname && (
-                <div className="alert alert-danger" role="alert">
+                <div className="alert alert-danger"
+                  role="alert">
                   {errors.surname}
                 </div>
               )}
               <input
-                type="text"
                 className="form-control mb-3"
-                placeholder="Surname"
                 name="surname"
-                value={userData.surname}
                 onChange={onChange}
                 onFocus={handleFocus}
+                placeholder="Surname"
+                type="text"
+                value={userData.surname}
               />
 
               {errors.firstname && (
-                <div className="alert alert-danger" role="alert">
+                <div className="alert alert-danger"
+                  role="alert">
                   {errors.firstname}
                 </div>
               )}
               <input
-                type="text"
                 className="form-control mb-3"
-                placeholder="Firstname"
                 name="firstname"
                 onChange={onChange}
-                value={userData.firstname}
                 onFocus={handleFocus}
+                placeholder="Firstname"
+                type="text"
+                value={userData.firstname}
               />
 
               {errors.username && (
-                <div className="alert alert-danger" role="alert">
+                <div className="alert alert-danger"
+                  role="alert">
                   {errors.username}
                 </div>
               )}
               <input
-                type="text"
                 className="form-control mb-3"
-                placeholder="Username"
                 name="username"
-                value={userData.username}
                 onChange={onChange}
                 onFocus={handleFocus}
+                placeholder="Username"
+                type="text"
+                value={userData.username}
               />
 
               {errors.email && (
-                <div className="alert alert-danger" role="alert">
+                <div className="alert alert-danger"
+                  role="alert">
                   {errors.email}
                 </div>
               )}
               <input
-                type="text"
                 className="form-control mb-3"
-                placeholder="Email"
                 name="email"
                 onChange={onChange}
-                value={userData.email}
                 onFocus={handleFocus}
+                placeholder="Email"
+                type="text"
+                value={userData.email}
               />
 
               {errors.password && (
-                <div className="alert alert-danger" role="alert">
+                <div className="alert alert-danger"
+                  role="alert">
                   {errors.password}
                 </div>
               )}
               <input
-                type="password"
                 className="form-control mb-3"
-                placeholder="Password"
-                name="password"
                 id="password"
+                name="password"
                 onChange={onChange}
-                value={userData.password}
                 onFocus={handleFocus}
+                placeholder="Password"
+                type="password"
+                value={userData.password}
               />
 
               {errors.passwordConfirm && (
-                <div className="alert alert-danger" role="alert">
+                <div className="alert alert-danger"
+                  role="alert">
                   {errors.passwordConfirm}
                 </div>
               )}
               <input
-                type="password"
                 className="form-control"
-                placeholder="Confirm Password"
-                name="passwordConfirm"
                 id="passwordConfirm"
+                name="passwordConfirm"
                 onChange={onChange}
-                value={userData.passwordConfirm}
                 onFocus={handleFocus}
+                placeholder="Confirm Password"
+                type="password"
+                value={userData.passwordConfirm}
               />
             </div>
           </div>
@@ -124,11 +136,11 @@ const SignUpForm = ({
           <div className="modal-footer bg-orange">
             {isLoading && (
               <Loader
-                size={28}
                 color1="#ffffff"
                 color2="#ffffff"
                 color3="#ffffff"
                 color4="#ffffff"
+                size={28}
               />
             )}
             <button

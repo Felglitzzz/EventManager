@@ -48,9 +48,9 @@ export default class User {
       .catch((error) => {
         const errMessages = errorMessages(error);
         if (errMessages.type === 'uniqueError') {
-          return res.status(409).json({ error: errMessages.error });
+          return res.status(409).json({ message: errMessages.error });
         }
-        return res.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ message: 'Internal Server Error' });
       });
   }
 
@@ -82,12 +82,12 @@ export default class User {
             token,
           });
         }
-        return res.status(401).json({ error: 'Username/Password Incorrect' });
+        return res.status(401).json({ message: 'Username/Password Incorrect' });
       })
       .catch((error) => {
         const errMessages = errorMessages(error);
         if (errMessages.type) {
-          res.status(501).json({ error: errMessages.error });
+          res.status(501).json({ message: errMessages.error });
         }
       });
   }

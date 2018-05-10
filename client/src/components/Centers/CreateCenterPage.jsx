@@ -1,21 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import toastr from 'toastr';
 
 import PropTypes from 'prop-types';
 import history from '../../helpers/history';
-
+import Prompter from '../../helpers/Prompter';
 import { createCenter } from '../../actions/centerActions';
 import { uploadToCloudinary } from '../../actions/imageActions';
 import CenterForm from './Form/CenterForm';
 import Validate from '../../helpers/validations/Validate';
+
 /**
- * class CreateCenterPage
+ * @description - Container class component for create center page
+ *
+ * @class CreateCenterPage
+ *
+ * @extends {React.Component}
  */
 class CreateCenterPage extends React.Component {
   /**
-   * constructor function
-   * @param {object} props
+   * @description - creates an instance of CreateCenterPage
+   *
+   * @constructor
+   *
+   * @param { props } props - contains create center component properties
    */
   constructor(props) {
     super(props);
@@ -47,8 +54,10 @@ class CreateCenterPage extends React.Component {
   }
 
   /**
-   * componentWillreceiveProps lifecycle
+   * @description - is invoked before the components receives new props
+   *
    * @param {object} nextProps
+   *
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
@@ -63,9 +72,11 @@ class CreateCenterPage extends React.Component {
   }
 
   /**
-   * onchange event function
-   * @param {*} event
-   * @returns {object} new state
+   * @description - handles create center form input change event
+   *
+   * @param {object} event
+   *
+   * @returns {void}
    */
   onChange(event) {
     event.persist();
@@ -76,9 +87,11 @@ class CreateCenterPage extends React.Component {
   }
 
   /**
-   * onchange event function
-   * @param {*} event
-   * @returns {object} new state
+   * @description - handles changes in the select input type for create center form
+   *
+   * @param {object} event
+   *
+   * @returns {void}
    */
   selectOnChange(event) {
     event.persist();
@@ -103,7 +116,6 @@ class CreateCenterPage extends React.Component {
         });
       }
     }
-
     return this.setState({
       centerData: {
         ...this.state.centerData,
@@ -113,9 +125,11 @@ class CreateCenterPage extends React.Component {
   }
 
   /**
-   * @description handler for image upload - imageOnChange
+   * @description - handles image change event
+   *
    * @param {object} event
-   * @returns {object} selected file
+   *
+   * @returns {void}
    */
   imageOnChange(event) {
     const chosenImage = event.target.files[0];
@@ -138,11 +152,12 @@ class CreateCenterPage extends React.Component {
 
   /**
    * @description handles on focus event
+   *
    * @method handleOnFocus
    *
-   * @param { object } event object
+   * @param { object } event - event object containing create event form details
    *
-   * @returns { object } empty string
+   * @returns { void }
    */
   handleFocus(event) {
     const field = event.target.name;
@@ -154,7 +169,13 @@ class CreateCenterPage extends React.Component {
   }
 
   /**
-   *@returns {void}
+   * @description handles validation for create center input
+   *
+   * @method validate
+   *
+   * @param { object } event - event object
+   *
+   * @returns { object } error object and input validation status
    */
   validate() {
     const { chosenImage, centerData } = this.state;
@@ -167,8 +188,10 @@ class CreateCenterPage extends React.Component {
   }
 
   /**
-   * onSubmit event function
-   * @param {*} event
+   * @description - handles create-center form submission
+   *
+   * @param {object} event
+   *
    * @returns {void}
    */
   onSubmit(event) {
@@ -185,7 +208,7 @@ class CreateCenterPage extends React.Component {
             .then(() => this.redirectToCenters())
             .catch((error) => {
               this.setState({ isLoading: false });
-              toastr.error(error);
+              Prompter.error(error);
             });
         }
       })
@@ -195,29 +218,32 @@ class CreateCenterPage extends React.Component {
   }
 
   /**
-   * @param {string} status
+   * @description - handles redirect to all centers page
+   *
    * @returns {void}
    */
   redirectToCenters() {
     this.setState({ isLoading: false });
-    toastr.success('Center Created');
+    Prompter.success('Center Created');
     history.replace('/dashboard/centers');
   }
 
   /**
-  * @returns { react } component
-  */
+   * @description - renders create event form
+   *
+   * @returns {jsx} CenterForm component
+   */
   render() {
     return (
       <div>
         <CenterForm
-          onSubmit={this.onSubmit}
-          onChange={this.onChange}
           centerData={this.state.centerData}
-          imageOnChange={this.imageOnChange}
           errors={this.state.errors}
-          isLoading={this.state.isLoading}
           handleFocus={this.handleFocus}
+          imageOnChange={this.imageOnChange}
+          isLoading={this.state.isLoading}
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
           selectOnChange={this.selectOnChange}
         />
       </div>
@@ -231,8 +257,11 @@ CreateCenterPage.propTypes = {
 };
 
 /**
- * @param {object} state
- * @returns {object} state
+ * @description maps redux state to props
+ *
+ * @param { object } state - holds redux state
+ *
+ * @return { object } props - returns mapped props from state
  */
 function mapStateToProps(state) {
   return {
@@ -241,9 +270,11 @@ function mapStateToProps(state) {
 }
 
 /**
+ * @description maps action dispatched to props
  *
- * @param {func} dispatch
- * @returns {object} action
+ * @param { object } dispatch - holds dispatchable actions
+ *
+ * @return { object } props - returns mapped props from dispatch action
  */
 function mapDispatchToProps(dispatch) {
   return {

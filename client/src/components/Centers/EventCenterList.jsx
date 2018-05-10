@@ -7,11 +7,11 @@ const EventCenterList = ({ centerevent }) => (
   !centerevent ?
     <div className="d-flex justify-content-center pad">
       <Loader
-        size={96}
         color1="#f6682f"
         color2="#f6682f"
         color3="#f6682f"
-        color4="#f6682f"/>
+        color4="#f6682f"
+        size={96}/>
     </div>
     :
     <div className="d-flex justify-content-center text-center">
@@ -25,7 +25,7 @@ const EventCenterList = ({ centerevent }) => (
         {centerevent.map((event, id) => (
           <tbody key={id}>
             <tr>
-              <td>{moment(event.date).format('dddd, MMMM Do YYYY')}</td>
+              <td>{moment(event.startDate).format('dddd, MMMM Do YYYY')}</td>
               <td>{event.name}</td>
             </tr>
           </tbody>

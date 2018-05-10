@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import history from '../../helpers/history';
 import { addNewEvent } from '../../actions/eventActions';
@@ -8,13 +7,22 @@ import { uploadToCloudinary } from '../../actions/imageActions';
 import { loadCenters } from '../../actions/centerActions';
 import EventForm from './Form/EventForm';
 import Validate from '../../helpers/validations/Validate';
+import Prompter from '../../helpers/Prompter';
+
 /**
- * class CreateEventForm
+ * @description - Container class component for create event page
+ *
+ * @class CreateEventPage
+ *
+ * @extends {React.Component}
  */
-class CreateEventForm extends React.Component {
+class CreateEventPage extends React.Component {
   /**
-   * constructor function
-   * @param {object} props
+   * @description - creates an instance of CreateEventPage
+   *
+   * @constructor
+   *
+   * @param { props } props - contains create event component properties
    */
   constructor(props) {
     super(props);
@@ -23,8 +31,8 @@ class CreateEventForm extends React.Component {
       eventData: {
         name: '',
         centerId: '',
-        date: '',
-        time: '',
+        startDate: '',
+        endDate: '',
         description: '',
         image: ''
       },
@@ -41,16 +49,23 @@ class CreateEventForm extends React.Component {
     this.handleFocus = this.handleFocus.bind(this);
     this.validate = this.validate.bind(this);
   }
+
   /**
-   * Component lifecycle
-   * @returns {func} componentWillMount
+   * @description - Fetches centers after component mounts
+   *
+   * @memberof CreateEventPage
+   *
+   * @returns {void} Nothing
    */
   componentDidMount() {
     this.props.loadCenters();
   }
+
   /**
-   * componentWillreceiveProps lifecycle
+   * @description - is invoked before the components receives new props
+   *
    * @param {object} nextProps
+   *
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
@@ -71,11 +86,12 @@ class CreateEventForm extends React.Component {
 
   /**
    * @description handles on focus event
+   *
    * @method handleOnFocus
    *
-   * @param { object } event - event object containing sign in details
+   * @param { object } event - event object containing create event form details
    *
-   * @returns { object } new sign in details state
+   * @returns { void }
    */
   handleFocus(event) {
     const field = event.target.name;
@@ -87,9 +103,11 @@ class CreateEventForm extends React.Component {
   }
 
   /**
-   * onchange event function
-   * @param {*} event
-   * @returns {object} new state
+   * @description - handles create event form input change event
+   *
+   * @param {object} event
+   *
+   * @returns {void}
    */
   onChange(event) {
     event.persist();
@@ -100,9 +118,11 @@ class CreateEventForm extends React.Component {
   }
 
   /**
-   * @description handler for image upload - imageOnChange
+   * @description - handles image change event
+   *
    * @param {object} event
-   * @returns {object} selected file
+   *
+   * @returns {void}
    */
   imageOnChange(event) {
     const chosenImage = event.target.files[0];
@@ -122,21 +142,31 @@ class CreateEventForm extends React.Component {
     }
     imageReader.readAsDataURL(chosenImage);
   }
+
   /**
-   *@returns {void}
+   * @description handles validation for create event input
+   *
+   * @method validate
+   *
+   * @param { object } event - event object
+   *
+   * @returns { object } error object and input validation status
    */
   validate() {
     const { chosenImage, eventData } = this.state;
-    const { errors, isValid } = Validate.createEvent(eventData, chosenImage);
+    const { errors, isValid } = Validate.addEvent(eventData, chosenImage);
     if (!isValid) {
       this.setState({ errors, isLoading: false });
       return errors;
     }
     this.setState({ errors: {}, isLoading: true });
   }
+
   /**
-   * onSubmit event function
-   * @param {*} event
+   * @description - handles create-event form submission
+   *
+   * @param {object} event
+   *
    * @returns {void}
    */
   onSubmit(event) {
@@ -153,7 +183,7 @@ class CreateEventForm extends React.Component {
             .then(() => this.redirectToEvents())
             .catch((error) => {
               this.setState({ isLoading: false });
-              toastr.error(error);
+              Prompter.error(error);
             });
         }
       })
@@ -163,36 +193,40 @@ class CreateEventForm extends React.Component {
   }
 
   /**
+   * @description - handles redirect to all events page
+   *
    * @returns {void}
    */
   redirectToEvents() {
     this.setState({ isLoading: false });
-    toastr.success('Event Created');
+    Prompter.success('Event Created');
     history.replace('/dashboard/events');
   }
 
   /**
-  * @returns { react } component
-  */
+   * @description - renders create event form
+   *
+   * @returns {jsx} EventForm component
+   */
   render() {
     return (
       <div>
         <EventForm
-          onSubmit={this.onSubmit}
-          onChange={this.onChange}
-          eventData={this.state.eventData}
           errors={this.state.errors}
-          options={this.state.options}
+          eventData={this.state.eventData}
+          handleFocus={this.handleFocus}
           imageOnChange={this.imageOnChange}
           isLoading={this.state.isLoading}
-          handleFocus={this.handleFocus}
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
+          options={this.state.options}
         />
       </div>
     );
   }
 }
 
-CreateEventForm.propTypes = {
+CreateEventPage.propTypes = {
   addNewEvent: PropTypes.func.isRequired,
   loadCenters: PropTypes.func.isRequired,
   options: PropTypes.object.isRequired,
@@ -201,9 +235,11 @@ CreateEventForm.propTypes = {
 };
 
 /**
- * @param {object} state
- * @param {object} ownProps
- * @returns {object} state
+ * @description maps redux state to props
+ *
+ * @param { object } state - holds redux state
+ *
+ * @return { object } props - returns mapped props from state
  */
 function mapStateToProps(state) {
   return {
@@ -211,10 +247,13 @@ function mapStateToProps(state) {
     imageUrl: state.images.image
   };
 }
+
 /**
+ * @description maps action dispatched to props
  *
- * @param {func} dispatch
- * @returns {object} action
+ * @param { object } dispatch - holds dispatchable actions
+ *
+ * @return { object } props - returns mapped props from dispatch action
  */
 function mapDispatchToProps(dispatch) {
   return {
@@ -224,4 +263,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateEventForm);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateEventPage);

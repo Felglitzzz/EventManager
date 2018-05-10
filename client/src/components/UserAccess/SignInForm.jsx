@@ -6,20 +6,26 @@ const SignInForm = ({
   onChange, onSubmit, loginData, errors, isLoading, handleFocus
 }) => (
   <div
+    aria-hidden="true"
+    aria-labelledby="exampleModalLabel"
     className="modal fade"
     id="exampleModal"
     role="dialog"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
   >
-    <div className="modal-dialog" role="document">
+    <div className="modal-dialog"
+      role="document">
       <div className="modal-content bg-orange modal-breadth">
         <div className="modal-header">
-          <h5 className="modal-title text-light text-center" id="exampleModalLabel">
+          <h5 className="modal-title text-light text-center"
+            id="exampleModalLabel">
             Sign in
           </h5>
-          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-            <span className="text-white" aria-hidden="true">
+          <button aria-label="Close"
+            className="close"
+            data-dismiss="modal"
+            type="button">
+            <span aria-hidden="true"
+              className="text-white">
               &times;
             </span>
           </button>
@@ -28,45 +34,47 @@ const SignInForm = ({
           <div className="modal-body bg-light">
             <div className="form-group">
               {errors.username && (
-                <div className="alert alert-danger" role="alert">
+                <div className="alert alert-danger"
+                  role="alert">
                   {errors.username}
                 </div>
               )}
               <input
-                type="text"
                 className="form-control mb-3"
-                placeholder="Username"
-                name="username"
-                value={loginData.username}
-                onChange={onChange}
                 error={errors.username}
+                name="username"
+                onChange={onChange}
                 onFocus={handleFocus}
+                placeholder="Username"
+                type="text"
+                value={loginData.username}
               />
               {errors.password && (
-                <div className="alert alert-danger" role="alert">
+                <div className="alert alert-danger"
+                  role="alert">
                   {errors.password}
                 </div>
               )}
               <input
-                type="password"
                 className="form-control mb-3"
-                placeholder="Password"
+                error={errors.password}
                 name="password"
                 onChange={onChange}
-                value={loginData.password}
-                error={errors.password}
                 onFocus={handleFocus}
+                placeholder="Password"
+                type="password"
+                value={loginData.password}
               />
             </div>
           </div>
           <div className="modal-footer bg-orange">
             {isLoading && (
               <Loader
-                size={28}
                 color1="#ffffff"
                 color2="#ffffff"
                 color3="#ffffff"
                 color4="#ffffff"
+                size={28}
               />
             )}
             <button

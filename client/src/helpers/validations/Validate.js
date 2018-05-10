@@ -27,67 +27,56 @@ export default class Validate {
       passwordConfirm
     } = req;
 
-    if (!surname || surname === '' || typeof surname === 'undefined') {
+    if (!surname || surname === '') {
       errors.surname = 'Surname is Required';
     }
-
     if (surname) {
-      if (surname.length < 3) {
-        errors.surname = 'Surname should be more than two characters';
+      if (surname.length < 2) {
+        errors.surname = 'Surname should be more than one character';
+      }
+      if (/(\d+)/.test(surname.trim()) || /[^a-zA-Z0-9]+/.test(surname.trim())) {
+        errors.surname = 'Surname can only contain letters';
       }
     }
 
-    if (/(\d+)/.test(surname) || /[^a-zA-Z0-9]+/.test(surname)) {
-      errors.surname = 'Surname can only contain letters';
-    }
-
-    if (!firstname || firstname === '' || typeof firstname === 'undefined') {
+    if (!firstname || firstname === '') {
       errors.firstname = 'Firstname is Required';
     }
-
     if (firstname) {
-      if (firstname.length < 3) {
-        errors.firstname = 'Firstname should be more than two characters';
+      if (firstname.length < 2) {
+        errors.firstname = 'Firstname should be more than one character';
+      }
+      if (/(\d+)/.test(firstname.trim()) || /[^a-zA-Z0-9]+/.test(firstname.trim())) {
+        errors.firstname = 'Firstname can only contain letters';
       }
     }
-
-    if (/(\d+)/.test(firstname) || /[^a-zA-Z0-9]+/.test(firstname)) {
-      errors.firstname = 'Firstname can only contain letters';
-    }
-
-    if (!username || username === '' || typeof username === 'undefined') {
+    if (!username || username === '') {
       errors.username = 'Username is Required';
     }
-
     if (username) {
-      if (username.length < 3) {
-        errors.username = 'Username should be more than two characters';
+      if (username.length < 2) {
+        errors.username = 'Username should be more than one character';
       }
     }
-
-    if (!email || email === '' || typeof email === 'undefined') {
+    if (!email || email === '') {
       errors.email = 'Email is Required';
     }
-
     if (email) {
-      if (!Validator.isEmail(email)) {
+      if (!Validator.isEmail(email.trim())) {
         errors.email = 'Invalid email, Enter a valid email, like so: you@mail.com';
       }
     }
-
-    if (!password || password === '' || typeof password === 'undefined') {
+    if (!password || password === '') {
       errors.password = 'Password is Required';
     }
-
     if (password) {
       if (password.length < 8) {
         errors.password = 'Password should not be less than 8 characers';
       }
     }
-
-    if (password.length >= 8) {
+    if (password) {
       if (password !== passwordConfirm) {
-        errors.passwordConfirm = 'Passwords must match';
+        errors.password = 'Passwords must match';
       }
     }
 
@@ -134,39 +123,33 @@ export default class Validate {
    * @returns {object} validation error messages object
    * @memberof Validate
    */
-  static createEvent(req, image) {
+  static addEvent(req, image) {
     const errors = {};
     const {
-      name, date, time, description, centerId
+      name, startDate, endDate, description, centerId
     } = req;
 
-    if (!name || name === '') {
+    if (!name || name.trim() === '') {
       errors.name = 'Name is Required';
     }
-
     if (name) {
-      if (name.length < 3) {
-        errors.name = 'Event name should be more than two characters';
+      if (name.length < 2) {
+        errors.name = 'Event name should be more than one character';
       }
     }
-
-    if (!centerId || centerId === '') {
-      errors.centerId = 'Center is Required';
-    }
-
-    if (!date || date === '') {
-      errors.date = 'Date is Required';
-    }
-
     if (!image || image === '') {
       errors.image = 'Image is Required';
     }
-
-    if (!time || time === '') {
-      errors.time = 'Time is Required';
+    if (!centerId || centerId === '') {
+      errors.centerId = 'Location is Required';
     }
-
-    if (!description || description === '') {
+    if (!startDate || startDate.trim() === '') {
+      errors.startDate = 'Start Date is Required';
+    }
+    if (!endDate || endDate.trim() === '') {
+      errors.endDate = 'End Date is Required';
+    }
+    if (!description || description.trim() === '') {
       errors.description = 'Description is Required';
     }
 
@@ -189,26 +172,30 @@ export default class Validate {
   static editEvent(req) {
     const errors = {};
     const {
-      name, date, time, description, centerId
+      name, startDate, endDate, description, centerId, image
     } = req;
 
-    if (!name || name === '') {
+    if (!name || name.trim() === '') {
       errors.name = 'Name is Required';
     }
-
+    if (name) {
+      if (name.length < 2) {
+        errors.name = 'Event name should be more than one character';
+      }
+    }
     if (!centerId || centerId === '') {
       errors.centerId = 'Center is Required';
     }
-
-    if (!date || date === '') {
-      errors.date = 'Date is Required';
+    if (!image || image === '') {
+      errors.image = 'Image is Required';
     }
-
-    if (!time || time === '') {
-      errors.time = 'Time is Required';
+    if (!startDate || startDate.trim() === '') {
+      errors.startDate = 'Start Date is Required';
     }
-
-    if (!description || description === '') {
+    if (!endDate || endDate.trim() === '') {
+      errors.endDate = 'End Date is Required';
+    }
+    if (!description || description.trim() === '') {
       errors.description = 'Description is Required';
     }
 

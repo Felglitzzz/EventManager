@@ -1,25 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import toastr from 'toastr';
-
 import history from '../../helpers/history';
 import { addNewUser } from '../../actions/userAccessActions';
 import SignUpForm from './SignUpForm';
 import Validate from '../../helpers/validations/Validate';
+import Prompter from '../../helpers/Prompter';
+
 
 /**
- * class SignUpPageModal
+ * @description - Container class component for sign in page
+ *
+ * @class SignUpPageModal
+ *
+ * @extends {React.Component}
  */
 class SignUpPageModal extends React.Component {
-/**
- * constructor function
- * @param {object} props
- */
+  /**
+   * @description - creates an instance of SignUpPageModal
+   *
+   * @constructor
+   *
+   * @param { props } props - contains sign up component properties
+   */
   constructor(props) {
     super(props);
-
-    // The Initial State of the form component
     this.state = {
       userData: {
         surname: '',
@@ -39,9 +44,12 @@ class SignUpPageModal extends React.Component {
     this.handleFocus = this.handleFocus.bind(this);
     this.redirectToDashboard = this.redirectToDashboard.bind(this);
   }
+
   /**
-   * onChange event function
+   * @description - handles form input change event
+   *
    * @param {object} event
+   *
    * @returns {void}
    */
   onChange(event) {
@@ -50,13 +58,15 @@ class SignUpPageModal extends React.Component {
     userData[field] = event.target.value;
     return this.setState({ userData });
   }
+
   /**
    * @description handles on focus event
+   *
    * @method handleOnFocus
    *
-   * @param { object } event - event object containing sign in details
+   * @param { object } event - event object containing sign up details
    *
-   * @returns { object } new sign in details state
+   * @returns { void }
    */
   handleFocus(event) {
     const field = event.target.name;
@@ -66,8 +76,10 @@ class SignUpPageModal extends React.Component {
   }
 
   /**
-   * onSubmit event function
+   * @description - handles sign-up form submission
+   *
    * @param {object} event
+   *
    * @returns {void}
    */
   onSubmit(event) {
@@ -83,8 +95,8 @@ class SignUpPageModal extends React.Component {
     this.props.addNewUser(userData)
       .then(() => this.redirectToDashboard())
       .catch((error) => {
-        toastr.error(error);
-        this.setState({ isLoading: false });
+        this.setState({ isLoading: false, isAuthenticated: false });
+        Prompter.error(error);
       });
   }
   /**
@@ -92,26 +104,25 @@ class SignUpPageModal extends React.Component {
    */
   redirectToDashboard() {
     this.setState({ isLoading: false });
-    toastr.success('Sign Up Successful');
+    Prompter.success('Sign Up Successful');
     history.replace('/dashboard');
   }
 
   /**
-   * @returns {react} sign in modal component
+   * @description - renders sign-up form
+   *
+   * @returns {jsx} sign-up modal component
    */
   render() {
-    /**
-       * @returns {react} component
-       */
     return (
       <div>
-        < SignUpForm
-          userData={this.state.userData}
-          onChange={this.onChange}
-          onSubmit={this.onSubmit}
+        <SignUpForm
           errors={this.state.errors}
           handleFocus={this.handleFocus}
           isLoading={this.state.isLoading}
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
+          userData={this.state.userData}
         />
       </div>
     );
@@ -123,19 +134,25 @@ SignUpPageModal.propTypes = {
 };
 
 /**
- * @param {func} dispatch
- * @returns {object} action
- */
-const mapDispatchToProps = dispatch => ({
-  addNewUser: userData => dispatch(addNewUser(userData))
-});
-
-/**
- * @param {object} state
- * @returns {object} userdata
+ * @description maps redux state to props
+ *
+ * @param { object } state - holds redux state
+ *
+ * @return { object } props - returns mapped props from state
  */
 const mapStateToProps = state => ({
   userData: state.userAccess
+});
+
+/**
+ * @description maps action dispatched to props
+ *
+ * @param { object } dispatch - holds dispatchable actions
+ *
+ * @return { object } props - returns mapped props from dispatch action
+ */
+const mapDispatchToProps = dispatch => ({
+  addNewUser: userData => dispatch(addNewUser(userData))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpPageModal);

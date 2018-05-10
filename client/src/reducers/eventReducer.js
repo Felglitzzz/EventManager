@@ -12,14 +12,19 @@ const {
   SAVE_IMAGE_SUCCESS,
   SAVE_IMAGE_FAIL,
   DELETE_ONE_EVENT_FAIL,
-  DELETE_ONE_EVENT_SUCCESS
+  DELETE_ONE_EVENT_SUCCESS,
+  LOAD_EVENTS_BY_CENTER_ID_FAIL,
+  LOAD_EVENTS_BY_CENTER_ID_SUCCESS
 } = actionTypes;
 
 /**
  * @export eventReducer
+ *
  * @description defines eventReducer
+ *
  * @param {object} state
  * @param {object} action
+ *
  * @returns {object} action type and payload
  */
 
@@ -99,6 +104,16 @@ const eventReducer = (state = {}, action) => {
     };
   }
   case DELETE_ONE_EVENT_FAIL:
+    return {
+      ...state,
+      error: action.error
+    };
+  case LOAD_EVENTS_BY_CENTER_ID_SUCCESS:
+    return {
+      ...state,
+      eventsRetrieved: action.eventsRetrieved
+    };
+  case LOAD_EVENTS_BY_CENTER_ID_FAIL:
     return {
       ...state,
       error: action.error

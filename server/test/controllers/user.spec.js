@@ -51,10 +51,9 @@ describe('USER API TEST:', () => {
         .post('/api/v1/users')
         .send(userMockData.user.signup.emailExist)
         .end((err, res) => {
-          const { error } = res.body;
+          const { message } = res.body;
           expect(res.status).to.equal(409);
-          expect(res.body).to.have.property('error');
-          expect(error).to.equal('A user with this email exists');
+          expect(message).to.equal('A user with this email exists');
           done();
         });
     });
@@ -64,10 +63,9 @@ describe('USER API TEST:', () => {
         .post('/api/v1/users')
         .send(userMockData.user.signup.usernameExist)
         .end((err, res) => {
-          const { error } = res.body;
+          const { message } = res.body;
           expect(res.status).to.equal(409);
-          expect(res.body).to.have.property('error');
-          expect(error).to.equal('Username taken, Please use another');
+          expect(message).to.equal('Username taken, Please use another');
           done();
         });
     });

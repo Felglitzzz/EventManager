@@ -211,9 +211,9 @@ describe('MIDDLEWARE VALIDATION TEST:', () => {
         .send(userMockData.user.login.incorrectUsername)
         .set('Authorization', userToken)
         .end((err, res) => {
-          const { error } = res.body;
+          const { message } = res.body;
           expect(res).to.have.status(401);
-          expect(error).to.equal('Username/Password Incorrect');
+          expect(message).to.equal('Username/Password Incorrect');
           done();
         });
     });
@@ -224,9 +224,9 @@ describe('MIDDLEWARE VALIDATION TEST:', () => {
         .send(userMockData.user.login.incorrectPassword)
         .set('Authorization', userToken)
         .end((err, res) => {
-          const { error } = res.body;
+          const { message } = res.body;
           expect(res).to.have.status(401);
-          expect(error).to.equal('Username/Password Incorrect');
+          expect(message).to.equal('Username/Password Incorrect');
           done();
         });
     });

@@ -25,9 +25,10 @@ export default class Auth {
     * @memberof Auth
     */
   static verifyUser(req, res, next) {
+    console.log('hhhhhhhh');
     const { authorization } = req.headers;
     if (!authorization) {
-      return res.status(401).json({ error: 'You do not have permission to access this page' });
+      return res.status(401).json({ message: 'You do not have permission to access this page' });
     }
     Helper.decodeToken(authorization)
       .then((decoded) => {

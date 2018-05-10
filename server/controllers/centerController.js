@@ -28,7 +28,7 @@ export default class Center {
       .catch((error) => {
         const errMessages = errorMessages(error);
         if (errMessages.type === 'uniqueError') {
-          res.status(409).json({ message: errMessages.error });
+          return res.status(409).json({ message: errMessages.error });
         }
       });
   }
@@ -65,7 +65,7 @@ export default class Center {
             .catch((error) => {
               const errMessages = errorMessages(error);
               if (errMessages.type === 'uniqueError') {
-                res.status(409).json({ message: errMessages.error });
+                return res.status(409).json({ message: errMessages.error });
               }
             });
         })
@@ -123,12 +123,12 @@ export default class Center {
    * @memberof Center
    */
   static getAllCenters(req, res) {
-    const limit = 3;
+    const limit = 6;
     let offset = Number(0);
     const baseUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}${req.path}`;
-    let { page } = req.query;
-    page = Number(page);
-    const currentPage = `${baseUrl}?page=${page}`;
+    let currentPage = req.query.page || 1;
+    currentPage = Number(currentPage);
+    const currentPageUrl = `${baseUrl}?page=${currentPage}`;
     let previous;
     let next;
 
@@ -140,13 +140,13 @@ export default class Center {
             message: 'Center Not Found!'
           });
         }
-        const pages = Math.ceil(foundCenters.count / limit);
-        offset = limit * (page - 1);
-        if (page !== 1) {
-          previous = `${baseUrl}?page=${page - 1}`;
+        const totalPages = Math.ceil(foundCenters.count / limit);
+        offset = limit * (currentPage - 1);
+        if (currentPage !== 1) {
+          previous = `${baseUrl}?page=${currentPage - 1}`;
         }
-        if (pages > page) {
-          next = `${baseUrl}?page=${page + 1}`;
+        if (totalPages > currentPage) {
+          next = `${baseUrl}?page=${currentPage + 1}`;
         }
         centers.findAll({
           limit,
@@ -156,11 +156,17 @@ export default class Center {
             res.status(200).json({
               message: 'Centers Found!',
               Centers: center,
-              currentPage,
-              previous,
-              next,
-              page,
-              pages
+              meta: {
+                pagination: {
+                  currentPageUrl,
+                  previous,
+                  next,
+                  currentPage,
+                  totalPages,
+                  offset,
+                  limit
+                }
+              }
             }))
           .catch(error => res.status(500).json({ message: error }));
       });
