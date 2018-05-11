@@ -322,9 +322,8 @@ export const loadEventsByCenterIdFail = error => ({
  * @returns {object} dispatched action
  */
 export const loadEventsByCenterId = (centerId, page) => (dispatch) => {
-  console.log('centaID', centerId);
   const token = localStorage.getItem('x-access-token');
-  axios.get(`/events/center/${centerId}?page=${page || 1}`, {
+  axios.get(`/api/v1/events/center/${centerId}?page=${page || 1}`, {
     headers: { Authorization: token }
   })
     .then((response) => {
@@ -335,4 +334,3 @@ export const loadEventsByCenterId = (centerId, page) => (dispatch) => {
       throw (errors.response.data.message);
     });
 };
-

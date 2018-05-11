@@ -12,7 +12,7 @@ import CreateCenterPage from '../Centers/CreateCenterPage';
 import EditCenterPage from '../Centers/EditCenterPage';
 import ViewCenterPage from '../Centers/ViewCenterPage';
 import showDeleteModal from '../Modal/alertModal';
-import getUserInfo from '../../utils/getUserFromToken';
+import getUserFromToken from '../../utils/getUserFromToken';
 import CreateEventPage from '../Events/CreateEventPage';
 import Prompter from '../../helpers/Prompter';
 
@@ -93,7 +93,7 @@ class UserDashboard extends React.Component {
    */
   render() {
     const { isAuthenticated } = this.state;
-    const { isAdmin, error } = getUserInfo();
+    const { isAdmin, error } = getUserFromToken();
     return (
       !isAuthenticated || error
         ?
@@ -120,6 +120,16 @@ class UserDashboard extends React.Component {
                       </li>
                     </Link>
                     <Link
+                      to={isAdmin ? null : '/dashboard/centers'}
+                    >
+                      <li className="list-group-item bg-dark mb-1 button-anim padL">
+                        <span className="fa-stack mr-2 empty">
+                          <i className="text-center text-orange fa fa-university fa-2x" />
+                        </span>
+                        <p className="font-weight-bold text-orange montfont d-inline-flex">Centers</p>
+                      </li>
+                    </Link>
+                    <Link
                       to ={isAdmin ? '/dashboard/centers' : '/dashboard/events'}
                     >
                       <li className="list-group-item bg-dark mb-1 button-anim padL">
@@ -130,7 +140,7 @@ class UserDashboard extends React.Component {
                       </li>
                     </Link>
                     <Link
-                      to={isAdmin ? '/dashboard/create-center' : '/dashboard/event'}
+                      to={isAdmin ? '/dashboard/center' : '/dashboard/event'}
                     >
                       <li className="list-group-item bg-dark mb-1 button-anim padL">
                         <span className="fa-stack mr-2 empty">
@@ -192,7 +202,7 @@ class UserDashboard extends React.Component {
                 />
                 <Route
                   component={CreateCenterPage}
-                  path="/dashboard/create-center"
+                  path="/dashboard/center"
                 />
                 <Route
                   component={EditCenterPage}

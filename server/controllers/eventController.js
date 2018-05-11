@@ -176,7 +176,6 @@ export default class Event {
     const currentPageUrl = `${baseUrl}?page=${currentPage}`;
     let previous;
     let next;
-    console.log('params', req.params);
 
     return events
       .findAndCountAll({
@@ -185,7 +184,6 @@ export default class Event {
         },
       })
       .then((foundEvents) => {
-        console.log('foundEvents', foundEvents);
         if (foundEvents.count === 0) {
           return res.status(404).send({
             message: 'Event Not Found!'
@@ -209,11 +207,17 @@ export default class Event {
           .then(event => res.status(200).json({
             message: 'Events Found!',
             event,
-            currentPage,
-            previous,
-            next,
-            currentPageUrl,
-            totalPages
+            meta: {
+              pagination: {
+                currentPageUrl,
+                previous,
+                next,
+                currentPage,
+                totalPages,
+                offset,
+                limit
+              }
+            }
           }));
       })
       .catch(error => res.status(500).json({ message: error.message }));

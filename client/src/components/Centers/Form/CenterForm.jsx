@@ -22,7 +22,7 @@ const CenterForm = ({
                       Fill the form to create center
                   </p>
                 </div>
-                <div className="p-5">
+                <div className="perd">
                   <div className="form-group">
                     {errors.name && <div className="alert alert-danger"
                       role="alert">
@@ -124,7 +124,7 @@ const CenterForm = ({
                       {errors.image}</div>}
                     <input
                       accept="image/*"
-                      className="form-control-file text-secondary border"
+                      className="form-control-file w-100 text-secondary border"
                       id="file-upload"
                       name="image"
                       onChange={imageOnChange}

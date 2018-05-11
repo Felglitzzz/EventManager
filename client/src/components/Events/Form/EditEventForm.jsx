@@ -142,7 +142,7 @@ const EditEventForm = ({
                       <label>Choose Event Image</label>
                       <input
                         accept="image/*"
-                        className="form-control-file text-secondary border"
+                        className="form-control-file text-secondary w-100 border"
                         name="image"
                         onChange={imageOnChange}
                         placeholder="Choose event Image"

@@ -155,8 +155,11 @@ a {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-/* #toast-container > div {
-} */
+#toast-container {
+  position: absolute !important;
+  z-index: 999999;
+  pointer-events: none;
+}
 
 .toast-message{
   text-align: center !important;
@@ -519,6 +522,10 @@ a {
   border: 1px;
 }
 
+.pad-5{
+  padding: 3rem;
+}
+
 .page.active {
   border: none;
   background: #616161;
@@ -620,6 +627,11 @@ a {
   p {
     font-size: 0.8rem !important;
   }
+
+  .breadth-100{
+    max-width: 100%;
+    height: auto;
+  }
   .btn-resp-height {
     line-height: 1rem !important;
     margin-left: 5px !important;
@@ -649,9 +661,15 @@ a {
   .main-panel {
     position: relative;
     z-index: 2;
-    width: calc(100% - 120px);
-    margin-left: 110px;
+    width: calc(100% - 100px);
+    margin-left: 100px;
     float: none;
+    /* width: 100% */
+  }
+
+  .no-padding-hr {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
 
   .sidebar {
@@ -679,9 +697,13 @@ a {
     font-size: 0.7rem;
     line-height: 3em;
   }
+  .pad-5{
+    padding: 1rem;
+  }
 }
 
 @media (min-width: 566px) and (max-width: 767px) {
+
   h1 {
     font-size: 2.5rem !important;
   }
@@ -704,6 +726,11 @@ a {
   .mAuto {
     margin-left: auto !important;
     margin-right: auto !important;
+  }
+
+  .no-padding-hr {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
 }
 
@@ -737,16 +764,25 @@ a {
     margin-bottom: auto !important;
   }
 
+  .no-padding-hr {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
   .main-panel {
     position: relative;
     z-index: 2;
-    width: calc(100% - 300px);
-    margin-left: 265px;
+    width: calc(100% - 230px);
+    margin-left: 230px;
     float: none;
   }
 
   .perd{
     padding: 1em;
+  }
+
+  .breadth-100{
+    width:100%;
   }
 }
 
@@ -783,6 +819,16 @@ a {
   .perd{
     padding: 2em;
   }
+
+  .the-flex{
+    display: flex;
+    justify-content: center;
+  }
+
+  .no-padding-hr {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -814,6 +860,16 @@ a {
 
   .perd{
     padding: 3em;
+  }
+
+  .no-padding-hr {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  .the-flex{
+    display: flex;
+    justify-content: center;
   }
 
   

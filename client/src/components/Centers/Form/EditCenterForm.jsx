@@ -23,7 +23,7 @@ const EditCenterForm = ({
                                         Fill the form to edit center
                   </p>
                 </div>
-                <div className="p-5">
+                <div className="perd">
                   <div className="form-group">
                     {errors.name && <div className="alert alert-danger"
                       role="alert">
@@ -124,7 +124,7 @@ const EditCenterForm = ({
                       {errors.image}</div>}
                     <input
                       accept="image/*"
-                      className="form-control-file text-secondary border"
+                      className="form-control-file w-100 text-secondary border"
                       name="image"
                       onChange={imageOnChange}
                       onFocus={handleFocus}

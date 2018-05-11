@@ -149,7 +149,7 @@ const EventForm = ({
                       )}
                       <input
                         accept="image/*"
-                        className="form-control form-control-file text-secondary border"
+                        className="form-control form-control-file w-100 text-secondary border"
                         id="file-upload"
                         name="image"
                         onChange={imageOnChange}
