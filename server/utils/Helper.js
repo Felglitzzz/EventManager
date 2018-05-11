@@ -105,4 +105,30 @@ export default class Helper {
       price
     };
   }
+
+  /**
+   *  Sanitizes the user request body object
+   * @static
+   *
+   * @param {object} requestData - user object payload
+   *
+   * @returns {object} sanitized request object
+   *
+   * @memberof Helper
+   */
+  static sanitizedUserRequest(requestData) {
+    const { password } = requestData.body;
+    const surname = requestData.body.surname.trim();
+    const firstname = requestData.body.firstname.trim();
+    const email = requestData.body.email.trim();
+    const username = requestData.body.username.trim();
+
+    return {
+      surname,
+      firstname,
+      username,
+      email,
+      password,
+    };
+  }
 }

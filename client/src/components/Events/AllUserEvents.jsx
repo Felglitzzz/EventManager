@@ -70,8 +70,9 @@ class AllUserEvents extends React.Component {
     }
 
     if (nextProps.events.loadedEvents) {
+      console.log('@@@@@@event', nextProps.events.loadedEvents.event);
       this.setState({
-        event: nextProps.events.loadedEvents.event,
+        event: nextProps.events.loadedEvents.event.rows,
         pagination: nextProps.events.loadedEvents.meta.pagination,
       });
     }
@@ -167,7 +168,7 @@ class AllUserEvents extends React.Component {
             </p>
             <Link
               className="d-flex justify-content-center"
-              to="/dashboard/create-event"
+              to="/dashboard/event"
             >
               <button
                 className="btn btn-orange"

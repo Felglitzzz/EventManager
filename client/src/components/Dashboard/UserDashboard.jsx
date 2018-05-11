@@ -85,6 +85,15 @@ class UserDashboard extends React.Component {
     Prompter.success('Logged Out Successfully');
     history.replace('/');
   }
+  /**
+   * @returns {void}
+   */
+  redirectToLandingPage() { //eslint-disable-line
+    Prompter.error('Only Logged in users can access the dashboard');
+    return (
+      <Redirect to = "/" />
+    );
+  }
 
   /**
    * @description - renders user's dashboard based
@@ -97,9 +106,7 @@ class UserDashboard extends React.Component {
     return (
       !isAuthenticated || error
         ?
-        Prompter.error('Only Logged in users can access the dashboard')
-        &&
-        <Redirect to = "/" />
+        this.redirectToLandingPage()
         :
         <div>
           <div className="wrapper top-order"
@@ -119,16 +126,18 @@ class UserDashboard extends React.Component {
                         <p className="font-weight-bold text-orange montfont">EVENTERIA</p>
                       </li>
                     </Link>
-                    <Link
-                      to={isAdmin ? null : '/dashboard/centers'}
+                    { isAdmin || <Link
+                      to={'/dashboard/centers'}
                     >
                       <li className="list-group-item bg-dark mb-1 button-anim padL">
                         <span className="fa-stack mr-2 empty">
                           <i className="text-center text-orange fa fa-university fa-2x" />
                         </span>
-                        <p className="font-weight-bold text-orange montfont d-inline-flex">Centers</p>
+                        <p className="font-weight-bold text-orange montfont d-inline-flex">
+                          Centers
+                        </p>
                       </li>
-                    </Link>
+                    </Link>}
                     <Link
                       to ={isAdmin ? '/dashboard/centers' : '/dashboard/events'}
                     >

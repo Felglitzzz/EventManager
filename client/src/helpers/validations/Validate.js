@@ -34,7 +34,7 @@ export default class Validate {
       if (surname.length < 2) {
         errors.surname = 'Surname should be more than one character';
       }
-      if (/(\d+)/.test(surname.trim()) || /[^a-zA-Z0-9]+/.test(surname.trim())) {
+      if (/(\d+)/.test(surname.trim()) || /[^a-zA-Z0-9 ]+/.test(surname.trim())) {
         errors.surname = 'Surname can only contain letters';
       }
     }
@@ -57,6 +57,9 @@ export default class Validate {
       if (username.length < 2) {
         errors.username = 'Username should be more than one character';
       }
+    }
+    if (/[^a-zA-Z0-9 ]+/.test(username)) {
+      errors.username = 'Username can only contain alphanumeric characters';
     }
     if (!email || email === '') {
       errors.email = 'Email is Required';
@@ -137,6 +140,9 @@ export default class Validate {
         errors.name = 'Event name should be more than one character';
       }
     }
+    if (/[^a-zA-Z0-9 ]+/.test(name)) {
+      errors.name = 'Name can only contain alphanumeric characters';
+    }
     if (!image || image === '') {
       errors.image = 'Image is Required';
     }
@@ -151,6 +157,9 @@ export default class Validate {
     }
     if (!description || description.trim() === '') {
       errors.description = 'Description is Required';
+    }
+    if (/[^a-zA-Z0-9 ]+/.test(description)) {
+      errors.description = 'Description can only contain alphanumeric characters';
     }
 
     return {
@@ -183,6 +192,10 @@ export default class Validate {
         errors.name = 'Event name should be more than one character';
       }
     }
+
+    if (/[^a-zA-Z0-9 ]+/.test(name)) {
+      errors.name = 'Name can only contain alphanumeric characters';
+    }
     if (!centerId || centerId === '') {
       errors.centerId = 'Center is Required';
     }
@@ -197,6 +210,9 @@ export default class Validate {
     }
     if (!description || description.trim() === '') {
       errors.description = 'Description is Required';
+    }
+    if (/[^a-zA-Z0-9 ]+/.test(description)) {
+      errors.description = 'Description can only contain alphanumeric characters';
     }
 
     return {
@@ -224,6 +240,9 @@ export default class Validate {
     if (!name || name === '') {
       errors.name = 'Name is Required';
     }
+    if (/[^a-zA-Z0-9 ]+/.test(name)) {
+      errors.name = 'Name can only contain alphanumeric characters';
+    }
 
     if (name) {
       if (name.length < 3) {
@@ -239,6 +258,10 @@ export default class Validate {
       if (location.length < 3) {
         errors.location = 'Center name should be more than two characters';
       }
+    }
+
+    if (/[^a-zA-Z0-9- ]+/.test(location)) {
+      errors.location = 'Location can only contain alphanumeric characters';
     }
 
     if (!capacity || capacity === '') {
@@ -265,12 +288,19 @@ export default class Validate {
       errors.type = 'Type is Required';
     }
 
+    if (/[^a-zA-Z ]+/.test(type)) {
+      errors.type = 'Type can only contain letters';
+    }
+
     if (!facilities || facilities === [] || facilities.length === 0) {
       errors.facilities = 'Facilities is Required';
     }
 
     if (!description || description === '') {
       errors.description = 'Description is Required';
+    }
+    if (/[^a-zA-Z0-9]+/.test(description)) {
+      errors.description = 'Description can only contain alphanumeric characters';
     }
 
     return {
@@ -305,6 +335,10 @@ export default class Validate {
       }
     }
 
+    if (/[^a-zA-Z0-9 ]+/.test(name)) {
+      errors.name = 'Name can only contain alphanumeric characters';
+    }
+
     if (!location || location === '') {
       errors.location = 'Location is Required';
     }
@@ -313,6 +347,10 @@ export default class Validate {
       if (location.length < 3) {
         errors.location = 'Center name should be more than two characters';
       }
+    }
+
+    if (/[^a-zA-Z0-9- ]+/.test(location)) {
+      errors.location = 'Location can only contain alphanumeric characters';
     }
 
     if (!capacity || capacity === '') {
@@ -334,6 +372,9 @@ export default class Validate {
     if (!type || type === '') {
       errors.type = 'Type is Required';
     }
+    if (/[^a-zA-Z ]+/.test(type)) {
+      errors.type = 'Type can only contain letters';
+    }
 
     if (!facilities || facilities === [] || facilities.length === 0) {
       errors.facilities = 'Facilities is Required';
@@ -341,6 +382,9 @@ export default class Validate {
 
     if (!description || description === '') {
       errors.description = 'Description is Required';
+    }
+    if (/[^a-zA-Z0-9 ]+/.test(description)) {
+      errors.description = 'Description can only contain alphanumeric characters';
     }
 
     return {

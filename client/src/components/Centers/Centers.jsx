@@ -40,7 +40,8 @@ const Centers = ({ centers }) => {
                 </div>
                 <div className="card-body">
                   <ul className="list-group list-group-flush">
-                    <li className="list-group-item"><h4 className="card-title">{center.name}</h4></li>
+                    <li className="list-group-item"><h4
+                      className="card-title">{center.name}</h4></li>
                     <li
                       className="list-group-item"><p
                         className="card-text">{center.location}</p></li>

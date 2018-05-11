@@ -26,13 +26,7 @@ export default class User {
     */
   static createUser(req, res) {
     users
-      .create({
-        surname: req.body.surname,
-        firstname: req.body.firstname,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-      })
+      .create(Helper.sanitizedUserRequest(req))
       .then((user) => {
         const userData = {
           id: user.id,
@@ -66,8 +60,8 @@ export default class User {
     * @memberof User
     */
   static login(req, res) {
-    const { username, password } = req.body;
-
+    const { password } = req.body;
+    const username = req.body.username.trim();
     return users.findOne({ where: { username } })
       .then((user) => {
         if (user && bcrypt.compareSync(password, user.password)) {

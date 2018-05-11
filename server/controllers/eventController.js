@@ -99,58 +99,57 @@ export default class Event {
    */
   static getAllEvents(req, res) {
     const limit = 6;
-    let offset = Number(0);
     const baseUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}${req.path}`;
     let currentPage = req.query.page || 1;
     currentPage = Number(currentPage);
     const currentPageUrl = `${baseUrl}?page=${currentPage}`;
+    const offset = limit * (currentPage - 1);
     let previous;
     let next;
 
     return events
-      .findAndCountAll()
-      .then((foundEvents) => {
-        if (foundEvents.count === 0) {
+      .findAndCountAll({
+        where: {
+          userId: req.decoded.id
+        },
+        limit,
+        offset,
+        include: [
+          {
+            model: centers,
+            attributes: ['id', 'name', 'location']
+          }
+        ]
+      })
+      .then((event) => {
+        console.log('server', event);
+        if (event.count === 0) {
           return res.status(404).send({
             message: 'Event Not Found!'
           });
         }
-        const totalPages = Math.ceil(foundEvents.count / limit);
-        offset = limit * (currentPage - 1);
+        const totalPages = Math.ceil(event.count / limit);
         if (currentPage !== 1) {
           previous = `${baseUrl}?page=${currentPage - 1}`;
         }
         if (totalPages > currentPage) {
           next = `${baseUrl}?page=${currentPage + 1}`;
         }
-        events.findAll({
-          where: {
-            userId: req.decoded.id
-          },
-          limit,
-          offset,
-          include: [
-            {
-              model: centers,
-              attributes: ['id', 'name', 'location']
+        return res.status(200).json({
+          message: 'Events Found!',
+          event,
+          meta: {
+            pagination: {
+              currentPageUrl,
+              previous,
+              next,
+              currentPage,
+              totalPages,
+              offset,
+              limit
             }
-          ]
-        })
-          .then(event => res.status(200).json({
-            message: 'Events Found!',
-            event,
-            meta: {
-              pagination: {
-                currentPageUrl,
-                previous,
-                next,
-                currentPage,
-                totalPages,
-                offset,
-                limit
-              }
-            }
-          }));
+          }
+        });
       })
       .catch(error => res.status(500).json({ message: error.message }));
   }
