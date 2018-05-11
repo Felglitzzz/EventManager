@@ -62,7 +62,6 @@ class ViewCenterPage extends React.Component {
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
-    console.log('location changed', nextProps);
     if (nextProps.centerReturned.centerReturned) {
       this.setState({
         centerReturned: nextProps.centerReturned.centerReturned.center

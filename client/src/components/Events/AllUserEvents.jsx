@@ -70,7 +70,6 @@ class AllUserEvents extends React.Component {
     }
 
     if (nextProps.events.loadedEvents) {
-      console.log('@@@@@@event', nextProps.events.loadedEvents.event);
       this.setState({
         event: nextProps.events.loadedEvents.event.rows,
         pagination: nextProps.events.loadedEvents.meta.pagination,

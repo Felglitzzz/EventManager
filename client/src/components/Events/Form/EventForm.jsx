@@ -160,7 +160,7 @@ const EventForm = ({
                     </div>
                     <div className="form-group">
                       <button className="btn btn-orange w-100 waves-effect z-depth-2"
-                        disabled = {!!isLoading }
+                        disabled = {!!isLoading}
                         onSubmit={onSubmit}>
                         <span className="pr-4">
                           Submit

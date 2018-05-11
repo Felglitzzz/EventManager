@@ -122,7 +122,6 @@ export default class Event {
         ]
       })
       .then((event) => {
-        console.log('server', event);
         if (event.count === 0) {
           return res.status(404).send({
             message: 'Event Not Found!'
@@ -166,7 +165,6 @@ export default class Event {
    * @memberof Event
    */
   static getEventsByCenterId(req, res) {
-    console.log('i got here');
     const limit = 6;
     let offset = Number(0);
     const baseUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}${req.path}`;
