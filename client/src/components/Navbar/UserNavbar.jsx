@@ -1,36 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import lodash from 'lodash';
-
 import { logOutUser } from '../../actions/userAccessActions';
 import getUserInfo from '../../utils/getUserFromToken';
+
 /**
- * Navbar Class
+ * @description - Class component for rendering authenticated navbar
+ *
+ * @class UserNavbar
+ *
+ * @returns {jsx} jsx - renders UserNavbar component
  */
 class UserNavbar extends React.Component {
   /**
-   * componentdidmount lifecycle
-   * @returns {any} toggles
-   */
-  componentDidMount() {
-    $('#menu-toggle').click((e) => {
-      e.preventDefault();
-      $('#wrapper').toggleClass('toggled');
-      $('.toggle .sidebar #menu li').empty();
-      $('.toggle .sidebar #menu li').hide();
-
-
-      $('.sidebar #menu ul').hide();
-    });
-  }
-  /**
-  * render
-  * @returns {Navbar} Navbar component
+  * @description - renders dynamic navbar for authenticated users
+  *
+  * @returns { jsx } jsx - renders authenticated navbar component
+  *
+  * @memberof UserNavbar
   */
   render() {
     const { username } = getUserInfo();
     return (
-      <div className="container mb-3 hoverable">
+      <div className="no-padding-hr container mb-3 hoverable">
         <nav className="navbar navbar-expand-lg d-flex">
           <p className="font-weight-bold montfont text-orange ml-auto myAuto">
             Hello, {lodash.capitalize(username)}

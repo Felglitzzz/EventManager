@@ -2,28 +2,34 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Route, Switch, Link, Redirect } from 'react-router-dom';
-import toastr from 'toastr';
 
 import UserNavbar from '../Navbar/UserNavbar';
 import AllUserEvents from '../Events/AllUserEvents';
 import history from '../../helpers/history';
-import CreateEventForm from '../Events/CreateEventForm';
 import EditEventPage from '../Events/EditEventPage';
 import AllCentersPage from '../Centers/AllCentersPage';
 import CreateCenterPage from '../Centers/CreateCenterPage';
 import EditCenterPage from '../Centers/EditCenterPage';
 import ViewCenterPage from '../Centers/ViewCenterPage';
 import showDeleteModal from '../Modal/alertModal';
-import getUserInfo from '../../utils/getUserFromToken';
+import getUserFromToken from '../../utils/getUserFromToken';
+import CreateEventPage from '../Events/CreateEventPage';
+import Prompter from '../../helpers/Prompter';
 
 /**
- * class UserDashboard
+ * @description - Container class component for user's dashboard
+ *
+ * @class UserDashboard
+ *
+ * @extends {React.Component}
  */
 class UserDashboard extends React.Component {
   /**
-   * constructor function
+   * @description - creates an instance of UserDashboard
    *
-   * @param {object} props
+   * @constructor
+   *
+   * @param { props } props - contains user dashboard component properties
    */
   constructor(props) {
     super(props);
@@ -37,8 +43,14 @@ class UserDashboard extends React.Component {
     };
     this.handleLogout = this.handleLogout.bind(this);
   }
+
   /**
-   * @returns {object} removed modal backdrop
+   * @description - handles removal of modal backdrop before the component mounts
+   * and handles authentication for protected route
+   *
+   * @memberof UserDashboard
+   *
+   * @returns {void} Nothing
    */
   componentWillMount() {
     $(document).ready(() => {
@@ -53,58 +65,82 @@ class UserDashboard extends React.Component {
   }
 
   /**
+   * @description - handles redirect to all events page
+   *
    * @returns {void}
    */
   redirectToEvents() {
     history.push('/dashboard/events');
   }
   /**
-   * handles logout
+   * @description handles logout event for a user
+   *
    * @param {object} event
+   *
    * @returns {void}
    */
   handleLogout(event) {
     event.preventDefault();
     localStorage.clear();
-    toastr.success('Logged Out Successfully');
+    Prompter.success('Logged Out Successfully');
     history.replace('/');
   }
-
-  // handleDelete(){
-  //   event.preventDefault();
-
-
-  // }
+  /**
+   * @returns {void}
+   */
+  redirectToLandingPage() { //eslint-disable-line
+    Prompter.error('Only Logged in users can access the dashboard');
+    return (
+      <Redirect to = "/" />
+    );
+  }
 
   /**
-   * @returns { react } dashboard component
+   * @description - renders user's dashboard based
+   *
+   * @returns {jsx} userEvent component
    */
   render() {
     const { isAuthenticated } = this.state;
-    const { isAdmin, error } = getUserInfo();
+    const { isAdmin, error } = getUserFromToken();
     return (
       !isAuthenticated || error
         ?
-        toastr.error('Only Logged in users can access the dashboard')
-        &&
-        <Redirect to = "/" />
+        this.redirectToLandingPage()
         :
         <div>
-          {/* <ConfirmationModal /> */}
-          <div className="wrapper top-order" id="wrapper">
+          <div className="wrapper top-order"
+            id="wrapper"
+          >
             <div className="sidebar bg-dark h-100" >
               <div>
                 <div>
-                  <ul className="nav list-group bg-light" id="menu">
+                  <ul className="nav list-group bg-light"
+                    id="menu"
+                  >
                     <Link
-                      to = "/dashboard">
+                      to = "/dashboard"
+                    >
                       <li className="text-orange bg-dark waves-effect sidenav-title padL">
                         <i className="text-center fa fa-tachometer fa-2x" />
                         <p className="font-weight-bold text-orange montfont">EVENTERIA</p>
                       </li>
                     </Link>
+                    { isAdmin || <Link
+                      to={'/dashboard/centers'}
+                    >
+                      <li className="list-group-item bg-dark mb-1 button-anim padL">
+                        <span className="fa-stack mr-2 empty">
+                          <i className="text-center text-orange fa fa-university fa-2x" />
+                        </span>
+                        <p className="font-weight-bold text-orange montfont d-inline-flex">
+                          Centers
+                        </p>
+                      </li>
+                    </Link>}
                     <Link
-                      to ={isAdmin ? '/dashboard/centers' : '/dashboard/events'}>
+                      to ={isAdmin ? '/dashboard/centers' : '/dashboard/events'}
+                    >
                       <li className="list-group-item bg-dark mb-1 button-anim padL">
                         <span className="fa-stack mr-2 empty">
                           <i className="text-center text-orange fa fa-folder-open fa-2x" />
@@ -113,7 +149,8 @@ class UserDashboard extends React.Component {
                       </li>
                     </Link>
                     <Link
-                      to={isAdmin ? '/dashboard/create-center' : '/dashboard/create-event'}>
+                      to={isAdmin ? '/dashboard/center' : '/dashboard/event'}
+                    >
                       <li className="list-group-item bg-dark mb-1 button-anim padL">
                         <span className="fa-stack mr-2 empty">
                           <i className="text-center text-orange fa fa-plus-square fa-2x" />
@@ -122,7 +159,8 @@ class UserDashboard extends React.Component {
                       </li>
                     </Link>
                     <li className="list-group-item text-orange mb-1 bg-dark button-anim padL"
-                      onClick={this.handleLogout}>
+                      onClick={this.handleLogout}
+                    >
                       <span className="fa-stack mr-2 empty">
                         <i className="text-center text-orange fa fa-power-off fa-2x" />
                       </span>
@@ -136,50 +174,53 @@ class UserDashboard extends React.Component {
               <UserNavbar />
               <Switch>
                 <Route
-                  path="/dashboard/create-event"
-                  component={CreateEventForm}
+                  component={CreateEventPage}
+                  exact
+                  path="/dashboard/event"
                 />
                 <Route
-                  path="/dashboard/events"
-                  exact
                   component={AllUserEvents}
+                  exact
+                  path="/dashboard/events"
                 />
                 { isAdmin ? <Route
-                  path="/dashboard"
-                  exact
-                  component={AllCentersPage}/>
-                  :
-                  <Route
-                    path="/dashboard"
-                    exact
-                    component={AllUserEvents}
-                  /> }
-                <Route
-                  path="/dashboard/events/:eventId"
-                  exact
-                  component={EditEventPage}
-                />
-                <Route
-                  path="/dashboard/events/:eventId"
-                  exact
-                  component={showDeleteModal}
-                />
-                <Route
-                  path="/dashboard/centers"
                   component={AllCentersPage}
                   exact
+                  path="/dashboard"
+                />
+                  :
+                  <Route
+                    component={AllUserEvents}
+                    exact
+                    path="/dashboard"
+                  /> }
+                <Route
+                  component={EditEventPage}
+                  exact
+                  path="/dashboard/events/:eventId"
                 />
                 <Route
-                  path="/dashboard/create-center"
+                  component={showDeleteModal}
+                  exact
+                  path="/dashboard/events/:eventId"
+                />
+                <Route
+                  component={AllCentersPage}
+                  exact
+                  path="/dashboard/centers"
+                />
+                <Route
                   component={CreateCenterPage}
+                  path="/dashboard/center"
                 />
                 <Route
-                  path="/dashboard/centers/edit/:centerId"
                   component={EditCenterPage}
+                  path="/dashboard/centers/edit/:centerId"
                 />
                 <Route
-                  path="/dashboard/center/view/:centerId"
                   component={ViewCenterPage}
+                  exact
+                  path="/dashboard/centers/view/:centerId"
                 />
               </Switch>
             </div>
@@ -193,11 +234,13 @@ UserDashboard.propTypes = {
   isAuthenticated: PropTypes.object.isRequired,
 };
 
-// /**
-//  * @param {object} state
-//  * @param {object} ownProps
-//  * @returns {object} loadedEvents
-//  */
+/**
+ * @description maps redux state to props
+ *
+ * @param { object } state - holds redux state
+ *
+ * @return { object } props - returns mapped props from state
+ */
 const mapStateToProps = state => ({
   isAuthenticated: state.userAccess,
 });

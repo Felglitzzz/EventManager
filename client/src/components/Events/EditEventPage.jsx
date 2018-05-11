@@ -9,13 +9,21 @@ import { uploadToCloudinary } from '../../actions/imageActions';
 import { loadCenters } from '../../actions/centerActions';
 import EditEventForm from './Form/EditEventForm';
 import Validate from '../../helpers/validations/Validate';
+
 /**
- * class EditEventPage
+ * @description - Container class component for create event page
+ *
+ * @class EditEventPage
+ *
+ * @extends {React.Component}
  */
 class EditEventPage extends React.Component {
   /**
-   * constructor function
-   * @param {object} props
+   * @description - creates an instance of EditEventPage
+   *
+   * @constructor
+   *
+   * @param { props } props - contains edit event component properties
    */
   constructor(props) {
     super(props);
@@ -38,16 +46,21 @@ class EditEventPage extends React.Component {
   }
 
   /**
-   * Component lifecycle
-   * @returns {func} componentWillMount
+   * @description - Fetches centers after component mounts
+   *
+   * @memberof EditEventCenters
+   *
+   * @returns {void} Nothing
    */
   componentDidMount() {
     this.props.loadCenters();
   }
 
   /**
-   * componentWillreceiveProps lifecycle
+   * @description - is invoked before the components receives new props
+   *
    * @param {object} nextProps
+   *
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
@@ -72,22 +85,11 @@ class EditEventPage extends React.Component {
   }
 
   /**
-   * onchange event function
-   * @param {*} event
-   * @returns {object} new state
-   */
-  onChange(event) {
-    event.persist();
-    const field = event.target.name;
-    const temp = { ...this.state.updateEventData };
-    temp[field] = event.target.value;
-    return this.setState({ updateEventData: temp });
-  }
-
-  /**
-   * @description handler for image upload - imageOnChange
+   * @description - handles image change event
+   *
    * @param {object} event
-   * @returns {object} selected file
+   *
+   * @returns {void}
    */
   imageOnChange(event) {
     const chosenImage = event.target.files[0];
@@ -108,13 +110,30 @@ class EditEventPage extends React.Component {
     imageReader.readAsDataURL(chosenImage);
   }
 
+
+  /**
+   * @description - handles change event for edit event form
+   *
+   * @param {object} event
+   *
+   * @returns {void}
+   */
+  onChange(event) {
+    event.persist();
+    const field = event.target.name;
+    const temp = { ...this.state.updateEventData };
+    temp[field] = event.target.value;
+    return this.setState({ updateEventData: temp });
+  }
+
   /**
    * @description handles on focus event
+   *
    * @method handleOnFocus
    *
-   * @param { object } event - event object containing sign in details
+   * @param { object } event - event object containing create event form details
    *
-   * @returns { object } new sign in details state
+   * @returns { void }
    */
   handleFocus(event) {
     const field = event.target.name;
@@ -126,7 +145,13 @@ class EditEventPage extends React.Component {
   }
 
   /**
-   *@returns {void}
+   * @description handles validation for edit event input
+   *
+   * @method validate
+   *
+   * @param { object } event - event object containing edit event input
+   *
+   * @returns { object } error object and input validation status
    */
   validate() {
     const { updateEventData } = this.state;
@@ -139,8 +164,10 @@ class EditEventPage extends React.Component {
   }
 
   /**
-   * onSubmit event function
-   * @param {*} event
+   * @description - handles edit-event form submission
+   *
+   * @param {object} event
+   *
    * @returns {void}
    */
   onSubmit(event) {
@@ -180,6 +207,8 @@ class EditEventPage extends React.Component {
   }
 
   /**
+   * @description - handles redirect to all events page
+   *
    * @returns {void}
    */
   redirectToEvents() {
@@ -189,20 +218,22 @@ class EditEventPage extends React.Component {
   }
 
   /**
-  * @returns { react } component
-  */
+   * @description - renders edit event form
+   *
+   * @returns {jsx} edit event component
+   */
   render() {
     return (
       <div>
         <EditEventForm
-          onSubmit={this.onSubmit}
-          onChange={this.onChange}
-          updateEventData={this.state.updateEventData}
           errors={this.state.errors}
-          options={this.state.options}
+          handleFocus={this.handleFocus}
           imageOnChange={this.imageOnChange}
           isLoading={this.state.isLoading}
-          handleFocus={this.handleFocus}
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
+          options={this.state.options}
+          updateEventData={this.state.updateEventData}
         />
       </div>
     );
@@ -222,11 +253,14 @@ const getEventById = (events, id) => {
   if (eventForUpdate.length) return eventForUpdate[0];
   return null;
 };
+
 /**
+ * @description maps redux state to props
  *
- * @param {object} state
- * @param {object} ownProps
- * @returns {object} state
+ * @param { object } state, - holds redux state
+ * @param { object } ownProps - props
+ *
+ * @return { object } props - returns mapped props from state
  */
 function mapStateToProps(state, ownProps) {
   const eventId = parseInt(ownProps.match.params.eventId, 10);
@@ -247,10 +281,11 @@ function mapStateToProps(state, ownProps) {
 }
 
 /**
+ * @description maps action dispatched to props
  *
- * @param {func} dispatch
- * @param {object} ownProps
- * @returns {object} action
+ * @param { object } dispatch - holds dispatchable actions
+ *
+ * @return { object } props - returns mapped props from dispatch action
  */
 function mapDispatchToProps(dispatch) {
   return {

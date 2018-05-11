@@ -7,8 +7,8 @@ module.exports = {
         startDate: new Date('2019-03-25'),
         endDate: new Date('2019-03-27'),
         description: 'The largest gathering of premier schools',
-        userId: 5,
-        centerId: 5,
+        userId: 1,
+        centerId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -18,8 +18,8 @@ module.exports = {
         startDate: new Date('2018-11-25'),
         endDate: new Date('2018-11-27'),
         description: 'Celebration of teachers who indeed left legacies',
-        userId: 6,
-        centerId: 6,
+        userId: 1,
+        centerId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },

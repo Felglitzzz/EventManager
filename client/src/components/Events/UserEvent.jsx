@@ -5,34 +5,43 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 /**
- * class UserEvent
- * @returns {object} react component
+ * @description - Stateless class component for individual events
+ *
+ * @param {events} event object
+ *
+ * @param {handleDelete} delete function
+ *
+ * @returns {event} userevent object
  */
 const UserEvent = ({ events, handleDelete }) =>
   (events.length === 0 ? (
     <div className="d-flex justify-content-center pad">
-      <Loader size={96} color1="#f6682f" color2="#f6682f" color3="#f6682f" color4="#f6682f" />
+      <Loader color1="#f6682f"
+        color2="#f6682f"
+        color3="#f6682f"
+        color4="#f6682f"
+        size={96} />
     </div>
   ) : (
     events.map((event, id) => {
       localStorage.setItem('events', JSON.stringify(events));
       return (
-        <div className="col-sm-12 col-md-6 col-lg-4 my-2" key={id}>
+        <div className="col-sm-12 col-md-6 col-lg-4 my-2"
+          key={id}>
           <div className="card-deck">
             <div className="card">
               <div className="img-fluid">
                 <img
+                  alt={event.name}
                   className="img-fluid"
-                  width="400"
                   height="264"
                   src={event.image}
-                  alt={event.name}
+                  width="400"
                 />
               </div>
               <div className="card-body">
                 <div className="d-flex">
-                  <p className="text-secondary">{moment(event.date).format('MMMM Do YYYY')}</p>
-                  <p className="text-secondary ml-auto">{event.time}</p>
+                  <p className="text-secondary">{moment(event.startDate).format('MMMM Do YYYY')}</p>
                 </div>
                 <hr className="my-1" />
                 <h5 className="card-title">{event.name}</h5>
@@ -45,16 +54,19 @@ const UserEvent = ({ events, handleDelete }) =>
                       <li className="d-flex justify-content-center">
                         <Link to={`/dashboard/events/${event.id}`}>
                           <p className="text-orange border-2 border-orange icon-lg twitter">
-                            <i className="fa fa-pencil fa-2x p-2" aria-hidden="true" />
+                            <i aria-hidden="true"
+                              className="fa fa-pencil fa-2x p-2" />
                           </p>
                         </Link>
                         <a>
                           <p
                             className="text-orange border-2 border-orange icon-lg ig"
-                            onClick={handleDelete}
                             id={event.id}
+                            onClick={handleDelete}
                           >
-                            <i className="fa fa-trash fa-2x p-2" id={event.id} aria-hidden="true" />
+                            <i aria-hidden="true"
+                              className="fa fa-trash fa-2x p-2"
+                              id={event.id} />
                           </p>
                         </a>
                       </li>

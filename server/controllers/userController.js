@@ -26,13 +26,7 @@ export default class User {
     */
   static createUser(req, res) {
     users
-      .create({
-        surname: req.body.surname,
-        firstname: req.body.firstname,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-      })
+      .create(Helper.sanitizedUserRequest(req))
       .then((user) => {
         const userData = {
           id: user.id,
@@ -48,9 +42,9 @@ export default class User {
       .catch((error) => {
         const errMessages = errorMessages(error);
         if (errMessages.type === 'uniqueError') {
-          return res.status(409).json({ error: errMessages.error });
+          return res.status(409).json({ message: errMessages.error });
         }
-        return res.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ message: 'Internal Server Error' });
       });
   }
 
@@ -66,8 +60,8 @@ export default class User {
     * @memberof User
     */
   static login(req, res) {
-    const { username, password } = req.body;
-
+    const { password } = req.body;
+    const username = req.body.username.trim();
     return users.findOne({ where: { username } })
       .then((user) => {
         if (user && bcrypt.compareSync(password, user.password)) {
@@ -82,12 +76,12 @@ export default class User {
             token,
           });
         }
-        return res.status(401).json({ error: 'Username/Password Incorrect' });
+        return res.status(401).json({ message: 'Username/Password Incorrect' });
       })
       .catch((error) => {
         const errMessages = errorMessages(error);
         if (errMessages.type) {
-          res.status(501).json({ error: errMessages.error });
+          res.status(501).json({ message: errMessages.error });
         }
       });
   }

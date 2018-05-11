@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import history from '../../helpers/history';
 import Validate from '../../helpers/validations/Validate';
@@ -8,13 +7,22 @@ import Validate from '../../helpers/validations/Validate';
 import { updateCenter } from '../../actions/centerActions';
 import { uploadToCloudinary } from '../../actions/imageActions';
 import EditCenterForm from './Form/EditCenterForm';
+import Prompter from '../../helpers/Prompter';
+
 /**
- * class EditCenterPage
+ * @description - Container class component for edit center page
+ *
+ * @class EditCenterPage
+ *
+ * @extends {React.Component}
  */
 class EditCenterPage extends React.Component {
   /**
-   * constructor function
-   * @param {object} props
+   * @description - creates an instance of EditCenterPage
+   *
+   * @constructor
+   *
+   * @param { props } props - contains edit center component properties
    */
   constructor(props) {
     super(props);
@@ -36,8 +44,10 @@ class EditCenterPage extends React.Component {
   }
 
   /**
-   * componentWillreceiveProps lifecycle
+   * @description - is invoked before the components receives new props
+   *
    * @param {object} nextProps
+   *
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
@@ -57,9 +67,11 @@ class EditCenterPage extends React.Component {
   }
 
   /**
-   * onchange event function
-   * @param {*} event
-   * @returns {object} new state
+   * @description - handles change event for edit center form
+   *
+   * @param {object} event
+   *
+   * @returns {void}
    */
   onChange(event) {
     event.persist();
@@ -70,9 +82,11 @@ class EditCenterPage extends React.Component {
   }
 
   /**
-   * onchange event function
-   * @param {*} event
-   * @returns {object} new state
+   * @description - handles changes in the select input type for edit center form
+   *
+   * @param {object} event
+   *
+   * @returns {void}
    */
   selectOnChange(event) {
     event.persist();
@@ -92,9 +106,11 @@ class EditCenterPage extends React.Component {
   }
 
   /**
-   * @description handler for image upload - imageOnChange
+   * @description - handles image change event
+   *
    * @param {object} event
-   * @returns {object} selected file
+   *
+   * @returns {void}
    */
   imageOnChange(event) {
     const chosenImage = event.target.files[0];
@@ -116,7 +132,13 @@ class EditCenterPage extends React.Component {
   }
 
   /**
-   *@returns {void}
+   * @description handles validation for edit center input
+   *
+   * @method validate
+   *
+   * @param { object } event - event object containing edit center input
+   *
+   * @returns { object } error object and input validation status
    */
   validate() {
     const { updateCenterData } = this.state;
@@ -129,8 +151,10 @@ class EditCenterPage extends React.Component {
   }
 
   /**
-   * onSubmit event function
-   * @param {*} event
+   * @description - handles edit-center form submission
+   *
+   * @param {object} event
+   *
    * @returns {void}
    */
   onSubmit(event) {
@@ -145,8 +169,9 @@ class EditCenterPage extends React.Component {
       if (updateCenterData.image) {
         this.props.updateCenter(updateCenterData)
           .then(() => this.redirectToCenters())
-          .catch(() => {
+          .catch((error) => {
             this.setState({ isLoading: false });
+            Prompter.error(error);
           });
       }
       return;
@@ -160,7 +185,7 @@ class EditCenterPage extends React.Component {
             .then(() => this.redirectToCenters())
             .catch((error) => {
               this.setState({ isLoading: false });
-              toastr.error(error);
+              Prompter.error(error);
             });
         }
       })
@@ -171,6 +196,7 @@ class EditCenterPage extends React.Component {
 
   /**
    * @description handles on focus event
+   *
    * @method handleOnFocus
    *
    * @param { object } event - event object containing sign in details
@@ -187,29 +213,33 @@ class EditCenterPage extends React.Component {
   }
 
   /**
+   * @description - handles redirect to all centers page
+   *
    * @returns {void}
    */
   redirectToCenters() {
     this.setState({ isLoading: false });
-    toastr.success('Center updated');
+    Prompter.success('Center updated');
     history.push('/dashboard/centers');
   }
 
   /**
-  * @returns { react } component
-  */
+   * @description - renders edit center form
+   *
+   * @returns {jsx} edit center component
+   */
   render() {
     return (
       <div>
         <EditCenterForm
-          onSubmit={this.onSubmit}
-          onChange={this.onChange}
-          updateCenterData={this.state.updateCenterData}
           errors={this.state.errors}
+          handleFocus={this.handleFocus}
           imageOnChange={this.imageOnChange}
           isLoading={this.state.isLoading}
-          handleFocus={this.handleFocus}
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
           selectOnChange={this.selectOnChange}
+          updateCenterData={this.state.updateCenterData}
         />
       </div>
     );
@@ -227,11 +257,14 @@ const getCenterById = (centers, id) => {
   if (centerForUpdate.length) return centerForUpdate[0];
   return null;
 };
+
 /**
+ * @description maps redux state to props
  *
- * @param {object} state
- * @param {object} ownProps
- * @returns {object} state
+ * @param { object } state, - holds redux state
+ * @param { object } ownProps - props
+ *
+ * @return { object } props - returns mapped props from state
  */
 function mapStateToProps(state, ownProps) {
   const centerId = parseInt(ownProps.match.params.centerId, 10);
@@ -252,10 +285,11 @@ function mapStateToProps(state, ownProps) {
 }
 
 /**
+ * @description maps action dispatched to props
  *
- * @param {func} dispatch
- * @param {object} ownProps
- * @returns {object} action
+ * @param { object } dispatch - holds dispatchable actions
+ *
+ * @return { object } props - returns mapped props from dispatch action
  */
 function mapDispatchToProps(dispatch) {
   return {

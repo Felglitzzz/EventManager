@@ -1,28 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import toastr from 'toastr';
-
 import { loginUser } from '../../actions/userAccessActions';
 import Validate from '../../helpers/validations/Validate';
 import SignInForm from './SignInForm';
 import history from '../../helpers/history';
-
+import Prompter from '../../helpers/Prompter';
 
 /**
- * class SignInModal
+ * @description - Container class component for sign in page
+ *
+ * @class SignInPageModal
+ *
+ * @extends {React.Component}
  */
 class SignInPageModal extends React.Component {
   /**
-   * construction function
-   * @param {object} props
+   * @description - creates an instance of SigninPageModal
+   *
+   * @constructor
+   *
+   * @param { props } props - contains sign in component properties
    */
   constructor(props) {
     super(props);
     this.state = {
       loginData: {
         username: '',
-        password: '',
+        password: ''
       },
       isAuthenticated: false,
       errors: {},
@@ -36,8 +41,10 @@ class SignInPageModal extends React.Component {
   }
 
   /**
-   * onChange event function
+   * @description - handles form input change event
+   *
    * @param {object} event
+   *
    * @returns {void}
    */
   onChange(event) {
@@ -48,8 +55,28 @@ class SignInPageModal extends React.Component {
   }
 
   /**
-   * onSubmit event function
+   * @description handles on focus event
+   *
+   * @method handleOnFocus
+   *
+   * @param { object } event - event object containing sign in details
+   *
+   * @returns { void }
+   */
+  handleFocus(event) {
+    const field = event.target.name;
+    const { errors } = this.state;
+    errors[field] = '';
+    this.setState({
+      errors
+    });
+  }
+
+  /**
+   * @description - handles sign-in form submission
+   *
    * @param {object} event
+   *
    * @returns {void}
    */
   onSubmit(event) {
@@ -62,57 +89,42 @@ class SignInPageModal extends React.Component {
       return;
     }
     this.setState({ isLoading: true, errors: {} });
-    this.props.loginUser(loginData)
+    this.props
+      .loginUser(loginData)
       .then(() => {
         this.redirectToDashboard();
       })
-      .catch(() => {
+      .catch((error) => {
         this.setState({ isLoading: false, isAuthenticated: false });
+        Prompter.error(error);
       });
   }
   /**
-   * @returns {void}
+   * @description handles redirect to authenticated dashboard
+   *
+   * @returns { void }
    */
   redirectToDashboard() {
     this.setState({ isLoading: false, isAuthenticated: true });
-    toastr.success('Login Successful');
+    Prompter.success('Login Successful');
     history.replace('/dashboard');
   }
 
   /**
-   * @description handles on focus event
-   * @method handleOnFocus
+   * @description - renders sign-in form
    *
-   * @param { object } event - event object containing sign in details
-   *
-   * @returns { object } new sign in details state
-   */
-  handleFocus(event) {
-    const field = event.target.name;
-    const { errors } = this.state;
-    errors[field] = '';
-    this.setState({
-      errors
-    });
-  }
-
-
-  /**
-   * @returns {react} sign in modal component
+   * @returns {jsx} sign-in modal component
    */
   render() {
-    /**
-       * @returns {react} sign-in modal component
-       */
     return (
       <div>
-        < SignInForm
+        <SignInForm
+          errors={this.state.errors}
+          handleFocus={this.handleFocus}
+          isLoading={this.state.isLoading}
           loginData={this.state.loginData}
           onChange={this.onChange}
           onSubmit={this.onSubmit}
-          errors={this.state.errors}
-          isLoading={this.state.isLoading}
-          handleFocus={this.handleFocus}
         />
       </div>
     );
@@ -120,22 +132,28 @@ class SignInPageModal extends React.Component {
 }
 
 SignInPageModal.propTypes = {
-  loginUser: PropTypes.func.isRequired,
+  loginUser: PropTypes.func.isRequired
 };
+
 /**
- * @param {object} state
- * @param {object} ownProps
- * @returns {object} loginData
+ * @description maps redux state to props
+ *
+ * @param { object } state - holds redux state
+ *
+ * @return { object } props - returns mapped props from state
  */
 function mapStateToProps(state) {
   return {
-    loginData: state.userAccess.loginData,
+    loginData: state.userAccess.loginData
   };
 }
 
 /**
- * @param {func} dispatch
- * @returns {object} action
+ * @description maps action dispatched to props
+ *
+ * @param { object } dispatch - holds dispatchable actions
+ *
+ * @return { object } props - returns mapped props from dispatch action
  */
 function mapDispatchToProps(dispatch) {
   return {
