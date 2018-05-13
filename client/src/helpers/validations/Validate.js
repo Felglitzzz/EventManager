@@ -158,7 +158,7 @@ export default class Validate {
     if (!description || description.trim() === '') {
       errors.description = 'Description is Required';
     }
-    if (/[^a-zA-Z0-9- ]+/.test(description)) {
+    if (/[^a-zA-Z0-9-., ]+/.test(description)) {
       errors.description = 'Description can only contain alphanumeric characters';
     }
 
@@ -211,7 +211,7 @@ export default class Validate {
     if (!description || description.trim() === '') {
       errors.description = 'Description is Required';
     }
-    if (/[^a-zA-Z0-9- ]+/.test(description)) {
+    if (/[^a-zA-Z0-9-,. ]+/.test(description)) {
       errors.description = 'Description can only contain alphanumeric characters';
     }
 
@@ -299,7 +299,7 @@ export default class Validate {
     if (!description || description === '') {
       errors.description = 'Description is Required';
     }
-    if (/[^a-zA-Z0-9- ]+/.test(description)) {
+    if (/[^a-zA-Z0-9-., ]+/.test(description)) {
       errors.description = 'Description can only contain alphanumeric characters';
     }
 
@@ -383,7 +383,7 @@ export default class Validate {
     if (!description || description === '') {
       errors.description = 'Description is Required';
     }
-    if (/[^a-zA-Z0-9 ]+/.test(description)) {
+    if (/[^a-zA-Z0-9-,. ]+/.test(description)) {
       errors.description = 'Description can only contain alphanumeric characters';
     }
 

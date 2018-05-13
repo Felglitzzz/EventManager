@@ -22,7 +22,7 @@ const eventMockData = {
     endDate: new Date('2018-11-27'),
     description: 'Celebration of teachers who indeed left legacies',
     userId: 2,
-    centerId: 3,
+    centerId: 1,
     createdAt: new Date(),
     updatedAt: new Date()
   },
