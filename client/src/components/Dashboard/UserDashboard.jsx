@@ -85,10 +85,13 @@ class UserDashboard extends React.Component {
     Prompter.success('Logged Out Successfully');
     history.replace('/');
   }
+
   /**
+   * @description - handles redirect to landing page
+   *
    * @returns {void}
    */
-  redirectToLandingPage() { //eslint-disable-line
+  redirectToLandingPage() {
     Prompter.error('Only Logged in users can access the dashboard');
     return (
       <Redirect to = "/" />
@@ -122,11 +125,11 @@ class UserDashboard extends React.Component {
                       to = "/dashboard"
                     >
                       <li className="text-orange bg-dark waves-effect sidenav-title padL">
-                        <i className="text-center fa fa-tachometer fa-2x" />
+                        <i className="text-center fab fa-quinscape fa-2x" />
                         <p className="font-weight-bold text-orange montfont">EVENTERIA</p>
                       </li>
                     </Link>
-                    { isAdmin || <Link
+                    { isAdmin ? (null) : <Link
                       to={'/dashboard/centers'}
                     >
                       <li className="list-group-item bg-dark mb-1 button-anim padL">
@@ -200,11 +203,6 @@ class UserDashboard extends React.Component {
                   path="/dashboard/events/:eventId"
                 />
                 <Route
-                  component={showDeleteModal}
-                  exact
-                  path="/dashboard/events/:eventId"
-                />
-                <Route
                   component={AllCentersPage}
                   exact
                   path="/dashboard/centers"
@@ -215,7 +213,7 @@ class UserDashboard extends React.Component {
                 />
                 <Route
                   component={EditCenterPage}
-                  path="/dashboard/centers/edit/:centerId"
+                  path="/dashboard/centers/:centerId"
                 />
                 <Route
                   component={ViewCenterPage}

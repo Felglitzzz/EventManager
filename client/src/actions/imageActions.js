@@ -32,8 +32,6 @@ export const uploadToCloudinary = (image) => {
       })
       .catch((errors) => {
         dispatch(saveImageFail(errors));
-        console.log(errors.response.data.message);
-        console.log(errors.response.data.error);
         throw (errors.response.data.message);
       });
 };

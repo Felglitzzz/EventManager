@@ -37,8 +37,10 @@
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
     "indent": ["error", 2],
+    "no-nested-ternary": 0,
     "import/no-unresolved": 0,
     "import/extensions": 0,
+    "no-unused-expressions": [2, {"allowTernary": true, "allowShortCircuit": true}],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "valid-jsdoc": ["error", {
       "requireReturn": true,
@@ -53,7 +55,7 @@
             "ClassDeclaration": true
         }
     }],
-    "class-methods-use-this": ["error", { "exceptMethods": ["render", "handleDelete", "deletedMessage", "handleLogout", "showDeleteModal", "redirectToEdit", "redirectToCenters", "redirectToEvents", "redirectToHomepage", "componentDidMount", "componentWillMount", "componentWillReceiveProps"] }],
+    "class-methods-use-this": ["error", { "exceptMethods": ["render", "handleDelete", "handleLogout", "showDeleteModal", "redirectToLandingPage", "redirectToEdit", "redirectToCenters", "redirectToEvents", "redirectToHomepage", "componentDidMount", "componentWillMount", "componentWillReceiveProps"] }],
     "jsx-quotes": 1,
     "jsx-ally/alt-text": 0,
     "react/display-name": [ 1, {"ignoreTranspilerName": false }],

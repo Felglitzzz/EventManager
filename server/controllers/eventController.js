@@ -52,7 +52,8 @@ export default class Event {
       }
       return event
         .destroy()
-        .then(res.status(200).json({ message: 'Event Successfully Deleted!', eventId }));
+        .then(() => res.status(200).json({ message: 'Event Successfully Deleted!', eventId }))
+        .catch(error => res.status(500).json({ message: error }));
     });
   }
 
@@ -98,7 +99,7 @@ export default class Event {
    * @memberof Event
    */
   static getAllEvents(req, res) {
-    const limit = 6;
+    const limit = 3;
     const baseUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}${req.path}`;
     let currentPage = req.query.page || 1;
     currentPage = Number(currentPage);
@@ -247,11 +248,10 @@ export default class Event {
               /* updating events details */
               .update(Helper.sanitizedEventRequest(req))
               // Send back the updated event too.
-              .then(modifiedEvent =>
-                res.status(200).json({
-                  message: 'Event Update Successful',
-                  modifiedEvent
-                }))
+              .then(modifiedEvent => res.status(200).json({
+                message: 'Event Update Successful',
+                modifiedEvent
+              }))
               .catch((error) => {
                 const errMessages = errorMessages(error);
                 if (errMessages.type) {

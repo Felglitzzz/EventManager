@@ -123,7 +123,7 @@ export default class Center {
    * @memberof Center
    */
   static getAllCenters(req, res) {
-    const limit = 6;
+    const limit = 3;
     let offset = Number(0);
     const baseUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}${req.path}`;
     let currentPage = req.query.page || 1;

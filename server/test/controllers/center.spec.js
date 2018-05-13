@@ -31,7 +31,9 @@ describe('CENTER API TEST:', () => {
           .set('Authorization', adminToken)
           .set('Accept', 'Application/json')
           .end((err, res) => {
+            console.log('errrr', err);
             const { message, center } = res.body;
+            console.log('bodyy', res.body);
             centerId = res.body.Center.id;
             expect(res).to.have.status(201);
             expect(message).to.equal('Center created!');

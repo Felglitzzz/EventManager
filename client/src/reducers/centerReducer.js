@@ -8,7 +8,9 @@ const {
   UPDATE_CENTER_SUCCESS,
   UPDATE_CENTER_FAIL,
   LOAD_ONE_CENTER_FAIL,
-  LOAD_ONE_CENTER_SUCCESS
+  LOAD_ONE_CENTER_SUCCESS,
+  DELETE_ONE_CENTER_FAIL,
+  DELETE_ONE_CENTER_SUCCESS
 } = actionTypes;
 
 const centerReducer = (state = {}, action) => {
@@ -45,27 +47,32 @@ const centerReducer = (state = {}, action) => {
       ...state,
       error: Object.assign({}, action.error)
     };
-  case UPDATE_CENTER_SUCCESS: {
-    const centerArray = [];
-    if (state.centers === undefined) {
-      return state;
-    }
-    state.centers.loadedCenters.Centers.map((center) => {
-      if (center.id === action.updateCenterData.modifiedCenter.id) {
-        centerArray.push(action.updateCenterData.modifiedCenter);
-      } else {
-        centerArray.push(center);
-      }
-    });
+  case UPDATE_CENTER_SUCCESS:
     return {
-      ...state, updateCenterData: centerArray
+      ...state,
+      updateCenterData: action.updateCenterData.modifiedCenter
     };
-  }
   case UPDATE_CENTER_FAIL:
     return {
       ...state,
-      Error: Object.assign({}, action.error)
+      error: Object.assign({}, action.error)
     };
+  case DELETE_ONE_CENTER_FAIL:
+    return {
+      ...state,
+      error: action.error
+    };
+  case DELETE_ONE_CENTER_SUCCESS: {
+    const remainingCenters = state.loadedCenters.Centers.filter(center =>
+      center.id !== parseInt(action.deletedStatus.centerId, 10));
+    return {
+      ...state,
+      loadedCenters: {
+        ...state.loadedCenters,
+        Centers: remainingCenters
+      }
+    };
+  }
   default:
     return state;
   }
