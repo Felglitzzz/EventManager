@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Loader from 'react-md-spinner';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
@@ -13,16 +12,18 @@ import { Link } from 'react-router-dom';
  *
  * @returns {event} userevent object
  */
-const UserEvent = ({ events, handleDelete }) =>
-  (events.length === 0 ? (
-    <div className="d-flex justify-content-center pad">
-      <Loader color1="#f6682f"
-        color2="#f6682f"
-        color3="#f6682f"
-        color4="#f6682f"
-        size={96} />
-    </div>
-  ) : (
+const UserEvent = ({ events, handleDelete }) => {
+  events = events.rows;
+  // return events.length === 0 ? (
+  //   <div className="d-flex justify-content-center pad">
+  //     <Loader color1="#f6682f"
+  //       color2="#f6682f"
+  //       color3="#f6682f"
+  //       color4="#f6682f"
+  //       size={96} />
+  //   </div>
+  // ) : (
+  return (
     events.map((event, id) => {
       localStorage.setItem('events', JSON.stringify(events));
       return (
@@ -53,14 +54,14 @@ const UserEvent = ({ events, handleDelete }) =>
                     <ul className="pl-0">
                       <li className="d-flex justify-content-center">
                         <Link to={`/dashboard/events/${event.id}`}>
-                          <p className="text-orange border-2 border-orange icon-lg twitter">
+                          <p className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim">
                             <i aria-hidden="true"
                               className="fa fa-pencil fa-2x p-2" />
                           </p>
                         </Link>
                         <a>
                           <p
-                            className="text-orange border-2 border-orange icon-lg ig"
+                            className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim"
                             id={event.id}
                             onClick={handleDelete}
                           >
@@ -79,10 +80,11 @@ const UserEvent = ({ events, handleDelete }) =>
         </div>
       );
     })
-  ));
+  );
+};
 
 UserEvent.propTypes = {
-  events: PropTypes.array.isRequired,
+  events: PropTypes.object.isRequired,
   handleDelete: PropTypes.func.isRequired
 };
 

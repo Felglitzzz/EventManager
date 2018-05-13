@@ -91,12 +91,10 @@ export const loadAllEventFail = error => ({
  *
  * @returns {object} dispatched action type and loadedEvents object
  */
-export function loadAllEventSuccess(loadedEvents) {
-  return {
-    type: LOAD_ALL_EVENTS_SUCCESS,
-    loadedEvents
-  };
-}
+export const loadAllEventSuccess = loadedEvents => ({
+  type: LOAD_ALL_EVENTS_SUCCESS,
+  loadedEvents
+});
 
 
 /**
@@ -108,20 +106,19 @@ export function loadAllEventSuccess(loadedEvents) {
  *
  * @returns {object} dispatched action
  */
-export function loadAllEvent(page) {
+export const loadAllEvent = page => (dispatch) => {
   const token = localStorage.getItem('x-access-token');
-  return dispatch =>
-    axios.get(`/api/v1/events?page=${page || 1}`, {
-      headers: { Authorization: token }
+  return axios.get(`/api/v1/events?page=${page || 1}`, {
+    headers: { Authorization: token }
+  })
+    .then((response) => {
+      dispatch(loadAllEventSuccess(response.data));
     })
-      .then((response) => {
-        dispatch(loadAllEventSuccess(response.data));
-      })
-      .catch((errors) => {
-        dispatch(loadAllEventFail(errors));
-        throw (errors.response.data.message);
-      });
-}
+    .catch((errors) => {
+      dispatch(loadAllEventFail(errors));
+      throw (errors.response.data.message);
+    });
+};
 
 /**
  * description - defines PUT request success action for an event
@@ -161,20 +158,19 @@ export const updateEventFail = error => ({
  *
  * @returns {object} dispatched action
  */
-export function updateEvent(updateEventData) {
+export const updateEvent = updateEventData => (dispatch) => {
   const token = localStorage.getItem('x-access-token');
-  return dispatch =>
-    axios.put(`/api/v1/events/${updateEventData.id}`, updateEventData, {
-      headers: { Authorization: token }
+  return axios.put(`/api/v1/events/${updateEventData.id}`, updateEventData, {
+    headers: { Authorization: token }
+  })
+    .then((response) => {
+      dispatch(updateEventSuccess(response.data));
     })
-      .then((response) => {
-        dispatch(updateEventSuccess(response.data));
-      })
-      .catch((errors) => {
-        dispatch(updateEventFail(errors));
-        throw (errors.response.data.message);
-      });
-}
+    .catch((errors) => {
+      dispatch(updateEventFail(errors));
+      throw (errors.response.data.message);
+    });
+};
 
 /**
  * description - defines load one events success action
@@ -216,7 +212,7 @@ export const loadOneEventFail = error => ({
  */
 export const loadOneEvent = eventId => (dispatch) => {
   const token = localStorage.getItem('x-access-token');
-  axios.get(`/api/v1/events/${eventId}`, {
+  return axios.get(`/api/v1/events/${eventId}`, {
     headers: { Authorization: token }
   })
     .then((response) => {
@@ -266,14 +262,12 @@ export const deleteEventFail = error => ({
  * @returns {object} dispatched action
  */
 export const deleteEvent = eventId => (dispatch) => {
-  console.log('event id in actions', eventId);
   const token = localStorage.getItem('x-access-token');
-  axios.delete(`/api/v1/events/${eventId}`, {
+  return axios.delete(`/api/v1/events/${eventId}`, {
     headers: { Authorization: token }
   })
     .then((response) => {
       dispatch(deleteEventSuccess(response.data));
-      console.log('response', response.data);
     })
     .catch((errors) => {
       dispatch(deleteEventFail(errors));
@@ -323,7 +317,7 @@ export const loadEventsByCenterIdFail = error => ({
  */
 export const loadEventsByCenterId = (centerId, page) => (dispatch) => {
   const token = localStorage.getItem('x-access-token');
-  axios.get(`/api/v1/events/center/${centerId}?page=${page || 1}`, {
+  return axios.get(`/api/v1/events/center/${centerId}?page=${page || 1}`, {
     headers: { Authorization: token }
   })
     .then((response) => {

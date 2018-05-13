@@ -115,9 +115,9 @@ router
   );
 
 // catch all route
-router.get('/', (req, res) =>
+router.get('/home', (req, res) =>
   res.status(200).send({
-    message: 'Hi there, Welcome to Event Manager.'
+    message: 'Hi there, Welcome to Eventeria.'
   }));
 
 export default router;

@@ -34,7 +34,7 @@ export default class Validate {
       if (surname.length < 2) {
         errors.surname = 'Surname should be more than one character';
       }
-      if (/(\d+)/.test(surname.trim()) || /[^a-zA-Z0-9 ]+/.test(surname.trim())) {
+      if (/(\d+)/.test(surname.trim()) || /[^a-zA-Z0-9- ]+/.test(surname.trim())) {
         errors.surname = 'Surname can only contain letters';
       }
     }
@@ -46,7 +46,7 @@ export default class Validate {
       if (firstname.length < 2) {
         errors.firstname = 'Firstname should be more than one character';
       }
-      if (/(\d+)/.test(firstname.trim()) || /[^a-zA-Z0-9]+/.test(firstname.trim())) {
+      if (/(\d+)/.test(firstname.trim()) || /[^a-zA-Z0-9- ]+/.test(firstname.trim())) {
         errors.firstname = 'Firstname can only contain letters';
       }
     }
@@ -140,7 +140,7 @@ export default class Validate {
         errors.name = 'Event name should be more than one character';
       }
     }
-    if (/[^a-zA-Z0-9 ]+/.test(name)) {
+    if (/[^a-zA-Z0-9- ]+/.test(name)) {
       errors.name = 'Name can only contain alphanumeric characters';
     }
     if (!image || image === '') {
@@ -158,7 +158,7 @@ export default class Validate {
     if (!description || description.trim() === '') {
       errors.description = 'Description is Required';
     }
-    if (/[^a-zA-Z0-9 ]+/.test(description)) {
+    if (/[^a-zA-Z0-9- ]+/.test(description)) {
       errors.description = 'Description can only contain alphanumeric characters';
     }
 
@@ -193,7 +193,7 @@ export default class Validate {
       }
     }
 
-    if (/[^a-zA-Z0-9 ]+/.test(name)) {
+    if (/[^a-zA-Z0-9- ]+/.test(name)) {
       errors.name = 'Name can only contain alphanumeric characters';
     }
     if (!centerId || centerId === '') {
@@ -211,7 +211,7 @@ export default class Validate {
     if (!description || description.trim() === '') {
       errors.description = 'Description is Required';
     }
-    if (/[^a-zA-Z0-9 ]+/.test(description)) {
+    if (/[^a-zA-Z0-9- ]+/.test(description)) {
       errors.description = 'Description can only contain alphanumeric characters';
     }
 
@@ -240,12 +240,12 @@ export default class Validate {
     if (!name || name === '') {
       errors.name = 'Name is Required';
     }
-    if (/[^a-zA-Z0-9 ]+/.test(name)) {
+    if (/[^a-zA-Z0-9- ]+/.test(name)) {
       errors.name = 'Name can only contain alphanumeric characters';
     }
 
     if (name) {
-      if (name.length < 3) {
+      if (name.length < 2) {
         errors.name = 'Center name should be more than two characters';
       }
     }
@@ -255,8 +255,8 @@ export default class Validate {
     }
 
     if (location) {
-      if (location.length < 3) {
-        errors.location = 'Center name should be more than two characters';
+      if (location.length < 2) {
+        errors.location = 'Location should be more than one character';
       }
     }
 
@@ -288,7 +288,7 @@ export default class Validate {
       errors.type = 'Type is Required';
     }
 
-    if (/[^a-zA-Z ]+/.test(type)) {
+    if (/[^a-zA-Z- ]+/.test(type)) {
       errors.type = 'Type can only contain letters';
     }
 
@@ -299,7 +299,7 @@ export default class Validate {
     if (!description || description === '') {
       errors.description = 'Description is Required';
     }
-    if (/[^a-zA-Z0-9]+/.test(description)) {
+    if (/[^a-zA-Z0-9- ]+/.test(description)) {
       errors.description = 'Description can only contain alphanumeric characters';
     }
 
@@ -330,8 +330,8 @@ export default class Validate {
     }
 
     if (name) {
-      if (name.length < 3) {
-        errors.name = 'Center name should be more than two characters';
+      if (name.length < 2) {
+        errors.name = 'Center name should be more than one character';
       }
     }
 
@@ -344,8 +344,8 @@ export default class Validate {
     }
 
     if (location) {
-      if (location.length < 3) {
-        errors.location = 'Center name should be more than two characters';
+      if (location.length < 2) {
+        errors.location = 'Location should be more than two characters';
       }
     }
 

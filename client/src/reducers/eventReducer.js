@@ -60,24 +60,13 @@ const eventReducer = (state = {}, action) => {
   case LOAD_ONE_EVENT_FAIL:
     return {
       ...state,
-      error: action.error
+      update: action.error
     };
-  case UPDATE_EVENT_SUCCESS: {
-    const eventArray = [];
-    if (state.events === undefined) {
-      return state;
-    }
-    state.events.loadedEvents.event.map((event) => {
-      if (event.id === action.updateEventData.modifiedEvent.id) {
-        eventArray.push(action.updateEventData.modifiedEvent);
-      } else {
-        eventArray.push(event);
-      }
-    });
+  case UPDATE_EVENT_SUCCESS:
     return {
-      ...state, updateEventData: eventArray
+      ...state,
+      updateEventData: action.updateEventData.modifiedEvent
     };
-  }
   case UPDATE_EVENT_FAIL:
     return {
       ...state,
@@ -94,12 +83,18 @@ const eventReducer = (state = {}, action) => {
       error: action.error
     };
   case DELETE_ONE_EVENT_SUCCESS: {
-    const remainingEvents = state.loadedEvents.event.filter(event =>
+    const remainingEvents = state.loadedEvents.event.rows.filter(event =>
       event.id !== parseInt(action.deletedStatus.eventId, 10));
     return {
       ...state,
       loadedEvents: {
-        event: remainingEvents
+        event: {
+          ...state.loadedEvents.event,
+          rows: remainingEvents
+        },
+        meta: {
+          pagination: state.loadedEvents.meta.pagination
+        }
       }
     };
   }

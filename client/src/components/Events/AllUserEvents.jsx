@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
+import Loader from 'react-md-spinner';
+
 import { Link } from 'react-router-dom';
 import UserEvent from '../Events/UserEvent';
 import { loadAllEvent, deleteEvent } from '../../actions/eventActions';
 import history from '../../helpers/history';
 import Pagination from '../Pagination/Pagination';
+
 
 /**
  * @description - Container class component for all events for a user
@@ -71,8 +74,8 @@ class AllUserEvents extends React.Component {
 
     if (nextProps.events.loadedEvents) {
       this.setState({
-        event: nextProps.events.loadedEvents.event.rows,
-        pagination: nextProps.events.loadedEvents.meta.pagination,
+        event: nextProps.events.loadedEvents.event,
+        pagination: nextProps.events.loadedEvents.meta.pagination
       });
     }
   }
@@ -150,53 +153,66 @@ class AllUserEvents extends React.Component {
   render() {
     const { event } = this.state;
     return (
-      event.length === 0
+      !event
         ?
-        <div className="pt-5">
-          <div className="d-flex justify-content-center">
-            <img className="img-fluid"
-              src="http://res.cloudinary.com/felglitz/image/upload/v1522307912/calendar-with-spring-binder-and-date-blocks_eocce3.png"
-            />
-          </div>
-          <div>
-            <h3 className="text-center text-dark montezfont display-4">
-              You have no upcoming events!
-            </h3>
-            <p className="text-center text-dark montezfont display-4">
-              Let's change that
-            </p>
-            <Link
-              className="d-flex justify-content-center"
-              to="/dashboard/event"
-            >
-              <button
-                className="btn btn-orange"
-              >
-              Create Event
-              </button></Link>
-          </div>
+        <div className="d-flex justify-content-center pad">
+          <Loader color1="#f6682f"
+            color2="#f6682f"
+            color3="#f6682f"
+            color4="#f6682f"
+            size={96} />
         </div>
         :
-        <section>
-          <div className="container">
-            <div className="row">
-              <UserEvent
-                events = {this.state.event}
-                handleDelete={this.handleDelete}
-                redirectToEdit = {this.redirectToEdit}
+        event.length === 0
+          ?
+          <div className="pt-5">
+            <div className="d-flex justify-content-center">
+              <img className="img-fluid"
+                src="http://res.cloudinary.com/felglitz/image/upload/v1522307912/calendar-with-spring-binder-and-date-blocks_eocce3.png"
               />
             </div>
+            <div>
+              <h3 className="text-center text-dark montezfont display-4">
+              You have no upcoming events!
+              </h3>
+              <p className="text-center text-dark montezfont display-4">
+              Let's change that
+              </p>
+              <Link
+                className="d-flex justify-content-center"
+                to="/dashboard/event"
+              >
+                <button
+                  className="btn btn-orange"
+                >
+              Create Event
+                </button></Link>
+            </div>
           </div>
-          <Pagination
-            currentPage = {this.state.pagination.currentPage}
-            currentPageUrl = {this.state.pagination.currentPageUrl}
-            next = {this.state.pagination.next}
-            previous = {this.state.pagination.previous}
-            showNext={this.showNext}
-            showPrevious={this.showPrevious}
-            totalPages = {this.state.pagination.totalPages}
-          />
-        </section>
+          :
+          <section>
+            <div className="container">
+              <div className="row">
+                <UserEvent
+                  events = {this.state.event}
+                  handleDelete={this.handleDelete}
+                  redirectToEdit = {this.redirectToEdit}
+                />
+              </div>
+            </div>
+            {event.length !== 0
+              ?
+              <Pagination
+                currentPage = {this.state.pagination.currentPage}
+                currentPageUrl = {this.state.pagination.currentPageUrl}
+                next = {this.state.pagination.next}
+                previous = {this.state.pagination.previous}
+                showNext={this.showNext}
+                showPrevious={this.showPrevious}
+                totalPages = {this.state.pagination.totalPages}
+              />
+              : (null) }
+          </section>
     );
   }
 }

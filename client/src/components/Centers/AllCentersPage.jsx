@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Loader from 'react-md-spinner';
+import swal from 'sweetalert';
 
-import history from 'history';
+import history from '../../helpers/history';
 import Centers from './Centers';
-import { loadCenters } from '../../actions/centerActions';
+import { loadCenters, deleteCenter } from '../../actions/centerActions';
 import Pagination from '../Pagination/Pagination';
 
 /**
@@ -33,15 +34,19 @@ class AllCentersPage extends React.Component {
         previous: '',
         currentPage: '',
         currentPageUrl: '',
-        totalPages: ''
+        totalPages: '',
       }
     };
+
+    this.handleDelete = this.handleDelete.bind(this);
+    this.showNext = this.showNext.bind(this);
+    this.showPrevious = this.showPrevious.bind(this);
   }
 
   /**
    * @description - Fetches centers based on page request after component mounts
    *
-   * @memberof AllUserEvents
+   * @memberof AllCentersPage
    *
    * @returns {void} Nothing
    */
@@ -68,6 +73,36 @@ class AllCentersPage extends React.Component {
         pagination: nextProps.centers.loadedCenters.meta.pagination
       });
     }
+  }
+
+  /**
+   * @description -handles delete center
+   *
+   * @param {object} center
+   *
+   * @returns {void}
+   */
+  handleDelete(center) {
+    const id = parseInt(center.target.id, 10);
+    swal({
+      title: 'You are about to delete this center?',
+      text: 'Do you wish to continue?!',
+      icon: 'warning',
+      closeOnClickOutside: false,
+      closeOnEsc: false,
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          this.props.deleteCenter(id);
+          swal('Poof! Your event has been deleted!', {
+            icon: 'success',
+          });
+        } else {
+          swal('Your center is safe!');
+        }
+      });
   }
 
   /**
@@ -120,6 +155,7 @@ class AllCentersPage extends React.Component {
             <div className="row">
               <Centers
                 centers = {this.state.centers}
+                handleDelete = {this.handleDelete}
                 redirectToEdit = {this.redirectToEdit}
               />
             </div>
@@ -142,7 +178,8 @@ AllCentersPage.propTypes = {
   centers: PropTypes.object.isRequired,
   loadCenters: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  deleteCenter: PropTypes.func.isRequired,
 };
 
 
@@ -154,7 +191,8 @@ AllCentersPage.propTypes = {
  * @return { object } props - returns mapped props from state
  */
 const mapStateToProps = state => ({
-  centers: state.centers
+  centers: state.centers,
+  pagination: state.centers.loadedCenters
 });
 
 /**
@@ -165,7 +203,8 @@ const mapStateToProps = state => ({
  * @return { object } props - returns mapped props from dispatch action
  */
 const mapDispatchToProps = dispatch => ({
-  loadCenters: page => dispatch(loadCenters(page))
+  loadCenters: page => dispatch(loadCenters(page)),
+  deleteCenter: centerId => dispatch(deleteCenter(centerId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllCentersPage);

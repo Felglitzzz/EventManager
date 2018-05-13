@@ -9,7 +9,9 @@ const {
   UPDATE_CENTER_SUCCESS,
   UPDATE_CENTER_FAIL,
   LOAD_ONE_CENTER_FAIL,
-  LOAD_ONE_CENTER_SUCCESS
+  LOAD_ONE_CENTER_SUCCESS,
+  DELETE_ONE_CENTER_FAIL,
+  DELETE_ONE_CENTER_SUCCESS
 } = actionTypes;
 
 /**
@@ -51,7 +53,7 @@ export const loadCenterFail = error => ({
  */
 export const loadCenters = page => (dispatch) => {
   const token = localStorage.getItem('x-access-token');
-  axios.get(`/api/v1/centers?page=${page || 1}`, {
+  return axios.get(`/api/v1/centers?page=${page || 1}`, {
     headers: {
       Authorization: token
     }
@@ -65,16 +67,43 @@ export const loadCenters = page => (dispatch) => {
     });
 };
 
+/**
+ * description - defines add center success action
+ *
+ * @export createCenterSuccess
+ *
+ * @param {object} centerData
+ *
+ * @returns {object} action object
+ */
 export const createCenterSuccess = centerData => ({
   type: ADD_CENTER_SUCCESS,
   centerData
 });
 
+/**
+ * description - defines create center fail action
+ *
+ * @export addEventFail
+ *
+ * @param {object} error
+ *
+ * @returns {object} error object
+ */
 export const createCenterFail = error => ({
   type: ADD_CENTER_FAIL,
   error
 });
 
+/**
+ * description - handles create center action
+ *
+ * @export createCenter
+ *
+ * @param {object} centerData
+ *
+ * @returns {object} dispatched action
+ */
 export const createCenter = centerData => (dispatch) => {
   const token = localStorage.getItem('x-access-token');
   return axios.post('/api/v1/centers', centerData, {
@@ -89,16 +118,43 @@ export const createCenter = centerData => (dispatch) => {
     });
 };
 
+/**
+ * description - defines PUT request success action for an center
+ *
+ * @export updateCenterSuccess
+ *
+ * @param {object} updateCenterData
+ *
+ * @returns {object} dispatched action type and updateCenterData object
+ */
 export const updateCenterSuccess = updateCenterData => ({
   type: UPDATE_CENTER_SUCCESS,
   updateCenterData
 });
 
+/**
+ * description - defines PUT request fail action for an center
+ *
+ * @export updateCenterFail
+ *
+ * @param {object} error
+ *
+ * @returns {object} dispatched action type and error object
+ */
 export const updateCenterFail = error => ({
   type: UPDATE_CENTER_FAIL,
   error
 });
 
+/**
+ * description - handles PUT event action
+ *
+ * @export updateCenter
+ *
+ * @param {object} updateCenterData
+ *
+ * @returns {object} dispatched action
+ */
 export const updateCenter = updateCenterData => (dispatch) => {
   const token = localStorage.getItem('x-access-token');
   return axios.put(`/api/v1/centers/${updateCenterData.id}`, updateCenterData, {
@@ -113,16 +169,43 @@ export const updateCenter = updateCenterData => (dispatch) => {
     });
 };
 
+/**
+ * description - defines load one events success action
+ *
+ * @export loadOneCenterSuccess
+ *
+ * @param {object} centerReturned
+ *
+ * @returns {object} dispatched action type and retrieved center object
+ */
 export const loadOneCenterSuccess = centerReturned => ({
   type: LOAD_ONE_CENTER_SUCCESS,
   centerReturned
 });
 
+/**
+ * description - defines load one center failure action
+ *
+ * @export loadOneCenterFail
+ *
+ * @param {object} error
+ *
+ * @returns {object} dispatched action type and error object
+ */
 export const loadOneCenterFail = error => ({
   type: LOAD_ONE_CENTER_FAIL,
   error
 });
 
+/**
+ * description - handles GET request for one center
+ *
+ * @export loadOneCenter
+ *
+ * @param {object} centerId
+ *
+ * @returns {object} dispatched action
+ */
 export const loadOneCenter = centerId => (dispatch) => {
   const token = localStorage.getItem('x-access-token');
   return axios.get(`/api/v1/centers/${centerId}`, {
@@ -133,6 +216,57 @@ export const loadOneCenter = centerId => (dispatch) => {
     })
     .catch((errors) => {
       dispatch(loadOneCenterFail(errors));
+      throw (errors.response.data.message);
+    });
+};
+
+/**
+ * description - defines DELETE request success action for an event
+ *
+ * @export deleteCenterSuccess
+ *
+ * @param {object} deletedStatus
+ *
+ * @returns {object} dispatched action type and deleteStatus message
+ */
+export const deleteCenterSuccess = deletedStatus => ({
+  type: DELETE_ONE_CENTER_SUCCESS,
+  deletedStatus
+});
+
+/**
+ * description - defines DELETE request fail action for a center
+ *
+ * @export deleteCenterFail
+ *
+ * @param {object} error
+ *
+ * @returns {object} dispatched action type and error object
+ */
+export const deleteCenterFail = error => ({
+  type: DELETE_ONE_CENTER_FAIL,
+  error
+});
+
+/**
+ * description - handles DELETE request for one center
+ *
+ * @export deleteCenter
+ *
+ * @param {object} centerId
+ *
+ * @returns {object} dispatched action
+ */
+export const deleteCenter = centerId => (dispatch) => {
+  const token = localStorage.getItem('x-access-token');
+  return axios.delete(`/api/v1/centers/${centerId}`, {
+    headers: { Authorization: token }
+  })
+    .then((response) => {
+      dispatch(deleteCenterSuccess(response.data));
+    })
+    .catch((errors) => {
+      dispatch(deleteCenterFail(errors));
       throw (errors.response.data.message);
     });
 };

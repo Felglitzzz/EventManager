@@ -8,8 +8,8 @@ import getUserFromToken from '../../utils/getUserFromToken';
  * class Centers
  * @returns {object} react component
  */
-const Centers = ({ centers }) => {
-  const { isAdmin } = getUserFromToken;
+const Centers = ({ centers, handleDelete }) => {
+  const { isAdmin } = getUserFromToken();
   return (
     centers.length === 0
       ?
@@ -38,54 +38,53 @@ const Centers = ({ centers }) => {
                     src= {center.image}
                     width="400" />
                 </div>
-                <div className="card-body">
+                <div className="card-body p-2">
                   <ul className="list-group list-group-flush">
-                    <li className="list-group-item"><h4
+                    <li className="list-group-item px-2 py-0 border-bottom-0"><h4
                       className="card-title">{center.name}</h4></li>
-                    <li
-                      className="list-group-item"><p
-                        className="card-text">{center.location}</p></li>
-                    <li className="list-group-item d-flex">
+                    <li className="pt-0 pb-2 px-2"><p
+                      className="card-text">{center.location}</p></li>
+                    <li className="list-group-item d-flex px-2 py-0">
                       <p className="card-text">{center.capacity} capacity</p>
                       <p className=" ml-auto card-text">NGN {center.price}</p>
                     </li>
                   </ul>
                 </div>
-                { !isAdmin ? null : <div className="overlay">
+                { isAdmin ? <div className="overlay">
                   <div className="user-icons">
                     <div className="container pt-2 px-0">
                       <ul className="pl-0">
                         <li className="d-flex justify-content-center">
-                          <Link to={`/dashboard/centers/edit/${center.id}`}>
-                            <p className="text-orange border-2 border-orange icon-lg twitter mr-1">
+                          <Link to={`/dashboard/centers/${center.id}`}>
+                            <p className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim">
                               <i aria-hidden="true"
                                 className="fa fa-pencil fa-2x p-2" /></p>
                           </Link>
-                          {/* <a className="text-orange border-2 border-orange icon-lg ig mr-1">
-                          <i aria-hidden="true"
-                            className="fa fa-trash fa-2x p-2" />
-                        </a> */}
-                          <Link to ={`/dashboard/centers/view/${center.id}`}>
+                          <a>
                             <p
-                              className="text-orange border-2 border-orange icon-lg twitter mr-1" >
+                              className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim"
+                              id={center.id}
+                              onClick={handleDelete}
+                            >
+                              <i aria-hidden="true"
+                                className="fa fa-trash fa-2x p-2"
+                                id={center.id}
+                              />
+                            </p>
+                          </a>
+                          <Link
+                            to ={`/dashboard/centers/view/${center.id}`}>
+                            <p
+                              className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim" >
                               <i aria-hidden="true"
                                 className="fa fa-eye fa-2x p-2" />
                             </p>
                           </Link>
-                          {/* <a>
-                          <p
-                            className="text-orange border-2 border-orange icon-lg ig mr-1"
-                            onClick={handleDelete}
-                            id={event.id}
-                          >
-                            <i className="fa fa-trash fa-2x p-2" id={event.id} aria-hidden="true" />
-                          </p>
-                        </a> */}
                         </li>
                       </ul>
                     </div>
                   </div>
-                </div> }
+                </div> : (null) }
               </div>
             </div>
           </div>
