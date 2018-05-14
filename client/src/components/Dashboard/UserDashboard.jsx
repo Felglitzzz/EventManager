@@ -214,6 +214,7 @@ class UserDashboard extends React.Component {
                 />
                 <Route
                   component={EditCenterPage}
+                  exact
                   path="/dashboard/centers/:centerId"
                 />
                 <Route

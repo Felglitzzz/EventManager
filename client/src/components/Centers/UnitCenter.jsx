@@ -39,28 +39,30 @@ const UnitCenter = ({ centers, handleDelete }) => {
                   </li>
                 </ul>
               </div>
-              { isAdmin ? <div className="overlay">
+              <div className="overlay">
                 <div className="user-icons">
                   <div className="container pt-2 px-0">
                     <ul className="pl-0">
                       <li className="d-flex justify-content-center">
-                        <Link to={`/dashboard/centers/${center.id}`}>
-                          <p className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim">
-                            <i aria-hidden="true"
-                              className="fa fa-pencil fa-2x p-2" /></p>
-                        </Link>
-                        <a>
-                          <p
-                            className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim"
-                            id={center.id}
-                            onClick={handleDelete}
-                          >
-                            <i aria-hidden="true"
-                              className="fa fa-trash fa-2x p-2"
+                        { isAdmin ?
+                          <Link to={`/dashboard/centers/${center.id}`}>
+                            <p className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim">
+                              <i aria-hidden="true"
+                                className="fa fa-pencil fa-2x p-2" /></p>
+                          </Link> : (null)}
+                        { isAdmin ?
+                          <a>
+                            <p
+                              className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim"
                               id={center.id}
-                            />
-                          </p>
-                        </a>
+                              onClick={handleDelete}
+                            >
+                              <i aria-hidden="true"
+                                className="fa fa-trash fa-2x p-2"
+                                id={center.id}
+                              />
+                            </p>
+                          </a> : (null)}
                         <Link
                           to ={`/dashboard/centers/view/${center.id}`}>
                           <p
@@ -73,7 +75,7 @@ const UnitCenter = ({ centers, handleDelete }) => {
                     </ul>
                   </div>
                 </div>
-              </div> : (null) }
+              </div>
             </div>
           </div>
         </div>

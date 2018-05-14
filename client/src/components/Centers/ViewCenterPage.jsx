@@ -7,6 +7,7 @@ import { loadOneCenter } from '../../actions/centerActions';
 import { loadEventsByCenterId } from '../../actions/eventActions';
 import Pagination from '../Pagination/Pagination';
 import history from '../../helpers/history';
+import Prompter from '../../helpers/Prompter';
 
 /**
  * @description - Container class component for view center page
@@ -51,7 +52,10 @@ class ViewCenterPage extends React.Component {
    */
   componentDidMount() {
     this.props.loadOneCenter(this.props.centerId);
-    this.props.loadEventsByCenterId(this.props.centerId, 1);
+    this.props.loadEventsByCenterId(this.props.centerId, 1)
+      .catch((error) => {
+        Prompter.error(error);
+      });
   }
 
   /**
@@ -154,18 +158,22 @@ class ViewCenterPage extends React.Component {
           <header className="mt-3 bg-light">
             <p className=" form-head text-center text-orange">Center-Event Log</p>
           </header>
-          <EventCenterList
-            centerEvent = {this.state.eventsRetrieved}
-          />
-          <Pagination
-            currentPage = {+this.state.pagination.currentPage}
-            currentPageUrl = {this.state.pagination.currentPageUrl}
-            next = {this.state.pagination.next}
-            previous = {this.state.pagination.previous}
-            showNext={this.showNext}
-            showPrevious={this.showPrevious}
-            totalPages = {+this.state.pagination.totalPages}
-          />
+          <div>
+            <EventCenterList
+              centerEvent = {this.state.eventsRetrieved}
+            />
+          </div>
+          <div className = "pose-relative">
+            <Pagination
+              currentPage = {+this.state.pagination.currentPage}
+              currentPageUrl = {this.state.pagination.currentPageUrl}
+              next = {this.state.pagination.next}
+              previous = {this.state.pagination.previous}
+              showNext={this.showNext}
+              showPrevious={this.showPrevious}
+              totalPages = {+this.state.pagination.totalPages}
+            />
+          </div>
         </div>
     );
   }

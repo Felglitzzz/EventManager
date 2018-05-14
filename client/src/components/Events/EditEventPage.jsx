@@ -213,7 +213,7 @@ class EditEventPage extends React.Component {
    */
   redirectToEvents() {
     this.setState({ isLoading: false });
-    toastr.success('Event Created');
+    toastr.success('Event Updated');
     history.replace('/dashboard/events');
   }
 
