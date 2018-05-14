@@ -319,11 +319,9 @@ export const loadUnpaginatedCenters = () => (dispatch) => {
   })
     .then((response) => {
       dispatch(loadUnpaginatedSuccess(response.data));
-      console.log('res in actions', response.data);
     })
     .catch((errors) => {
       dispatch(loadUnpaginatedFail(errors));
-      console.log('errr in actions', errors.response.data.message);
       throw (errors.response.data.message);
     });
 };

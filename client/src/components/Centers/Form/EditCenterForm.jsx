@@ -97,7 +97,6 @@ const EditCenterForm = ({
                       name="type"
                       onChange={onChange}
                       onFocus={handleFocus}
-                      pattern=".{3,}"
                       placeholder="Center's Type"
                       title="Center's type should be longer than 3 characters"
                       type="name"

@@ -372,7 +372,7 @@ export default class Validate {
     if (!type || type === '') {
       errors.type = 'Type is Required';
     }
-    if (/[^a-zA-Z ]+/.test(type)) {
+    if (/[^a-zA-Z- ]+/.test(type)) {
       errors.type = 'Type can only contain letters';
     }
 

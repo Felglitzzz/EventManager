@@ -530,6 +530,19 @@ a {
   background-color: rgb(247, 97, 37);
   border: 1px;
 }
+.pose-relative{
+  position: relative;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin-top: 7em;
+}
+
+.card-deck {
+  min-height: 350px;
+  max-height: 350px;
+}
 
 .pad-5{
   padding: 3rem;
@@ -734,6 +747,14 @@ a {
     padding: 20px;
     margin-bottom: 20px;
     width: 100%;
+}
+.pose-relative{
+  position: relative;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin-top: 0em;
 }
 }
 

@@ -69,7 +69,6 @@ class CreateEventPage extends React.Component {
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
-    console.log('nextttt', nextProps);
     if (nextProps.options.unPaginatedCenters) {
       this.setState({
         options: nextProps.options.unPaginatedCenters.Centers
@@ -243,7 +242,6 @@ CreateEventPage.propTypes = {
  * @return { object } props - returns mapped props from state
  */
 function mapStateToProps(state) {
-  console.log('state', state);
   return {
     options: state.centers,
     imageUrl: state.images.image
