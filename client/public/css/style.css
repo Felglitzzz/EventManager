@@ -633,6 +633,15 @@ a {
     margin-left: auto !important;
     margin-right: auto !important;
   }
+
+  .pagination {
+    position: relative;
+    bottom: 0;
+    background: #f2f2f2;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
 }
 
 @media (min-width: 321px) and (max-width: 565px) {
@@ -717,6 +726,15 @@ a {
   .pad-5{
     padding: 1rem;
   }
+
+  .pagination {
+    position: relative;
+    bottom: 0;
+    background: #f2f2f2;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
 }
 
 @media (min-width: 566px) and (max-width: 767px) {
@@ -888,6 +906,4 @@ a {
     display: flex;
     justify-content: center;
   }
-
-  
 }

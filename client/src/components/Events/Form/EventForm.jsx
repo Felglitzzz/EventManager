@@ -12,7 +12,7 @@ const EventForm = ({
   errors,
   handleFocus
 }) =>
-  (options.length === 0 ? (
+  (!options ? (
     <div className="d-flex justify-content-center pad">
       <Loader color1="#f6682f"
         color2="#f6682f"
@@ -74,12 +74,15 @@ const EventForm = ({
                         value={eventData.centerId}
                       >
                         <option value="">{'Select Center'}</option>
-                        {options.map(option => (
-                          <option key={option.id}
+                        {
+                          options.map(option => (
+                            <option key=
+                              {option.id}
                             value={option.id}>
-                            {option.name}
-                          </option>
-                        ))}
+                              {option.name}
+                            </option>
+                          ))
+                        }
                       </select>
                     </div>
                     <div className="form-row">

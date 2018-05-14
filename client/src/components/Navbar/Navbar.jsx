@@ -15,7 +15,7 @@ const Navbar = () => (
     <nav className="navbar navbar-expand-lg transparent navbar-dark bg-orange">
       <Link className="navbar-brand font-weight-bold text-white"
         to="/"
-      >
+      ><i className="text-center fab fa-quinscape fa-2x mr-2" />
           EVENTERIA
       </Link>
       <button

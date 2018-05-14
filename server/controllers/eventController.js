@@ -115,6 +115,7 @@ export default class Event {
         },
         limit,
         offset,
+        order: [['createdAt', 'DESC']],
         include: [
           {
             model: centers,
@@ -180,6 +181,7 @@ export default class Event {
         where: {
           centerId: req.params.centerId
         },
+        order: [['createdAt', 'DESC']]
       })
       .then((foundEvents) => {
         if (foundEvents.count === 0) {

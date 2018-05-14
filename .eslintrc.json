@@ -55,7 +55,7 @@
             "ClassDeclaration": true
         }
     }],
-    "class-methods-use-this": ["error", { "exceptMethods": ["render", "handleDelete", "handleLogout", "showDeleteModal", "redirectToLandingPage", "redirectToEdit", "redirectToCenters", "redirectToEvents", "redirectToHomepage", "componentDidMount", "componentWillMount", "componentWillReceiveProps"] }],
+    "class-methods-use-this": ["error", { "exceptMethods": ["render", "showLoader", "showNoEvents", "showNoCenters", "handleDelete", "handleLogout", "showDeleteModal", "redirectToLandingPage", "redirectToEdit", "redirectToCenters", "redirectToEvents", "redirectToHomepage", "componentDidMount", "componentWillMount", "componentWillReceiveProps"] }],
     "jsx-quotes": 1,
     "jsx-ally/alt-text": 0,
     "react/display-name": [ 1, {"ignoreTranspilerName": false }],

@@ -9,6 +9,7 @@ import UserEvent from '../Events/UserEvent';
 import { loadAllEvent, deleteEvent } from '../../actions/eventActions';
 import history from '../../helpers/history';
 import Pagination from '../Pagination/Pagination';
+import Prompter from '../../helpers/Prompter';
 
 
 /**
@@ -31,7 +32,7 @@ class AllUserEvents extends React.Component {
 
     this.state = {
       event: [],
-      isLoading: false,
+      eventsLoading: true,
       toggleDelete: false,
       pagination: {
         next: '',
@@ -46,6 +47,7 @@ class AllUserEvents extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.showNext = this.showNext.bind(this);
     this.showPrevious = this.showPrevious.bind(this);
+    this.showLoader = this.showLoader.bind(this);
   }
 
   /**
@@ -56,7 +58,10 @@ class AllUserEvents extends React.Component {
    * @returns {void} Nothing
    */
   componentDidMount() {
-    this.props.loadAllEvent();
+    this.props.loadAllEvent()
+      .catch((error) => {
+        Prompter.error(error);
+      });
   }
 
   /**
@@ -73,9 +78,17 @@ class AllUserEvents extends React.Component {
     }
 
     if (nextProps.events.loadedEvents) {
+      const { event } = nextProps.events.loadedEvents;
+      const paginationMeta = nextProps.events.loadedEvents.meta;
+      const pagination = paginationMeta ? paginationMeta.pagination : undefined;
       this.setState({
-        event: nextProps.events.loadedEvents.event,
-        pagination: nextProps.events.loadedEvents.meta.pagination
+        event,
+        pagination,
+        eventsLoading: false
+      });
+    } else {
+      this.setState({
+        eventsLoading: false
       });
     }
   }
@@ -146,74 +159,95 @@ class AllUserEvents extends React.Component {
   }
 
   /**
+   * @description - shows loader
+   *
+   * @returns { void } nothing
+   */
+  showLoader() {
+    return (
+      <div className="d-flex justify-content-center pad">
+        <Loader color1="#f6682f"
+          color2="#f6682f"
+          color3="#f6682f"
+          color4="#f6682f"
+          size={96} />
+      </div>
+    );
+  }
+
+  /**
+   * @description - shows loader
+   *
+   * @returns { void }
+   */
+  showNoEvents() {
+    return (
+      <div className="pt-5">
+        <div className="d-flex justify-content-center">
+          <img className="img-fluid"
+            src="http://res.cloudinary.com/felglitz/image/upload/v1522307912/calendar-with-spring-binder-and-date-blocks_eocce3.png"
+          />
+        </div>
+        <div>
+          <h3 className="text-center text-dark montezfont display-4">
+        You have no upcoming events!
+          </h3>
+          <p className="text-center text-dark montezfont display-4">
+        Let's change that
+          </p>
+          <Link
+            className="d-flex justify-content-center"
+            to="/dashboard/event"
+          >
+            <button
+              className="btn btn-orange"
+            >
+        Create Event
+            </button></Link>
+        </div>
+      </div>
+
+    );
+  }
+
+  /**
    * @description - renders user's events based on page request
    *
    * @returns {jsx} userEvent component
    */
   render() {
-    const { event } = this.state;
-    return (
-      !event
-        ?
-        <div className="d-flex justify-content-center pad">
-          <Loader color1="#f6682f"
-            color2="#f6682f"
-            color3="#f6682f"
-            color4="#f6682f"
-            size={96} />
+    const { event, eventsLoading } = this.state;
+
+    if (eventsLoading) {
+      return this.showLoader();
+    }
+
+    if (event.count === undefined) {
+      return this.showNoEvents();
+    }
+
+    return (<section>
+      <div className="container">
+        <div className="row">
+          <UserEvent
+            events = {this.state.event}
+            handleDelete={this.handleDelete}
+          />
         </div>
-        :
-        event.length === 0
-          ?
-          <div className="pt-5">
-            <div className="d-flex justify-content-center">
-              <img className="img-fluid"
-                src="http://res.cloudinary.com/felglitz/image/upload/v1522307912/calendar-with-spring-binder-and-date-blocks_eocce3.png"
-              />
-            </div>
-            <div>
-              <h3 className="text-center text-dark montezfont display-4">
-              You have no upcoming events!
-              </h3>
-              <p className="text-center text-dark montezfont display-4">
-              Let's change that
-              </p>
-              <Link
-                className="d-flex justify-content-center"
-                to="/dashboard/event"
-              >
-                <button
-                  className="btn btn-orange"
-                >
-              Create Event
-                </button></Link>
-            </div>
-          </div>
-          :
-          <section>
-            <div className="container">
-              <div className="row">
-                <UserEvent
-                  events = {this.state.event}
-                  handleDelete={this.handleDelete}
-                  redirectToEdit = {this.redirectToEdit}
-                />
-              </div>
-            </div>
-            {event.length !== 0
-              ?
-              <Pagination
-                currentPage = {this.state.pagination.currentPage}
-                currentPageUrl = {this.state.pagination.currentPageUrl}
-                next = {this.state.pagination.next}
-                previous = {this.state.pagination.previous}
-                showNext={this.showNext}
-                showPrevious={this.showPrevious}
-                totalPages = {this.state.pagination.totalPages}
-              />
-              : (null) }
-          </section>
-    );
+      </div>
+      {event && event.length !== 0
+        ?
+        <Pagination
+          currentPage = {this.state.pagination.currentPage}
+          currentPageUrl = {this.state.pagination.currentPageUrl}
+          next = {this.state.pagination.next}
+          previous = {this.state.pagination.previous}
+          showNext={this.showNext}
+          showPrevious={this.showPrevious}
+          totalPages = {this.state.pagination.totalPages}
+        />
+        : (null) }
+    </section>);
   }
 }
 
@@ -234,7 +268,7 @@ AllUserEvents.propTypes = {
  * @return { object } props - returns mapped props from state
  */
 const mapStateToProps = state => ({
-  events: state.events
+  events: state.events,
 });
 
 /**

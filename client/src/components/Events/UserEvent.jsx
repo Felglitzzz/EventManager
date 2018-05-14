@@ -14,15 +14,6 @@ import { Link } from 'react-router-dom';
  */
 const UserEvent = ({ events, handleDelete }) => {
   events = events.rows;
-  // return events.length === 0 ? (
-  //   <div className="d-flex justify-content-center pad">
-  //     <Loader color1="#f6682f"
-  //       color2="#f6682f"
-  //       color3="#f6682f"
-  //       color4="#f6682f"
-  //       size={96} />
-  //   </div>
-  // ) : (
   return (
     events.map((event, id) => {
       localStorage.setItem('events', JSON.stringify(events));

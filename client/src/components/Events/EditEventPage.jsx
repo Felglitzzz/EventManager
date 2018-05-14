@@ -6,7 +6,7 @@ import history from '../../helpers/history';
 
 import { updateEvent } from '../../actions/eventActions';
 import { uploadToCloudinary } from '../../actions/imageActions';
-import { loadCenters } from '../../actions/centerActions';
+import { loadUnpaginatedCenters } from '../../actions/centerActions';
 import EditEventForm from './Form/EditEventForm';
 import Validate from '../../helpers/validations/Validate';
 
@@ -53,7 +53,7 @@ class EditEventPage extends React.Component {
    * @returns {void} Nothing
    */
   componentDidMount() {
-    this.props.loadCenters();
+    this.props.loadUnpaginatedCenters();
   }
 
   /**
@@ -69,9 +69,9 @@ class EditEventPage extends React.Component {
         updateEventData: nextProps.updateEventData
       });
     }
-    if (nextProps.options) {
+    if (nextProps.options.unPaginatedCenters) {
       this.setState({
-        options: nextProps.options.loadedCenters.Centers
+        options: nextProps.options.unPaginatedCenters.Centers
       });
     }
     if (nextProps.imageUrl) {
@@ -243,9 +243,9 @@ EditEventPage.propTypes = {
   updateEvent: PropTypes.func.isRequired,
   updateEventData: PropTypes.object.isRequired,
   options: PropTypes.object.isRequired,
-  loadCenters: PropTypes.func.isRequired,
   uploadToCloudinary: PropTypes.func.isRequired,
   imageUrl: PropTypes.object,
+  loadUnpaginatedCenters: PropTypes.func.isRequired
 };
 
 const getEventById = (events, id) => {
@@ -289,7 +289,7 @@ function mapStateToProps(state, ownProps) {
  */
 function mapDispatchToProps(dispatch) {
   return {
-    loadCenters: () => dispatch(loadCenters()),
+    loadUnpaginatedCenters: () => dispatch(loadUnpaginatedCenters()),
     updateEvent: updateEventData => dispatch(updateEvent(updateEventData)),
     uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
   };

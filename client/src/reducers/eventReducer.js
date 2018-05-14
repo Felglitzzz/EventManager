@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
+import initialState from './initialState';
 
 const {
   ADD_EVENT_SUCCESS,
@@ -28,7 +29,7 @@ const {
  * @returns {object} action type and payload
  */
 
-const eventReducer = (state = {}, action) => {
+const eventReducer = (state = initialState.events, action) => {
   const { type } = action;
 
   switch (type) {

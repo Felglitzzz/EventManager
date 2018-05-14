@@ -19,9 +19,9 @@ export default class Home extends React.Component {
       <div>
         <div className="container-fluid half_screen img-fluid d-flex align-items-center">
           <div
-            id="carouselExampleSlidesOnly"
             className="container-fluid carousel slide"
             data-ride="carousel"
+            id="carouselExampleSlidesOnly"
           >
             <div className="carousel-inner h-auto">
               <div className="carousel-item active">
