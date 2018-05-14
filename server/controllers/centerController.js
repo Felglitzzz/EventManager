@@ -124,52 +124,70 @@ export default class Center {
    */
   static getAllCenters(req, res) {
     const limit = 3;
-    let offset = Number(0);
     const baseUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}${req.path}`;
     let currentPage = req.query.page || 1;
     currentPage = Number(currentPage);
+    const offset = limit * (currentPage - 1);
     const currentPageUrl = `${baseUrl}?page=${currentPage}`;
     let previous;
     let next;
 
     return centers
-      .findAndCountAll()
-      .then((foundCenters) => {
-        if (foundCenters.count === 0) {
+      .findAndCountAll({
+        limit,
+        offset,
+        order: [['createdAt', 'DESC']]
+      })
+      .then((Centers) => {
+        if (Centers.count === 0) {
           return res.status(404).send({
             message: 'Center Not Found!'
           });
         }
-        const totalPages = Math.ceil(foundCenters.count / limit);
-        offset = limit * (currentPage - 1);
+        const totalPages = Math.ceil(Centers.count / limit);
         if (currentPage !== 1) {
           previous = `${baseUrl}?page=${currentPage - 1}`;
         }
         if (totalPages > currentPage) {
           next = `${baseUrl}?page=${currentPage + 1}`;
         }
-        centers.findAll({
-          limit,
-          offset
-        })
-          .then(center =>
-            res.status(200).json({
-              message: 'Centers Found!',
-              Centers: center,
-              meta: {
-                pagination: {
-                  currentPageUrl,
-                  previous,
-                  next,
-                  currentPage,
-                  totalPages,
-                  offset,
-                  limit
-                }
-              }
-            }))
-          .catch(error => res.status(500).json({ message: error }));
+        return res.status(200).json({
+          message: 'Centers Found!',
+          Centers,
+          meta: {
+            pagination: {
+              currentPageUrl,
+              previous,
+              next,
+              currentPage,
+              totalPages,
+              offset,
+              limit
+            }
+          }
+        });
       });
+  }
+
+  /**
+   *Get all centers from the database
+   * @static
+   *
+   * @param {object} req express request object
+   * @param {object} res express response object
+   *
+   * @returns {object} error message object or object with all centers and success message
+   *
+   * @memberof Center
+   */
+  static getUnPaginatedCenters(req, res) {
+    return centers.findAll()
+      .then(Centers =>
+        res.status(200).json({
+          message: 'Centers Found!',
+          Centers,
+        }))
+      .catch(error => res.status(500).json({ message: error }));
   }
 
   /**

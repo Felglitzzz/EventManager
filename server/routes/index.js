@@ -16,6 +16,11 @@ router
   );
 router
   .get(
+    '/centers/views',
+    Center.getUnPaginatedCenters
+  );
+router
+  .get(
     '/centers/:centerId',
     InputValidate.checkCenterId,
     Center.getOneCenter

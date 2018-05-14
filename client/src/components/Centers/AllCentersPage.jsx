@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Loader from 'react-md-spinner';
 import swal from 'sweetalert';
+import { Link } from 'react-router-dom';
 
 import history from '../../helpers/history';
-import Centers from './Centers';
+import UnitCenter from './UnitCenter';
 import { loadCenters, deleteCenter } from '../../actions/centerActions';
 import Pagination from '../Pagination/Pagination';
+import Prompter from '../../helpers/Prompter';
+
 
 /**
  * @description - Container class component for all centers
@@ -29,6 +32,7 @@ class AllCentersPage extends React.Component {
 
     this.state = {
       centers: [],
+      centersLoading: true,
       pagination: {
         next: '',
         previous: '',
@@ -41,6 +45,7 @@ class AllCentersPage extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.showNext = this.showNext.bind(this);
     this.showPrevious = this.showPrevious.bind(this);
+    this.showLoader = this.showLoader.bind(this);
   }
 
   /**
@@ -51,7 +56,10 @@ class AllCentersPage extends React.Component {
    * @returns {void} Nothing
    */
   componentDidMount() {
-    this.props.loadCenters();
+    this.props.loadCenters()
+      .catch((error) => {
+        Prompter.error(error);
+      });
   }
 
   /**
@@ -68,9 +76,17 @@ class AllCentersPage extends React.Component {
     }
 
     if (nextProps.centers.loadedCenters) {
+      const { Centers } = nextProps.centers.loadedCenters;
+      const paginationMeta = nextProps.centers.loadedCenters.meta;
+      const pagination = paginationMeta ? paginationMeta.pagination : undefined;
       this.setState({
-        centers: nextProps.centers.loadedCenters.Centers,
-        pagination: nextProps.centers.loadedCenters.meta.pagination
+        centers: Centers,
+        pagination,
+        centersLoading: false
+      });
+    } else {
+      this.setState({
+        centersLoading: false
       });
     }
   }
@@ -132,34 +148,85 @@ class AllCentersPage extends React.Component {
   }
 
   /**
+   * @description - shows loader
+   *
+   * @returns { void } nothing
+   */
+  showLoader() {
+    return (
+      <div className="d-flex justify-content-center pad">
+        <Loader color1="#f6682f"
+          color2="#f6682f"
+          color3="#f6682f"
+          color4="#f6682f"
+          size={96} />
+      </div>
+    );
+  }
+
+  /**
+   * @description - shows loader
+   *
+   * @returns { void }
+   */
+  showNoCenters() {
+    return (
+      <div className="pt-5">
+        <div className="d-flex justify-content-center">
+          <img className="img-fluid"
+            src="http://res.cloudinary.com/felglitz/image/upload/v1522307912/calendar-with-spring-binder-and-date-blocks_eocce3.png"
+          />
+        </div>
+        <div>
+          <h3 className="text-center text-dark montezfont display-4">
+        You have no centers!
+          </h3>
+          <p className="text-center text-dark montezfont display-4">
+        Let's change that
+          </p>
+          <Link
+            className="d-flex justify-content-center"
+            to="/dashboard/center"
+          >
+            <button
+              className="btn btn-orange"
+            >
+        Create Center
+            </button></Link>
+        </div>
+      </div>
+
+    );
+  }
+
+  /**
    * @description - renders all centers based on page request
    *
    * @returns {jsx} Centers component
    */
   render() {
-    const { centers } = this.state;
+    const { centers, centersLoading } = this.state;
+
+    if (centersLoading) {
+      return this.showLoader();
+    }
+
+    if (centers.count === undefined) {
+      return this.showNoCenters();
+    }
+
     return (
-      centers.length === 0
-        ?
-        <div className="d-flex justify-content-center pad">
-          <Loader
-            color1="#f6682f"
-            color2="#f6682f"
-            color3="#f6682f"
-            color4="#f6682f"
-            size={96} />
-        </div>
-        :
-        <section>
-          <div className="container">
-            <div className="row">
-              <Centers
-                centers = {this.state.centers}
-                handleDelete = {this.handleDelete}
-                redirectToEdit = {this.redirectToEdit}
-              />
-            </div>
+      <section>
+        <div className="container">
+          <div className="row">
+            <UnitCenter
+              centers = {this.state.centers}
+              handleDelete = {this.handleDelete}
+            />
           </div>
+        </div>
+        {centers && centers.length !== 0
+          ?
           <Pagination
             currentPage = {this.state.pagination.currentPage}
             currentPageUrl = {this.state.pagination.currentPageUrl}
@@ -169,7 +236,8 @@ class AllCentersPage extends React.Component {
             showPrevious={this.showPrevious}
             totalPages = {this.state.pagination.totalPages}
           />
-        </section>
+          : (null) }
+      </section>
     );
   }
 }
@@ -192,7 +260,6 @@ AllCentersPage.propTypes = {
  */
 const mapStateToProps = state => ({
   centers: state.centers,
-  pagination: state.centers.loadedCenters
 });
 
 /**

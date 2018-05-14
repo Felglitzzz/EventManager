@@ -54,7 +54,7 @@ export default class InputValidate {
         errors.username = 'Username should be more than one character';
       }
     }
-    if (/[^a-zA-Z0-9 ]+/.test(username)) {
+    if (/[^a-zA-Z0-9-_ ]+/.test(username)) {
       errors.username = 'Username can only contain alphanumeric characters';
     }
     if (!email || email === '') {
@@ -286,7 +286,7 @@ export default class InputValidate {
         errors.location = 'Center name should be more than one character';
       }
     }
-    if (/[^a-zA-Z0-9- ]+/.test(location)) {
+    if (/[^a-zA-Z0-9-, ]+/.test(location)) {
       errors.location = 'Location can only contain alphanumeric characters';
     }
     if (!capacity || capacity === '') {
@@ -371,7 +371,7 @@ export default class InputValidate {
         errors.location = 'Location should be more than one character';
       }
     }
-    if (/[^a-zA-Z0-9- ]+/.test(location)) {
+    if (/[^a-zA-Z0-9-, ]+/.test(location)) {
       errors.location = 'Location can only contain alphanumeric characters';
     }
     if (!capacity || capacity === '') {

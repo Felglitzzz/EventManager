@@ -58,7 +58,7 @@ export default class Validate {
         errors.username = 'Username should be more than one character';
       }
     }
-    if (/[^a-zA-Z0-9 ]+/.test(username)) {
+    if (/[^a-zA-Z0-9-_ ]+/.test(username)) {
       errors.username = 'Username can only contain alphanumeric characters';
     }
     if (!email || email === '') {
@@ -260,7 +260,7 @@ export default class Validate {
       }
     }
 
-    if (/[^a-zA-Z0-9- ]+/.test(location)) {
+    if (/[^a-zA-Z0-9-, ]+/.test(location)) {
       errors.location = 'Location can only contain alphanumeric characters';
     }
 
@@ -335,7 +335,7 @@ export default class Validate {
       }
     }
 
-    if (/[^a-zA-Z0-9 ]+/.test(name)) {
+    if (/[^a-zA-Z0-9- ]+/.test(name)) {
       errors.name = 'Name can only contain alphanumeric characters';
     }
 
@@ -349,7 +349,7 @@ export default class Validate {
       }
     }
 
-    if (/[^a-zA-Z0-9- ]+/.test(location)) {
+    if (/[^a-zA-Z0-9-, ]+/.test(location)) {
       errors.location = 'Location can only contain alphanumeric characters';
     }
 

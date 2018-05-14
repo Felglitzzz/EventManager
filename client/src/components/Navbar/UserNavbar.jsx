@@ -22,7 +22,7 @@ class UserNavbar extends React.Component {
   render() {
     const { username } = getUserInfo();
     return (
-      <div className="no-padding-hr container mb-3 hoverable">
+      <div className="no-padding-hr mb-3 hoverable">
         <nav className="navbar navbar-expand-lg d-flex">
           <p className="font-weight-bold montfont text-orange ml-auto myAuto">
             Hello, {lodash.capitalize(username)}

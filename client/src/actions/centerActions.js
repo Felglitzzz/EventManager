@@ -11,7 +11,9 @@ const {
   LOAD_ONE_CENTER_FAIL,
   LOAD_ONE_CENTER_SUCCESS,
   DELETE_ONE_CENTER_FAIL,
-  DELETE_ONE_CENTER_SUCCESS
+  DELETE_ONE_CENTER_SUCCESS,
+  LOAD_UNPAGINATED_CENTERS_FAIL,
+  LOAD_UNPAGINATED_CENTERS_SUCCESS
 } = actionTypes;
 
 /**
@@ -267,6 +269,61 @@ export const deleteCenter = centerId => (dispatch) => {
     })
     .catch((errors) => {
       dispatch(deleteCenterFail(errors));
+      throw (errors.response.data.message);
+    });
+};
+
+/**
+ * description - defines load all unpaginated centers success action
+ *
+ * @export loadUnpaginatedCenterSuccess
+ *
+ * @param {object} unPaginatedCenters
+ *
+ * @returns {object} dispatched action type and loadedCenters object
+ */
+export const loadUnpaginatedSuccess = unPaginatedCenters => ({
+  type: LOAD_UNPAGINATED_CENTERS_SUCCESS,
+  unPaginatedCenters
+});
+
+/**
+ * description - defines load all centers failure action
+ *
+ * @export loadAllCenterFail
+ *
+ * @param {object} error
+ *
+ * @returns {object} dispatched action type and error object
+ */
+export const loadUnpaginatedFail = error => ({
+  type: LOAD_UNPAGINATED_CENTERS_FAIL,
+  error
+});
+
+/**
+ * description - handles GET request for all canters for an admin
+ *
+ * @export loadCenters
+ *
+ * @param {object} page
+ *
+ * @returns {object} dispatched action
+ */
+export const loadUnpaginatedCenters = () => (dispatch) => {
+  const token = localStorage.getItem('x-access-token');
+  return axios.get('/api/v1/centers/views', {
+    headers: {
+      Authorization: token
+    }
+  })
+    .then((response) => {
+      dispatch(loadUnpaginatedSuccess(response.data));
+      console.log('res in actions', response.data);
+    })
+    .catch((errors) => {
+      dispatch(loadUnpaginatedFail(errors));
+      console.log('errr in actions', errors.response.data.message);
       throw (errors.response.data.message);
     });
 };

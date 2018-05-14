@@ -11,10 +11,10 @@ import AllCentersPage from '../Centers/AllCentersPage';
 import CreateCenterPage from '../Centers/CreateCenterPage';
 import EditCenterPage from '../Centers/EditCenterPage';
 import ViewCenterPage from '../Centers/ViewCenterPage';
-import showDeleteModal from '../Modal/alertModal';
 import getUserFromToken from '../../utils/getUserFromToken';
 import CreateEventPage from '../Events/CreateEventPage';
 import Prompter from '../../helpers/Prompter';
+import { logOutUser } from '../../actions/userAccessActions';
 
 /**
  * @description - Container class component for user's dashboard
@@ -82,6 +82,7 @@ class UserDashboard extends React.Component {
   handleLogout(event) {
     event.preventDefault();
     localStorage.clear();
+    this.props.logOutUser();
     Prompter.success('Logged Out Successfully');
     history.replace('/');
   }
@@ -230,6 +231,7 @@ class UserDashboard extends React.Component {
 
 UserDashboard.propTypes = {
   isAuthenticated: PropTypes.object.isRequired,
+  logOutUser: PropTypes.func.isRequired
 };
 
 /**
@@ -243,4 +245,17 @@ const mapStateToProps = state => ({
   isAuthenticated: state.userAccess,
 });
 
-export default connect(mapStateToProps)(UserDashboard);
+/**
+ * @description maps action dispatched to props
+ *
+ * @param { object } dispatch - holds dispatchable actions
+ *
+ * @return { object } props - returns mapped props from dispatch action
+ */
+function mapDispatchToProps(dispatch) {
+  return {
+    logOutUser: () => dispatch(logOutUser()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserDashboard);

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import history from '../../helpers/history';
 import { addNewEvent } from '../../actions/eventActions';
 import { uploadToCloudinary } from '../../actions/imageActions';
-import { loadCenters } from '../../actions/centerActions';
+import { loadUnpaginatedCenters } from '../../actions/centerActions';
 import EventForm from './Form/EventForm';
 import Validate from '../../helpers/validations/Validate';
 import Prompter from '../../helpers/Prompter';
@@ -58,7 +58,7 @@ class CreateEventPage extends React.Component {
    * @returns {void} Nothing
    */
   componentDidMount() {
-    this.props.loadCenters();
+    this.props.loadUnpaginatedCenters();
   }
 
   /**
@@ -69,9 +69,10 @@ class CreateEventPage extends React.Component {
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.options) {
+    console.log('nextttt', nextProps);
+    if (nextProps.options.unPaginatedCenters) {
       this.setState({
-        options: nextProps.options.loadedCenters.Centers
+        options: nextProps.options.unPaginatedCenters.Centers
       });
     }
     if (nextProps.imageUrl) {
@@ -228,10 +229,10 @@ class CreateEventPage extends React.Component {
 
 CreateEventPage.propTypes = {
   addNewEvent: PropTypes.func.isRequired,
-  loadCenters: PropTypes.func.isRequired,
   options: PropTypes.object.isRequired,
   uploadToCloudinary: PropTypes.func.isRequired,
   imageUrl: PropTypes.object,
+  loadUnpaginatedCenters: PropTypes.func.isRequired
 };
 
 /**
@@ -242,6 +243,7 @@ CreateEventPage.propTypes = {
  * @return { object } props - returns mapped props from state
  */
 function mapStateToProps(state) {
+  console.log('state', state);
   return {
     options: state.centers,
     imageUrl: state.images.image
@@ -257,7 +259,7 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
   return {
-    loadCenters: () => dispatch(loadCenters()),
+    loadUnpaginatedCenters: () => dispatch(loadUnpaginatedCenters()),
     addNewEvent: eventData => dispatch(addNewEvent(eventData)),
     uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
   };
