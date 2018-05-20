@@ -132,7 +132,7 @@ export default class InputValidate {
     const errors = {};
 
     const {
-      name, image, startDate, endDate, description, centerId
+      name, image, startDate, endDate, centerId
     } = req.body;
 
     if (!name || name.trim() === '') {
@@ -158,12 +158,6 @@ export default class InputValidate {
     if (!endDate || endDate.trim() === '') {
       errors.endDate = 'End Date is Required';
     }
-    if (!description || description.trim() === '') {
-      errors.description = 'Description is Required';
-    }
-    if (/[^a-zA-Z0-9-., ]+/.test(description)) {
-      errors.description = 'Description can only contain alphanumeric characters';
-    }
     if (!isEmpty(errors)) {
       return res.status(400).json({ errors });
     }
@@ -184,7 +178,7 @@ export default class InputValidate {
   static editEvent(req, res, next) {
     const errors = {};
     const {
-      name, startDate, endDate, description, centerId, image
+      name, startDate, endDate, centerId, image
     } = req.body;
     const eventId = parseInt(req.params.eventId.trim(), 10);
 
@@ -213,12 +207,6 @@ export default class InputValidate {
     }
     if (!endDate || endDate.trim() === '') {
       errors.endDate = 'End Date is Required';
-    }
-    if (!description || description.trim() === '') {
-      errors.description = 'Description is Required';
-    }
-    if (/[^a-zA-Z0-9-., ]+/.test(description)) {
-      errors.description = 'Description can only contain alphanumeric characters';
     }
     if (!isEmpty(errors)) {
       return res.status(400).json({ errors });

@@ -24,7 +24,7 @@ export default class Center {
   static addCenter(req, res) {
     return centers
       .create(Helper.sanitizedCenterRequest(req))
-      .then(center => res.status(201).json({ message: 'Center created!', Center: center }))
+      .then(center => res.status(201).json({ message: 'Center created!', center }))
       .catch((error) => {
         const errMessages = errorMessages(error);
         if (errMessages.type === 'uniqueError') {
@@ -138,13 +138,13 @@ export default class Center {
         offset,
         order: [['createdAt', 'DESC']]
       })
-      .then((Centers) => {
-        if (Centers.count === 0) {
+      .then((foundCenters) => {
+        if (foundCenters.count === 0) {
           return res.status(404).send({
             message: 'Center Not Found!'
           });
         }
-        const totalPages = Math.ceil(Centers.count / limit);
+        const totalPages = Math.ceil(foundCenters.count / limit);
         if (currentPage !== 1) {
           previous = `${baseUrl}?page=${currentPage - 1}`;
         }
@@ -153,7 +153,7 @@ export default class Center {
         }
         return res.status(200).json({
           message: 'Centers Found!',
-          Centers,
+          centers: foundCenters,
           meta: {
             pagination: {
               currentPageUrl,
@@ -182,10 +182,10 @@ export default class Center {
    */
   static getUnPaginatedCenters(req, res) {
     return centers.findAll()
-      .then(Centers =>
+      .then(foundCenters =>
         res.status(200).json({
           message: 'Centers Found!',
-          Centers,
+          centers: foundCenters,
         }))
       .catch(error => res.status(500).json({ message: error }));
   }

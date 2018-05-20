@@ -19,19 +19,19 @@ const UnitCenter = ({ centers, handleDelete }) => {
           key={id}>
           <div className="card-deck">
             <div className="card">
-              <div className="img-fluid">
+              <div className="img-fluid deck">
                 <img
                   alt={center.name}
-                  className="img-fluid"
+                  className="img-fluid deck"
                   height="264"
                   src= {center.image}
                   width="400" />
               </div>
               <div className="card-body p-2">
                 <ul className="list-group list-group-flush">
-                  <li className="list-group-item px-2 py-0 border-bottom-0"><h4
+                  <li className="list-group-item px-2 py-0"><h4
                     className="card-title">{center.name}</h4></li>
-                  <li className="list-group-item pt-0 pb-2 px-2"><p
+                  <li className="list-group-item pt-0 pb-2 px-2 border-top-0"><p
                     className="card-text">{center.location}</p></li>
                   <li className="list-group-item d-flex px-2 py-0">
                     <p className="card-text">{center.capacity} capacity</p>

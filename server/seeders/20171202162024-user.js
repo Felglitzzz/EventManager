@@ -16,7 +16,7 @@ module.exports = {
       {
         surname: 'user',
         firstname: 'user',
-        email: 'user@eventmanager.com',
+        email: 'amandeolaoluwa@gmail.com',
         username: 'user',
         password: bcrypt.hashSync('password', 10),
         isAdmin: false,
@@ -34,11 +34,11 @@ module.exports = {
         updatedAt: new Date()
       },
       // {
-      //   surname: 'yup',
-      //   firstname: 'yup',
-      //   email: 'yup@yup.com',
-      //   username: 'yup',
-      //   password: bcrypt.hashSync('yupppppp', 10),
+      //   surname: 'Balogun',
+      //   firstname: 'Delight',
+      //   email: 'delight. balogun@andela.com',
+      //   username: 'abbey',
+      //   password: bcrypt.hashSync('password', 10),
       //   isAdmin: false,
       //   createdAt: new Date(),
       //   updatedAt: new Date()

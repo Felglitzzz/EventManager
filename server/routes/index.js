@@ -96,6 +96,20 @@ router
     InputValidate.checkCenterId,
     Event.getEventsByCenterId
   );
+router
+  .put(
+    '/events/cancel/:eventId',
+    Auth.checkAdminStatus,
+    InputValidate.checkEventId,
+    Event.cancelEvent
+  );
+router
+  .put(
+    '/events/approve/:eventId',
+    Auth.checkAdminStatus,
+    InputValidate.checkEventId,
+    Event.approveEvent
+  );
 
 
 // User Routes

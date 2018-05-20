@@ -22,10 +22,10 @@ const UserEvent = ({ events, handleDelete }) => {
           key={id}>
           <div className="card-deck">
             <div className="card">
-              <div className="img-fluid">
+              <div className="img-fluid deck">
                 <img
                   alt={event.name}
-                  className="img-fluid"
+                  className="img-fluid deck"
                   height="264"
                   src={event.image}
                   width="400"

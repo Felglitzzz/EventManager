@@ -123,7 +123,7 @@ const EventForm = ({
                         />
                       </div>
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                       <label>Event Description</label>
                       {errors.description && (
                         <div className="alert alert-danger"
@@ -140,7 +140,7 @@ const EventForm = ({
                         rows="3"
                         value={eventData.description}
                       />
-                    </div>
+                    </div> */}
 
                     <div className="form-group">
                       <label>Choose Event Image</label>

@@ -1,6 +1,25 @@
 import * as actionTypes from '../actions/actionTypes';
 import initialState from './initialState';
 
+
+const filterCancelledEvents = (eventId, arrayTofilterFrom) => {
+  arrayTofilterFrom.map((event) => {
+    if (+event.id === +eventId) {
+      event.status = 'cancelled';
+    }
+  });
+  return arrayTofilterFrom;
+};
+
+const filterApprovedEvents = (eventId, arrayTofilterFrom) => {
+  arrayTofilterFrom.map((event) => {
+    if (+event.id === +eventId) {
+      event.status = 'accepted';
+    }
+  });
+  return arrayTofilterFrom;
+};
+
 const {
   ADD_EVENT_SUCCESS,
   ADD_EVENT_FAIL,
@@ -15,7 +34,11 @@ const {
   DELETE_ONE_EVENT_FAIL,
   DELETE_ONE_EVENT_SUCCESS,
   LOAD_EVENTS_BY_CENTER_ID_FAIL,
-  LOAD_EVENTS_BY_CENTER_ID_SUCCESS
+  LOAD_EVENTS_BY_CENTER_ID_SUCCESS,
+  CANCEL_EVENT_FAIL,
+  CANCEL_EVENT_SUCCESS,
+  APPROVE_EVENT_FAIL,
+  APPROVE_EVENT_SUCCESS
 } = actionTypes;
 
 /**
@@ -84,14 +107,14 @@ const eventReducer = (state = initialState.events, action) => {
       error: action.error
     };
   case DELETE_ONE_EVENT_SUCCESS: {
-    const remainingEvents = state.loadedEvents.event.rows.filter(event =>
+    const remainingEvents = state.loadedEvents.events.rows.filter(event =>
       event.id !== parseInt(action.deletedStatus.eventId, 10));
     return {
       ...state,
       loadedEvents: {
-        event: {
-          ...state.loadedEvents.event,
-          rows: remainingEvents
+        events: {
+          ...state.loadedEvents.events,
+          rows: remainingEvents,
         },
         meta: {
           pagination: state.loadedEvents.meta.pagination
@@ -114,6 +137,46 @@ const eventReducer = (state = initialState.events, action) => {
       ...state,
       error: action.error
     };
+  case CANCEL_EVENT_FAIL:
+    return {
+      ...state,
+      error: action.error
+    };
+  case CANCEL_EVENT_SUCCESS: {
+    const { eventId } = action.cancelledData;
+    return {
+      ...state,
+      eventsRetrieved: {
+        events: {
+          ...state.eventsRetrieved.events,
+          rows: filterCancelledEvents(eventId, state.eventsRetrieved.events.rows)
+        },
+        meta: {
+          pagination: state.eventsRetrieved.meta.pagination
+        }
+      }
+    };
+  }
+  case APPROVE_EVENT_FAIL:
+    return {
+      ...state,
+      error: action.error
+    };
+  case APPROVE_EVENT_SUCCESS: {
+    const { eventId } = action.approvedData;
+    return {
+      ...state,
+      eventsRetrieved: {
+        events: {
+          ...state.eventsRetrieved.events,
+          rows: filterApprovedEvents(eventId, state.eventsRetrieved.events.rows)
+        },
+        meta: {
+          pagination: state.eventsRetrieved.meta.pagination
+        }
+      }
+    };
+  }
   default:
     return state;
   }

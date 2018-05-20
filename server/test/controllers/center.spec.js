@@ -22,8 +22,8 @@ describe('CENTER API TEST:', () => {
     db.center.create(centerMockData.seedData).then(() => done());
   });
 
-  describe('Center API', () => {
-    describe('POST', () => {
+  describe('Center\'s ', () => {
+    describe('POST Endpont', () => {
       it('should create a center if all input is provided by admin', (done) => {
         request
           .post('/api/v1/centers')
@@ -32,7 +32,7 @@ describe('CENTER API TEST:', () => {
           .set('Accept', 'Application/json')
           .end((err, res) => {
             const { message, center } = res.body;
-            centerId = res.body.Center.id;
+            centerId = res.body.center.id;
             expect(res).to.have.status(201);
             expect(message).to.equal('Center created!');
             expect(center).to.equal(center);
@@ -56,7 +56,7 @@ describe('CENTER API TEST:', () => {
       });
     });
 
-    describe('GET', () => {
+    describe('GET Endpoint', () => {
       it('should return an array of centers', (done) => {
         request
           .get('/api/v1/centers?page=1')
@@ -92,7 +92,7 @@ describe('CENTER API TEST:', () => {
       });
     });
 
-    describe('PUT', () => {
+    describe('PUT Endpoint', () => {
       it('should edit and return a center', (done) => {
         request
           .put(`/api/v1/centers/${centerId}`)
@@ -111,7 +111,7 @@ describe('CENTER API TEST:', () => {
       });
     });
 
-    describe('DELETE', () => {
+    describe('DELETE Endpoint', () => {
       it('expect to return 404 if centerId provided is not in the database for delete center api', (done) => {
         const invalidCenterId = 999999;
         request

@@ -9,7 +9,6 @@ import UserEvent from '../Events/UserEvent';
 import { loadAllEvent, deleteEvent } from '../../actions/eventActions';
 import history from '../../helpers/history';
 import Pagination from '../Pagination/Pagination';
-import Prompter from '../../helpers/Prompter';
 
 
 /**
@@ -31,7 +30,7 @@ class AllUserEvents extends React.Component {
     super(props);
 
     this.state = {
-      event: [],
+      events: {},
       eventsLoading: true,
       toggleDelete: false,
       pagination: {
@@ -60,7 +59,7 @@ class AllUserEvents extends React.Component {
   componentDidMount() {
     this.props.loadAllEvent()
       .catch((error) => {
-        Prompter.error(error);
+        console.log(error);
       });
   }
 
@@ -78,11 +77,11 @@ class AllUserEvents extends React.Component {
     }
 
     if (nextProps.events.loadedEvents) {
-      const { event } = nextProps.events.loadedEvents;
+      const { events } = nextProps.events.loadedEvents;
       const paginationMeta = nextProps.events.loadedEvents.meta;
       const pagination = paginationMeta ? paginationMeta.pagination : undefined;
       this.setState({
-        event,
+        events,
         pagination,
         eventsLoading: false
       });
@@ -216,13 +215,12 @@ class AllUserEvents extends React.Component {
    * @returns {jsx} userEvent component
    */
   render() {
-    const { event, eventsLoading } = this.state;
-
+    const { events, eventsLoading } = this.state;
     if (eventsLoading) {
       return this.showLoader();
     }
 
-    if (event.count === undefined) {
+    if (events.rows === undefined) {
       return this.showNoEvents();
     }
 
@@ -230,12 +228,12 @@ class AllUserEvents extends React.Component {
       <div className="container">
         <div className="row">
           <UserEvent
-            events = {this.state.event}
+            events = {this.state.events}
             handleDelete={this.handleDelete}
           />
         </div>
       </div>
-      {event && event.length !== 0
+      {events && events.length !== 0
         ?
         <Pagination
           currentPage = {this.state.pagination.currentPage}

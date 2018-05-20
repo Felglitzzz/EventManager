@@ -71,7 +71,7 @@ class CreateEventPage extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.options.unPaginatedCenters) {
       this.setState({
-        options: nextProps.options.unPaginatedCenters.Centers
+        options: nextProps.options.unPaginatedCenters.centers
       });
     }
     if (nextProps.imageUrl) {
@@ -129,7 +129,7 @@ class CreateEventPage extends React.Component {
     const imageReader = new FileReader();
     if (chosenImage) {
       imageReader.onload = () => {
-        const upload = new Image();
+        const upload = new Image(500, 330);
         upload.src = imageReader.result;
         upload.onload = () => {
           this.setState({

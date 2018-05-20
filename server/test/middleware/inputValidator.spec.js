@@ -285,19 +285,6 @@ describe('MIDDLEWARE VALIDATION TEST:', () => {
         });
     });
 
-    it('should not create event if event description is not provided', (done) => {
-      request
-        .post('/api/v1/events')
-        .send(eventMockData.noDesc)
-        .set('Authorization', userToken)
-        .end((err, res) => {
-          const { errors } = res.body;
-          expect(res).to.have.status(400);
-          expect(errors.description).to.equal('Description is Required');
-          done();
-        });
-    });
-
     it('should not create event if event centerId is not provided', (done) => {
       request
         .post('/api/v1/events')
