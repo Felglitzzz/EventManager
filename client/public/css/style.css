@@ -6,6 +6,7 @@ body,
 html {
   padding: 0;
   margin: 0;
+  cursor: pointer;
   /* background-color: hsla(224, 15%, 76%, 0.3) !important; */
 }
 
@@ -548,6 +549,46 @@ a {
   padding: 3rem;
 }
 
+.deck{
+height: 200px
+}
+
+.w-33{
+  width: 33%;
+}
+.tr{
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+.tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+.table .td, .table .th {
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #e9ecef;
+}
+
+.w-60{
+  width: 60px;
+}
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+.thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
 .page.active {
   border: none;
   background: #616161;

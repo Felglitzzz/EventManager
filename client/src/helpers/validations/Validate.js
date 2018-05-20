@@ -129,7 +129,7 @@ export default class Validate {
   static addEvent(req, image) {
     const errors = {};
     const {
-      name, startDate, endDate, description, centerId
+      name, startDate, endDate, centerId
     } = req;
 
     if (!name || name.trim() === '') {
@@ -155,12 +155,6 @@ export default class Validate {
     if (!endDate || endDate.trim() === '') {
       errors.endDate = 'End Date is Required';
     }
-    if (!description || description.trim() === '') {
-      errors.description = 'Description is Required';
-    }
-    if (/[^a-zA-Z0-9-., ]+/.test(description)) {
-      errors.description = 'Description can only contain alphanumeric characters';
-    }
 
     return {
       errors,
@@ -181,7 +175,7 @@ export default class Validate {
   static editEvent(req) {
     const errors = {};
     const {
-      name, startDate, endDate, description, centerId, image
+      name, startDate, endDate, centerId, image
     } = req;
 
     if (!name || name.trim() === '') {
@@ -207,12 +201,6 @@ export default class Validate {
     }
     if (!endDate || endDate.trim() === '') {
       errors.endDate = 'End Date is Required';
-    }
-    if (!description || description.trim() === '') {
-      errors.description = 'Description is Required';
-    }
-    if (/[^a-zA-Z0-9-,. ]+/.test(description)) {
-      errors.description = 'Description can only contain alphanumeric characters';
     }
 
     return {

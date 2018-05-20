@@ -59,7 +59,6 @@ export default class Helper {
     const { centerId, image } = requestData.body;
     const { id: userId } = requestData.decoded;
     const name = requestData.body.name.trim();
-    const description = requestData.body.description.trim();
     const startDate = requestData.body.startDate.trim();
     const endDate = requestData.body.endDate.trim();
     return {
@@ -68,7 +67,6 @@ export default class Helper {
       endDate,
       centerId,
       image,
-      description,
       userId
     };
   }

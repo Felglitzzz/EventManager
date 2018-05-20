@@ -14,7 +14,11 @@ const {
   DELETE_ONE_EVENT_FAIL,
   DELETE_ONE_EVENT_SUCCESS,
   LOAD_EVENTS_BY_CENTER_ID_SUCCESS,
-  LOAD_EVENTS_BY_CENTER_ID_FAIL
+  LOAD_EVENTS_BY_CENTER_ID_FAIL,
+  CANCEL_EVENT_FAIL,
+  CANCEL_EVENT_SUCCESS,
+  APPROVE_EVENT_FAIL,
+  APPROVE_EVENT_SUCCESS
 } = actionTypes;
 
 /**
@@ -325,6 +329,109 @@ export const loadEventsByCenterId = (centerId, page) => (dispatch) => {
     })
     .catch((errors) => {
       dispatch(loadEventsByCenterIdFail(errors.response.data.message));
+      throw (errors.response.data.message);
+    });
+};
+
+/**
+ * description - defines success action for an cancelling an event
+ *
+ * @export cancelEventSuccess
+ *
+ * @param {object} cancelledData
+ *
+ * @returns {object} dispatched action type and deleteStatus message
+ */
+export const cancelEventSuccess = cancelledData => ({
+  type: CANCEL_EVENT_SUCCESS,
+  cancelledData
+});
+
+/**
+ * description - defines DELETE request fail action for an event
+ *
+ * @export deleteEventFail
+ *
+ * @param {object} error
+ *
+ * @returns {object} dispatched action type and error object
+ */
+export const cancelEventFail = error => ({
+  type: CANCEL_EVENT_FAIL,
+  error
+});
+
+/**
+ * description - handles cancel request for events
+ *
+ * @export cancelEvent
+ *
+ * @param {object} eventId
+ *
+ * @returns {object} dispatched action
+ */
+export const cancelEvent = eventId => (dispatch) => {
+  const token = localStorage.getItem('x-access-token');
+  return axios.put(`/api/v1/events/cancel/${eventId}`, eventId, {
+    headers: { Authorization: token }
+  })
+    .then((response) => {
+      dispatch(cancelEventSuccess(response.data));
+    })
+    .catch((errors) => {
+      dispatch(cancelEventFail(errors.response.data.message));
+      throw (errors.response.data.message);
+    });
+};
+
+/**
+ * description - defines PUT request success action for approving an event
+ *
+ * @export approveEventSuccess
+ *
+ * @param {object} approvedData
+ *
+ * @returns {object} dispatched action type and updateEventData object
+ */
+export const approveEventSuccess = approvedData => ({
+  type: APPROVE_EVENT_SUCCESS,
+  approvedData
+});
+
+
+/**
+ * description - defines PUT request fail action for approving an event
+ *
+ * @export approveEventFail
+ *
+ * @param {object} error
+ *
+ * @returns {object} dispatched action type and error object
+ */
+export const approveEventFail = error => ({
+  type: APPROVE_EVENT_FAIL,
+  error
+});
+
+/**
+ * description - handles PUT event action
+ *
+ * @export updateEvent
+ *
+ * @param {object} eventId
+ *
+ * @returns {object} dispatched action
+ */
+export const approveEvent = eventId => (dispatch) => {
+  const token = localStorage.getItem('x-access-token');
+  return axios.put(`/api/v1/events/approve/${eventId}`, eventId, {
+    headers: { Authorization: token }
+  })
+    .then((response) => {
+      dispatch(approveEventSuccess(response.data));
+    })
+    .catch((errors) => {
+      dispatch(approveEventFail(errors));
       throw (errors.response.data.message);
     });
 };

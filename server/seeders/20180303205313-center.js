@@ -15,7 +15,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        name: 'Sheba Event center',
+        name: 'Sheba Event Center',
         image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
         description: 'Sheba Event Centre are perfect for events like weddings, birthday ,parties, trainings, conferences, exhibitions, product launches, meetings, and entertainment events.',
         type: 'Classic',

@@ -54,7 +54,7 @@ describe('MODEL TEST:', () => {
         .then((Event) => {
           expect(Event).to.have.property('name');
           expect(Event).to.have.property('image');
-          expect(Event).to.have.property('description');
+          expect(Event).to.have.property('status');
           expect(Event).to.have.property('startDate');
           expect(Event).to.have.property('endDate');
           expect(Event).to.have.property('userId');
@@ -63,7 +63,7 @@ describe('MODEL TEST:', () => {
           expect(Event.image).to.equal(eventMockData.seed.image);
           expect(Event.userId).to.equal(eventMockData.seed.userId);
           expect(Event.centerId).to.equal(eventMockData.seed.centerId);
-          expect(Event.description).to.equal(eventMockData.seed.description);
+          expect(Event.status).to.equal(eventMockData.seed.status);
           done();
         });
     });

@@ -9,7 +9,6 @@ import history from '../../helpers/history';
 import UnitCenter from './UnitCenter';
 import { loadCenters, deleteCenter } from '../../actions/centerActions';
 import Pagination from '../Pagination/Pagination';
-import Prompter from '../../helpers/Prompter';
 
 
 /**
@@ -31,7 +30,7 @@ class AllCentersPage extends React.Component {
     super(props);
 
     this.state = {
-      centers: [],
+      centers: {},
       centersLoading: true,
       pagination: {
         next: '',
@@ -58,7 +57,7 @@ class AllCentersPage extends React.Component {
   componentDidMount() {
     this.props.loadCenters()
       .catch((error) => {
-        Prompter.error(error);
+        console.log(error);
       });
   }
 
@@ -76,11 +75,11 @@ class AllCentersPage extends React.Component {
     }
 
     if (nextProps.centers.loadedCenters) {
-      const { Centers } = nextProps.centers.loadedCenters;
+      const { centers } = nextProps.centers.loadedCenters;
       const paginationMeta = nextProps.centers.loadedCenters.meta;
       const pagination = paginationMeta ? paginationMeta.pagination : undefined;
       this.setState({
-        centers: Centers,
+        centers,
         pagination,
         centersLoading: false
       });

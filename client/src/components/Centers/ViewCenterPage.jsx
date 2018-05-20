@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Loader from 'react-md-spinner';
+import swal from 'sweetalert';
+import _ from 'lodash';
+
 import EventCenterList from './EventCenterList';
 import { loadOneCenter } from '../../actions/centerActions';
-import { loadEventsByCenterId } from '../../actions/eventActions';
+import { loadEventsByCenterId, cancelEvent, approveEvent } from '../../actions/eventActions';
 import Pagination from '../Pagination/Pagination';
 import history from '../../helpers/history';
 import Prompter from '../../helpers/Prompter';
@@ -28,19 +31,23 @@ class ViewCenterPage extends React.Component {
     super(props);
 
     this.state = {
-      centerReturned: {},
-      eventsRetrieved: [],
+      center: {},
+      events: {},
       pagination: {
         next: '',
         previous: '',
         currentPage: '',
         currentPageUrl: '',
         totalPages: ''
-      }
+      },
+      cancelEventLoading: false,
+      approveEventLoading: false
     };
 
     this.showNext = this.showNext.bind(this);
     this.showPrevious = this.showPrevious.bind(this);
+    this.handleCancelEvent = this.handleCancelEvent.bind(this);
+    this.handleApproveEvent = this.handleApproveEvent.bind(this);
   }
 
   /**
@@ -66,16 +73,16 @@ class ViewCenterPage extends React.Component {
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.centerReturned.centerReturned) {
+    if (nextProps.center.centerReturned) {
       this.setState({
-        centerReturned: nextProps.centerReturned.centerReturned.center
+        center: nextProps.center.centerReturned.center
       });
     }
 
-    if (nextProps.eventsRetrieved.eventsRetrieved) {
+    if (nextProps.events.eventsRetrieved) {
       this.setState({
-        eventsRetrieved: nextProps.eventsRetrieved.eventsRetrieved.event,
-        pagination: nextProps.eventsRetrieved.eventsRetrieved.meta.pagination
+        events: nextProps.events.eventsRetrieved.events,
+        pagination: nextProps.events.eventsRetrieved.meta.pagination
       });
     }
 
@@ -112,14 +119,112 @@ class ViewCenterPage extends React.Component {
   }
 
   /**
+   * @description - Handles cancelling of event
+   *
+   * @param {object} event
+   *
+   * @returns {void}
+   */
+  handleCancelEvent(event) {
+    event.persist();
+    event.preventDefault();
+    const { id: eventId, name } = event.target;
+    this.setState({
+      cancelEventLoading: true,
+      eventId
+    });
+    swal({
+      title: `You are about to cancel ${name.toLowerCase()}?`,
+      text: 'Do you wish to continue?!',
+      icon: 'warning',
+      closeOnClickOutside: false,
+      closeOnEsc: false,
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willCancel) => {
+        this.setState({
+          cancelEventLoading: true,
+          eventId
+        });
+        if (willCancel) {
+          this.props.cancelEvent(eventId)
+            .then(() => {
+              this.setState({
+                cancelEventLoading: false
+              });
+              swal(`${_.capitalize(name)} has been cancelled for this center`, {
+                icon: 'success'
+              })
+                .catch(() => {
+                  swal('some error occured');
+                });
+            });
+        } else {
+          this.setState({
+            cancelEventLoading: false
+          });
+          swal(`${_.capitalize(name)} is not cancelled`);
+        }
+      });
+  }
+
+  /**
+   * @description - Handles approve event request
+   *
+   * @param {object} event
+   *
+   * @returns {void}
+   */
+  handleApproveEvent(event) {
+    event.persist();
+    event.preventDefault();
+    const { id: eventId, name } = event.target;
+
+    swal({
+      title: `You are about to approve ${name.toLowerCase()}?`,
+      text: 'Do you wish to continue?!',
+      icon: 'info',
+      closeOnClickOutside: false,
+      closeOnEsc: false,
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willapprove) => {
+        this.setState({
+          approveEventLoading: true
+        });
+        if (willapprove) {
+          this.props.approveEvent(eventId)
+            .then(() => {
+              this.setState({
+                approveEventLoading: false
+              });
+              swal(`${_.capitalize(name)} has been approved for this center`, {
+                icon: 'success'
+              })
+                .catch(() => {
+                  swal('some error occured');
+                });
+            });
+        } else {
+          this.setState({
+            approveEventLoading: false
+          });
+          swal(`${_.capitalize(name)} is not approved`);
+        }
+      });
+  }
+
+  /**
    * @description - renders edit event form
    *
    * @returns {jsx} edit event component
    */
   render() {
-    const { centerReturned } = this.state;
+    const { center } = this.state;
     return (
-      typeof centerReturned === 'undefined' ?
+      typeof center === 'undefined' ?
         <div className="d-flex justify-content-center pad">
           <Loader
             color1="#f6682f"
@@ -131,36 +236,42 @@ class ViewCenterPage extends React.Component {
         :
         <div>
           <div>
-            <header className="form-head my-3 bg-light">
-              <p className=" text-center text-muted text-orange">{centerReturned.name}</p>
+            <header className="form-head bg-light my-3 z-depth-1">
+              <p className=" text-center text-orange mt-3">{center.name}</p>
             </header>
             <section
               className="the-flex">
               <img
                 className="breadth-100"
                 height="330"
-                src={centerReturned.image}
+                src={center.image}
                 width="500"
               />
               <div className="bg-light">
                 <ul className="list-group text-center">
                   <li className="list-group-item px-5"><strong>Facilities</strong></li>
-                  {centerReturned.facilities && centerReturned.facilities.map((facility, id) =>
+                  {center.facilities && center.facilities.map((facility, id) =>
                     (<li className="list-group-item px-5"
                       key={id}>{facility}</li>))}
                 </ul>
               </div>
             </section>
             <section className="mt-3 bg-light">
-              <p className="text-center p-3 text-justify">{centerReturned.description}</p>
+              <p className="text-center p-3 text-justify">{center.description}</p>
             </section>
           </div>
-          <header className="mt-3 bg-light">
-            <p className=" form-head text-center text-orange">Center-Event Log</p>
+          <header className="mt-3 bg-light z-depth-1">
+            <p className="form-head text-center text-orange">Center-Event Log</p>
           </header>
           <div>
             <EventCenterList
-              centerEvent = {this.state.eventsRetrieved}
+              approveEventLoading = {this.state.approveEventLoading}
+              cancelEventLoading = {this.state.cancelEventLoading}
+              eventId = {this.state.eventId}
+              events = {this.state.events}
+              handleApproveEvent = {this.handleApproveEvent}
+              handleCancelEvent = {this.handleCancelEvent}
+
             />
           </div>
           <div className = "pose-relative">
@@ -180,27 +291,31 @@ class ViewCenterPage extends React.Component {
 }
 
 ViewCenterPage.propTypes = {
-  centerReturned: PropTypes.object.isRequired,
+  center: PropTypes.object.isRequired,
   loadOneCenter: PropTypes.func.isRequired,
   centerId: PropTypes.number.isRequired,
   loadEventsByCenterId: PropTypes.func.isRequired,
-  eventsRetrieved: PropTypes.object.isRequired,
+  events: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  cancelEvent: PropTypes.func.isRequired,
+  approveEvent: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {
   const centerId = parseInt(ownProps.match.params.centerId, 10);
   return {
-    centerReturned: state.centers,
-    eventsRetrieved: state.events,
+    center: state.centers,
+    events: state.events,
     centerId
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   loadOneCenter: centerId => dispatch(loadOneCenter(centerId)),
-  loadEventsByCenterId: (centerId, page) => dispatch(loadEventsByCenterId(centerId, page))
+  loadEventsByCenterId: (centerId, page) => dispatch(loadEventsByCenterId(centerId, page)),
+  cancelEvent: eventId => dispatch(cancelEvent(eventId)),
+  approveEvent: eventId => dispatch(approveEvent(eventId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewCenterPage);

@@ -48,19 +48,10 @@ export default (sequelize, DataTypes) => {
         },
       },
     },
-    description: {
-      type: DataTypes.TEXT,
+    status: {
       allowNull: false,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: 'Description Field Required!',
-        },
-        is: {
-          args: /([a-zA-Z0-9])+/,
-          msg: 'Name can contain only alphabets and numbers',
-        },
-      },
+      type: DataTypes.ENUM('pending', 'accepted', 'cancelled'),
+      defaultValue: 'pending'
     },
     userId: {
       type: DataTypes.INTEGER,
