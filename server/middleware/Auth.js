@@ -69,7 +69,7 @@ export default class Auth {
   static checkAdminStatus(req, res, next) {
     const { authorization } = req.headers;
     if (!authorization) {
-      return res.status(403).json({
+      return res.status(401).json({
         message: 'You do not have the permission to access this page!'
       });
     }

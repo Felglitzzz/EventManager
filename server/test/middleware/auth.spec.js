@@ -59,13 +59,13 @@ describe('MIDDLEWARE AUTH TEST:', () => {
           });
       });
 
-      it('should return 403 if no admin token is provided', (done) => {
+      it('should return 401 if no admin token is provided', (done) => {
         request
           .delete('/api/v1/centers/:centerId')
           .set('Accept', 'Application/json')
           .end((err, res) => {
             const { message } = res.body;
-            expect(res).to.have.status(403);
+            expect(res).to.have.status(401);
             expect(message).to.equal('You do not have the permission to access this page!');
             done();
           });
