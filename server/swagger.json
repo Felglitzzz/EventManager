@@ -1,0 +1,3496 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Events Manager(Eventeria)",
+    "description": "# Introduction\nAPI documentation for Events Manager\n\n# Status Codes\n\n201 - A resource is created successfully(e.g. adding a new center)\n\n200 - Get request for resource successful (e.g getting all events)\n\n400 - Incomplete or invalid request for a resource\n\n401 - Invalid, expired token or failed authorisation\n\n403 - Forbidden request for a resource\n"
+  },
+  "basePath": "/api/v1",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "userToken": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    },
+    "adminToken": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+    },
+  "paths": {
+    "/users": {
+      "post": {
+        "description": "creates a new user account",
+        "summary": "User sign up",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "UsersPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserSignUprequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/201Successful"
+            },
+            "examples": {
+              "application/json": {
+                "message": "User created",
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywidXNlcm5hbWUiOiJzZXJ2YWx5IiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTUyNjkwNDA5NSwiZXhwIjoxNTI2OTkwNDk1fQ.dotvbCXM6c0jOX3iqonfx9D1cGGhjxh4yZ1lkZUdVjo"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/400Bad request"
+            },
+            "examples": {
+              "application/json": {
+                "errors": {
+                  "username": "Username is Required"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/409Conflict"
+            },
+            "examples": {
+              "application/json": {
+                "message": "Username taken, Please use another"
+              }
+            }
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/users",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\"surname\":\"James\",\"firstname\":\"Dami\",\"username\":\"servaly\",\"email\":\"felglitz@yahoo.com\",\"password\":\"password\",\"passwordConfirm\":\"password\"}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Connection": "keep-alive",
+                "Content-Length": "224",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 21 May 2018 12:01:35 GMT",
+                "ETag": "W/\"e0-W1emeqByE/1Um3asVnFw6VA/B3I\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"message\":\"User created\",\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywidXNlcm5hbWUiOiJzZXJ2YWx5IiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTUyNjkwNDA5NSwiZXhwIjoxNTI2OTkwNDk1fQ.dotvbCXM6c0jOX3iqonfx9D1cGGhjxh4yZ1lkZUdVjo\"}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "User sign up",
+            "x-testDescription": "creates a new user account"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "description": "authenticates a user in the database",
+        "summary": "User sign in",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "UsersLoginPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/UserSignInrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/201Successful"
+            },
+            "examples": {
+              "application/json": {
+                "message": "User logged in",
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywidXNlcm5hbWUiOiJzZXJ2YWx5IiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTUyNjkwNDUxMSwiZXhwIjoxNTI2OTkwOTExfQ.iMmWaTUSOEWRz2ggivhLj6P2MA-G4h3nuEFgXkZRByg"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/401Unauthorised"
+            },
+            "examples": {
+              "application/json": {
+                "message": "Username/Password Incorrect"
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/users/login",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\"username\":\"servaly\",\"password\":\"password\"}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Connection": "keep-alive",
+                "Content-Length": "226",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 21 May 2018 12:08:31 GMT",
+                "ETag": "W/\"e2-ghDZhFodACBgDrFipcNCc6WPzQ8\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"message\":\"User logged in\",\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywidXNlcm5hbWUiOiJzZXJ2YWx5IiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTUyNjkwNDUxMSwiZXhwIjoxNTI2OTkwOTExfQ.iMmWaTUSOEWRz2ggivhLj6P2MA-G4h3nuEFgXkZRByg\"}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "User sign in",
+            "x-testDescription": "authenticates a user in the database"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/events": {
+      "get": {
+        "description": "retrieves all events for a particular user",
+        "summary": "Get all events",
+        "tags": [
+          "Events"
+        ],
+        "operationId": "EventsGet",
+        "produces": [
+          "application/json"
+        ],
+        "security": [{
+          "userToken": []
+        }],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/200Successful10"
+            },
+            "examples": {
+              "application/json": {
+                "message": "Events Found!",
+                "events": {
+                  "count": 1,
+                  "rows": [
+                    {
+                      "id": 13,
+                      "name": "Abbey Events",
+                      "image": "https://res.cloudinary.com/felglitz/image/upload/v1526761792/tbduqyfma33f7g0qjgmw.jpg",
+                      "startDate": "2018-05-20T00:00:00Z",
+                      "endDate": "2018-05-20T00:00:00Z",
+                      "status": "accepted",
+                      "userId": 3,
+                      "centerId": 1,
+                      "createdAt": "2018-05-19",
+                      "updatedAt": "2018-05-20",
+                      "center": {
+                        "id": 1,
+                        "name": "Protea Hotel",
+                        "location": "Ikeja"
+                      }
+                    }
+                  ]
+                },
+                "meta": {
+                  "pagination": {
+                    "currentPageUrl": "http://localhost:1991/api/v1/events?page=1",
+                    "currentPage": 1,
+                    "totalPages": 1,
+                    "offset": 0,
+                    "limit": 3
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/401Unauthorised"
+            },
+            "examples": {
+              "application/json": {
+                "message": "You do not have permission to access this page"
+              }
+            }
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/events?page=1",
+              "headers": {
+                "Content-Type": "application/json"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Connection": "keep-alive",
+                "Content-Length": "552",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 21 May 2018 12:13:45 GMT",
+                "ETag": "W/\"228-jnE1GxRupghVtZ0ubRRf2xXfwSw\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"message\":\"Events Found!\",\"events\":{\"count\":1,\"rows\":[{\"id\":13,\"name\":\"Abbey Events\",\"image\":\"https://res.cloudinary.com/felglitz/image/upload/v1526761792/tbduqyfma33f7g0qjgmw.jpg\",\"startDate\":\"2018-05-20T00:00:00Z\",\"endDate\":\"2018-05-20T00:00:00Z\",\"status\":\"accepted\",\"userId\":3,\"centerId\":1,\"createdAt\":\"2018-05-19\",\"updatedAt\":\"2018-05-20\",\"center\":{\"id\":1,\"name\":\"Protea Hotel\",\"location\":\"Ikeja\"}}]},\"meta\":{\"pagination\":{\"currentPageUrl\":\"http://localhost:1991/api/v1/events?page=1\",\"currentPage\":1,\"totalPages\":1,\"offset\":0,\"limit\":3}}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get all events",
+            "x-testDescription": "retrieves all events for a particular user"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "post": {
+        "description": "creates a new event and stores it in the database",
+        "summary": "Create event",
+        "tags": [
+          "Events"
+        ],
+        "operationId": "EventsPost",
+        "produces": [
+          "application/json"
+        ],
+        "security": [{
+          "userToken": []
+        }],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreateEventrequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/201Successful19"
+            },
+            "examples": {
+              "application/json": {
+                "message": "Event Created!",
+                "event": {
+                  "status": "pending",
+                  "id": 15,
+                  "name": "Dammy Events",
+                  "startDate": "2018-09-28T00:00:00Z",
+                  "endDate": "2018-09-30T00:00:00Z",
+                  "centerId": 1,
+                  "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+                  "userId": 3,
+                  "updatedAt": "2018-05-21",
+                  "createdAt": "2018-05-21"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/400Bad request21"
+            },
+            "examples": {
+              "application/json": {
+                "errors": {
+                  "startDate": "Start Date is Required"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/401Unauthorised"
+            },
+            "examples": {
+              "application/json": {
+                "message": "You do not have permission to access this page"
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/409Conflict"
+            },
+            "examples": {
+              "application/json": {
+                "message": "You have already created an event with the name 'Dammy Events'"
+              }
+            }
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/events",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\"name\":\"Dammy Events\",\"centerId\":1,\"startDate\":\"2018-09-28\",\"endDate\":\"2018-09-30\",\"image\":\"http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg\"}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Connection": "keep-alive",
+                "Content-Length": "328",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 21 May 2018 12:24:43 GMT",
+                "ETag": "W/\"148-TiYhk7CEQns1wCYXm7FDjS+AQok\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"message\":\"Event Created!\",\"event\":{\"status\":\"pending\",\"id\":15,\"name\":\"Dammy Events\",\"startDate\":\"2018-09-28T00:00:00Z\",\"endDate\":\"2018-09-30T00:00:00Z\",\"centerId\":1,\"image\":\"http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg\",\"userId\":3,\"updatedAt\":\"2018-05-21\",\"createdAt\":\"2018-05-21\"}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Create event",
+            "x-testDescription": "creates a new event and stores it in the database"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/events/{eventId}": {
+      "put": {
+        "description": "updates events already in the database",
+        "summary": "Edit event",
+        "tags": [
+          "Events"
+        ],
+        "operationId": "Events15Put",
+        "produces": [
+          "application/json"
+        ],
+        "security": [{
+          "userToken": []
+        }],
+        "parameters": [
+          { 
+            "name": "eventId",
+            "in": "path",
+            "description": "id of the event to be modified",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EditEventrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/200Ok"
+            },
+            "examples": {
+              "application/json": {
+                "message": "Event Update Successful",
+                "modifiedEvent": {
+                  "id": 15,
+                  "name": "Dammy First Event",
+                  "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+                  "startDate": "2018-09-28T00:00:00Z",
+                  "endDate": "2018-09-30T00:00:00Z",
+                  "status": "pending",
+                  "userId": 3,
+                  "centerId": 1,
+                  "createdAt": "2018-05-21",
+                  "updatedAt": "2018-05-21T12:33:22.772Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/400BadRequest25"
+            },
+            "examples": {
+              "application/json": {
+                "errors": {
+                  "eventId": "Event Id is invalid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/401Unauthorised"
+            },
+            "examples": {
+              "application/json": {
+                "message": "You do not have permission to access this page"
+              }
+            }
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "PUT",
+              "uri": "/events/15",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\"name\":\"Dammy First Event\",\"centerId\":1,\"startDate\":\"2018-09-28\",\"endDate\":\"2018-09-30\",\"image\":\"http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg\"}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Connection": "keep-alive",
+                "Content-Length": "364",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 21 May 2018 12:33:22 GMT",
+                "ETag": "W/\"16c-mRbB1sJKxzoXamWoUxivvDKNEl4\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"message\":\"Event Update Successful\",\"modifiedEvent\":{\"id\":15,\"name\":\"Dammy First Event\",\"image\":\"http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg\",\"startDate\":\"2018-09-28T00:00:00Z\",\"endDate\":\"2018-09-30T00:00:00Z\",\"status\":\"pending\",\"userId\":3,\"centerId\":1,\"createdAt\":\"2018-05-21\",\"updatedAt\":\"2018-05-21T12:33:22.772Z\"}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Edit event",
+            "x-testDescription": "updates events already in the database"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "delete": {
+        "description": "Delete event from database",
+        "summary": "Delete event",
+        "tags": [
+          "Events"
+        ],
+        "operationId": "EventsFelixDelete",
+        "produces": [
+          "application/json"
+        ],
+        "security": [{
+          "userToken": []
+        }],
+        "parameters": [
+          { 
+            "name": "eventId",
+            "in": "path",
+            "description": "id of the event to be modified",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/200Ok38"
+            },
+            "examples": {
+              "application/json": {
+                "message": "Event Successfully Deleted!",
+                "eventId": "15"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/401Unauthorized"
+            },
+            "examples": {
+              "application/json": {
+                "message": "You do not have permission to access this page"
+              }
+            }
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "DELETE",
+              "uri": "/events/felix"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Connection": "keep-alive",
+                "Content-Length": "56",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 21 May 2018 12:58:44 GMT",
+                "ETag": "W/\"38-i0/wKzmRlSR5zxDzRSYSEzrOIEs\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"message\":\"Event Successfully Deleted!\",\"eventId\":\"15\"}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Delete event",
+            "x-testDescription": "Delete event from database"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/events/center/{centerId}": {
+      "get": {
+        "description": "Get events slated for a center",
+        "summary": "Get events by centerId",
+        "tags": [
+          "Events"
+        ],
+        "operationId": "EventsCenter1Get",
+        "produces": [
+          "application/json"
+        ],
+        "security": [{
+          "userToken": []
+        }],
+        "parameters": [
+          { 
+            "name": "centerId",
+            "in": "path",
+            "description": "id of the center to be viewed",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/200Ok33"
+            },
+            "examples": {
+              "application/json": {
+                "message": "Events Found!",
+                "events": {
+                  "count": 3,
+                  "rows": [
+                    {
+                      "id": 15,
+                      "name": "Dammy First Event",
+                      "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+                      "startDate": "2018-09-28T00:00:00Z",
+                      "endDate": "2018-09-30T00:00:00Z",
+                      "status": "pending",
+                      "userId": 3,
+                      "centerId": 1,
+                      "createdAt": "2018-05-21",
+                      "updatedAt": "2018-05-21"
+                    },
+                    {
+                      "id": 13,
+                      "name": "Abbey Events",
+                      "image": "https://res.cloudinary.com/felglitz/image/upload/v1526761792/tbduqyfma33f7g0qjgmw.jpg",
+                      "startDate": "2018-05-20T00:00:00Z",
+                      "endDate": "2018-05-20T00:00:00Z",
+                      "status": "accepted",
+                      "userId": 3,
+                      "centerId": 1,
+                      "createdAt": "2018-05-19",
+                      "updatedAt": "2018-05-20"
+                    },
+                    {
+                      "id": 1,
+                      "name": "The Nigeria Education Fair",
+                      "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+                      "startDate": "2019-03-25T00:00:00Z",
+                      "endDate": "2019-03-27T00:00:00Z",
+                      "status": "cancelled",
+                      "userId": 1,
+                      "centerId": 1,
+                      "createdAt": "2018-05-18",
+                      "updatedAt": "2018-05-20"
+                    }
+                  ]
+                },
+                "meta": {
+                  "pagination": {
+                    "currentPageUrl": "http://localhost:1991/api/v1/events/center/1?page=1",
+                    "currentPage": 1,
+                    "totalPages": 1,
+                    "offset": 0,
+                    "limit": 3
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/400BadRequest25"
+            },
+            "examples": {
+              "application/json": {
+                "errors": {
+                  "eventId": "Event Id is invalid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/401Unauthorized"
+            },
+            "examples": {
+              "application/json": {
+                "message": "You do not have permission to access this page"
+              }
+            }
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/events/center/1"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Connection": "keep-alive",
+                "Content-Length": "1106",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 21 May 2018 12:38:08 GMT",
+                "ETag": "W/\"452-IT6HZSXDIe84brs5Y/+MjDsngw0\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"message\":\"Events Found!\",\"events\":{\"count\":3,\"rows\":[{\"id\":15,\"name\":\"Dammy First Event\",\"image\":\"http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg\",\"startDate\":\"2018-09-28T00:00:00Z\",\"endDate\":\"2018-09-30T00:00:00Z\",\"status\":\"pending\",\"userId\":3,\"centerId\":1,\"createdAt\":\"2018-05-21\",\"updatedAt\":\"2018-05-21\"},{\"id\":13,\"name\":\"Abbey Events\",\"image\":\"https://res.cloudinary.com/felglitz/image/upload/v1526761792/tbduqyfma33f7g0qjgmw.jpg\",\"startDate\":\"2018-05-20T00:00:00Z\",\"endDate\":\"2018-05-20T00:00:00Z\",\"status\":\"accepted\",\"userId\":3,\"centerId\":1,\"createdAt\":\"2018-05-19\",\"updatedAt\":\"2018-05-20\"},{\"id\":1,\"name\":\"The Nigeria Education Fair\",\"image\":\"http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg\",\"startDate\":\"2019-03-25T00:00:00Z\",\"endDate\":\"2019-03-27T00:00:00Z\",\"status\":\"cancelled\",\"userId\":1,\"centerId\":1,\"createdAt\":\"2018-05-18\",\"updatedAt\":\"2018-05-20\"}]},\"meta\":{\"pagination\":{\"currentPageUrl\":\"http://localhost:1991/api/v1/events/center/1?page=1\",\"currentPage\":1,\"totalPages\":1,\"offset\":0,\"limit\":3}}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get events by centerId",
+            "x-testDescription": "Get events slated for a center"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/centers": {
+      "get": {
+        "description": "Retrieve all centers from database",
+        "summary": "Get all centers",
+        "tags": [
+          "Centers"
+        ],
+        "operationId": "CentersGet",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/200Ok40"
+            },
+            "examples": {
+              "application/json": {
+                "message": "Centers Found!",
+                "centers": {
+                  "count": 2,
+                  "rows": [
+                    {
+                      "id": 2,
+                      "name": "Sheba Event Center",
+                      "location": "Ikeja",
+                      "capacity": 5000,
+                      "price": 10000,
+                      "facilities": [
+                        "Parking Space",
+                        "Tennis Court"
+                      ],
+                      "type": "Classic",
+                      "description": "Sheba Event Centre are perfect for events like weddings, birthday ,parties, trainings, conferences, exhibitions, product launches, meetings, and entertainment events.",
+                      "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+                      "createdAt": "2018-05-18",
+                      "updatedAt": "2018-05-18"
+                    },
+                    {
+                      "id": 1,
+                      "name": "Protea Hotel",
+                      "location": "Ikeja",
+                      "capacity": 1000,
+                      "price": 50000,
+                      "facilities": [
+                        "Swimming Pool",
+                        "Casino"
+                      ],
+                      "type": "Exquisite",
+                      "description": "The polished hotel is 9 km from the city centre, 4 km from Murtala Muhammed International Airport and 6 km from Ikeja City Mall, Featuring plush modern decor, the rooms come with free Wi-Fi, flat-screen TVs and minibars, as well as in-room safes, and tea and coffeemaking facilities, while suites add separate living rooms.Amenities include an outdoor pool, a fitness centre and massage treatments, as well as a sophisticated regional restaurant and a 24-hour cocktail bar.",
+                      "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+                      "createdAt": "2018-05-18",
+                      "updatedAt": "2018-05-20"
+                    }
+                  ]
+                },
+                "meta": {
+                  "pagination": {
+                    "currentPageUrl": "http://localhost:1991/api/v1/centers?page=1",
+                    "currentPage": 1,
+                    "totalPages": 1,
+                    "offset": 0,
+                    "limit": 3
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/centers",
+              "headers": {
+                "Content-Type": "application/x-www-form-urlencoded"
+              }
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Connection": "keep-alive",
+                "Content-Length": "1441",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 21 May 2018 13:01:57 GMT",
+                "ETag": "W/\"5a1-H2Q1b1UKurIbt2fCNCO4rzsCgSA\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"message\":\"Centers Found!\",\"centers\":{\"count\":2,\"rows\":[{\"id\":2,\"name\":\"Sheba Event Center\",\"location\":\"Ikeja\",\"capacity\":5000,\"price\":10000,\"facilities\":[\"Parking Space\",\"Tennis Court\"],\"type\":\"Classic\",\"description\":\"Sheba Event Centre are perfect for events like weddings, birthday ,parties, trainings, conferences, exhibitions, product launches, meetings, and entertainment events.\",\"image\":\"http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg\",\"createdAt\":\"2018-05-18\",\"updatedAt\":\"2018-05-18\"},{\"id\":1,\"name\":\"Protea Hotel\",\"location\":\"Ikeja\",\"capacity\":1000,\"price\":50000,\"facilities\":[\"Swimming Pool\",\"Casino\"],\"type\":\"Exquisite\",\"description\":\"The polished hotel is 9 km from the city centre, 4 km from Murtala Muhammed International Airport and 6 km from Ikeja City Mall, Featuring plush modern decor, the rooms come with free Wi-Fi, flat-screen TVs and minibars, as well as in-room safes, and tea and coffeemaking facilities, while suites add separate living rooms.Amenities include an outdoor pool, a fitness centre and massage treatments, as well as a sophisticated regional restaurant and a 24-hour cocktail bar.\",\"image\":\"http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg\",\"createdAt\":\"2018-05-18\",\"updatedAt\":\"2018-05-20\"}]},\"meta\":{\"pagination\":{\"currentPageUrl\":\"http://localhost:1991/api/v1/centers?page=1\",\"currentPage\":1,\"totalPages\":1,\"offset\":0,\"limit\":3}}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get all centers",
+            "x-testDescription": "Retrieve all centers from database"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "post": {
+        "description": "create a new center and saves it to the database",
+        "summary": "Create center",
+        "tags": [
+          "Centers"
+        ],
+        "operationId": "CentersPost",
+        "produces": [
+          "application/json"
+        ],
+        "security": [{
+          "adminToken": []
+        }],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreateCenterrequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/201Created"
+            },
+            "examples": {
+              "application/json": {
+                "message": "Center created!",
+                "center": {
+                  "id": 3,
+                  "name": "Dammy Center",
+                  "location": "Maryland",
+                  "capacity": 500,
+                  "facilities": [
+                    "bar",
+                    "casino"
+                  ],
+                  "type": "Marquee",
+                  "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+                  "description": "Dammy Center is in maryland",
+                  "price": 1000,
+                  "updatedAt": "2018-05-21",
+                  "createdAt": "2018-05-21"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/400BadRequest49"
+            },
+            "examples": {
+              "application/json": {
+                "errors": {
+                  "facilities": "Facilities is Required"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/401Unauthorized"
+            },
+            "examples": {
+              "application/json": {
+                "message": "You do not have the permission to access this page!"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/403Forbidden"
+            },
+            "examples": {
+              "application/json": {
+                "message": "You do not have the permission to access this page!"
+              }
+            }
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/centers",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\"name\":\"Dammy Center\",\"location\":\"Maryland\",\"capacity\":500,\"price\":1000,\"image\":\"http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg\",\"type\":\"Marquee\",\"description\":\"Dammy Center is in maryland\",\"facilities\":[\"bar\",\"casino\"]}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Connection": "keep-alive",
+                "Content-Length": "351",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 21 May 2018 13:15:17 GMT",
+                "ETag": "W/\"15f-DR4xftJqgAo+974gMWNBqS0wxKw\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"message\":\"Center created!\",\"center\":{\"id\":3,\"name\":\"Dammy Center\",\"location\":\"Maryland\",\"capacity\":500,\"facilities\":[\"bar\",\"casino\"],\"type\":\"Marquee\",\"image\":\"http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg\",\"description\":\"Dammy Center is in maryland\",\"price\":1000,\"updatedAt\":\"2018-05-21\",\"createdAt\":\"2018-05-21\"}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Create center",
+            "x-testDescription": "create a new center and saves it to the database"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+  "/centers/{centerId}"  : {
+      "get": {
+        "description": "retrieves a center from the database",
+        "summary": "Get a center",
+        "tags": [
+          "Centers"
+        ],
+        "operationId": "Centers3Get",
+        "produces": [
+          "application/json"
+        ],
+        "security": [{
+          "adminToken": []
+        }],
+        "parameters": [
+          { 
+            "name": "centerId",
+            "in": "path",
+            "description": "id of the center to be viewed",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/200Ok57"
+            },
+            "examples": {
+              "application/json": {
+                "message": "Center Found!",
+                "center": {
+                  "id": 3,
+                  "name": "Dammy Hall",
+                  "location": "Maryland",
+                  "capacity": 500,
+                  "price": 1000,
+                  "facilities": [
+                    "bar",
+                    "casino"
+                  ],
+                  "type": "Marquee",
+                  "description": "Dammy Center is in maryland",
+                  "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+                  "createdAt": "2018-05-21",
+                  "updatedAt": "2018-05-21",
+                  "events": []
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/400BadRequest53"
+            },
+            "examples": {
+              "application/json": {
+                "errors": {
+                  "centerId": "Center Id is invalid"
+                }
+              }
+            }
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/centers/3"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Connection": "keep-alive",
+                "Content-Length": "359",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 21 May 2018 13:22:22 GMT",
+                "ETag": "W/\"167-FVfUBy3zOXEaNtkQVGkTbMTtj6k\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"message\":\"Center Found!\",\"center\":{\"id\":3,\"name\":\"Dammy Hall\",\"location\":\"Maryland\",\"capacity\":500,\"price\":1000,\"facilities\":[\"bar\",\"casino\"],\"type\":\"Marquee\",\"description\":\"Dammy Center is in maryland\",\"image\":\"http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg\",\"createdAt\":\"2018-05-21\",\"updatedAt\":\"2018-05-21\",\"events\":[]}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Get a center",
+            "x-testDescription": "retrieves a center from the database"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "put": {
+        "description": "updates a center in the databse",
+        "summary": "Edit center",
+        "tags": [
+          "Centers"
+        ],
+        "operationId": "CentersPut",
+        "produces": [
+          "application/json"
+        ],
+        "security": [{
+          "adminToken": []
+        }],
+        "parameters": [
+          { 
+            "name": "centerId",
+            "in": "path",
+            "description": "id of the center to be viewed",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EditCenterrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/200Ok55"
+            },
+            "examples": {
+              "application/json": {
+                "message": "Center Update Successful",
+                "modifiedCenter": {
+                  "id": 3,
+                  "name": "Dammy Hall",
+                  "location": "Maryland",
+                  "capacity": 500,
+                  "price": 1000,
+                  "facilities": [
+                    "bar",
+                    "casino"
+                  ],
+                  "type": "Marquee",
+                  "description": "Dammy Center is in maryland",
+                  "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+                  "createdAt": "2018-05-21",
+                  "updatedAt": "2018-05-21T13:19:50.115Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/400BadRequest53"
+            },
+            "examples": {
+              "application/json": {
+                "errors": {
+                  "centerId": "Center Id is invalid"
+                }
+              }
+            }
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "PUT",
+              "uri": "/centers",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\"name\":\"Dammy Hall\",\"location\":\"Maryland\",\"capacity\":500,\"price\":1000,\"image\":\"http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg\",\"type\":\"Marquee\",\"description\":\"Dammy Center is in maryland\",\"facilities\":[\"bar\",\"casino\"]}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Connection": "keep-alive",
+                "Content-Length": "380",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 21 May 2018 13:19:50 GMT",
+                "ETag": "W/\"17c-mqUxcRfF2ySiqopMw/EhfQLA/yU\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"message\":\"Center Update Successful\",\"modifiedCenter\":{\"id\":3,\"name\":\"Dammy Hall\",\"location\":\"Maryland\",\"capacity\":500,\"price\":1000,\"facilities\":[\"bar\",\"casino\"],\"type\":\"Marquee\",\"description\":\"Dammy Center is in maryland\",\"image\":\"http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg\",\"createdAt\":\"2018-05-21\",\"updatedAt\":\"2018-05-21T13:19:50.115Z\"}}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Edit center",
+            "x-testDescription": "updates a center in the databse"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "delete": {
+        "description": "deletes a center in the database",
+        "summary": "Deletes a center",
+        "tags": [
+          "Centers"
+        ],
+        "operationId": "CentersFelixDelete",
+        "produces": [
+          "application/json"
+        ],
+        "security": [{
+          "adminToken": []
+        }],
+        "parameters": [
+          { 
+            "name": "centerId",
+            "in": "path",
+            "description": "id of the center to be viewed",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/200Ok61"
+            },
+            "examples": {
+              "application/json": {
+                "message": "Center Successfully Deleted!",
+                "centerId": "3"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/400BadRequest53"
+            },
+            "examples": {
+              "application/json": {
+                "errors": {
+                  "centerId": "Center Id is invalid"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/401Unauthorized"
+            },
+            "examples": {
+              "application/json": {
+                "message": "You do not have the permission to access this page!"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/403Forbidden"
+            },
+            "examples": {
+              "application/json": {
+                "message": "You do not have the permission to access this page!"
+              }
+            }
+          }
+        },
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "DELETE",
+              "uri": "/centers/felix"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "RAW",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {
+                "Connection": "keep-alive",
+                "Content-Length": "57",
+                "Content-Type": "application/json; charset=utf-8",
+                "Date": "Mon, 21 May 2018 13:26:32 GMT",
+                "ETag": "W/\"39-UIOQ763+ZPudvcxbwk2UNL+jWRk\"",
+                "X-Powered-By": "Express"
+              },
+              "body": "{\"message\":\"Center Successfully Deleted!\",\"centerId\":\"3\"}"
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "Deletes a center",
+            "x-testDescription": "deletes a center in the database"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    }
+  },
+  "definitions": {
+    "UserSignUprequest": {
+      "title": "User sign upRequest",
+      "example": {
+        "surname": "James",
+        "firstname": "Dami",
+        "username": "servaly",
+        "email": "felglitz@yahoo.com",
+        "password": "password",
+        "passwordConfirm": "password"
+      },
+      "type": "object",
+      "properties": {
+        "surname": {
+          "description": "",
+          "example": "James",
+          "type": "string"
+        },
+        "firstname": {
+          "description": "",
+          "example": "Dami",
+          "type": "string"
+        },
+        "email": {
+          "description": "",
+          "example": "felglitz@yahoo.com",
+          "type": "string"
+        },
+        "password": {
+          "description": "",
+          "example": "password",
+          "type": "string"
+        },
+        "passwordConfirm": {
+          "description": "",
+          "example": "password",
+          "type": "string"
+        }
+      },
+      "required": [
+        "surname",
+        "firstname",
+        "email",
+        "password",
+        "passwordConfirm"
+      ]
+    },
+    "400Bad request": {
+      "title": "400-bad request",
+      "example": {
+        "errors": {
+          "username": "Username is Required"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "$ref": "#/definitions/Errors"
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "Errors": {
+      "title": "Errors",
+      "example": {
+        "username": "Username is Required"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "description": "",
+          "example": "Username is Required",
+          "type": "string"
+        }
+      },
+      "required": [
+        "username"
+      ]
+    },
+    "Localhost:1991/api/v1/users/": {
+      "title": "localhost:1991/api/v1/users/",
+      "type": "object",
+      "properties": {
+        "errors": {
+          "$ref": "#/definitions/Errors"
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "409Conflict": {
+      "title": "409-conflict",
+      "example": {
+        "message": "Username taken, Please use another"
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "Username taken, Please use another",
+          "type": "string"
+        }
+      },
+      "required": [
+        "message"
+      ]
+    },
+    "201Successful": {
+      "title": "201-successful",
+      "example": {
+        "message": "User created",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywidXNlcm5hbWUiOiJzZXJ2YWx5IiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTUyNjkwNDA5NSwiZXhwIjoxNTI2OTkwNDk1fQ.dotvbCXM6c0jOX3iqonfx9D1cGGhjxh4yZ1lkZUdVjo"
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "User created",
+          "type": "string"
+        },
+        "token": {
+          "description": "",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywidXNlcm5hbWUiOiJzZXJ2YWx5IiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTUyNjkwNDA5NSwiZXhwIjoxNTI2OTkwNDk1fQ.dotvbCXM6c0jOX3iqonfx9D1cGGhjxh4yZ1lkZUdVjo",
+          "type": "string"
+        }
+      },
+      "required": [
+        "message",
+        "token"
+      ]
+    },
+    "UserSignInrequest": {
+      "title": "User sign inRequest",
+      "example": {
+        "username": "servaly",
+        "password": "password"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "description": "",
+          "example": "servaly",
+          "type": "string"
+        },
+        "password": {
+          "description": "",
+          "example": "password",
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "password"
+      ]
+    },
+    "401Unauthorised": {
+      "title": "401-unauthorised",
+      "example": {
+        "message": "Username/Password Incorrect"
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "Username/Password Incorrect",
+          "type": "string"
+        }
+      },
+      "required": [
+        "message"
+      ]
+    },
+    "200Successful10": {
+      "title": "200-successful10",
+      "example": {
+        "message": "Events Found!",
+        "events": {
+          "count": 1,
+          "rows": [
+            {
+              "id": 13,
+              "name": "Abbey Events",
+              "image": "https://res.cloudinary.com/felglitz/image/upload/v1526761792/tbduqyfma33f7g0qjgmw.jpg",
+              "startDate": "2018-05-20T00:00:00Z",
+              "endDate": "2018-05-20T00:00:00Z",
+              "status": "accepted",
+              "userId": 3,
+              "centerId": 1,
+              "createdAt": "2018-05-19",
+              "updatedAt": "2018-05-20",
+              "center": {
+                "id": 1,
+                "name": "Protea Hotel",
+                "location": "Ikeja"
+              }
+            }
+          ]
+        },
+        "meta": {
+          "pagination": {
+            "currentPageUrl": "http://localhost:1991/api/v1/events?page=1",
+            "currentPage": 1,
+            "totalPages": 1,
+            "offset": 0,
+            "limit": 3
+          }
+        }
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "Events Found!",
+          "type": "string"
+        },
+        "events": {
+          "$ref": "#/definitions/Events"
+        },
+        "meta": {
+          "$ref": "#/definitions/Meta"
+        }
+      },
+      "required": [
+        "message",
+        "events",
+        "meta"
+      ]
+    },
+    "Events": {
+      "title": "Events",
+      "example": {
+        "count": 1,
+        "rows": [
+          {
+            "id": 13,
+            "name": "Abbey Events",
+            "image": "https://res.cloudinary.com/felglitz/image/upload/v1526761792/tbduqyfma33f7g0qjgmw.jpg",
+            "startDate": "2018-05-20T00:00:00Z",
+            "endDate": "2018-05-20T00:00:00Z",
+            "status": "accepted",
+            "userId": 3,
+            "centerId": 1,
+            "createdAt": "2018-05-19",
+            "updatedAt": "2018-05-20",
+            "center": {
+              "id": 1,
+              "name": "Protea Hotel",
+              "location": "Ikeja"
+            }
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "count": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "rows": {
+          "description": "",
+          "example": [
+            {
+              "id": 13,
+              "name": "Abbey Events",
+              "image": "https://res.cloudinary.com/felglitz/image/upload/v1526761792/tbduqyfma33f7g0qjgmw.jpg",
+              "startDate": "2018-05-20T00:00:00Z",
+              "endDate": "2018-05-20T00:00:00Z",
+              "status": "accepted",
+              "userId": 3,
+              "centerId": 1,
+              "createdAt": "2018-05-19",
+              "updatedAt": "2018-05-20",
+              "center": {
+                "id": 1,
+                "name": "Protea Hotel",
+                "location": "Ikeja"
+              }
+            }
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Row"
+          }
+        }
+      },
+      "required": [
+        "count",
+        "rows"
+      ]
+    },
+    "Row": {
+      "title": "Row",
+      "example": {
+        "id": 13,
+        "name": "Abbey Events",
+        "image": "https://res.cloudinary.com/felglitz/image/upload/v1526761792/tbduqyfma33f7g0qjgmw.jpg",
+        "startDate": "2018-05-20T00:00:00Z",
+        "endDate": "2018-05-20T00:00:00Z",
+        "status": "accepted",
+        "userId": 3,
+        "centerId": 1,
+        "createdAt": "2018-05-19",
+        "updatedAt": "2018-05-20",
+        "center": {
+          "id": 1,
+          "name": "Protea Hotel",
+          "location": "Ikeja"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 13,
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "description": "",
+          "example": "Abbey Events",
+          "type": "string"
+        },
+        "image": {
+          "description": "",
+          "example": "https://res.cloudinary.com/felglitz/image/upload/v1526761792/tbduqyfma33f7g0qjgmw.jpg",
+          "type": "string"
+        },
+        "startDate": {
+          "description": "",
+          "example": "5/20/2018 12:00:00 AM",
+          "type": "string"
+        },
+        "endDate": {
+          "description": "",
+          "example": "5/20/2018 12:00:00 AM",
+          "type": "string"
+        },
+        "status": {
+          "description": "",
+          "example": "accepted",
+          "type": "string"
+        },
+        "userId": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        },
+        "centerId": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "2018-05-19",
+          "type": "string"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "2018-05-20",
+          "type": "string"
+        },
+        "center": {
+          "$ref": "#/definitions/Center"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "image",
+        "startDate",
+        "endDate",
+        "status",
+        "userId",
+        "centerId",
+        "createdAt",
+        "updatedAt",
+        "center"
+      ]
+    },
+    "Center": {
+      "title": "Center",
+      "example": {
+        "id": 1,
+        "name": "Protea Hotel",
+        "location": "Ikeja"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "description": "",
+          "example": "Protea Hotel",
+          "type": "string"
+        },
+        "location": {
+          "description": "",
+          "example": "Ikeja",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "location"
+      ]
+    },
+    "Meta": {
+      "title": "Meta",
+      "example": {
+        "pagination": {
+          "currentPageUrl": "http://localhost:1991/api/v1/events?page=1",
+          "currentPage": 1,
+          "totalPages": 1,
+          "offset": 0,
+          "limit": 3
+        }
+      },
+      "type": "object",
+      "properties": {
+        "pagination": {
+          "$ref": "#/definitions/Pagination"
+        }
+      },
+      "required": [
+        "pagination"
+      ]
+    },
+    "Pagination": {
+      "title": "Pagination",
+      "example": {
+        "currentPageUrl": "http://localhost:1991/api/v1/events?page=1",
+        "currentPage": 1,
+        "totalPages": 1,
+        "offset": 0,
+        "limit": 3
+      },
+      "type": "object",
+      "properties": {
+        "currentPageUrl": {
+          "description": "",
+          "example": "http://localhost:1991/api/v1/events?page=1",
+          "type": "string"
+        },
+        "currentPage": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalPages": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "offset": {
+          "description": "",
+          "example": 0,
+          "type": "integer",
+          "format": "int32"
+        },
+        "limit": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "required": [
+        "currentPageUrl",
+        "currentPage",
+        "totalPages",
+        "offset",
+        "limit"
+      ]
+    },
+    "CreateEventrequest": {
+      "title": "Create eventRequest",
+      "example": {
+        "name": "Dammy Events",
+        "centerId": 1,
+        "startDate": "2018-09-28",
+        "endDate": "2018-09-30",
+        "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "",
+          "example": "Dammy Events",
+          "type": "string"
+        },
+        "centerId": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "startDate": {
+          "description": "",
+          "example": "2018-09-28",
+          "type": "string"
+        },
+        "endDate": {
+          "description": "",
+          "example": "2018-09-30",
+          "type": "string"
+        },
+        "image": {
+          "description": "",
+          "example": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "centerId",
+        "startDate",
+        "endDate",
+        "image"
+      ]
+    },
+    "201Successful19": {
+      "title": "201-successful19",
+      "example": {
+        "message": "Event Created!",
+        "event": {
+          "status": "pending",
+          "id": 15,
+          "name": "Dammy Events",
+          "startDate": "2018-09-28T00:00:00Z",
+          "endDate": "2018-09-30T00:00:00Z",
+          "centerId": 1,
+          "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "userId": 3,
+          "updatedAt": "2018-05-21",
+          "createdAt": "2018-05-21"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "Event Created!",
+          "type": "string"
+        },
+        "event": {
+          "$ref": "#/definitions/Event"
+        }
+      },
+      "required": [
+        "message",
+        "event"
+      ]
+    },
+    "Event": {
+      "title": "Event",
+      "example": {
+        "status": "pending",
+        "id": 15,
+        "name": "Dammy Events",
+        "startDate": "2018-09-28T00:00:00Z",
+        "endDate": "2018-09-30T00:00:00Z",
+        "centerId": 1,
+        "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+        "userId": 3,
+        "updatedAt": "2018-05-21",
+        "createdAt": "2018-05-21"
+      },
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "",
+          "example": "pending",
+          "type": "string"
+        },
+        "id": {
+          "description": "",
+          "example": 15,
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "description": "",
+          "example": "Dammy Events",
+          "type": "string"
+        },
+        "startDate": {
+          "description": "",
+          "example": "9/28/2018 12:00:00 AM",
+          "type": "string"
+        },
+        "endDate": {
+          "description": "",
+          "example": "9/30/2018 12:00:00 AM",
+          "type": "string"
+        },
+        "centerId": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "image": {
+          "description": "",
+          "example": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "type": "string"
+        },
+        "userId": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "2018-05-21",
+          "type": "string"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "2018-05-21",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "id",
+        "name",
+        "startDate",
+        "endDate",
+        "centerId",
+        "image",
+        "userId",
+        "updatedAt",
+        "createdAt"
+      ]
+    },
+    "400Bad request21": {
+      "title": "400-bad request21",
+      "example": {
+        "errors": {
+          "startDate": "Start Date is Required"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "$ref": "#/definitions/Errors22"
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "Errors22": {
+      "title": "Errors22",
+      "example": {
+        "startDate": "Start Date is Required"
+      },
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "description": "",
+          "example": "Start Date is Required",
+          "type": "string"
+        }
+      },
+      "required": [
+        "startDate"
+      ]
+    },
+    "EditEventrequest": {
+      "title": "Edit eventRequest",
+      "example": {
+        "name": "Dammy First Event",
+        "centerId": 1,
+        "startDate": "2018-09-28",
+        "endDate": "2018-09-30",
+        "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg"
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "",
+          "example": "Dammy First Event",
+          "type": "string"
+        },
+        "centerId": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "startDate": {
+          "description": "",
+          "example": "2018-09-28",
+          "type": "string"
+        },
+        "endDate": {
+          "description": "",
+          "example": "2018-09-30",
+          "type": "string"
+        },
+        "image": {
+          "description": "",
+          "example": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "centerId",
+        "startDate",
+        "endDate",
+        "image"
+      ]
+    },
+    "400BadRequest25": {
+      "title": "400 Bad Request25",
+      "example": {
+        "errors": {
+          "eventId": "Event Id is invalid"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "$ref": "#/definitions/Errors26"
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "Errors26": {
+      "title": "Errors26",
+      "example": {
+        "eventId": "Event Id is invalid"
+      },
+      "type": "object",
+      "properties": {
+        "eventId": {
+          "description": "",
+          "example": "Event Id is invalid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventId"
+      ]
+    },
+    "200Ok": {
+      "title": "200-ok",
+      "example": {
+        "message": "Event Update Successful",
+        "modifiedEvent": {
+          "id": 15,
+          "name": "Dammy First Event",
+          "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "startDate": "2018-09-28T00:00:00Z",
+          "endDate": "2018-09-30T00:00:00Z",
+          "status": "pending",
+          "userId": 3,
+          "centerId": 1,
+          "createdAt": "2018-05-21",
+          "updatedAt": "2018-05-21T12:33:22.772Z"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "Event Update Successful",
+          "type": "string"
+        },
+        "modifiedEvent": {
+          "$ref": "#/definitions/ModifiedEvent"
+        }
+      },
+      "required": [
+        "message",
+        "modifiedEvent"
+      ]
+    },
+    "ModifiedEvent": {
+      "title": "ModifiedEvent",
+      "example": {
+        "id": 15,
+        "name": "Dammy First Event",
+        "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+        "startDate": "2018-09-28T00:00:00Z",
+        "endDate": "2018-09-30T00:00:00Z",
+        "status": "pending",
+        "userId": 3,
+        "centerId": 1,
+        "createdAt": "2018-05-21",
+        "updatedAt": "2018-05-21T12:33:22.772Z"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 15,
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "description": "",
+          "example": "Dammy First Event",
+          "type": "string"
+        },
+        "image": {
+          "description": "",
+          "example": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "type": "string"
+        },
+        "startDate": {
+          "description": "",
+          "example": "9/28/2018 12:00:00 AM",
+          "type": "string"
+        },
+        "endDate": {
+          "description": "",
+          "example": "9/30/2018 12:00:00 AM",
+          "type": "string"
+        },
+        "status": {
+          "description": "",
+          "example": "pending",
+          "type": "string"
+        },
+        "userId": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        },
+        "centerId": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "2018-05-21",
+          "type": "string"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "5/21/2018 12:33:22 PM",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "image",
+        "startDate",
+        "endDate",
+        "status",
+        "userId",
+        "centerId",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "401Unauthorized": {
+      "title": "401 Unauthorized",
+      "example": {
+        "message": "You do not have permission to access this page"
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "You do not have permission to access this page",
+          "type": "string"
+        }
+      },
+      "required": [
+        "message"
+      ]
+    },
+    "200Ok33": {
+      "title": "200-ok33",
+      "example": {
+        "message": "Events Found!",
+        "events": {
+          "count": 3,
+          "rows": [
+            {
+              "id": 15,
+              "name": "Dammy First Event",
+              "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+              "startDate": "2018-09-28T00:00:00Z",
+              "endDate": "2018-09-30T00:00:00Z",
+              "status": "pending",
+              "userId": 3,
+              "centerId": 1,
+              "createdAt": "2018-05-21",
+              "updatedAt": "2018-05-21"
+            },
+            {
+              "id": 13,
+              "name": "Abbey Events",
+              "image": "https://res.cloudinary.com/felglitz/image/upload/v1526761792/tbduqyfma33f7g0qjgmw.jpg",
+              "startDate": "2018-05-20T00:00:00Z",
+              "endDate": "2018-05-20T00:00:00Z",
+              "status": "accepted",
+              "userId": 3,
+              "centerId": 1,
+              "createdAt": "2018-05-19",
+              "updatedAt": "2018-05-20"
+            },
+            {
+              "id": 1,
+              "name": "The Nigeria Education Fair",
+              "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+              "startDate": "2019-03-25T00:00:00Z",
+              "endDate": "2019-03-27T00:00:00Z",
+              "status": "cancelled",
+              "userId": 1,
+              "centerId": 1,
+              "createdAt": "2018-05-18",
+              "updatedAt": "2018-05-20"
+            }
+          ]
+        },
+        "meta": {
+          "pagination": {
+            "currentPageUrl": "http://localhost:1991/api/v1/events/center/1?page=1",
+            "currentPage": 1,
+            "totalPages": 1,
+            "offset": 0,
+            "limit": 3
+          }
+        }
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "Events Found!",
+          "type": "string"
+        },
+        "events": {
+          "$ref": "#/definitions/Events34"
+        },
+        "meta": {
+          "$ref": "#/definitions/Meta"
+        }
+      },
+      "required": [
+        "message",
+        "events",
+        "meta"
+      ]
+    },
+    "Events34": {
+      "title": "Events34",
+      "example": {
+        "count": 3,
+        "rows": [
+          {
+            "id": 15,
+            "name": "Dammy First Event",
+            "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+            "startDate": "2018-09-28T00:00:00Z",
+            "endDate": "2018-09-30T00:00:00Z",
+            "status": "pending",
+            "userId": 3,
+            "centerId": 1,
+            "createdAt": "2018-05-21",
+            "updatedAt": "2018-05-21"
+          },
+          {
+            "id": 13,
+            "name": "Abbey Events",
+            "image": "https://res.cloudinary.com/felglitz/image/upload/v1526761792/tbduqyfma33f7g0qjgmw.jpg",
+            "startDate": "2018-05-20T00:00:00Z",
+            "endDate": "2018-05-20T00:00:00Z",
+            "status": "accepted",
+            "userId": 3,
+            "centerId": 1,
+            "createdAt": "2018-05-19",
+            "updatedAt": "2018-05-20"
+          },
+          {
+            "id": 1,
+            "name": "The Nigeria Education Fair",
+            "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+            "startDate": "2019-03-25T00:00:00Z",
+            "endDate": "2019-03-27T00:00:00Z",
+            "status": "cancelled",
+            "userId": 1,
+            "centerId": 1,
+            "createdAt": "2018-05-18",
+            "updatedAt": "2018-05-20"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "count": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        },
+        "rows": {
+          "description": "",
+          "example": [
+            {
+              "id": 15,
+              "name": "Dammy First Event",
+              "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+              "startDate": "2018-09-28T00:00:00Z",
+              "endDate": "2018-09-30T00:00:00Z",
+              "status": "pending",
+              "userId": 3,
+              "centerId": 1,
+              "createdAt": "2018-05-21",
+              "updatedAt": "2018-05-21"
+            },
+            {
+              "id": 13,
+              "name": "Abbey Events",
+              "image": "https://res.cloudinary.com/felglitz/image/upload/v1526761792/tbduqyfma33f7g0qjgmw.jpg",
+              "startDate": "2018-05-20T00:00:00Z",
+              "endDate": "2018-05-20T00:00:00Z",
+              "status": "accepted",
+              "userId": 3,
+              "centerId": 1,
+              "createdAt": "2018-05-19",
+              "updatedAt": "2018-05-20"
+            },
+            {
+              "id": 1,
+              "name": "The Nigeria Education Fair",
+              "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+              "startDate": "2019-03-25T00:00:00Z",
+              "endDate": "2019-03-27T00:00:00Z",
+              "status": "cancelled",
+              "userId": 1,
+              "centerId": 1,
+              "createdAt": "2018-05-18",
+              "updatedAt": "2018-05-20"
+            }
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Row35"
+          }
+        }
+      },
+      "required": [
+        "count",
+        "rows"
+      ]
+    },
+    "Row35": {
+      "title": "Row35",
+      "example": {
+        "id": 15,
+        "name": "Dammy First Event",
+        "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+        "startDate": "2018-09-28T00:00:00Z",
+        "endDate": "2018-09-30T00:00:00Z",
+        "status": "pending",
+        "userId": 3,
+        "centerId": 1,
+        "createdAt": "2018-05-21",
+        "updatedAt": "2018-05-21"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 15,
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "description": "",
+          "example": "Dammy First Event",
+          "type": "string"
+        },
+        "image": {
+          "description": "",
+          "example": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "type": "string"
+        },
+        "startDate": {
+          "description": "",
+          "example": "9/28/2018 12:00:00 AM",
+          "type": "string"
+        },
+        "endDate": {
+          "description": "",
+          "example": "9/30/2018 12:00:00 AM",
+          "type": "string"
+        },
+        "status": {
+          "description": "",
+          "example": "pending",
+          "type": "string"
+        },
+        "userId": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        },
+        "centerId": {
+          "description": "",
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "2018-05-21",
+          "type": "string"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "2018-05-21",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "image",
+        "startDate",
+        "endDate",
+        "status",
+        "userId",
+        "centerId",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "200Ok38": {
+      "title": "200 OK38",
+      "example": {
+        "message": "Event Successfully Deleted!",
+        "eventId": "15"
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "Event Successfully Deleted!",
+          "type": "string"
+        },
+        "eventId": {
+          "description": "",
+          "example": "15",
+          "type": "string"
+        }
+      },
+      "required": [
+        "message",
+        "eventId"
+      ]
+    },
+    "200Ok40": {
+      "title": "200 OK40",
+      "example": {
+        "message": "Centers Found!",
+        "centers": {
+          "count": 2,
+          "rows": [
+            {
+              "id": 2,
+              "name": "Sheba Event Center",
+              "location": "Ikeja",
+              "capacity": 5000,
+              "price": 10000,
+              "facilities": [
+                "Parking Space",
+                "Tennis Court"
+              ],
+              "type": "Classic",
+              "description": "Sheba Event Centre are perfect for events like weddings, birthday ,parties, trainings, conferences, exhibitions, product launches, meetings, and entertainment events.",
+              "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+              "createdAt": "2018-05-18",
+              "updatedAt": "2018-05-18"
+            },
+            {
+              "id": 1,
+              "name": "Protea Hotel",
+              "location": "Ikeja",
+              "capacity": 1000,
+              "price": 50000,
+              "facilities": [
+                "Swimming Pool",
+                "Casino"
+              ],
+              "type": "Exquisite",
+              "description": "The polished hotel is 9 km from the city centre, 4 km from Murtala Muhammed International Airport and 6 km from Ikeja City Mall, Featuring plush modern decor, the rooms come with free Wi-Fi, flat-screen TVs and minibars, as well as in-room safes, and tea and coffeemaking facilities, while suites add separate living rooms.Amenities include an outdoor pool, a fitness centre and massage treatments, as well as a sophisticated regional restaurant and a 24-hour cocktail bar.",
+              "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+              "createdAt": "2018-05-18",
+              "updatedAt": "2018-05-20"
+            }
+          ]
+        },
+        "meta": {
+          "pagination": {
+            "currentPageUrl": "http://localhost:1991/api/v1/centers?page=1",
+            "currentPage": 1,
+            "totalPages": 1,
+            "offset": 0,
+            "limit": 3
+          }
+        }
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "Centers Found!",
+          "type": "string"
+        },
+        "centers": {
+          "$ref": "#/definitions/Centers"
+        },
+        "meta": {
+          "$ref": "#/definitions/Meta"
+        }
+      },
+      "required": [
+        "message",
+        "centers",
+        "meta"
+      ]
+    },
+    "Centers": {
+      "title": "Centers",
+      "example": {
+        "count": 2,
+        "rows": [
+          {
+            "id": 2,
+            "name": "Sheba Event Center",
+            "location": "Ikeja",
+            "capacity": 5000,
+            "price": 10000,
+            "facilities": [
+              "Parking Space",
+              "Tennis Court"
+            ],
+            "type": "Classic",
+            "description": "Sheba Event Centre are perfect for events like weddings, birthday ,parties, trainings, conferences, exhibitions, product launches, meetings, and entertainment events.",
+            "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+            "createdAt": "2018-05-18",
+            "updatedAt": "2018-05-18"
+          },
+          {
+            "id": 1,
+            "name": "Protea Hotel",
+            "location": "Ikeja",
+            "capacity": 1000,
+            "price": 50000,
+            "facilities": [
+              "Swimming Pool",
+              "Casino"
+            ],
+            "type": "Exquisite",
+            "description": "The polished hotel is 9 km from the city centre, 4 km from Murtala Muhammed International Airport and 6 km from Ikeja City Mall, Featuring plush modern decor, the rooms come with free Wi-Fi, flat-screen TVs and minibars, as well as in-room safes, and tea and coffeemaking facilities, while suites add separate living rooms.Amenities include an outdoor pool, a fitness centre and massage treatments, as well as a sophisticated regional restaurant and a 24-hour cocktail bar.",
+            "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+            "createdAt": "2018-05-18",
+            "updatedAt": "2018-05-20"
+          }
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "count": {
+          "description": "",
+          "example": 2,
+          "type": "integer",
+          "format": "int32"
+        },
+        "rows": {
+          "description": "",
+          "example": [
+            {
+              "id": 2,
+              "name": "Sheba Event Center",
+              "location": "Ikeja",
+              "capacity": 5000,
+              "price": 10000,
+              "facilities": [
+                "Parking Space",
+                "Tennis Court"
+              ],
+              "type": "Classic",
+              "description": "Sheba Event Centre are perfect for events like weddings, birthday ,parties, trainings, conferences, exhibitions, product launches, meetings, and entertainment events.",
+              "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+              "createdAt": "2018-05-18",
+              "updatedAt": "2018-05-18"
+            },
+            {
+              "id": 1,
+              "name": "Protea Hotel",
+              "location": "Ikeja",
+              "capacity": 1000,
+              "price": 50000,
+              "facilities": [
+                "Swimming Pool",
+                "Casino"
+              ],
+              "type": "Exquisite",
+              "description": "The polished hotel is 9 km from the city centre, 4 km from Murtala Muhammed International Airport and 6 km from Ikeja City Mall, Featuring plush modern decor, the rooms come with free Wi-Fi, flat-screen TVs and minibars, as well as in-room safes, and tea and coffeemaking facilities, while suites add separate living rooms.Amenities include an outdoor pool, a fitness centre and massage treatments, as well as a sophisticated regional restaurant and a 24-hour cocktail bar.",
+              "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+              "createdAt": "2018-05-18",
+              "updatedAt": "2018-05-20"
+            }
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Row42"
+          }
+        }
+      },
+      "required": [
+        "count",
+        "rows"
+      ]
+    },
+    "Row42": {
+      "title": "Row42",
+      "example": {
+        "id": 2,
+        "name": "Sheba Event Center",
+        "location": "Ikeja",
+        "capacity": 5000,
+        "price": 10000,
+        "facilities": [
+          "Parking Space",
+          "Tennis Court"
+        ],
+        "type": "Classic",
+        "description": "Sheba Event Centre are perfect for events like weddings, birthday ,parties, trainings, conferences, exhibitions, product launches, meetings, and entertainment events.",
+        "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+        "createdAt": "2018-05-18",
+        "updatedAt": "2018-05-18"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 2,
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "description": "",
+          "example": "Sheba Event Center",
+          "type": "string"
+        },
+        "location": {
+          "description": "",
+          "example": "Ikeja",
+          "type": "string"
+        },
+        "capacity": {
+          "description": "",
+          "example": 5000,
+          "type": "integer",
+          "format": "int32"
+        },
+        "price": {
+          "description": "",
+          "example": 10000,
+          "type": "integer",
+          "format": "int32"
+        },
+        "facilities": {
+          "description": "",
+          "example": [
+            "Parking Space",
+            "Tennis Court"
+          ],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "description": "",
+          "example": "Classic",
+          "type": "string"
+        },
+        "description": {
+          "description": "",
+          "example": "Sheba Event Centre are perfect for events like weddings, birthday ,parties, trainings, conferences, exhibitions, product launches, meetings, and entertainment events.",
+          "type": "string"
+        },
+        "image": {
+          "description": "",
+          "example": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "type": "string"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "2018-05-18",
+          "type": "string"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "2018-05-18",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "location",
+        "capacity",
+        "price",
+        "facilities",
+        "type",
+        "description",
+        "image",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "CreateCenterrequest": {
+      "title": "Create centerRequest",
+      "example": {
+        "name": "Dammy Center",
+        "location": "Maryland",
+        "capacity": 500,
+        "price": 1000,
+        "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+        "type": "Marquee",
+        "description": "Dammy Center is in maryland",
+        "facilities": [
+          "bar",
+          "casino"
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "",
+          "example": "Dammy Center",
+          "type": "string"
+        },
+        "location": {
+          "description": "",
+          "example": "Maryland",
+          "type": "string"
+        },
+        "capacity": {
+          "description": "",
+          "example": 500,
+          "type": "integer",
+          "format": "int32"
+        },
+        "price": {
+          "description": "",
+          "example": 1000,
+          "type": "integer",
+          "format": "int32"
+        },
+        "image": {
+          "description": "",
+          "example": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "type": "string"
+        },
+        "type": {
+          "description": "",
+          "example": "Marquee",
+          "type": "string"
+        },
+        "description": {
+          "description": "",
+          "example": "Dammy Center is in maryland",
+          "type": "string"
+        },
+        "facilities": {
+          "description": "",
+          "example": [
+            "bar",
+            "casino"
+          ],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "location",
+        "capacity",
+        "price",
+        "image",
+        "type",
+        "description",
+        "facilities"
+      ]
+    },
+    "403Forbidden": {
+      "title": "403 Forbidden",
+      "example": {
+        "message": "You do not have the permission to access this page!"
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "You do not have the permission to access this page!",
+          "type": "string"
+        }
+      },
+      "required": [
+        "message"
+      ]
+    },
+    "201Created": {
+      "title": "201 Created",
+      "example": {
+        "message": "Center created!",
+        "center": {
+          "id": 3,
+          "name": "Dammy Center",
+          "location": "Maryland",
+          "capacity": 500,
+          "facilities": [
+            "bar",
+            "casino"
+          ],
+          "type": "Marquee",
+          "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "description": "Dammy Center is in maryland",
+          "price": 1000,
+          "updatedAt": "2018-05-21",
+          "createdAt": "2018-05-21"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "Center created!",
+          "type": "string"
+        },
+        "center": {
+          "$ref": "#/definitions/Center48"
+        }
+      },
+      "required": [
+        "message",
+        "center"
+      ]
+    },
+    "Center48": {
+      "title": "Center48",
+      "example": {
+        "id": 3,
+        "name": "Dammy Center",
+        "location": "Maryland",
+        "capacity": 500,
+        "facilities": [
+          "bar",
+          "casino"
+        ],
+        "type": "Marquee",
+        "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+        "description": "Dammy Center is in maryland",
+        "price": 1000,
+        "updatedAt": "2018-05-21",
+        "createdAt": "2018-05-21"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "description": "",
+          "example": "Dammy Center",
+          "type": "string"
+        },
+        "location": {
+          "description": "",
+          "example": "Maryland",
+          "type": "string"
+        },
+        "capacity": {
+          "description": "",
+          "example": 500,
+          "type": "integer",
+          "format": "int32"
+        },
+        "facilities": {
+          "description": "",
+          "example": [
+            "bar",
+            "casino"
+          ],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "description": "",
+          "example": "Marquee",
+          "type": "string"
+        },
+        "image": {
+          "description": "",
+          "example": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "type": "string"
+        },
+        "description": {
+          "description": "",
+          "example": "Dammy Center is in maryland",
+          "type": "string"
+        },
+        "price": {
+          "description": "",
+          "example": 1000,
+          "type": "integer",
+          "format": "int32"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "2018-05-21",
+          "type": "string"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "2018-05-21",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "location",
+        "capacity",
+        "facilities",
+        "type",
+        "image",
+        "description",
+        "price",
+        "updatedAt",
+        "createdAt"
+      ]
+    },
+    "400BadRequest49": {
+      "title": "400 Bad Request49",
+      "example": {
+        "errors": {
+          "facilities": "Facilities is Required"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "$ref": "#/definitions/Errors50"
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "Errors50": {
+      "title": "Errors50",
+      "example": {
+        "facilities": "Facilities is Required"
+      },
+      "type": "object",
+      "properties": {
+        "facilities": {
+          "description": "",
+          "example": "Facilities is Required",
+          "type": "string"
+        }
+      },
+      "required": [
+        "facilities"
+      ]
+    },
+    "EditCenterrequest": {
+      "title": "Edit centerRequest",
+      "example": {
+        "name": "Dammy Hall",
+        "location": "Maryland",
+        "capacity": 500,
+        "price": 1000,
+        "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+        "type": "Marquee",
+        "description": "Dammy Center is in maryland",
+        "facilities": [
+          "bar",
+          "casino"
+        ]
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "",
+          "example": "Dammy Hall",
+          "type": "string"
+        },
+        "location": {
+          "description": "",
+          "example": "Maryland",
+          "type": "string"
+        },
+        "capacity": {
+          "description": "",
+          "example": 500,
+          "type": "integer",
+          "format": "int32"
+        },
+        "price": {
+          "description": "",
+          "example": 1000,
+          "type": "integer",
+          "format": "int32"
+        },
+        "image": {
+          "description": "",
+          "example": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "type": "string"
+        },
+        "type": {
+          "description": "",
+          "example": "Marquee",
+          "type": "string"
+        },
+        "description": {
+          "description": "",
+          "example": "Dammy Center is in maryland",
+          "type": "string"
+        },
+        "facilities": {
+          "description": "",
+          "example": [
+            "bar",
+            "casino"
+          ],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "location",
+        "capacity",
+        "price",
+        "image",
+        "type",
+        "description",
+        "facilities"
+      ]
+    },
+    "400BadRequest53": {
+      "title": "400 Bad Request53",
+      "example": {
+        "errors": {
+          "centerId": "Center Id is invalid"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "errors": {
+          "$ref": "#/definitions/Errors54"
+        }
+      },
+      "required": [
+        "errors"
+      ]
+    },
+    "Errors54": {
+      "title": "Errors54",
+      "example": {
+        "centerId": "Center Id is invalid"
+      },
+      "type": "object",
+      "properties": {
+        "centerId": {
+          "description": "",
+          "example": "Center Id is invalid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "centerId"
+      ]
+    },
+    "200Ok55": {
+      "title": "200 OK55",
+      "example": {
+        "message": "Center Update Successful",
+        "modifiedCenter": {
+          "id": 3,
+          "name": "Dammy Hall",
+          "location": "Maryland",
+          "capacity": 500,
+          "price": 1000,
+          "facilities": [
+            "bar",
+            "casino"
+          ],
+          "type": "Marquee",
+          "description": "Dammy Center is in maryland",
+          "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "createdAt": "2018-05-21",
+          "updatedAt": "2018-05-21T13:19:50.115Z"
+        }
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "Center Update Successful",
+          "type": "string"
+        },
+        "modifiedCenter": {
+          "$ref": "#/definitions/ModifiedCenter"
+        }
+      },
+      "required": [
+        "message",
+        "modifiedCenter"
+      ]
+    },
+    "ModifiedCenter": {
+      "title": "ModifiedCenter",
+      "example": {
+        "id": 3,
+        "name": "Dammy Hall",
+        "location": "Maryland",
+        "capacity": 500,
+        "price": 1000,
+        "facilities": [
+          "bar",
+          "casino"
+        ],
+        "type": "Marquee",
+        "description": "Dammy Center is in maryland",
+        "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+        "createdAt": "2018-05-21",
+        "updatedAt": "2018-05-21T13:19:50.115Z"
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "description": "",
+          "example": "Dammy Hall",
+          "type": "string"
+        },
+        "location": {
+          "description": "",
+          "example": "Maryland",
+          "type": "string"
+        },
+        "capacity": {
+          "description": "",
+          "example": 500,
+          "type": "integer",
+          "format": "int32"
+        },
+        "price": {
+          "description": "",
+          "example": 1000,
+          "type": "integer",
+          "format": "int32"
+        },
+        "facilities": {
+          "description": "",
+          "example": [
+            "bar",
+            "casino"
+          ],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "description": "",
+          "example": "Marquee",
+          "type": "string"
+        },
+        "description": {
+          "description": "",
+          "example": "Dammy Center is in maryland",
+          "type": "string"
+        },
+        "image": {
+          "description": "",
+          "example": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "type": "string"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "2018-05-21",
+          "type": "string"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "5/21/2018 1:19:50 PM",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "location",
+        "capacity",
+        "price",
+        "facilities",
+        "type",
+        "description",
+        "image",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "200Ok57": {
+      "title": "200 OK57",
+      "example": {
+        "message": "Center Found!",
+        "center": {
+          "id": 3,
+          "name": "Dammy Hall",
+          "location": "Maryland",
+          "capacity": 500,
+          "price": 1000,
+          "facilities": [
+            "bar",
+            "casino"
+          ],
+          "type": "Marquee",
+          "description": "Dammy Center is in maryland",
+          "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "createdAt": "2018-05-21",
+          "updatedAt": "2018-05-21",
+          "events": []
+        }
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "Center Found!",
+          "type": "string"
+        },
+        "center": {
+          "$ref": "#/definitions/Center58"
+        }
+      },
+      "required": [
+        "message",
+        "center"
+      ]
+    },
+    "Center58": {
+      "title": "Center58",
+      "example": {
+        "id": 3,
+        "name": "Dammy Hall",
+        "location": "Maryland",
+        "capacity": 500,
+        "price": 1000,
+        "facilities": [
+          "bar",
+          "casino"
+        ],
+        "type": "Marquee",
+        "description": "Dammy Center is in maryland",
+        "image": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+        "createdAt": "2018-05-21",
+        "updatedAt": "2018-05-21",
+        "events": []
+      },
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "",
+          "example": 3,
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "description": "",
+          "example": "Dammy Hall",
+          "type": "string"
+        },
+        "location": {
+          "description": "",
+          "example": "Maryland",
+          "type": "string"
+        },
+        "capacity": {
+          "description": "",
+          "example": 500,
+          "type": "integer",
+          "format": "int32"
+        },
+        "price": {
+          "description": "",
+          "example": 1000,
+          "type": "integer",
+          "format": "int32"
+        },
+        "facilities": {
+          "description": "",
+          "example": [
+            "bar",
+            "casino"
+          ],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "description": "",
+          "example": "Marquee",
+          "type": "string"
+        },
+        "description": {
+          "description": "",
+          "example": "Dammy Center is in maryland",
+          "type": "string"
+        },
+        "image": {
+          "description": "",
+          "example": "http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg",
+          "type": "string"
+        },
+        "createdAt": {
+          "description": "",
+          "example": "2018-05-21",
+          "type": "string"
+        },
+        "updatedAt": {
+          "description": "",
+          "example": "2018-05-21",
+          "type": "string"
+        },
+        "events": {
+          "description": "",
+          "example": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "location",
+        "capacity",
+        "price",
+        "facilities",
+        "type",
+        "description",
+        "image",
+        "createdAt",
+        "updatedAt",
+        "events"
+      ]
+    },
+    "200Ok61": {
+      "title": "200 OK61",
+      "example": {
+        "message": "Center Successfully Deleted!",
+        "centerId": "3"
+      },
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "",
+          "example": "Center Successfully Deleted!",
+          "type": "string"
+        },
+        "centerId": {
+          "description": "",
+          "example": "3",
+          "type": "string"
+        }
+      },
+      "required": [
+        "message",
+        "centerId"
+      ]
+    }
+  }
+}
