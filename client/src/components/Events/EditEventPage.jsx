@@ -64,8 +64,6 @@ class EditEventPage extends React.Component {
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
-    console.log('next', nextProps);
-    console.log('props', this.props);
     // if (this.props.updateEventData.id !== nextProps.events.id) {
     //   this.setState({
     //     updateEventData: nextProps.updateEventData

@@ -19,11 +19,11 @@ const EventCenterList = ({
   return (
     <div className="p-3">
       <div className="row border border-top-2 border-bottom-2 py-2">
-        <div className={ isAdmin ? 'col-3' : 'col-4'}>
+        <div className={isAdmin ? 'col-3' : 'col-4'}>
           <p className="mt-3 font-weight-bold">Date Booked</p></div>
-        <div className={ isAdmin ? 'col-3' : 'col-4'}>
+        <div className={isAdmin ? 'col-3' : 'col-4'}>
           <p className="mt-3 font-weight-bold">Status</p></div>
-        <div className={ isAdmin ? 'col-3' : 'col-4'}>
+        <div className={isAdmin ? 'col-3' : 'col-4'}>
           <p className="mt-3 font-weight-bold">Events Slated</p></div>
         {isAdmin ?
           <div className="col-3">
@@ -33,8 +33,8 @@ const EventCenterList = ({
       {events.map((event, id) => (
         <div className="row border border-top-2 border-bottom-2 py-2"
           key={id}>
-          <div className={ isAdmin ? 'col-3' : 'col-4'}><p className="mt-3">{moment(event.startDate).format('dddd, MMMM Do YYYY')}</p></div>
-          <div className={ isAdmin ? 'col-3 mt-3' : 'col-4 mt-3'}>
+          <div className={isAdmin ? 'col-3' : 'col-4'}><p className="mt-3">{moment(event.startDate).format('dddd, MMMM Do YYYY')}</p></div>
+          <div className={isAdmin ? 'col-3 mt-3' : 'col-4 mt-3'}>
             <span className="fa-stack">
               { event.status === 'pending' ?
                 <i className="fa fa-circle fa-stack text-orange" />
@@ -43,7 +43,7 @@ const EventCenterList = ({
                   : <i className="fa fa-circle fa-stack text-success" />
               }
             </span>{event.status}</div>
-          <div className={ isAdmin ? 'col-3' : 'col-4'}><p className="mt-3">{event.name}</p></div>
+          <div className={isAdmin ? 'col-3' : 'col-4'}><p className="mt-3">{event.name}</p></div>
           {isAdmin ?
             <div className="col-3">
               <button
@@ -90,7 +90,12 @@ EventCenterList.propTypes = {
   handleCancelEvent: PropTypes.func.isRequired,
   handleApproveEvent: PropTypes.func.isRequired,
   cancelEventLoading: PropTypes.bool.isRequired,
-  approveEventLoading: PropTypes.bool.isRequired
+  approveEventLoading: PropTypes.bool.isRequired,
+  showNoEvents: PropTypes.func.isRequired,
+  showLoader: PropTypes.func.sRequired,
+  eventLoading: PropTypes.bool.isrequired,
+  error: PropTypes.object.isRequired,
+  eventId: PropTypes.number.isrequired
 };
 
 export default EventCenterList;
