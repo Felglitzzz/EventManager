@@ -119,7 +119,7 @@ export default class Event {
         },
         limit,
         offset,
-        order: [['createdAt', 'DESC']],
+        order: [['id', 'DESC']],
         include: [
           {
             model: centers,
@@ -172,11 +172,11 @@ export default class Event {
    */
   static getEventsByCenterId(req, res) {
     const limit = 3;
-    let offset = Number(0);
     const baseUrl = `${req.protocol}://${req.get('host')}${req.baseUrl}${req.path}`;
     let currentPage = req.query.page || 1;
     currentPage = Number(currentPage);
     const currentPageUrl = `${baseUrl}?page=${currentPage}`;
+    const offset = limit * (currentPage - 1);
     let previous;
     let next;
 
@@ -187,7 +187,7 @@ export default class Event {
         },
         limit,
         offset,
-        order: [['createdAt', 'DESC']]
+        order: [['startDate', 'DESC']]
       })
       .then((foundEvents) => {
         if (foundEvents.count === 0) {
@@ -196,7 +196,6 @@ export default class Event {
           });
         }
         const totalPages = Math.ceil(foundEvents.count / limit);
-        offset = limit * (currentPage - 1);
         if (currentPage !== 1) {
           previous = `${baseUrl}?page=${currentPage - 1}`;
         }
@@ -251,7 +250,7 @@ export default class Event {
               // Send back the updated event too.
               .then(modifiedEvent => res.status(200).json({
                 message: 'Event Update Successful',
-                modifiedEvent
+                event: modifiedEvent
               }))
               .catch((error) => {
                 const errMessages = errorMessages(error);

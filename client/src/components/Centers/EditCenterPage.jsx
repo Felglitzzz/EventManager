@@ -51,11 +51,11 @@ class EditCenterPage extends React.Component {
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
-    if (this.props.updateCenterData.id !== nextProps.updateCenterData.id) {
-      this.setState({
-        updateCenterData: nextProps.updateCenterData
-      });
-    }
+    // if (this.props.updateCenterData.id !== nextProps.updateCenterData.id) {
+    //   this.setState({
+    //     updateCenterData: nextProps.updateCenterData
+    //   });
+    // }
     if (nextProps.imageUrl) {
       this.setState({
         updateCenterData: {

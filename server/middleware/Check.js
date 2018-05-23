@@ -1,8 +1,9 @@
 import moment from 'moment';
+import Sequelize from 'sequelize';
+
 import models from '../models';
 
 const events = models.event;
-
 
 /**
  * Controller Class implementation to check request parameters
@@ -23,7 +24,7 @@ export default class Check {
   static IfEventDateIsPast(req, res, next) {
     const eventStartDate = new Date(req.body.startDate);
     const now = new Date();
-    if (eventStartDate && eventStartDate < now) {
+    if (Math.sign(moment(eventStartDate).diff(now, 'days')) === -1) {
       return res.status(400).json({
         message: 'Date is past, Please choose a future date!'
       });
@@ -45,14 +46,21 @@ export default class Check {
     const eventStartDate = new Date(req.body.startDate);
     const eventEndDate = new Date(req.body.endDate);
 
+    if (eventEndDate < eventStartDate) {
+      return res.status(400).send({
+        message: 'End date should come after start date'
+      });
+    }
     const query = {
       where: {
         centerId: req.body.centerId,
-        startDate: {
-          $between: [eventStartDate, eventEndDate]
-        },
-        endDate: {
-          $between: [eventStartDate, eventEndDate]
+        $or: {
+          startDate: {
+            $between: [eventStartDate, eventEndDate]
+          },
+          endDate: {
+            $between: [eventStartDate, eventEndDate]
+          }
         }
       }
     };
@@ -109,15 +117,24 @@ export default class Check {
     const eventEndDate = new Date(req.body.endDate);
 
     const query = {
-      where: {
-        centerId: req.body.centerId,
-        startDate: {
-          $between: [eventStartDate, eventEndDate]
-        },
-        endDate: {
-          $between: [eventStartDate, eventEndDate]
+      [Sequelize.Op.or]: [
+        {
+          startDate: {
+            [Sequelize.Op.between]: [eventStartDate, eventEndDate]
+          }
+        }, {
+          endDate: {
+            [Sequelize.Op.between]: [eventStartDate, eventEndDate]
+          }
+        }, {
+          startDate: {
+            [Sequelize.Op.lte]: eventStartDate
+          },
+          endDate: {
+            [Sequelize.Op.gte]: eventEndDate
+          }
         }
-      }
+      ]
     };
 
     events.find(query).then((event) => {

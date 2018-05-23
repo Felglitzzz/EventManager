@@ -3,7 +3,6 @@ import errorMessages from '../utils/errorMessages';
 import Helper from '../utils/Helper';
 
 const centers = db.center;
-const events = db.event;
 
 /**
  * Controller Class implementation to handle center based routes
@@ -85,15 +84,7 @@ export default class Center {
    */
   static getOneCenter(req, res) {
     return centers
-      .findById(req.params.centerId, {
-        include: [
-          {
-            model: events,
-            as: 'events',
-            attributes: ['id', 'name', 'startDate', 'endDate']
-          }
-        ]
-      })
+      .findById(req.params.centerId)
       .then((center) => {
         if (!center) {
           return res.status(404).send({
@@ -136,7 +127,7 @@ export default class Center {
       .findAndCountAll({
         limit,
         offset,
-        order: [['createdAt', 'DESC']]
+        order: [['id', 'DESC']]
       })
       .then((foundCenters) => {
         if (foundCenters.count === 0) {

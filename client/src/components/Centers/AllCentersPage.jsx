@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Loader from 'react-md-spinner';
-import swal from 'sweetalert';
 import { Link } from 'react-router-dom';
 
 import history from '../../helpers/history';
@@ -41,7 +40,7 @@ class AllCentersPage extends React.Component {
       }
     };
 
-    this.handleDelete = this.handleDelete.bind(this);
+    // this.handleDelete = this.handleDelete.bind(this);
     this.showNext = this.showNext.bind(this);
     this.showPrevious = this.showPrevious.bind(this);
     this.showLoader = this.showLoader.bind(this);
@@ -74,9 +73,9 @@ class AllCentersPage extends React.Component {
       this.props.loadCenters(+page[1]);
     }
 
-    if (nextProps.centers.loadedCenters) {
-      const { centers } = nextProps.centers.loadedCenters;
-      const paginationMeta = nextProps.centers.loadedCenters.meta;
+    if (nextProps.centers.centers) {
+      const { centers } = nextProps.centers.centers;
+      const paginationMeta = nextProps.centers.centers.meta;
       const pagination = paginationMeta ? paginationMeta.pagination : undefined;
       this.setState({
         centers,
@@ -90,35 +89,35 @@ class AllCentersPage extends React.Component {
     }
   }
 
-  /**
-   * @description -handles delete center
-   *
-   * @param {object} center
-   *
-   * @returns {void}
-   */
-  handleDelete(center) {
-    const id = parseInt(center.target.id, 10);
-    swal({
-      title: 'You are about to delete this center?',
-      text: 'Do you wish to continue?!',
-      icon: 'warning',
-      closeOnClickOutside: false,
-      closeOnEsc: false,
-      buttons: true,
-      dangerMode: true,
-    })
-      .then((willDelete) => {
-        if (willDelete) {
-          this.props.deleteCenter(id);
-          swal('Poof! Your event has been deleted!', {
-            icon: 'success',
-          });
-        } else {
-          swal('Your center is safe!');
-        }
-      });
-  }
+  // /**
+  //  * @description -handles delete center
+  //  *
+  //  * @param {object} center
+  //  *
+  //  * @returns {void}
+  //  */
+  // handleDelete(center) {
+  //   const id = parseInt(center.target.id, 10);
+  //   swal({
+  //     title: 'You are about to delete this center?',
+  //     text: 'Do you wish to continue?!',
+  //     icon: 'warning',
+  //     closeOnClickOutside: false,
+  //     closeOnEsc: false,
+  //     buttons: true,
+  //     dangerMode: true,
+  //   })
+  //     .then((willDelete) => {
+  //       if (willDelete) {
+  //         this.props.deleteCenter(id);
+  //         swal('Poof! Your event has been deleted!', {
+  //           icon: 'success',
+  //         });
+  //       } else {
+  //         swal('Your center is safe!');
+  //       }
+  //     });
+  // }
 
   /**
    * @description - Handles fetching of centers on next page request
@@ -177,10 +176,10 @@ class AllCentersPage extends React.Component {
           />
         </div>
         <div>
-          <h3 className="text-center text-dark montezfont display-4">
+          <h3 className="text-center text-dark pt-4">
         You have no centers!
           </h3>
-          <p className="text-center text-dark montezfont display-4">
+          <p className="text-center text-dark pb-2">
         Let's change that
           </p>
           <Link
@@ -216,11 +215,10 @@ class AllCentersPage extends React.Component {
 
     return (
       <section>
-        <div className="container">
+        <div className="container pad-top">
           <div className="row">
             <UnitCenter
               centers = {this.state.centers}
-              handleDelete = {this.handleDelete}
             />
           </div>
         </div>
@@ -258,7 +256,7 @@ AllCentersPage.propTypes = {
  * @return { object } props - returns mapped props from state
  */
 const mapStateToProps = state => ({
-  centers: state.centers,
+  centers: state.centerReducer,
 });
 
 /**

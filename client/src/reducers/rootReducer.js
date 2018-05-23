@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import userAccess from './userAccessReducer';
-import events from './eventReducer';
-import centers from './centerReducer';
+import eventReducer from './eventReducer';
+import centerReducer from './centerReducer';
 import images from './imageReducer';
 import initialState from '../reducers/initialState';
 import * as actionTypes from '../actions/actionTypes';
@@ -13,26 +13,18 @@ const {
 
 const appReducer = combineReducers({
   userAccess,
-  events,
-  centers,
+  eventReducer,
+  centerReducer,
   images,
   routing: routerReducer
 });
 
 const rootReducer = (state, action) => {
   if (action.type === LOG_OUT) {
-    state = initialState;
+    state = initialState.userAccess;
   }
 
-  return appReducer(state, action)
+  return appReducer(state, action);
 };
-
-// const rootReducer = combineReducers({
-//   userAccess,
-//   events,
-//   centers,
-//   images,
-//   routing: routerReducer
-// });
 
 export default rootReducer;

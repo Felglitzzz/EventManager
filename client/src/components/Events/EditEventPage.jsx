@@ -64,11 +64,13 @@ class EditEventPage extends React.Component {
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
-    if (this.props.updateEventData.id !== nextProps.updateEventData.id) {
-      this.setState({
-        updateEventData: nextProps.updateEventData
-      });
-    }
+    console.log('next', nextProps);
+    console.log('props', this.props);
+    // if (this.props.updateEventData.id !== nextProps.events.id) {
+    //   this.setState({
+    //     updateEventData: nextProps.updateEventData
+    //   });
+    // }
     if (nextProps.options.unPaginatedCenters) {
       this.setState({
         options: nextProps.options.unPaginatedCenters.centers
@@ -275,7 +277,8 @@ function mapStateToProps(state, ownProps) {
   }
   return {
     updateEventData,
-    options: state.centers,
+    events: state.eventReducer,
+    options: state.centerReducer,
     imageUrl: state.images.image
   };
 }

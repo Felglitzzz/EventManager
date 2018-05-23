@@ -1,5 +1,5 @@
 * {
-  font-family: 'Benton Sans';
+  font-family: 'Open Sans', sans-serif;
 }
 
 body,
@@ -23,11 +23,6 @@ a {
 
 .pad {
   padding-top: 15rem;
-}
-
-.is-error {
-  border: 1px solid #dc3545;
-  color: #dc3545;
 }
 
 .alert {
@@ -64,9 +59,9 @@ a {
   display: block;
   background-attachment: fixed;
   background-position: center center;
+  min-height: 100vh !important;
 }
-
-.zoom img {
+/* .zoom img {
   -moz-transition: all 1s;
   -o-transition: all 1s;
   -webkit-transition: all 1s;
@@ -80,7 +75,7 @@ a {
   -ms-transform: scale3d(1.1, 1.1, 1);
   -webkit-transform: scale3d(1.1, 1.1, 1);
   transform: scale3d(1.1, 1.1, 1);
-}
+} */
 
 .border-10 {
   border: 10px solid;
@@ -113,8 +108,6 @@ a {
 .z-depth-anim:active {
   box-shadow: none !important;
 }
-
-
 .wrapper {
   position: relative;
   top: 0;
@@ -253,14 +246,6 @@ a {
 
 .wrap {
   flex-wrap: wrap;
-}
-
-.montfont {
-  font-family: 'Montserrat Alternates', sans-serif;
-}
-
-.montezfont {
-  font-family: 'Montez', cursives;
 }
 
 .box {
@@ -566,6 +551,25 @@ height: 200px
   display: table-row-group;
   vertical-align: middle;
   border-color: inherit;
+}
+
+.fourohfour{
+  font-size: 17rem;
+  text-align: center;
+}
+.border-404{
+  z-index: 4;
+  width:100%;
+}
+
+.stat{
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+  padding: 1px 2px;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .table .td, .table .th {
@@ -962,6 +966,9 @@ height: 200px
   .no-padding-hr {
     padding-left: 0px !important;
     padding-right: 0px !important;
+  }
+  .pad-top{
+    padding-top: 6rem;
   }
 
   .the-flex{

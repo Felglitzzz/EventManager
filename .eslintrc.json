@@ -40,6 +40,7 @@
     "no-nested-ternary": 0,
     "import/no-unresolved": 0,
     "import/extensions": 0,
+    "import/no-extraneous-dependencies":0,
     "no-unused-expressions": [2, {"allowTernary": true, "allowShortCircuit": true}],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
     "valid-jsdoc": ["error", {

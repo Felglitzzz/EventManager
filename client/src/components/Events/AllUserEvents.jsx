@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import swal from 'sweetalert';
 import Loader from 'react-md-spinner';
-
 import { Link } from 'react-router-dom';
+
 import UserEvent from '../Events/UserEvent';
 import { loadAllEvent, deleteEvent } from '../../actions/eventActions';
 import history from '../../helpers/history';
@@ -76,9 +76,9 @@ class AllUserEvents extends React.Component {
       this.props.loadAllEvent(+page[1]);
     }
 
-    if (nextProps.events.loadedEvents) {
-      const { events } = nextProps.events.loadedEvents;
-      const paginationMeta = nextProps.events.loadedEvents.meta;
+    if (nextProps.events.events) {
+      const { events } = nextProps.events.events;
+      const paginationMeta = nextProps.events.events.meta;
       const pagination = paginationMeta ? paginationMeta.pagination : undefined;
       this.setState({
         events,
@@ -188,10 +188,10 @@ class AllUserEvents extends React.Component {
           />
         </div>
         <div>
-          <h3 className="text-center text-dark montezfont display-4">
+          <h3 className="text-center text-dark pt-4">
         You have no upcoming events!
           </h3>
-          <p className="text-center text-dark montezfont display-4">
+          <p className="text-center text-dark pb-2">
         Let's change that
           </p>
           <Link
@@ -205,7 +205,6 @@ class AllUserEvents extends React.Component {
             </button></Link>
         </div>
       </div>
-
     );
   }
 
@@ -223,29 +222,30 @@ class AllUserEvents extends React.Component {
     if (events.rows === undefined) {
       return this.showNoEvents();
     }
-
-    return (<section>
-      <div className="container">
-        <div className="row">
-          <UserEvent
-            events = {this.state.events}
-            handleDelete={this.handleDelete}
-          />
+    return (
+      <section>
+        <div className="container pad-top">
+          <div className="row">
+            <UserEvent
+              events = {this.state.events}
+              handleDelete={this.handleDelete}
+              showLoader={this.show}
+            />
+          </div>
         </div>
-      </div>
-      {events && events.length !== 0
-        ?
-        <Pagination
-          currentPage = {this.state.pagination.currentPage}
-          currentPageUrl = {this.state.pagination.currentPageUrl}
-          next = {this.state.pagination.next}
-          previous = {this.state.pagination.previous}
-          showNext={this.showNext}
-          showPrevious={this.showPrevious}
-          totalPages = {this.state.pagination.totalPages}
-        />
-        : (null) }
-    </section>);
+        {events && events.length !== 0
+          ?
+          <Pagination
+            currentPage = {this.state.pagination.currentPage}
+            currentPageUrl = {this.state.pagination.currentPageUrl}
+            next = {this.state.pagination.next}
+            previous = {this.state.pagination.previous}
+            showNext={this.showNext}
+            showPrevious={this.showPrevious}
+            totalPages = {this.state.pagination.totalPages}
+          />
+          : (null) }
+      </section>);
   }
 }
 
@@ -266,7 +266,7 @@ AllUserEvents.propTypes = {
  * @return { object } props - returns mapped props from state
  */
 const mapStateToProps = state => ({
-  events: state.events,
+  events: state.eventReducer,
 });
 
 /**
