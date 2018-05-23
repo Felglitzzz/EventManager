@@ -10,8 +10,6 @@ const {
   UPDATE_CENTER_FAIL,
   LOAD_ONE_CENTER_FAIL,
   LOAD_ONE_CENTER_SUCCESS,
-  DELETE_ONE_CENTER_FAIL,
-  DELETE_ONE_CENTER_SUCCESS,
   LOAD_UNPAGINATED_CENTERS_FAIL,
   LOAD_UNPAGINATED_CENTERS_SUCCESS
 } = actionTypes;
@@ -21,13 +19,13 @@ const {
  *
  * @export loadAllCenterSuccess
  *
- * @param {object} loadedCenters
+ * @param {object} centers
  *
- * @returns {object} dispatched action type and loadedCenters object
+ * @returns {object} dispatched action type and centers object
  */
-export const loadCenterSuccess = loadedCenters => ({
+export const loadCenterSuccess = centers => ({
   type: LOAD_ALL_CENTERS_SUCCESS,
-  loadedCenters
+  centers
 });
 
 /**
@@ -125,13 +123,13 @@ export const createCenter = centerData => (dispatch) => {
  *
  * @export updateCenterSuccess
  *
- * @param {object} updateCenterData
+ * @param {object} center
  *
- * @returns {object} dispatched action type and updateCenterData object
+ * @returns {object} dispatched action type and center object
  */
-export const updateCenterSuccess = updateCenterData => ({
+export const updateCenterSuccess = center => ({
   type: UPDATE_CENTER_SUCCESS,
-  updateCenterData
+  center
 });
 
 /**
@@ -218,57 +216,6 @@ export const loadOneCenter = centerId => (dispatch) => {
     })
     .catch((errors) => {
       dispatch(loadOneCenterFail(errors));
-      throw (errors.response.data.message);
-    });
-};
-
-/**
- * description - defines DELETE request success action for an event
- *
- * @export deleteCenterSuccess
- *
- * @param {object} deletedStatus
- *
- * @returns {object} dispatched action type and deleteStatus message
- */
-export const deleteCenterSuccess = deletedStatus => ({
-  type: DELETE_ONE_CENTER_SUCCESS,
-  deletedStatus
-});
-
-/**
- * description - defines DELETE request fail action for a center
- *
- * @export deleteCenterFail
- *
- * @param {object} error
- *
- * @returns {object} dispatched action type and error object
- */
-export const deleteCenterFail = error => ({
-  type: DELETE_ONE_CENTER_FAIL,
-  error
-});
-
-/**
- * description - handles DELETE request for one center
- *
- * @export deleteCenter
- *
- * @param {object} centerId
- *
- * @returns {object} dispatched action
- */
-export const deleteCenter = centerId => (dispatch) => {
-  const token = localStorage.getItem('x-access-token');
-  return axios.delete(`/api/v1/centers/${centerId}`, {
-    headers: { Authorization: token }
-  })
-    .then((response) => {
-      dispatch(deleteCenterSuccess(response.data));
-    })
-    .catch((errors) => {
-      dispatch(deleteCenterFail(errors));
       throw (errors.response.data.message);
     });
 };

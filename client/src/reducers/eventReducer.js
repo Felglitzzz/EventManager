@@ -59,7 +59,7 @@ const eventReducer = (state = initialState.events, action) => {
   case ADD_EVENT_SUCCESS:
     return {
       ...state,
-      eventData: action.eventData
+      events: action.eventData
     };
   case ADD_EVENT_FAIL:
     return {
@@ -69,7 +69,7 @@ const eventReducer = (state = initialState.events, action) => {
   case LOAD_ALL_EVENTS_SUCCESS:
     return {
       ...state,
-      loadedEvents: action.loadedEvents
+      events: action.events
     };
   case LOAD_ALL_EVENTS_FAIL:
     return {
@@ -86,10 +86,26 @@ const eventReducer = (state = initialState.events, action) => {
       ...state,
       update: action.error
     };
+  // case UPDATE_EVENT_SUCCESS:
+  //   return {
+  //     ...state,
+  //     events: {
+  //       events: {
+  //         ...state.events.events,
+  //         rows: action.event.event
+  //         // rows: state.events.events.rows.filter(event => event.id !== action.event.id)
+  //       },
+  //       meta: {
+  //         pagination: {
+  //           ...state.events.meta.pagination
+  //         }
+  //       }
+  //     }
+  //   };
   case UPDATE_EVENT_SUCCESS:
     return {
       ...state,
-      updateEventData: action.updateEventData.modifiedEvent
+      events: action.event
     };
   case UPDATE_EVENT_FAIL:
     return {
@@ -107,17 +123,17 @@ const eventReducer = (state = initialState.events, action) => {
       error: action.error
     };
   case DELETE_ONE_EVENT_SUCCESS: {
-    const remainingEvents = state.loadedEvents.events.rows.filter(event =>
+    const remainingEvents = state.events.events.rows.filter(event =>
       event.id !== parseInt(action.deletedStatus.eventId, 10));
     return {
       ...state,
-      loadedEvents: {
+      events: {
         events: {
-          ...state.loadedEvents.events,
+          ...state.events.events,
           rows: remainingEvents,
         },
         meta: {
-          pagination: state.loadedEvents.meta.pagination
+          pagination: state.events.meta.pagination
         }
       }
     };

@@ -127,17 +127,17 @@ class UserDashboard extends React.Component {
                     >
                       <li className="text-orange bg-dark waves-effect sidenav-title padL">
                         <i className="text-center fab fa-quinscape fa-2x" />
-                        <p className="font-weight-bold text-orange montfont">EVENTERIA</p>
+                        <p className="font-weight-bold text-orange lead">EVENTERIA</p>
                       </li>
                     </Link>
                     { isAdmin ? (null) : <Link
                       to={'/dashboard/centers'}
                     >
-                      <li className="list-group-item bg-dark mb-1 button-anim padL">
+                      <li className="list-group-item bg-dark mb-1 button-anim padL py-4">
                         <span className="fa-stack mr-2 empty">
                           <i className="text-center text-orange fa fa-university fa-2x" />
                         </span>
-                        <p className="font-weight-bold text-orange montfont d-inline-flex">
+                        <p className="font-weight-bold text-orange lead d-inline-flex">
                           Centers
                         </p>
                       </li>
@@ -145,30 +145,30 @@ class UserDashboard extends React.Component {
                     <Link
                       to ={isAdmin ? '/dashboard/centers' : '/dashboard/events'}
                     >
-                      <li className="list-group-item bg-dark mb-1 button-anim padL">
+                      <li className="list-group-item bg-dark mb-1 button-anim padL py-4">
                         <span className="fa-stack mr-2 empty">
                           <i className="text-center text-orange fa fa-folder-open fa-2x" />
                         </span>
-                        <p className="font-weight-bold text-orange montfont d-inline-flex">{isAdmin ? 'My Centers' : 'My Events'}</p>
+                        <p className="font-weight-bold text-orange lead d-inline-flex">{isAdmin ? 'My Centers' : 'My Events'}</p>
                       </li>
                     </Link>
                     <Link
                       to={isAdmin ? '/dashboard/center' : '/dashboard/event'}
                     >
-                      <li className="list-group-item bg-dark mb-1 button-anim padL">
+                      <li className="list-group-item bg-dark mb-1 button-anim padL py-4">
                         <span className="fa-stack mr-2 empty">
                           <i className="text-center text-orange fa fa-plus-square fa-2x" />
                         </span>
-                        <p className="font-weight-bold text-orange montfont d-inline-flex">{isAdmin ? 'Create Centers' : 'Create Events'}</p>
+                        <p className="font-weight-bold text-orange lead d-inline-flex">{isAdmin ? 'Create Centers' : 'Create Events'}</p>
                       </li>
                     </Link>
-                    <li className="list-group-item text-orange mb-1 bg-dark button-anim padL"
+                    <li className="list-group-item text-orange mb-1 bg-dark button-anim padL py-4"
                       onClick={this.handleLogout}
                     >
                       <span className="fa-stack mr-2 empty">
                         <i className="text-center text-orange fa fa-power-off fa-2x" />
                       </span>
-                      <p className="font-weight-bold text-orange montfont d-inline-flex">Logout</p>
+                      <p className="font-weight-bold text-orange lead d-inline-flex">Logout</p>
                     </li>
                   </ul>
                 </div>

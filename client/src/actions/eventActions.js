@@ -9,8 +9,6 @@ const {
   LOAD_ALL_EVENTS_FAIL,
   UPDATE_EVENT_SUCCESS,
   UPDATE_EVENT_FAIL,
-  LOAD_ONE_EVENT_FAIL,
-  LOAD_ONE_EVENT_SUCCESS,
   DELETE_ONE_EVENT_FAIL,
   DELETE_ONE_EVENT_SUCCESS,
   LOAD_EVENTS_BY_CENTER_ID_SUCCESS,
@@ -26,13 +24,13 @@ const {
  *
  * @export addEventSuccess
  *
- * @param {object} eventData
+ * @param {object} events
  *
  * @returns {object} action object
  */
-export const addEventSuccess = eventData => ({
+export const addEventSuccess = events => ({
   type: ADD_EVENT_SUCCESS,
-  eventData
+  events
 });
 
 /**
@@ -91,13 +89,13 @@ export const loadAllEventFail = error => ({
  *
  * @export loadAllEventSuccess
  *
- * @param {object} loadedEvents
+ * @param {object} events
  *
- * @returns {object} dispatched action type and loadedEvents object
+ * @returns {object} dispatched action type and events object
  */
-export const loadAllEventSuccess = loadedEvents => ({
+export const loadAllEventSuccess = events => ({
   type: LOAD_ALL_EVENTS_SUCCESS,
-  loadedEvents
+  events
 });
 
 
@@ -129,13 +127,13 @@ export const loadAllEvent = page => (dispatch) => {
  *
  * @export updateEventSuccess
  *
- * @param {object} updateEventData
+ * @param {object} event
  *
- * @returns {object} dispatched action type and updateEventData object
+ * @returns {object} dispatched action type and updatedEvent object
  */
-export const updateEventSuccess = updateEventData => ({
+export const updateEventSuccess = event => ({
   type: UPDATE_EVENT_SUCCESS,
-  updateEventData
+  event
 });
 
 
@@ -172,58 +170,6 @@ export const updateEvent = updateEventData => (dispatch) => {
     })
     .catch((errors) => {
       dispatch(updateEventFail(errors));
-      throw (errors.response.data.message);
-    });
-};
-
-/**
- * description - defines load one events success action
- *
- * @export loadOneEventSuccess
- *
- * @param {object} eventReturned
- *
- * @returns {object} dispatched action type and retrieved event object
- */
-export const loadOneEventSuccess = eventReturned => ({
-  type: LOAD_ONE_EVENT_SUCCESS,
-  eventReturned
-});
-
-/**
- * description - defines load one event failure action
- *
- * @export loadOneEventFail
- *
- * @param {object} error
- *
- * @returns {object} dispatched action type and error object
- */
-export const loadOneEventFail = error => ({
-  type: LOAD_ONE_EVENT_FAIL,
-  error
-});
-
-
-/**
- * description - handles GET request for one event
- *
- * @export loadOneEvent
- *
- * @param {object} eventId
- *
- * @returns {object} dispatched action
- */
-export const loadOneEvent = eventId => (dispatch) => {
-  const token = localStorage.getItem('x-access-token');
-  return axios.get(`/api/v1/events/${eventId}`, {
-    headers: { Authorization: token }
-  })
-    .then((response) => {
-      dispatch(loadOneEventSuccess(response.data));
-    })
-    .catch((errors) => {
-      dispatch(loadOneEventFail(errors.response.data.message));
       throw (errors.response.data.message);
     });
 };

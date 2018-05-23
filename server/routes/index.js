@@ -72,7 +72,7 @@ router
     InputValidate.editEvent,
     Check.IfEditEventNameIsInDatabase,
     Check.IfEventDateIsPast,
-    Check.IfEditCenterIsAlreadyBooked,
+    // Check.IfEditCenterIsAlreadyBooked,
     Event.modifyEvent
   );
 router

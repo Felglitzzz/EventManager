@@ -243,7 +243,7 @@ CreateEventPage.propTypes = {
  */
 function mapStateToProps(state) {
   return {
-    options: state.centers,
+    options: state.centerReducer,
     imageUrl: state.images.image
   };
 }

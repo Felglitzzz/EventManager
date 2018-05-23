@@ -25,12 +25,14 @@ a {
 }
 
 .fill_screen {
-  background: url(../img/evenn.png);
+  background: url("http://res.cloudinary.com/felglitz/image/upload/v1515535208/evenn_ymwcen.png");
+  /* background: url(../img/evenn.png); */
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
 	background-position: center center;
-	min-height: 100vh;
+  min-height: 200vh;
+  /* height: 100vh */
 }
 
 .form-width {
@@ -82,6 +84,10 @@ a {
 .border-orange {
   border: 2px solid;
   border-color: #f76125;
+}
+
+.border{
+
 }
 
 .icon {
@@ -293,7 +299,14 @@ input[type="submit"], input[type="button"], a {
   background-color: #fff;
   border-color: #f6682f !important;
 }
-
+.fourohfour{
+  font-size: 17rem;
+  text-align: center;
+}
+.border-404{
+  z-index: 4;
+  width:100%;
+}
 
 
 

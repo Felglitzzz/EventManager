@@ -8,7 +8,7 @@ import getUserFromToken from '../../utils/getUserFromToken';
  *
  * @returns {object} react component
  */
-const UnitCenter = ({ centers, handleDelete }) => {
+const UnitCenter = ({ centers }) => {
   const { isAdmin } = getUserFromToken();
   centers = centers.rows;
   return (
@@ -29,7 +29,7 @@ const UnitCenter = ({ centers, handleDelete }) => {
               </div>
               <div className="card-body p-2">
                 <ul className="list-group list-group-flush">
-                  <li className="list-group-item px-2 py-0"><h4
+                  <li className="list-group-item px-2 py-2"><h4
                     className="card-title">{center.name}</h4></li>
                   <li className="list-group-item pt-0 pb-2 px-2 border-top-0"><p
                     className="card-text">{center.location}</p></li>
@@ -50,7 +50,7 @@ const UnitCenter = ({ centers, handleDelete }) => {
                               <i aria-hidden="true"
                                 className="fa fa-pencil fa-2x p-2" /></p>
                           </Link> : (null)}
-                        { isAdmin ?
+                        {/* { isAdmin ?
                           <a>
                             <p
                               className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim"
@@ -62,7 +62,7 @@ const UnitCenter = ({ centers, handleDelete }) => {
                                 id={center.id}
                               />
                             </p>
-                          </a> : (null)}
+                          </a> : (null)} */}
                         <Link
                           to ={`/dashboard/centers/view/${center.id}`}>
                           <p

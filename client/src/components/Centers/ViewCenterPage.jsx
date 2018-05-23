@@ -10,7 +10,6 @@ import { loadOneCenter } from '../../actions/centerActions';
 import { loadEventsByCenterId, cancelEvent, approveEvent } from '../../actions/eventActions';
 import Pagination from '../Pagination/Pagination';
 import history from '../../helpers/history';
-import Prompter from '../../helpers/Prompter';
 
 /**
  * @description - Container class component for view center page
@@ -40,14 +39,33 @@ class ViewCenterPage extends React.Component {
         currentPageUrl: '',
         totalPages: ''
       },
+      centerLoading: false,
+      eventLoading: false,
       cancelEventLoading: false,
-      approveEventLoading: false
+      approveEventLoading: false,
+      error: {}
     };
 
     this.showNext = this.showNext.bind(this);
     this.showPrevious = this.showPrevious.bind(this);
     this.handleCancelEvent = this.handleCancelEvent.bind(this);
     this.handleApproveEvent = this.handleApproveEvent.bind(this);
+    this.showLoader = this.showLoader.bind(this);
+    this.showNoEvents = this.showNoEvents.bind(this);
+  }
+
+  /**
+   * @description - Fetches one center after component mounts
+   *
+   * @memberof EditEventCenters
+   *
+   * @returns {void} Nothing
+   */
+  componentWillMount() {
+    this.setState({
+      eventLoading: true,
+      centerLoading: true
+    });
   }
 
   /**
@@ -58,10 +76,25 @@ class ViewCenterPage extends React.Component {
    * @returns {void} Nothing
    */
   componentDidMount() {
-    this.props.loadOneCenter(this.props.centerId);
+    this.props.loadOneCenter(this.props.centerId)
+      .then(() => {
+        this.setState({ centerLoading: false });
+      })
+      .catch(() => {
+        this.setState({ centerLoading: false });
+      });
     this.props.loadEventsByCenterId(this.props.centerId, 1)
+      .then(() => {
+        this.setState({
+          eventLoading: false
+        });
+      })
       .catch((error) => {
-        Prompter.error(error);
+        this.setState({
+          eventLoading: false,
+          error
+        });
+        console.log(error);
       });
   }
 
@@ -73,15 +106,16 @@ class ViewCenterPage extends React.Component {
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.center.centerReturned) {
+    if (nextProps.center.center) {
       this.setState({
-        center: nextProps.center.centerReturned.center
+        center: nextProps.center.center.center
       });
     }
 
     if (nextProps.events.eventsRetrieved) {
+      const { events } = nextProps.events.eventsRetrieved;
       this.setState({
-        events: nextProps.events.eventsRetrieved.events,
+        events,
         pagination: nextProps.events.eventsRetrieved.meta.pagination
       });
     }
@@ -116,6 +150,39 @@ class ViewCenterPage extends React.Component {
     const { url } = this.props.match;
     const { currentPage } = this.state.pagination;
     history.push(`${url}?page=${currentPage - 1}`);
+  }
+
+  /**
+   * @description - shows loader
+   *
+   * @returns { void } nothing
+   */
+  showLoader() {
+    return (
+      <div className="d-flex justify-content-center pad">
+        <Loader color1="#f6682f"
+          color2="#f6682f"
+          color3="#f6682f"
+          color4="#f6682f"
+          size={96} />
+      </div>
+    );
+  }
+
+  /**
+   * @description - shows loader
+   *
+   * @returns { void }
+   */
+  showNoEvents() {
+    const { name } = this.state.center;
+    return (
+      <div className="py-3">
+        <p className="text-center text-dark lead">
+          {_.capitalize(name)} has no events
+        </p>
+      </div>
+    );
   }
 
   /**
@@ -222,71 +289,69 @@ class ViewCenterPage extends React.Component {
    * @returns {jsx} edit event component
    */
   render() {
-    const { center } = this.state;
-    return (
-      typeof center === 'undefined' ?
-        <div className="d-flex justify-content-center pad">
-          <Loader
-            color1="#f6682f"
-            color2="#f6682f"
-            color3="#f6682f"
-            color4="#f6682f"
-            size={96} />
-        </div>
-        :
-        <div>
-          <div>
-            <header className="form-head bg-light my-3 z-depth-1">
-              <p className=" text-center text-orange mt-3">{center.name}</p>
-            </header>
-            <section
-              className="the-flex">
-              <img
-                className="breadth-100"
-                height="330"
-                src={center.image}
-                width="500"
-              />
-              <div className="bg-light">
-                <ul className="list-group text-center">
-                  <li className="list-group-item px-5"><strong>Facilities</strong></li>
-                  {center.facilities && center.facilities.map((facility, id) =>
-                    (<li className="list-group-item px-5"
-                      key={id}>{facility}</li>))}
-                </ul>
-              </div>
-            </section>
-            <section className="mt-3 bg-light">
-              <p className="text-center p-3 text-justify">{center.description}</p>
-            </section>
-          </div>
-          <header className="mt-3 bg-light z-depth-1">
-            <p className="form-head text-center text-orange">Center-Event Log</p>
-          </header>
-          <div>
-            <EventCenterList
-              approveEventLoading = {this.state.approveEventLoading}
-              cancelEventLoading = {this.state.cancelEventLoading}
-              eventId = {this.state.eventId}
-              events = {this.state.events}
-              handleApproveEvent = {this.handleApproveEvent}
-              handleCancelEvent = {this.handleCancelEvent}
+    const { center, centerLoading } = this.state;
 
+    if (centerLoading) {
+      return this.showLoader();
+    }
+    return (
+      <div>
+        <div>
+          <header className="form-head bg-light my-3 z-depth-1">
+            <p className=" text-center text-orange mt-3">{center.name}</p>
+          </header>
+          <section
+            className="the-flex">
+            <img
+              className="breadth-100"
+              height="330"
+              src={center.image}
+              width="500"
             />
-          </div>
-          <div className = "pose-relative">
-            <Pagination
-              currentPage = {+this.state.pagination.currentPage}
-              currentPageUrl = {this.state.pagination.currentPageUrl}
-              next = {this.state.pagination.next}
-              previous = {this.state.pagination.previous}
-              showNext={this.showNext}
-              showPrevious={this.showPrevious}
-              totalPages = {+this.state.pagination.totalPages}
-            />
-          </div>
+            <div className="bg-light">
+              <ul className="list-group text-center">
+                <li className="list-group-item px-5"><strong>Facilities</strong></li>
+                {center.facilities && center.facilities.map((facility, id) =>
+                  (<li className="list-group-item px-5"
+                    key={id}>{facility}</li>))}
+              </ul>
+            </div>
+          </section>
+          <section className="mt-3 bg-light">
+            <p className="text-center p-3 text-justify">{center.description}</p>
+          </section>
         </div>
-    );
+        <header className="mt-3 bg-light z-depth-1">
+          <p className="form-head text-center text-orange">Center-Event Log</p>
+        </header>
+
+        <div>
+          <EventCenterList
+            approveEventLoading = {this.state.approveEventLoading}
+            cancelEventLoading = {this.state.cancelEventLoading}
+            error = {this.state.error}
+            eventId = {this.state.eventId}
+            eventLoading = {this.state.eventLoading}
+            events = {this.state.events}
+            handleApproveEvent = {this.handleApproveEvent}
+            handleCancelEvent = {this.handleCancelEvent}
+            showLoader = {this.showLoader}
+            showNoEvents = {this.showNoEvents}
+          />
+        </div>
+
+        <div className = "pose-relative">
+          <Pagination
+            currentPage = {+this.state.pagination.currentPage}
+            currentPageUrl = {this.state.pagination.currentPageUrl}
+            next = {this.state.pagination.next}
+            previous = {this.state.pagination.previous}
+            showNext={this.showNext}
+            showPrevious={this.showPrevious}
+            totalPages = {+this.state.pagination.totalPages}
+          />
+        </div>
+      </div>);
   }
 }
 
@@ -305,8 +370,8 @@ ViewCenterPage.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const centerId = parseInt(ownProps.match.params.centerId, 10);
   return {
-    center: state.centers,
-    events: state.events,
+    center: state.centerReducer,
+    events: state.eventReducer,
     centerId
   };
 };

@@ -10,7 +10,7 @@ const eventMockData = {
   editData: {
     name: 'The Nigeria Education Exhibition',
     image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
-    startDate: new Date('2019-06-25'),
+    startDate: new Date('2019-06-18'),
     endDate: new Date('2019-06-27'),
     centerId: 1,
     status: 'accepted'

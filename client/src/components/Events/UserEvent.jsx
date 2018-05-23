@@ -39,6 +39,16 @@ const UserEvent = ({ events, handleDelete }) => {
                 <h5 className="card-title">{event.name}</h5>
                 <p className="card-text">{event.center.name}</p>
               </div>
+              <div className="stat text-white">
+                <span className="fa-stac pl-1">
+                  { event.status === 'pending' ?
+                    <i className="fa fa-circle fa-stack text-orange" />
+                    : event.status === 'cancelled' ?
+                      <i className="fa fa-circle fa-stack text-danger" />
+                      : <i className="fa fa-circle fa-stack text-success" />
+                  }
+                </span>{event.status}
+              </div>
               <div className="overlay">
                 <div className="user-icons">
                   <div className="container pt-2 px-0">

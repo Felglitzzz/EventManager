@@ -35,15 +35,6 @@ export default class Home extends React.Component {
                 </p>
               </div>
             </div>
-            <div className="d-flex justify-content-center">
-              <a
-                className="d-flex marg btn border-white btn-outline-orange aconform text-white px-5"
-                href="#discover"
-                type="button"
-              >
-                Explore
-              </a>
-            </div>
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ const request = chai.request(app);
 const userToken = tokenData.userToken();
 let eventId;
 
-describe('EVENT API TEST', () => {
+describe('EVENT API TEST:', () => {
   // teardown and setup database
   before((done) => {
     db.event.sync({ force: true }).then(() => done());
@@ -111,6 +111,7 @@ describe('EVENT API TEST', () => {
         .set('Authorization', userToken)
         .set('Accept', 'Application/json')
         .end((err, res) => {
+          console.log('errr', err);
           const { message } = res.body;
           expect(res).to.have.status(404);
           expect(message).to.equal('Event Not Found!');

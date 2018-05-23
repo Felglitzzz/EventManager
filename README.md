@@ -79,7 +79,6 @@ Click [here](https://eventmanager-app.herokuapp.com/docs) to view our detailed A
 * Registered users can delete their events in the application.
 * Registered users can view all centers in the application.
 * Registered users can view the details of a center and the events slated for that center
-* Users receive email notification when they sign-up
 * Users get email notification when their events is declined by the admin
 * Registered users with admin privileges can add a center
 * Registered users with admin privileges can edit a center
@@ -101,6 +100,9 @@ The app uses:
 - Users will have to obtain a new token every 24 hours
 - Users cannot signup/sign-in with their social media accounts
 - Search features is currently unavailable on the app
+- Users cannot receive email notification when they sign-up
+- Users cannot receive email notifications ehrn they create events 
+
 
 ## Technologies Used
 
