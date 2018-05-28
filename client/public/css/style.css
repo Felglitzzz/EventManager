@@ -43,7 +43,7 @@ a {
 }
 
 .half_screen {
-  background: url('http://res.cloudinary.com/felglitz/image/upload/v1515535208/evenn_ymwcen.png');
+  background: url('http://res.cloudinary.com/felglitz/image/upload/q_auto:eco/v1515535208/evenn_ymwcen.png');
   background-repeat: no-repeat;
   background-size: cover;
   display: block;
@@ -53,7 +53,7 @@ a {
 }
 
 .fill_screen {
-  background: url('http://res.cloudinary.com/felglitz/image/upload/v1515535208/evenn_ymwcen.png');
+  background: url('http://res.cloudinary.com/felglitz/image/upload/q_auto:eco/v1515535208/evenn_ymwcen.png');
   background-repeat: no-repeat;
   background-size: cover;
   display: block;
@@ -576,6 +576,11 @@ height: 200px
   padding: .75rem;
   vertical-align: top;
   border-top: 1px solid #e9ecef;
+}
+
+#facilities {
+  max-height: 330px;
+  overflow-y: scroll;
 }
 
 .w-60{

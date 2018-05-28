@@ -92,10 +92,10 @@ EventCenterList.propTypes = {
   cancelEventLoading: PropTypes.bool.isRequired,
   approveEventLoading: PropTypes.bool.isRequired,
   showNoEvents: PropTypes.func.isRequired,
-  showLoader: PropTypes.func.sRequired,
-  eventLoading: PropTypes.bool.isrequired,
+  showLoader: PropTypes.func.isRequired,
+  eventLoading: PropTypes.bool.isRequired,
   error: PropTypes.object.isRequired,
-  eventId: PropTypes.number.isrequired
+  eventId: PropTypes.number
 };
 
 export default EventCenterList;

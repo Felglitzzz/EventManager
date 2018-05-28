@@ -43,7 +43,7 @@ class ViewCenterPage extends React.Component {
       eventLoading: false,
       cancelEventLoading: false,
       approveEventLoading: false,
-      error: {}
+      error: {},
     };
 
     this.showNext = this.showNext.bind(this);
@@ -52,10 +52,11 @@ class ViewCenterPage extends React.Component {
     this.handleApproveEvent = this.handleApproveEvent.bind(this);
     this.showLoader = this.showLoader.bind(this);
     this.showNoEvents = this.showNoEvents.bind(this);
+    this.redirectToCenters = this.redirectToCenters.bind(this);
   }
 
   /**
-   * @description - Fetches one center after component mounts
+   * @description - sets eventLoading and centerLoading in state to true
    *
    * @memberof EditEventCenters
    *
@@ -78,23 +79,27 @@ class ViewCenterPage extends React.Component {
   componentDidMount() {
     this.props.loadOneCenter(this.props.centerId)
       .then(() => {
-        this.setState({ centerLoading: false });
-      })
-      .catch(() => {
-        this.setState({ centerLoading: false });
-      });
-    this.props.loadEventsByCenterId(this.props.centerId, 1)
-      .then(() => {
         this.setState({
-          eventLoading: false
+          centerLoading: false,
         });
+        this.props.loadEventsByCenterId(this.props.centerId, 1)
+          .then(() => {
+            this.setState({
+              eventLoading: false
+            });
+          })
+          .catch((error) => {
+            this.setState({
+              eventLoading: false,
+              error
+            });
+          });
       })
       .catch((error) => {
         this.setState({
-          eventLoading: false,
-          error
+          centerLoading: false,
+          centerError: error
         });
-        console.log(error);
       });
   }
 
@@ -206,14 +211,16 @@ class ViewCenterPage extends React.Component {
       icon: 'warning',
       closeOnClickOutside: false,
       closeOnEsc: false,
-      buttons: true,
       dangerMode: true,
+      buttons: {
+        cancel: true,
+        confirm: {
+          text: 'Confirm',
+          closeModal: false,
+        }
+      },
     })
       .then((willCancel) => {
-        this.setState({
-          cancelEventLoading: true,
-          eventId
-        });
         if (willCancel) {
           this.props.cancelEvent(eventId)
             .then(() => {
@@ -254,8 +261,13 @@ class ViewCenterPage extends React.Component {
       icon: 'info',
       closeOnClickOutside: false,
       closeOnEsc: false,
-      buttons: true,
-      dangerMode: true,
+      buttons: {
+        cancel: true,
+        confirm: {
+          text: 'Confirm',
+          closeModal: false,
+        }
+      },
     })
       .then((willapprove) => {
         this.setState({
@@ -269,10 +281,11 @@ class ViewCenterPage extends React.Component {
               });
               swal(`${_.capitalize(name)} has been approved for this center`, {
                 icon: 'success'
-              })
-                .catch(() => {
-                  swal('some error occured');
-                });
+              });
+              swal.stopLoading();
+            })
+            .catch(() => {
+              swal('some error occured');
             });
         } else {
           this.setState({
@@ -284,15 +297,29 @@ class ViewCenterPage extends React.Component {
   }
 
   /**
+   * @description - handles redirect to all centers page
+   *
+   * @returns {void}
+   */
+  redirectToCenters() {
+    return history.push('/dashboard/centers');
+  }
+
+  /**
    * @description - renders edit event form
    *
    * @returns {jsx} edit event component
    */
   render() {
-    const { center, centerLoading } = this.state;
+    const { center, centerLoading, centerError } = this.state;
 
     if (centerLoading) {
       return this.showLoader();
+    }
+
+    if (centerError === 'Center Not Found!') {
+      this.redirectToCenters();
+      return null;
     }
     return (
       <div>
@@ -308,9 +335,11 @@ class ViewCenterPage extends React.Component {
               src={center.image}
               width="500"
             />
-            <div className="bg-light">
+            <div className="bg-light"
+              id="facilities">
               <ul className="list-group text-center">
-                <li className="list-group-item px-5"><strong>Facilities</strong></li>
+                <li className="list-group-item px-5">
+                  <span className="text-uppercase font-weight-bold">Facilities</span></li>
                 {center.facilities && center.facilities.map((facility, id) =>
                   (<li className="list-group-item px-5"
                     key={id}>{facility}</li>))}
@@ -330,7 +359,7 @@ class ViewCenterPage extends React.Component {
             approveEventLoading = {this.state.approveEventLoading}
             cancelEventLoading = {this.state.cancelEventLoading}
             error = {this.state.error}
-            eventId = {this.state.eventId}
+            eventId = {+this.state.eventId}
             eventLoading = {this.state.eventLoading}
             events = {this.state.events}
             handleApproveEvent = {this.handleApproveEvent}
@@ -351,7 +380,8 @@ class ViewCenterPage extends React.Component {
             totalPages = {+this.state.pagination.totalPages}
           />
         </div>
-      </div>);
+      </div>
+    );
   }
 }
 

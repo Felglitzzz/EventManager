@@ -18,7 +18,7 @@ describe('USER API TEST:', () => {
     db.user.create(userMockData.admin.signup.valid).then(() => done());
   });
 
-  describe('User', () => {
+  describe('User API Endpoint', () => {
     it('should be able to create account with valid input data', (done) => {
       request
         .post('/api/v1/users')
