@@ -137,18 +137,17 @@ If you are interested in contributing to development of this project, follow the
 ## FAQ
 
 #### Who can contribute?
-    ```
+
     Anyone can! Just follow the contribution guidelines above
-    ```
+
 #### Is there a set standard for PRs to this repository?
-    ```
+
     Yes please check the project wiki for project conventions.
-    ```
+
 #### Can I clone this application for personal use?
-    ```
+
     Yes!. This application is licensed under MIT, and is open for
     everybody
-    ```
 ## License
 
 This project is licensed under the [MIT License](https://github.com/Felglitzzz/EventManager/blob/develop/LICENSE)

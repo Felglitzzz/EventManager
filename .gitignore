@@ -9,3 +9,4 @@ package-lock.json
 .DS_Store
 client/src/bundle.js
 .editorconfig
+reports/**
