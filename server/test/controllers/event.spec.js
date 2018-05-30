@@ -18,8 +18,8 @@ describe('EVENT API TEST:', () => {
     db.event.sync({ force: true }).then(() => done());
   });
 
-  describe('Event API', () => {
-    it('expect to return 400 if date is past', (done) => {
+  describe('Event API Endpoint', () => {
+    it('should return 400 if date is past', (done) => {
       request
         .post('/api/v1/events')
         .send(eventMockData.pastDate)
@@ -111,7 +111,6 @@ describe('EVENT API TEST:', () => {
         .set('Authorization', userToken)
         .set('Accept', 'Application/json')
         .end((err, res) => {
-          console.log('errr', err);
           const { message } = res.body;
           expect(res).to.have.status(404);
           expect(message).to.equal('Event Not Found!');

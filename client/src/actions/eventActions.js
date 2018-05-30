@@ -16,7 +16,9 @@ const {
   CANCEL_EVENT_FAIL,
   CANCEL_EVENT_SUCCESS,
   APPROVE_EVENT_FAIL,
-  APPROVE_EVENT_SUCCESS
+  APPROVE_EVENT_SUCCESS,
+  LOAD_ONE_EVENT_SUCCESS,
+  LOAD_ONE_EVENT_FAIL
 } = actionTypes;
 
 /**
@@ -66,6 +68,57 @@ export const addNewEvent = eventData => (dispatch) => {
     })
     .catch((errors) => {
       dispatch(addEventFail(errors));
+      throw (errors.response.data.message);
+    });
+};
+
+/**
+ * description - defines load all events failure action
+ *
+ * @export loadOneEventFail
+ *
+ * @param {object} error
+ *
+ * @returns {object} dispatched action type and error object
+ */
+export const loadOneEventFail = error => ({
+  type: LOAD_ONE_EVENT_FAIL,
+  error
+});
+
+/**
+ * description - defines load all events success action
+ *
+ * @export loadOneEventSuccess
+ *
+ * @param {object} eventReturned
+ *
+ * @returns {object} dispatched action type and events object
+ */
+export const loadOneEventSuccess = eventReturned => ({
+  type: LOAD_ONE_EVENT_SUCCESS,
+  eventReturned
+});
+
+/**
+ * description - handles GET request for one event
+ *
+ * @export loadOneEvent
+ *
+ * @param {object} eventId
+ *
+ * @returns {object} dispatched action
+ */
+export const loadOneEvent = eventId => (dispatch) => {
+  const token = localStorage.getItem('x-access-token');
+  return axios.get(`/api/v1/events/${eventId}`, {
+    headers: { Authorization: token }
+  })
+    .then((response) => {
+      dispatch(loadOneEventSuccess(response.data));
+    })
+    .catch((errors) => {
+      dispatch(loadOneEventFail(errors));
       throw (errors.response.data.message);
     });
 };

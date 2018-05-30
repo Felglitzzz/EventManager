@@ -14,6 +14,7 @@ import ViewCenterPage from '../Centers/ViewCenterPage';
 import getUserFromToken from '../../utils/getUserFromToken';
 import CreateEventPage from '../Events/CreateEventPage';
 import Prompter from '../../helpers/Prompter';
+import Fourohfour from '../Fourohfour/Fourohfour';
 import { logOutUser } from '../../actions/userAccessActions';
 
 /**
@@ -221,6 +222,11 @@ class UserDashboard extends React.Component {
                   component={ViewCenterPage}
                   exact
                   path="/dashboard/centers/view/:centerId"
+                />
+                <Route
+                  component={Fourohfour}
+                  exact
+                  path="/dashboard/*"
                 />
               </Switch>
             </div>

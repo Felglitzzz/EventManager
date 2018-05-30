@@ -2,6 +2,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/Felglitzzz/EventManager/badge.svg?branch=develop)](https://coveralls.io/github/Felglitzzz/EventManager?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e5c68bb9b0cd8eef37cf/maintainability)](https://codeclimate.com/github/Felglitzzz/EventManager/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e5c68bb9b0cd8eef37cf/test_coverage)](https://codeclimate.com/github/Felglitzzz/EventManager/test_coverage)
+[![](https://img.shields.io/badge/Protected_by-Hound-a873d1.svg)](https://houndci.com)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
+
 
 # EventManager
 
@@ -14,6 +17,31 @@ Click [here](https://eventmanager-app.herokuapp.com/docs) to view our detailed A
 
 * API is hosted on https://eventmanager-app.herokuapp.com/api/v1
 * Application is hosted on https://eventmanager-app.herokuapp.com
+
+## Technologies Used
+
+* [NodeJS](https://nodejs.org/en/) - A Javascript runtime built on chrome V8 engine that uses an event-driven non-blocking I/O model that makes it lightweight and efficient.
+* [ExpressJs](https://expressjs.com/) - A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
+* [Sequelize](http://docs.sequelizejs.com/) - An ORM for Node.js that supports the dialects of PostgreSQL and features solid transaction support an relations.
+* [Postgres](https://www.postgresql.org/) - A powerful, open source object-relational database system.
+* [Semantic-ui-react]() - Official React integration for Semantic UI.
+* [React](https://www.reactjs.org/) - A JavaScript library for building user interfaces by Facebook.
+* [Redux](http://redux.js.org/) - A predictable state container for JavaScript apps.
+
+## Features
+
+* Users can see a landing page.
+* Users can create accounts by signing
+* Registered users can login with username and password.
+* Registered users can add events to the application.
+* Registered users can edit their events in the application.
+* Registered users can delete their events in the application.
+* Registered users can view all centers in the application.
+* Registered users can view the details of a center and the events slated for that center
+* Users get email notification when their events is declined by the admin
+* Registered users with admin privileges can add a center
+* Registered users with admin privileges can edit a center
+* Registered users with admin privileges can delete a center
 
 ## Installation
 
@@ -68,21 +96,7 @@ Click [here](https://eventmanager-app.herokuapp.com/docs) to view our detailed A
 
     ```
     http://localhost:1991/
-    ```    
-## Features
-
-* Users can see a landing page.
-* Users can create accounts by signing
-* Registered users can login with username and password.
-* Registered users can add events to the application.
-* Registered users can edit their events in the application.
-* Registered users can delete their events in the application.
-* Registered users can view all centers in the application.
-* Registered users can view the details of a center and the events slated for that center
-* Users get email notification when their events is declined by the admin
-* Registered users with admin privileges can add a center
-* Registered users with admin privileges can edit a center
-* Registered users with admin privileges can delete a center
+    ```
 
 ## Testing
 
@@ -103,17 +117,6 @@ The app uses:
 - Users cannot receive email notification when they sign-up
 - Users cannot receive email notifications ehrn they create events 
 
-
-## Technologies Used
-
-* [NodeJS](https://nodejs.org/en/) - A Javascript runtime built on chrome V8 engine that uses an event-driven non-blocking I/O model that makes it lightweight and efficient.
-* [ExpressJs](https://expressjs.com/) - A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
-* [Sequelize](http://docs.sequelizejs.com/) - An ORM for Node.js that supports the dialects of PostgreSQL and features solid transaction support an relations.
-* [Postgres](https://www.postgresql.org/) - A powerful, open source object-relational database system.
-* [Semantic-ui-react]() - Official React integration for Semantic UI.
-* [React](https://www.reactjs.org/) - A JavaScript library for building user interfaces by Facebook.
-* [Redux](http://redux.js.org/) - A predictable state container for JavaScript apps.
-
 ## Contributing
 
 If you are interested in contributing to development of this project, follow the instructions below to contribute.
@@ -130,6 +133,21 @@ If you are interested in contributing to development of this project, follow the
 
 * Please see [Event Manager (Eventeria) wiki](https://github.com/Felglitzzz/EventManager/wiki) for project conventions
 
+
+## FAQ
+
+#### Who can contribute?
+
+    Anyone can! Just follow the contribution guidelines above
+
+#### Is there a set standard for PRs to this repository?
+
+    Yes please check the project wiki for project conventions.
+
+#### Can I clone this application for personal use?
+
+    Yes!. This application is licensed under MIT, and is open for
+    everybody
 ## License
 
 This project is licensed under the [MIT License](https://github.com/Felglitzzz/EventManager/blob/develop/LICENSE)

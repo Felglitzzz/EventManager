@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Loader from 'react-md-spinner';
+
 import history from '../../helpers/history';
 import Validate from '../../helpers/validations/Validate';
-
-import { updateCenter } from '../../actions/centerActions';
+import { updateCenter, loadOneCenter } from '../../actions/centerActions';
 import { uploadToCloudinary } from '../../actions/imageActions';
 import EditCenterForm from './Form/EditCenterForm';
 import Prompter from '../../helpers/Prompter';
@@ -28,10 +29,12 @@ class EditCenterPage extends React.Component {
     super(props);
 
     this.state = {
-      updateCenterData: { ...this.props.updateCenterData },
+      updateCenterData: {},
       errors: {},
       isLoading: false,
-      chosenImage: ''
+      centerLoading: true,
+      chosenImage: '',
+      centerError: ''
     };
 
     this.onChange = this.onChange.bind(this);
@@ -41,6 +44,42 @@ class EditCenterPage extends React.Component {
     this.validate = this.validate.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
     this.selectOnChange = this.selectOnChange.bind(this);
+    this.showLoader = this.showLoader.bind(this);
+  }
+
+  /**
+   * @description - Fetches one center after component mounts
+   *
+   * @memberof EditCenterPage
+   *
+   * @returns {void} Nothing
+   */
+  componentWillMount() {
+    this.setState({
+      centerLoading: true
+    });
+  }
+
+  /**
+   * @description - Fetches one center after component mounts
+   *
+   * @memberof EditCenterPage
+   *
+   * @returns {void} Nothing
+   */
+  componentDidMount() {
+    this.props.loadOneCenter(this.props.centerId)
+      .then(() => {
+        this.setState({
+          centerLoading: false,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          centerLoading: false,
+          centerError: error
+        });
+      });
   }
 
   /**
@@ -51,11 +90,12 @@ class EditCenterPage extends React.Component {
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
-    // if (this.props.updateCenterData.id !== nextProps.updateCenterData.id) {
-    //   this.setState({
-    //     updateCenterData: nextProps.updateCenterData
-    //   });
-    // }
+    if (nextProps.center.center) {
+      this.setState({
+        updateCenterData: nextProps.center.center.center
+      });
+    }
+
     if (nextProps.imageUrl) {
       this.setState({
         updateCenterData: {
@@ -224,11 +264,39 @@ class EditCenterPage extends React.Component {
   }
 
   /**
+   * @description - shows loader
+   *
+   * @returns { void } nothing
+   */
+  showLoader() {
+    return (
+      <div className="d-flex justify-content-center pad">
+        <Loader color1="#f6682f"
+          color2="#f6682f"
+          color3="#f6682f"
+          color4="#f6682f"
+          size={96} />
+      </div>
+    );
+  }
+
+  /**
    * @description - renders edit center form
    *
    * @returns {jsx} edit center component
    */
   render() {
+    const { centerLoading, centerError } = this.state;
+
+    if (centerLoading) {
+      return this.showLoader();
+    }
+
+    if (centerError === 'Center Not Found!') {
+      history.push('/dashboard/centers');
+      return null;
+    }
+
     return (
       <div>
         <EditCenterForm
@@ -247,15 +315,11 @@ class EditCenterPage extends React.Component {
 }
 EditCenterPage.propTypes = {
   updateCenter: PropTypes.func.isRequired,
-  updateCenterData: PropTypes.object.isRequired,
   imageUrl: PropTypes.object,
   uploadToCloudinary: PropTypes.func.isRequired,
-};
-
-const getCenterById = (centers, id) => {
-  const centerForUpdate = centers.filter(center => center.id === id);
-  if (centerForUpdate.length) return centerForUpdate[0];
-  return null;
+  loadOneCenter: PropTypes.func.isRequired,
+  centerId: PropTypes.number.isRequired,
+  center: PropTypes.object.isRequired
 };
 
 /**
@@ -268,18 +332,9 @@ const getCenterById = (centers, id) => {
  */
 function mapStateToProps(state, ownProps) {
   const centerId = parseInt(ownProps.match.params.centerId, 10);
-
-  let updateCenterData = {
-    id: '', name: '', centerId: '', date: '', time: '', description: '', image: ''
-  };
-
-  const centers = JSON.parse(localStorage.getItem('centers'));
-
-  if (centerId && centers.length > 0) {
-    updateCenterData = getCenterById(centers, centerId);
-  }
   return {
-    updateCenterData,
+    centerId,
+    center: state.centerReducer,
     imageUrl: state.images.image
   };
 }
@@ -293,6 +348,7 @@ function mapStateToProps(state, ownProps) {
  */
 function mapDispatchToProps(dispatch) {
   return {
+    loadOneCenter: centerId => dispatch(loadOneCenter(centerId)),
     updateCenter: updateCenterData => dispatch(updateCenter(updateCenterData)),
     uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
   };

@@ -79,29 +79,13 @@ const eventReducer = (state = initialState.events, action) => {
   case LOAD_ONE_EVENT_SUCCESS:
     return {
       ...state,
-      eventReturned: action.eventReturned
+      event: action.eventReturned
     };
   case LOAD_ONE_EVENT_FAIL:
     return {
       ...state,
       update: action.error
     };
-  // case UPDATE_EVENT_SUCCESS:
-  //   return {
-  //     ...state,
-  //     events: {
-  //       events: {
-  //         ...state.events.events,
-  //         rows: action.event.event
-  //         // rows: state.events.events.rows.filter(event => event.id !== action.event.id)
-  //       },
-  //       meta: {
-  //         pagination: {
-  //           ...state.events.meta.pagination
-  //         }
-  //       }
-  //     }
-  //   };
   case UPDATE_EVENT_SUCCESS:
     return {
       ...state,

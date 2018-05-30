@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import toastr from 'toastr';
 import PropTypes from 'prop-types';
-import history from '../../helpers/history';
+import Loader from 'react-md-spinner';
 
-import { updateEvent } from '../../actions/eventActions';
+import history from '../../helpers/history';
+import { updateEvent, loadOneEvent } from '../../actions/eventActions';
 import { uploadToCloudinary } from '../../actions/imageActions';
 import { loadUnpaginatedCenters } from '../../actions/centerActions';
 import EditEventForm from './Form/EditEventForm';
@@ -29,12 +30,19 @@ class EditEventPage extends React.Component {
     super(props);
 
     this.state = {
-      updateEventData: { ...this.props.updateEventData },
+      updateEventData: {
+        name: '',
+        centerId: '',
+        startDate: '',
+        endDate: '',
+        image: ''
+      },
       chosenImage: '',
       errors: {},
       options: [...this.props.options],
-      events: {},
-      isLoading: false
+      isLoading: false,
+      eventLoading: false,
+      eventError: ''
     };
 
     this.onChange = this.onChange.bind(this);
@@ -43,6 +51,20 @@ class EditEventPage extends React.Component {
     this.imageOnChange = this.imageOnChange.bind(this);
     this.validate = this.validate.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
+    this.showLoader = this.showLoader.bind(this);
+  }
+
+  /**
+   * @description - Fetches one center after component mounts
+   *
+   * @memberof EditEventPage
+   *
+   * @returns {void} Nothing
+   */
+  componentWillMount() {
+    this.setState({
+      eventLoading: true
+    });
   }
 
   /**
@@ -53,7 +75,21 @@ class EditEventPage extends React.Component {
    * @returns {void} Nothing
    */
   componentDidMount() {
-    this.props.loadUnpaginatedCenters();
+    this.props.loadUnpaginatedCenters()
+      .then(() => {
+        this.props.loadOneEvent(this.props.eventId)
+          .then(() => {
+            this.setState({
+              eventLoading: false
+            });
+          })
+          .catch((error) => {
+            this.setState({
+              eventLoading: false,
+              eventError: error
+            });
+          });
+      });
   }
 
   /**
@@ -64,14 +100,15 @@ class EditEventPage extends React.Component {
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
-    // if (this.props.updateEventData.id !== nextProps.events.id) {
-    //   this.setState({
-    //     updateEventData: nextProps.updateEventData
-    //   });
-    // }
     if (nextProps.options.unPaginatedCenters) {
       this.setState({
         options: nextProps.options.unPaginatedCenters.centers
+      });
+    }
+
+    if (nextProps.event.event) {
+      this.setState({
+        updateEventData: nextProps.event.event.event
       });
     }
     if (nextProps.imageUrl) {
@@ -218,11 +255,38 @@ class EditEventPage extends React.Component {
   }
 
   /**
+   * @description - shows loader
+   *
+   * @returns { void } nothing
+   */
+  showLoader() {
+    return (
+      <div className="d-flex justify-content-center pad">
+        <Loader color1="#f6682f"
+          color2="#f6682f"
+          color3="#f6682f"
+          color4="#f6682f"
+          size={96} />
+      </div>
+    );
+  }
+
+  /**
    * @description - renders edit event form
    *
    * @returns {jsx} edit event component
    */
   render() {
+    const { eventLoading, eventError } = this.state;
+
+    if (eventLoading) {
+      return this.showLoader();
+    }
+
+    if (eventError === 'Event Not Found!') {
+      history.push('/dashboard/events');
+      return null;
+    }
     return (
       <div>
         <EditEventForm
@@ -241,17 +305,13 @@ class EditEventPage extends React.Component {
 }
 EditEventPage.propTypes = {
   updateEvent: PropTypes.func.isRequired,
-  updateEventData: PropTypes.object.isRequired,
   options: PropTypes.object.isRequired,
   uploadToCloudinary: PropTypes.func.isRequired,
   imageUrl: PropTypes.object,
-  loadUnpaginatedCenters: PropTypes.func.isRequired
-};
-
-const getEventById = (events, id) => {
-  const eventForUpdate = events.filter(event => event.id === id);
-  if (eventForUpdate.length) return eventForUpdate[0];
-  return null;
+  loadUnpaginatedCenters: PropTypes.func.isRequired,
+  loadOneEvent: PropTypes.func.isRequired,
+  eventId: PropTypes.number.isRequired,
+  event: PropTypes.object.isRequired
 };
 
 /**
@@ -265,17 +325,9 @@ const getEventById = (events, id) => {
 function mapStateToProps(state, ownProps) {
   const eventId = parseInt(ownProps.match.params.eventId, 10);
 
-  let updateEventData = {
-    id: '', name: '', centerId: '', date: '', time: '', description: '', image: ''
-  };
-  const events = JSON.parse(localStorage.getItem('events'));
-
-  if (eventId && events.length > 0) {
-    updateEventData = getEventById(events, eventId);
-  }
   return {
-    updateEventData,
-    events: state.eventReducer,
+    eventId,
+    event: state.eventReducer,
     options: state.centerReducer,
     imageUrl: state.images.image
   };
@@ -290,6 +342,7 @@ function mapStateToProps(state, ownProps) {
  */
 function mapDispatchToProps(dispatch) {
   return {
+    loadOneEvent: eventId => dispatch(loadOneEvent(eventId)),
     loadUnpaginatedCenters: () => dispatch(loadUnpaginatedCenters()),
     updateEvent: updateEventData => dispatch(updateEvent(updateEventData)),
     uploadToCloudinary: image => dispatch(uploadToCloudinary(image))

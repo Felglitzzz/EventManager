@@ -11,10 +11,10 @@ const request = chai.request(app);
 const userToken = tokenData.userToken();
 const { invalidAdminToken, invalidUserToken } = tokenData;
 
-describe('MIDDLEWARE AUTH TEST:', () => {
+describe('MIDDLEWARE TEST:', () => {
   describe('Auth Middleware for', () => {
     describe('POST Center Endpoint', () => {
-      it('should return 403 when user token is provided', (done) => {
+      it('should return 403 when token for user that is not an admin is provided', (done) => {
         request
           .post('/api/v1/centers')
           .send(centerMockData.valid)
@@ -30,7 +30,7 @@ describe('MIDDLEWARE AUTH TEST:', () => {
     });
 
     describe('PUT Center Endpoint', () => {
-      it('should return 403 if user token is provided', (done) => {
+      it('should return 403 when token for user that is not an admin is provided', (done) => {
         request
           .put('/api/v1/centers/:centerId')
           .send(centerMockData.editData)
@@ -46,7 +46,7 @@ describe('MIDDLEWARE AUTH TEST:', () => {
     });
 
     describe('DELETE Center Endpoint', () => {
-      it('should return 403 if user token is provided', (done) => {
+      it('should return 403 when token for user that is not an admin is provided', (done) => {
         request
           .delete('/api/v1/centers/:centerId')
           .set('Authorization', userToken)
@@ -71,7 +71,7 @@ describe('MIDDLEWARE AUTH TEST:', () => {
           });
       });
 
-      it('should return 403 if invalid token is given', (done) => {
+      it('should return 401 if invalid token is given', (done) => {
         request
           .delete('/api/v1/centers/:centerId')
           .set('Authorization', invalidAdminToken)
@@ -88,7 +88,7 @@ describe('MIDDLEWARE AUTH TEST:', () => {
 
   describe('Auth Middleware for', () => {
     describe('POST Event Endpoint', () => {
-      it('should return 401 if user token is not provided', (done) => {
+      it('should return 401 when token for a user is not provided', (done) => {
         request
           .post('/api/v1/events')
           .send(eventMockData.valid)
@@ -100,7 +100,7 @@ describe('MIDDLEWARE AUTH TEST:', () => {
           });
       });
 
-      it('should return 401 if user token is ', (done) => {
+      it('should return 401 if token for d user is invalid', (done) => {
         request
           .post('/api/v1/events')
           .send(eventMockData.valid)

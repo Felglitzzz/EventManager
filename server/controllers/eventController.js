@@ -88,7 +88,11 @@ export default class Event {
           return res.status(404).send({ message: 'Event Not Found!' });
         }
         return res.status(200).json({ message: 'Event Found!', event });
-      });
+      })
+      .catch(() =>
+        res.status(500).json({
+          message: 'Internal Server Error!'
+        }));
   }
 
   /**
