@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 /**
  * @description - Class component for 404 page
  *
- * @class Fourohfour
+ * @class NotFound
  *
  * @extends {React.Component}
  */
-export default class Fourohfour extends React.Component {
+export default class NotFound extends React.Component {
   /**
-   * @description - creates an instance of Fourohfour
+   * @description - creates an instance of NotFound
    *
    * @constructor
    *
-   * @param { props } props - contains fourohfour component properties
+   * @param { props } props - contains notfound component properties
    */
   constructor(props) {
     super(props);
@@ -27,7 +27,7 @@ export default class Fourohfour extends React.Component {
    * @description - handles removal of modal backdrop before the component mounts
    * and handles authentication for protected route
    *
-   * @memberof Fourohfour
+   * @memberof NotFound
    *
    * @returns {void} Nothing
    */
@@ -41,7 +41,7 @@ export default class Fourohfour extends React.Component {
   /**
    * @description - renders 404 page
    *
-   * @returns {jsx} Fourohfour component
+   * @returns {jsx} NotFound component
    */
   render() {
     const { isAuthenticated } = this.state;

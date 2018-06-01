@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
+import winston from 'winston';
 import swaggerUi from 'swagger-ui-express';
 import router from './routes/index';
 import swaggerDoc from './swagger.json';
@@ -28,10 +29,19 @@ app.use('/api/v1/', router);
 app.use('/', express.static('dist-client'));
 app.use('*', express.static('dist-client'));
 
+// create my logger
+
+export const log = winston.createLogger({
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'combined.log' })
+  ]
+});
+
 // listen for requests
 const port = parseInt(process.env.PORT, 10) || 1991;
 app.listen(port, () => {
-  console.log(`Hi there, magic happens on http://localhost:${port}`);
+  log.info(`Hi there, magic happens on http://localhost:${port}`);
 });
 
 export default app;

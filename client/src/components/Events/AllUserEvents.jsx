@@ -9,6 +9,7 @@ import UserEvent from '../Events/UserEvent';
 import { loadAllEvent, deleteEvent } from '../../actions/eventActions';
 import history from '../../helpers/history';
 import Pagination from '../Pagination/Pagination';
+import { log } from '../../../../server/index';
 
 
 /**
@@ -59,7 +60,7 @@ class AllUserEvents extends React.Component {
   componentDidMount() {
     this.props.loadAllEvent()
       .catch((error) => {
-        console.log(error);
+        log.error(error);
       });
   }
 

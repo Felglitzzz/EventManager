@@ -14,7 +14,7 @@ import ViewCenterPage from '../Centers/ViewCenterPage';
 import getUserFromToken from '../../utils/getUserFromToken';
 import CreateEventPage from '../Events/CreateEventPage';
 import Prompter from '../../helpers/Prompter';
-import Fourohfour from '../Fourohfour/Fourohfour';
+import NotFound from '../NotFound/NotFound';
 import { logOutUser } from '../../actions/userAccessActions';
 
 /**
@@ -224,7 +224,7 @@ class UserDashboard extends React.Component {
                   path="/dashboard/centers/view/:centerId"
                 />
                 <Route
-                  component={Fourohfour}
+                  component={NotFound}
                   exact
                   path="/dashboard/*"
                 />

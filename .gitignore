@@ -10,3 +10,5 @@ package-lock.json
 client/src/bundle.js
 .editorconfig
 reports/**
+combined.log
+selenium-debug.log

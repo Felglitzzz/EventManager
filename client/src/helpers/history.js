@@ -1,3 +1,6 @@
-import createHistory from 'history/createBrowserHistory';
+import createBrowserHistory from 'history/createBrowserHistory';
 
-export default createHistory();
+const history = createBrowserHistory();
+
+export default history;
+

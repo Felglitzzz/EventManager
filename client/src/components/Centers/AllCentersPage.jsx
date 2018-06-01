@@ -8,6 +8,7 @@ import history from '../../helpers/history';
 import UnitCenter from './UnitCenter';
 import { loadCenters, deleteCenter } from '../../actions/centerActions';
 import Pagination from '../Pagination/Pagination';
+import { log } from '../../../../server/index';
 
 
 /**
@@ -56,7 +57,7 @@ class AllCentersPage extends React.Component {
   componentDidMount() {
     this.props.loadCenters()
       .catch((error) => {
-        console.log(error);
+        log.error(error);
       });
   }
 
