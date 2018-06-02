@@ -19,9 +19,6 @@ class Prompter {
   static error(message) {
     toastr.options.closeButton = true;
     toastr.options.positionClass = 'toast-bottom-right';
-    // toastr.options.extendedTimeOut = 0;
-    // toastr.options.timeOut = 0;
-    // toastr.options.tapToDismiss = false;
     toastr.remove();
     toastr.error(message);
   }

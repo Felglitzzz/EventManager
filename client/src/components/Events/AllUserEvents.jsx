@@ -39,7 +39,8 @@ class AllUserEvents extends React.Component {
         currentPage: '',
         currentPageUrl: '',
         totalPages: ''
-      }
+      },
+      eventError: ''
     };
 
     this.redirectToEdit = this.redirectToEdit.bind(this);
@@ -57,10 +58,7 @@ class AllUserEvents extends React.Component {
    * @returns {void} Nothing
    */
   componentDidMount() {
-    this.props.loadAllEvent()
-      .catch((error) => {
-        console.log(error);
-      });
+    this.props.loadAllEvent();
   }
 
   /**

@@ -21,9 +21,9 @@ class AllCentersPage extends React.Component {
   /**
    * @description - creates an instance of AllCentersPage
    *
-   * @constructor
+   * @param { any } props - contains event component properties
    *
-   * @param { props } props - contains event component properties
+   * @memberof AllCentersPage
    */
   constructor(props) {
     super(props);
@@ -37,10 +37,10 @@ class AllCentersPage extends React.Component {
         currentPage: '',
         currentPageUrl: '',
         totalPages: '',
-      }
+      },
+      centerError: ''
     };
 
-    // this.handleDelete = this.handleDelete.bind(this);
     this.showNext = this.showNext.bind(this);
     this.showPrevious = this.showPrevious.bind(this);
     this.showLoader = this.showLoader.bind(this);
@@ -54,10 +54,7 @@ class AllCentersPage extends React.Component {
    * @returns {void} Nothing
    */
   componentDidMount() {
-    this.props.loadCenters()
-      .catch((error) => {
-        console.log(error);
-      });
+    this.props.loadCenters();
   }
 
   /**
@@ -88,36 +85,6 @@ class AllCentersPage extends React.Component {
       });
     }
   }
-
-  // /**
-  //  * @description -handles delete center
-  //  *
-  //  * @param {object} center
-  //  *
-  //  * @returns {void}
-  //  */
-  // handleDelete(center) {
-  //   const id = parseInt(center.target.id, 10);
-  //   swal({
-  //     title: 'You are about to delete this center?',
-  //     text: 'Do you wish to continue?!',
-  //     icon: 'warning',
-  //     closeOnClickOutside: false,
-  //     closeOnEsc: false,
-  //     buttons: true,
-  //     dangerMode: true,
-  //   })
-  //     .then((willDelete) => {
-  //       if (willDelete) {
-  //         this.props.deleteCenter(id);
-  //         swal('Poof! Your event has been deleted!', {
-  //           icon: 'success',
-  //         });
-  //       } else {
-  //         swal('Your center is safe!');
-  //       }
-  //     });
-  // }
 
   /**
    * @description - Handles fetching of centers on next page request

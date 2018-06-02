@@ -52,7 +52,6 @@ class ViewCenterPage extends React.Component {
     this.handleApproveEvent = this.handleApproveEvent.bind(this);
     this.showLoader = this.showLoader.bind(this);
     this.showNoEvents = this.showNoEvents.bind(this);
-    this.redirectToCenters = this.redirectToCenters.bind(this);
   }
 
   /**
@@ -297,28 +296,20 @@ class ViewCenterPage extends React.Component {
   }
 
   /**
-   * @description - handles redirect to all centers page
-   *
-   * @returns {void}
-   */
-  redirectToCenters() {
-    return history.push('/dashboard/centers');
-  }
-
-  /**
    * @description - renders edit event form
    *
    * @returns {jsx} edit event component
    */
   render() {
     const { center, centerLoading, centerError } = this.state;
+    const { centerId } = this.props;
 
     if (centerLoading) {
       return this.showLoader();
     }
 
-    if (centerError === 'Center Not Found!') {
-      this.redirectToCenters();
+    if (centerError === 'Center Not Found!' || !Number.isInteger(centerId)) {
+      history.push('/dashboard/*');
       return null;
     }
     return (
@@ -398,7 +389,7 @@ ViewCenterPage.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const centerId = parseInt(ownProps.match.params.centerId, 10);
+  const centerId = Number(ownProps.match.params.centerId);
   return {
     center: state.centerReducer,
     events: state.eventReducer,

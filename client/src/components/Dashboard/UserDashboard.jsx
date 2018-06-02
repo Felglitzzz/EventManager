@@ -14,7 +14,7 @@ import ViewCenterPage from '../Centers/ViewCenterPage';
 import getUserFromToken from '../../utils/getUserFromToken';
 import CreateEventPage from '../Events/CreateEventPage';
 import Prompter from '../../helpers/Prompter';
-import Fourohfour from '../Fourohfour/Fourohfour';
+import NotFound from '../NotFound/NotFound';
 import { logOutUser } from '../../actions/userAccessActions';
 
 /**
@@ -28,9 +28,9 @@ class UserDashboard extends React.Component {
   /**
    * @description - creates an instance of UserDashboard
    *
-   * @constructor
-   *
    * @param { props } props - contains user dashboard component properties
+   *
+   * @memberof UserDashboard
    */
   constructor(props) {
     super(props);
@@ -114,6 +114,7 @@ class UserDashboard extends React.Component {
         this.redirectToLandingPage()
         :
         <div>
+          <UserNavbar />
           <div className="wrapper top-order"
             id="wrapper"
           >
@@ -176,7 +177,6 @@ class UserDashboard extends React.Component {
               </div>
             </div>
             <div className="main-panel">
-              <UserNavbar />
               <Switch>
                 <Route
                   component={CreateEventPage}
@@ -224,9 +224,9 @@ class UserDashboard extends React.Component {
                   path="/dashboard/centers/view/:centerId"
                 />
                 <Route
-                  component={Fourohfour}
+                  component={NotFound}
                   exact
-                  path="/dashboard/*"
+                  path="*"
                 />
               </Switch>
             </div>

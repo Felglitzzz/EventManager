@@ -118,7 +118,7 @@ export const loadOneEvent = eventId => (dispatch) => {
       dispatch(loadOneEventSuccess(response.data));
     })
     .catch((errors) => {
-      dispatch(loadOneEventFail(errors));
+      dispatch(loadOneEventFail(errors.response.data));
       throw (errors.response.data.message);
     });
 };

@@ -84,7 +84,7 @@ const eventReducer = (state = initialState.events, action) => {
   case LOAD_ONE_EVENT_FAIL:
     return {
       ...state,
-      update: action.error
+      error: action.error
     };
   case UPDATE_EVENT_SUCCESS:
     return {

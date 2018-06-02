@@ -1,16 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-md-spinner';
+import moment from 'moment';
 
+/**
+ * @description - Stateless component for rendering form for editing event
+ *
+ * @param {func} onChange - handles onchange event for edit event form
+ * @param {func} onSubmit - handles onSubmit event for edit event form
+ * @param {func} handleFocus - handles clearing of input values for edit event form
+ * @param {func} imageOnChange - handles onchange event for image input in edit event form
+ * @param {object} updateEventData - event details to be edited
+ * @param {object} errors - object with input errors
+ * @param {object} options - array of centers
+ * @param {boolean} isLoading boolean
+ *
+ * @returns {jsx} EditEventForm - Rendered view
+ */
 const EditEventForm = ({
   onChange,
   onSubmit,
+  handleFocus,
+  imageOnChange,
   updateEventData,
   errors,
   options,
-  imageOnChange,
-  isLoading,
-  handleFocus
+  isLoading
 }) =>
   (options.length === 0 || updateEventData.length === 0 ? (
     <div className="d-flex justify-content-center pad">
@@ -97,7 +112,7 @@ const EditEventForm = ({
                           onFocus={handleFocus}
                           placeholder="Event Start Date"
                           type="date"
-                          value={updateEventData.startDate}
+                          value={moment(updateEventData.startDate).format('YYYY-MM-DD')}
                         />
                       </div>
                       <div className="form-group col-sm-12 col-md-6">
@@ -115,7 +130,7 @@ const EditEventForm = ({
                           onFocus={handleFocus}
                           placeholder="Event End Date"
                           type="date"
-                          value={updateEventData.endDate}
+                          value={moment(updateEventData.endDate).format('YYYY-MM-DD')}
                         />
                       </div>
                     </div>

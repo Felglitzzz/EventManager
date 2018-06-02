@@ -554,9 +554,10 @@ height: 200px
 }
 
 .fourohfour{
-  font-size: 17rem;
+  font-size: 10rem;
   text-align: center;
 }
+
 .border-404{
   z-index: 4;
   width:100%;
@@ -586,6 +587,7 @@ height: 200px
 .w-60{
   width: 60px;
 }
+
 
 .table {
   width: 100%;
@@ -704,7 +706,12 @@ height: 200px
     padding: 20px;
     margin-bottom: 20px;
     width: 100%;
-}
+  }
+
+  .bloc{
+    display: block !important;
+  }
+
 }
 
 @media (min-width: 321px) and (max-width: 565px) {
@@ -797,15 +804,25 @@ height: 200px
     padding: 20px;
     margin-bottom: 20px;
     width: 100%;
-}
-.pose-relative{
-  position: relative;
-  width: 100%;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  margin-top: 0em;
-}
+  }
+
+  .pose-relative{
+    position: relative;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin-top: 0em;
+  }
+
+  .bloc{
+    display: block !important;
+  }
+
+  .fourohfour{
+    font-size: 7rem;
+    text-align: center;
+  }
 }
 
 @media (min-width: 566px) and (max-width: 767px) {
@@ -837,6 +854,15 @@ height: 200px
   .no-padding-hr {
     padding-left: 0px !important;
     padding-right: 0px !important;
+  }
+
+  .bloc{
+    display: block !important;
+  }
+
+  .fourohfour{
+    font-size: 8rem;
+    text-align: center;
   }
 }
 

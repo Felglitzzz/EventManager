@@ -278,13 +278,14 @@ class EditEventPage extends React.Component {
    */
   render() {
     const { eventLoading, eventError } = this.state;
+    const { eventId } = this.props;
 
     if (eventLoading) {
       return this.showLoader();
     }
 
-    if (eventError === 'Event Not Found!') {
-      history.push('/dashboard/events');
+    if (eventError === 'Event Not Found!' || !Number.isInteger(eventId)) {
+      history.push('/dashboard/*');
       return null;
     }
     return (
@@ -323,7 +324,7 @@ EditEventPage.propTypes = {
  * @return { object } props - returns mapped props from state
  */
 function mapStateToProps(state, ownProps) {
-  const eventId = parseInt(ownProps.match.params.eventId, 10);
+  const eventId = Number(ownProps.match.params.eventId);
 
   return {
     eventId,

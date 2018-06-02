@@ -82,13 +82,6 @@ const eventMockData = {
     centerId: 1,
     status: 'pending'
   },
-  // noDesc: {
-  //   name: 'The Nigeria Education Fair',
-  //   image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
-  //   startDate: new Date('2019-03-25'),
-  //   endDate: new Date('2019-03-27'),
-  //   centerId: 1
-  // },
   noCenterId: {
     name: 'The Nigeria Education Fair',
     image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',

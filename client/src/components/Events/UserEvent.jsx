@@ -4,13 +4,12 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 
 /**
- * @description - Stateless class component for individual events
+ * @description - Stateless component for rendering events that belong to a user
  *
- * @param {events} event object
+ * @param { object } events - events that will be rendered
+ * @param { func } handleDelete - handles delete event for an event
  *
- * @param {handleDelete} delete function
- *
- * @returns {event} userevent object
+ * @returns {jsx} UserEvent - Rendered view
  */
 const UserEvent = ({ events, handleDelete }) => {
   events = events.rows;

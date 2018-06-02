@@ -4,9 +4,29 @@ import Loader from 'react-md-spinner';
 
 import facilities from '../../../utils/facilities';
 
+/**
+ * @description - Stateless component for rendering form for editing center
+ *
+ * @param {func} onChange - handles onchange event for edit event form
+ * @param {func} onSubmit - handles onSubmit event for edit event form
+ * @param {func} handleFocus - handles clearing of input values for edit event form
+ * @param {func} imageOnChange - handles onchange event for image input in edit event form
+ * @param {object} updateCenterData - center details to be created
+ * @param {object} errors - object with input errors
+ * @param {func} selectOnChange - handles onchange event for facilities in create center form
+ * @param {boolean} isLoading boolean
+ *
+ * @returns {jsx} EditCenterForm - Rendered view
+ */
 const EditCenterForm = ({
-  onChange, onSubmit, updateCenterData, errors, handleFocus,
-  isLoading, imageOnChange, selectOnChange
+  onChange,
+  onSubmit,
+  handleFocus,
+  imageOnChange,
+  updateCenterData,
+  errors,
+  selectOnChange,
+  isLoading
 }) => (
   <div>
     <div className="py-3">

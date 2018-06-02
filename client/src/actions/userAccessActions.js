@@ -2,8 +2,6 @@ import axios from 'axios';
 import toastr from 'toastr';
 import * as actionTypes from './actionTypes';
 
-// axios.defaults.baseURL = 'https://eventmanager-app.herokuapp.com';
-
 const {
   ADD_USER_SUCCESS,
   ADD_USER_FAIL,

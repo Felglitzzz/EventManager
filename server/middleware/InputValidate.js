@@ -227,7 +227,7 @@ export default class InputValidate {
    */
   static checkEventId(req, res, next) {
     const errors = {};
-    const eventId = parseInt(req.params.eventId.trim(), 10);
+    const eventId = Number(req.params.eventId.trim());
 
     if (!Number.isInteger(eventId)) {
       errors.eventId = 'Event Id is invalid';
@@ -415,7 +415,7 @@ export default class InputValidate {
    */
   static checkCenterId(req, res, next) {
     const errors = {};
-    const centerId = parseInt(req.params.centerId.trim(), 10);
+    const centerId = Number(req.params.centerId.trim());
 
     if (!Number.isInteger(centerId)) {
       errors.centerId = 'Center Id is invalid';

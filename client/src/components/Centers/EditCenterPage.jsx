@@ -90,6 +90,7 @@ class EditCenterPage extends React.Component {
    * @returns {object} event
    */
   componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps);
     if (nextProps.center.center) {
       this.setState({
         updateCenterData: nextProps.center.center.center
@@ -287,13 +288,14 @@ class EditCenterPage extends React.Component {
    */
   render() {
     const { centerLoading, centerError } = this.state;
+    const { centerId } = this.props;
 
     if (centerLoading) {
       return this.showLoader();
     }
 
-    if (centerError === 'Center Not Found!') {
-      history.push('/dashboard/centers');
+    if (centerError === 'Center Not Found!' || !Number.isInteger(centerId)) {
+      history.push('/dashboard/*');
       return null;
     }
 
@@ -331,7 +333,7 @@ EditCenterPage.propTypes = {
  * @return { object } props - returns mapped props from state
  */
 function mapStateToProps(state, ownProps) {
-  const centerId = parseInt(ownProps.match.params.centerId, 10);
+  const centerId = Number(ownProps.match.params.centerId);
   return {
     centerId,
     center: state.centerReducer,

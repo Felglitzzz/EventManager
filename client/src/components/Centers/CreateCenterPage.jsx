@@ -20,9 +20,9 @@ class CreateCenterPage extends React.Component {
   /**
    * @description - creates an instance of CreateCenterPage
    *
-   * @constructor
-   *
    * @param { props } props - contains create center component properties
+   *
+   * @memberof CreateCenterPage
    */
   constructor(props) {
     super(props);

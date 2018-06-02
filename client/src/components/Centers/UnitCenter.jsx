@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import getUserFromToken from '../../utils/getUserFromToken';
 
 /**
- * class UnitCenter
+ * @description - Stateless component for rendering a center
  *
- * @returns {object} react component
+ * @returns {jsx} UnitCenter - Rendered view
  */
 const UnitCenter = ({ centers }) => {
   const { isAdmin } = getUserFromToken();

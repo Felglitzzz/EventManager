@@ -2,6 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from 'react-md-spinner';
 
+/**
+ * @description - Stateless component for rendering form for creating event
+ *
+ * @param {func} onChange - handles onchange event for edit event form
+ * @param {func} onSubmit - handles onSubmit event for edit event form
+ * @param {func} handleFocus - handles clearing of input values for edit event form
+ * @param {func} imageOnChange - handles onchange event for image input in edit event form
+ * @param {object} eventData - event details to be created
+ * @param {object} errors - object with input errors
+ * @param {object} options - array of centers
+ * @param {boolean} isLoading boolean
+ *
+ * @returns {jsx} EventForm - Rendered view
+ */
 const EventForm = ({
   onChange,
   onSubmit,
@@ -123,24 +137,6 @@ const EventForm = ({
                         />
                       </div>
                     </div>
-                    {/* <div className="form-group">
-                      <label>Event Description</label>
-                      {errors.description && (
-                        <div className="alert alert-danger"
-                          role="alert">
-                          {errors.description}
-                        </div>
-                      )}
-                      <textarea
-                        className="form-control form-rounded mb-3"
-                        name="description"
-                        onChange={onChange}
-                        onFocus={handleFocus}
-                        placeholder="Enter Event Description"
-                        rows="3"
-                        value={eventData.description}
-                      />
-                    </div> */}
 
                     <div className="form-group">
                       <label>Choose Event Image</label>
