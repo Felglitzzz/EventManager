@@ -9,7 +9,7 @@ const SignInForm = ({
     aria-hidden="true"
     aria-labelledby="exampleModalLabel"
     className="modal fade"
-    id="exampleModal"
+    id="signinModal"
     role="dialog"
   >
     <div className="modal-dialog"
@@ -42,6 +42,7 @@ const SignInForm = ({
               <input
                 className="form-control mb-3"
                 error={errors.username}
+                id="username"
                 name="username"
                 onChange={onChange}
                 onFocus={handleFocus}
@@ -58,6 +59,7 @@ const SignInForm = ({
               <input
                 className="form-control mb-3"
                 error={errors.password}
+                id="password"
                 name="password"
                 onChange={onChange}
                 onFocus={handleFocus}
@@ -80,6 +82,7 @@ const SignInForm = ({
             <button
               className="marg rounded btn text-light btn-outline-light ml-2 border"
               disabled={isLoading}
+              id="signinSubmit"
             >
               Submit
             </button>

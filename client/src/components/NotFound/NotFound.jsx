@@ -66,7 +66,8 @@ export default class NotFound extends React.Component {
                   </Link>
                   :
                   <Link
-                    to="/"><button className="btn btn-orange text px-3">Back Home</button>
+                    to="/"><button className="btn btn-orange text px-3"
+                      id="goToHome">Back Home</button>
                   </Link>
                 }
               </div>

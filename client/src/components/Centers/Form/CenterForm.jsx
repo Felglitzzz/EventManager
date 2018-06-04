@@ -30,8 +30,10 @@ const CenterForm = ({
 }) => (
   <div>
     <div className="py-3">
-      <div className="form-width mx-auto z-depth-1 hoverable">
-        <header className="shadow-down bg-white">
+      <div className="form-width mx-auto z-depth-1 hoverable bg-white">
+        <header
+          className="shadow-down bg-white"
+          id="createcenterform">
           <p className=" form-head text-center text-orange">Create Center</p>
         </header>
         <section className="bg-white">
@@ -88,7 +90,6 @@ const CenterForm = ({
                         onChange={onChange}
                         onFocus={handleFocus}
                         placeholder="Center's Price"
-                        step="500"
                         type="number"
                         value={centerData.price}
                       />
@@ -100,12 +101,10 @@ const CenterForm = ({
                       {errors.capacity}</div>}
                     <input
                       className="form-control text-secondary"
-                      min="100"
                       name="capacity"
                       onChange={onChange}
                       onFocus={handleFocus}
                       placeholder="Center's Capacity"
-                      step="100"
                       type="number"
                       value={centerData.capacity}
                     />
@@ -178,6 +177,7 @@ const CenterForm = ({
                   <div className="form-group">
                     <button className="btn btn-orange w-100 waves-effect z-depth-2"
                       disabled = {!!isLoading}
+                      id="createCenterSubmit"
                       onSubmit={onSubmit}>
                       <span className="pr-4">
                           Submit

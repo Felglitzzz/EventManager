@@ -39,13 +39,17 @@ const EditEventForm = ({
     <div>
       <div className="py-5">
         <div className="form-width mx-auto bg-white z-depth-1 hoverable">
-          <header className="shadow-down">
+          <header
+            className="shadow-down"
+            id="editeventform"
+          >
             <p className=" form-head text-center text-orange">Edit Event</p>
           </header>
           <section>
             <div className="img-fluid d-flex justify-content-center mt-5">
               <div className="container">
-                <form onSubmit={onSubmit}>
+                <form
+                  onSubmit={onSubmit}>
                   <div>
                     <p className="p-3 bg-orange text-light text-center lead">
                       Fill the form to edit event
@@ -148,6 +152,7 @@ const EditEventForm = ({
                     <div className="form-group">
                       <button className="btn btn-orange w-100 waves-effect z-depth-2"
                         disabled = {!!isLoading}
+                        id="editEventSubmit"
                         onSubmit={onSubmit}>
                         <span className="pr-4">
                           Submit

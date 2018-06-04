@@ -38,7 +38,8 @@ const EventForm = ({
     <div>
       <div className="py-5">
         <div className="form-width mx-auto bg-white z-depth-1 hoverable">
-          <header className="shadow-down">
+          <header className="shadow-down"
+            id="eventform">
             <p className=" form-head text-center text-orange">Create Event</p>
           </header>
           <section>
@@ -90,9 +91,9 @@ const EventForm = ({
                         <option value="">{'Select Center'}</option>
                         {
                           options.map(option => (
-                            <option key=
-                              {option.id}
-                            value={option.id}>
+                            <option
+                              key= {option.id}
+                              value={option.id}>
                               {option.name}
                             </option>
                           ))
@@ -160,6 +161,7 @@ const EventForm = ({
                     <div className="form-group">
                       <button className="btn btn-orange w-100 waves-effect z-depth-2"
                         disabled = {!!isLoading}
+                        id="createEventSubmit"
                         onSubmit={onSubmit}>
                         <span className="pr-4">
                           Submit

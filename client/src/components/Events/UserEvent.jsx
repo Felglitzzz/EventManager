@@ -53,13 +53,16 @@ const UserEvent = ({ events, handleDelete }) => {
                   <div className="container pt-2 px-0">
                     <ul className="pl-0">
                       <li className="d-flex justify-content-center">
-                        <Link to={`/dashboard/events/${event.id}`}>
+                        <Link
+                          id="editEventButton"
+                          to={`/dashboard/events/${event.id}`}>
                           <p className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim">
                             <i aria-hidden="true"
                               className="fa fa-pencil fa-2x p-2" />
                           </p>
                         </Link>
-                        <a>
+                        <a
+                          id="deleteEventButton">
                           <p
                             className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim"
                             id={event.id}

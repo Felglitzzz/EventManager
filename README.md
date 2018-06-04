@@ -100,10 +100,22 @@ Click [here](https://eventmanager-app.herokuapp.com/docs) to view our detailed A
 
 ## Testing
 
-The app uses: 
-`Chai` and `Chai-Http` for backend testing, 
+#### Server-side tests
 
-- `npm run test` - for backend testing
+- Uses `Chai` and `Chai-Http`
+- Have a test database
+
+```sh
+    npm run test
+```
+
+#### End-to-End tests
+
+- Uses `Nightwatch`
+
+```sh
+    npm run e2e-tests
+```
 
 ## Limitations
 

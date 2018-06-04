@@ -181,7 +181,9 @@ class ViewCenterPage extends React.Component {
   showNoEvents() {
     const { name } = this.state.center;
     return (
-      <div className="py-3">
+      <div
+        className="py-3"
+        id="shownoevents">
         <p className="text-center text-dark lead">
           {_.capitalize(name)} has no events
         </p>
@@ -341,7 +343,9 @@ class ViewCenterPage extends React.Component {
             <p className="text-center p-3 text-justify">{center.description}</p>
           </section>
         </div>
-        <header className="mt-3 bg-light z-depth-1">
+        <header
+          className="mt-3 bg-light z-depth-1"
+          id="centereventlog">
           <p className="form-head text-center text-orange">Center-Event Log</p>
         </header>
 

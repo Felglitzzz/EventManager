@@ -194,12 +194,13 @@ class AllUserEvents extends React.Component {
           </p>
           <Link
             className="d-flex justify-content-center"
+            id="createEventButton"
             to="/dashboard/event"
           >
             <button
               className="btn btn-orange"
             >
-        Create Event
+              Create Event
             </button></Link>
         </div>
       </div>

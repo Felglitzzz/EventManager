@@ -164,7 +164,9 @@ class UserDashboard extends React.Component {
                         <p className="font-weight-bold text-orange lead d-inline-flex">{isAdmin ? 'Create Centers' : 'Create Events'}</p>
                       </li>
                     </Link>
-                    <li className="list-group-item text-orange mb-1 bg-dark button-anim padL py-4"
+                    <li
+                      className="list-group-item text-orange mb-1 bg-dark button-anim padL py-4"
+                      id="logout"
                       onClick={this.handleLogout}
                     >
                       <span className="fa-stack mr-2 empty">

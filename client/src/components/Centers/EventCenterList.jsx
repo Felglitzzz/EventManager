@@ -30,7 +30,9 @@ const EventCenterList = ({
     return showNoEvents();
   }
   return (
-    <div className="p-3">
+    <div
+      className="p-3"
+      id="eventcenterlist">
       <div className="row border border-top-2 border-bottom-2 py-2">
         <div className={isAdmin ? 'col-3' : 'col-4'}>
           <p className="mt-3 font-weight-bold">Date Booked</p></div>

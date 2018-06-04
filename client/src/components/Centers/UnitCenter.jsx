@@ -43,7 +43,9 @@ const UnitCenter = ({ centers }) => {
                   <ul className="pl-0">
                     <li className="d-flex justify-content-center">
                       { isAdmin ?
-                        <Link to={`/dashboard/centers/${center.id}`}>
+                        <Link
+                          id="editCenterButton"
+                          to={`/dashboard/centers/${center.id}`}>
                           <p className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim">
                             <i aria-hidden="true"
                               className="fa fa-pencil fa-2x p-2" /></p>
@@ -51,6 +53,7 @@ const UnitCenter = ({ centers }) => {
                         (null)
                       }
                       <Link
+                        id="viewCenterButton"
                         to ={`/dashboard/centers/view/${center.id}`}>
                         <p
                           className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim" >
