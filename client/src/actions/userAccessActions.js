@@ -8,8 +8,6 @@ const {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOG_OUT,
-  LOAD_ONE_USER_FAIL,
-  LOAD_ONE_USER_SUCCESS
 } = actionTypes;
 
 /**
@@ -130,55 +128,4 @@ export const loginUser = loginData => dispatch =>
       dispatch(loginUserFail(errors.response.data.message));
       throw (errors.response.data.message);
     });
-
-/**
- * description - handles successful GET request for a user
- *
- * @export getOneUserSuccess
- *
- * @param {object} userReturned
- *
- * @returns {object} dispatched action type
- */
-export const getOneUserSuccess = userReturned => ({
-  type: LOAD_ONE_USER_SUCCESS,
-  userReturned
-});
-
-/**
- * description - handles failed GET request for a user
- *
- * @export getOneUserSuccess
- *
- * @param {object} error
- *
- * @returns {object} dispatched action type
- */
-export const getOneUserFail = error => ({
-  type: LOAD_ONE_USER_FAIL,
-  error
-});
-
-/**
- * description - handles GET request for a user
- *
- * @export getOneUserSuccess
- *
- * @param {object} userId
- *
- * @returns {object} dispatched action type
- */
-export const loadOneUser = userId => (dispatch) => {
-  const token = localStorage.getItem('x-access-token');
-  axios.get(`/api/v1/users/${userId}`, {
-    headers: { Authorization: token }
-  })
-    .then((response) => {
-      dispatch(getOneUserSuccess(response.data));
-    })
-    .catch((errors) => {
-      dispatch(getOneUserFail(errors.response.data.message));
-      toastr.error(errors.response.data.message);
-    });
-};
 

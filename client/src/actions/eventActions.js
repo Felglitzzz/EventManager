@@ -67,7 +67,7 @@ export const addNewEvent = eventData => (dispatch) => {
       dispatch(addEventSuccess(response.data));
     })
     .catch((errors) => {
-      dispatch(addEventFail(errors));
+      dispatch(addEventFail(errors.response.data.message));
       throw (errors.response.data.message);
     });
 };
