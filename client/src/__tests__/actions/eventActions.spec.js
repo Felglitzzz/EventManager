@@ -1,21 +1,16 @@
+/* global expect */
 import moxios from 'moxios';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 import {
   ADD_EVENT_SUCCESS,
-  LOAD_EVENT_BY_CENTER_ID,
   LOAD_ALL_EVENTS_SUCCESS,
-  LOAD_ALL_EVENTS_FAIL,
   LOAD_EVENTS_BY_CENTER_ID_SUCCESS,
-  LOAD_EVENTS_BY_CENTER_ID_FAIL,
   LOAD_ONE_EVENT_SUCCESS,
-  LOAD_ONE_EVENT_FAIL,
   UPDATE_EVENT_SUCCESS,
   DELETE_ONE_EVENT_SUCCESS,
-  DELETE_ONE_EVENT_FAIL,
   CANCEL_EVENT_SUCCESS,
   APPROVE_EVENT_SUCCESS,
-  ADD_EVENT_FAIL
 } from '../../actions/actionTypes';
 import {
   addNewEvent,
@@ -33,7 +28,6 @@ import mockData from '../__mocks__/mockData';
 const mockStore = configureStore([thunk]);
 const {
   createEventResponse,
-  createEventErrorResponse,
   createEventData,
   updateEventResponse,
   updateEventData,
@@ -48,7 +42,7 @@ const url = '/api/v1/';
 
 window.localStorage = mockLocalStorage;
 
-describe('Authentication Actions', () => {
+describe('Event Actions', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
 
@@ -61,29 +55,7 @@ describe('Authentication Actions', () => {
     const expectedAction = [
       {
         type: ADD_EVENT_SUCCESS,
-        events: createEventResponse
-      }
-    ];
-
-    const store = mockStore({});
-
-    return store.dispatch(addNewEvent(createEventData))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedAction);
-        done();
-      });
-  });
-
-  it('failed create event action', (done) => {
-    moxios.stubRequest(`${url}events`, {
-      status: 400,
-      response: createEventErrorResponse,
-    });
-
-    const expectedAction = [
-      {
-        type: ADD_EVENT_FAIL,
-        error: createEventErrorResponse
+        eventData: createEventResponse
       }
     ];
 

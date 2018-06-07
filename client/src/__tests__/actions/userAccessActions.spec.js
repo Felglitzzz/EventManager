@@ -1,13 +1,17 @@
+/* global expect */
 import moxios from 'moxios';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
+
 import {
   ADD_USER_SUCCESS,
-  LOGIN_USER_SUCCESS
+  LOGIN_USER_SUCCESS,
+  LOG_OUT
 } from '../../actions/actionTypes';
 import {
   addNewUser,
   loginUser,
+  logOutUser
 } from '../../actions/userAccessActions';
 import mockLocalStorage from '../__mocks__/mockLocalStoage';
 import mockData from '../__mocks__/mockData';
@@ -69,5 +73,24 @@ describe('Authentication Actions', () => {
         expect(store.getActions()).toEqual(expectedAction);
         done();
       });
+  });
+
+  it('log out actions', (done) => {
+    const expectedAction = [
+      {
+        type: LOG_OUT,
+      }
+    ];
+
+    const store = mockStore({});
+
+    store.dispatch(logOutUser());
+    const newState = store.getState();
+    expect(store.getActions()).toEqual(expectedAction);
+    expect(newState).toEqual({});
+    expect(newState.userAccess).toEqual(undefined);
+    expect(newState.eventReducer).toEqual(undefined);
+    expect(newState.centerReducer).toEqual(undefined);
+    done();
   });
 });
