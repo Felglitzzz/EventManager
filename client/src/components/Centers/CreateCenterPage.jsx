@@ -265,7 +265,7 @@ CreateCenterPage.propTypes = {
  */
 function mapStateToProps(state) {
   return {
-    imageUrl: state.images.image
+    imageUrl: state.imageReducer.image
   };
 }
 

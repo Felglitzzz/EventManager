@@ -26,13 +26,13 @@ const {
  *
  * @export addEventSuccess
  *
- * @param {object} events
+ * @param {object} eventData
  *
  * @returns {object} action object
  */
-export const addEventSuccess = events => ({
+export const addEventSuccess = eventData => ({
   type: ADD_EVENT_SUCCESS,
-  events
+  eventData
 });
 
 /**
@@ -118,7 +118,7 @@ export const loadOneEvent = eventId => (dispatch) => {
       dispatch(loadOneEventSuccess(response.data));
     })
     .catch((errors) => {
-      dispatch(loadOneEventFail(errors.response.data));
+      dispatch(loadOneEventFail(errors.response.data.response));
       throw (errors.response.data.message);
     });
 };
@@ -170,7 +170,7 @@ export const loadAllEvent = page => (dispatch) => {
       dispatch(loadAllEventSuccess(response.data));
     })
     .catch((errors) => {
-      dispatch(loadAllEventFail(errors));
+      dispatch(loadAllEventFail(errors.response.data.message));
       throw (errors.response.data.message);
     });
 };

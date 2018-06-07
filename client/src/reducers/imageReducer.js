@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
+import initialState from './initialState';
 
 const {
   SAVE_IMAGE_SUCCESS,
@@ -13,7 +14,7 @@ const {
  * @returns {object} action type and payload
  */
 
-const imageReducer = (state = {}, action) => {
+const imageReducer = (state = initialState.images, action) => {
   const { type } = action;
 
   switch (type) {

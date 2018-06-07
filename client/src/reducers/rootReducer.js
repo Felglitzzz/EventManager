@@ -3,7 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import userAccess from './userAccessReducer';
 import eventReducer from './eventReducer';
 import centerReducer from './centerReducer';
-import images from './imageReducer';
+import imageReducer from './imageReducer';
 import initialState from '../reducers/initialState';
 import * as actionTypes from '../actions/actionTypes';
 
@@ -15,7 +15,7 @@ const appReducer = combineReducers({
   userAccess,
   eventReducer,
   centerReducer,
-  images,
+  imageReducer,
   routing: routerReducer
 });
 

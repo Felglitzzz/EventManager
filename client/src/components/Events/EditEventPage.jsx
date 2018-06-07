@@ -330,7 +330,7 @@ function mapStateToProps(state, ownProps) {
     eventId,
     event: state.eventReducer,
     options: state.centerReducer,
-    imageUrl: state.images.image
+    imageUrl: state.imageReducer.image
   };
 }
 

@@ -337,7 +337,7 @@ function mapStateToProps(state, ownProps) {
   return {
     centerId,
     center: state.centerReducer,
-    imageUrl: state.images.image
+    imageUrl: state.imageReducer.image
   };
 }
 
