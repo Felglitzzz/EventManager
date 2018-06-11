@@ -14,7 +14,7 @@ import Prompter from '../../helpers/Prompter';
  *
  * @extends {React.Component}
  */
-class SignInPageModal extends React.Component {
+export class SignInPageModal extends React.Component {
   /**
    * @description - creates an instance of SigninPageModal
    *
@@ -131,23 +131,6 @@ class SignInPageModal extends React.Component {
   }
 }
 
-SignInPageModal.propTypes = {
-  loginUser: PropTypes.func.isRequired
-};
-
-/**
- * @description maps redux state to props
- *
- * @param { object } state - holds redux state
- *
- * @return { object } props - returns mapped props from state
- */
-function mapStateToProps(state) {
-  return {
-    loginData: state.userAccess.loginData
-  };
-}
-
 /**
  * @description maps action dispatched to props
  *
@@ -161,4 +144,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignInPageModal);
+export default connect(null, mapDispatchToProps)(SignInPageModal);

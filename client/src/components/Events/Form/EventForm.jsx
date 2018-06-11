@@ -62,6 +62,7 @@ const EventForm = ({
                       )}
                       <input
                         className="form-control text-secondary"
+                        id="name"
                         name="name"
                         onChange={onChange}
                         onFocus={handleFocus}

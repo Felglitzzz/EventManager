@@ -5,6 +5,7 @@ node_js:
 
 before_script:
   - npm install -g codeclimate-test-reporter sequelize-cli
+  - npm install -g codecov
   - psql -c 'drop database if exists eventdb_test;' -U postgres
   - psql -c 'create database eventdb_test;' -U postgres
   - npm run migrate:test
@@ -18,3 +19,4 @@ script:
 after_success:
   - npm run coveralls:report
   - CODECLIMATE_REPO_TOKEN=$CODECLIMATE_REPO_TOKEN codeclimate-test-reporter < coverage/lcov.info
+  - CODECOV_REPO_TOKEN=$CODECOV_REPO_TOKEN

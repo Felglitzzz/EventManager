@@ -52,6 +52,7 @@ const CenterForm = ({
                       {errors.name}</div>}
                     <input
                       className= "form-control text-secondary"
+                      id="name"
                       name="name"
                       onChange={onChange}
                       onFocus={handleFocus}

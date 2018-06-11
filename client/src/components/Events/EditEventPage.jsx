@@ -18,7 +18,7 @@ import Validate from '../../helpers/validations/Validate';
  *
  * @extends {React.Component}
  */
-class EditEventPage extends React.Component {
+export class EditEventPage extends React.Component {
   /**
    * @description - creates an instance of EditEventPage
    *
@@ -133,15 +133,10 @@ class EditEventPage extends React.Component {
     const imageReader = new FileReader();
     if (chosenImage) {
       imageReader.onload = () => {
-        const upload = new Image(500, 330);
-        upload.src = imageReader.result;
-        upload.onload = () => {
-          this.setState({
-            uploadHeight: upload.height,
-            uploadWidth: upload.width,
-            chosenImage
-          });
-        };
+        this.setState({
+          chosenImage,
+          chosenImageUrl: imageReader.result
+        });
       };
     }
     imageReader.readAsDataURL(chosenImage);
@@ -341,13 +336,11 @@ function mapStateToProps(state, ownProps) {
  *
  * @return { object } props - returns mapped props from dispatch action
  */
-function mapDispatchToProps(dispatch) {
-  return {
-    loadOneEvent: eventId => dispatch(loadOneEvent(eventId)),
-    loadUnpaginatedCenters: () => dispatch(loadUnpaginatedCenters()),
-    updateEvent: updateEventData => dispatch(updateEvent(updateEventData)),
-    uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
-  };
-}
+export const mapDispatchToProps = dispatch => ({
+  loadOneEvent: eventId => dispatch(loadOneEvent(eventId)),
+  loadUnpaginatedCenters: () => dispatch(loadUnpaginatedCenters()),
+  updateEvent: updateEventData => dispatch(updateEvent(updateEventData)),
+  uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditEventPage);

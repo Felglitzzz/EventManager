@@ -4,7 +4,7 @@ const URL = 'http://localhost:1991';
 const centerName = faker.random.word();
 
 module.exports = {
-  'Logged in Admin should be able to see the center\'s dashboard': (browser) => {
+  AdminDashboard: (browser) => {
     browser
       .url(`${URL}`)
       .waitForElementVisible('body', 2000)
@@ -25,7 +25,7 @@ module.exports = {
       .assert.visible('.row > div > .card-deck .card');
   },
 
-  'Logged in Admin should be able to create center by clicking the \'create center\' button': (browser) => {
+  CreateCenter: (browser) => {
     browser
       .assert.containsText('div.sidebar > div > div > ul > a:nth-of-type(3)', 'Create Centers')
       .click('div.sidebar > div > div > ul > a:nth-of-type(3)')
@@ -53,7 +53,7 @@ module.exports = {
       .end();
   },
 
-  'Logged in Admin should be able to edit center by clicking edit center button': (browser) => {
+  EditCenter: (browser) => {
     browser
       .url(`${URL}`)
       .waitForElementVisible('body', 2000)
@@ -83,7 +83,7 @@ module.exports = {
       .end();
   },
 
-  'Logged in Admin should be able to view center by clicking view center button': (browser) => {
+  ViewCenter: (browser) => {
     browser
       .url(`${URL}`)
       .waitForElementVisible('body', 2000)
@@ -106,7 +106,7 @@ module.exports = {
       .pause(2000);
   },
 
-  'Logged in Admin should no events if none is slated for a center': (browser) => {
+  ShowNoEventsForCenter: (browser) => {
     browser
       .assert.containsText('#centereventlog', 'CENTER-EVENT LOG')
       .assert.visible('#shownoevents')

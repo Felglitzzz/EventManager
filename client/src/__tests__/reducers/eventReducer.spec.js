@@ -1,4 +1,3 @@
-/* global expect */
 import eventReducer from '../../reducers/eventReducer';
 import {
   ADD_EVENT_SUCCESS,

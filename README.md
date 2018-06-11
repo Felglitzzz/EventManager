@@ -100,13 +100,27 @@ Click [here](https://eventmanager-app.herokuapp.com/docs) to view our detailed A
 
 ## Testing
 
+- Run both client and server tests together
+
+```sh
+    npm test
+```
+
 #### Server-side tests
 
 - Uses `Chai` and `Chai-Http`
 - Have a test database
 
 ```sh
-    npm run test
+    npm run server-test
+```
+
+#### Client-side tests
+
+- Uses `Jest` and `Enzyme`
+
+```sh
+    npm run client-test
 ```
 
 #### End-to-End tests

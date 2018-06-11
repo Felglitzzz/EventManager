@@ -52,6 +52,7 @@ const EditCenterForm = ({
                       {errors.name}</div>}
                     <input
                       className= "form-control"
+                      id="name"
                       name="name"
                       onChange={onChange}
                       onFocus={handleFocus}
@@ -66,6 +67,7 @@ const EditCenterForm = ({
                       {errors.location}</div>}
                     <input
                       className="form-control text-secondary"
+                      id="location"
                       name="location"
                       onChange={onChange}
                       onFocus={handleFocus}
@@ -84,6 +86,7 @@ const EditCenterForm = ({
                       </div>
                       <input
                         className="form-control text-secondary"
+                        id="price"
                         name="price"
                         onChange={onChange}
                         onFocus={handleFocus}
@@ -100,6 +103,7 @@ const EditCenterForm = ({
                       {errors.capacity}</div>}
                     <input
                       className="form-control text-secondary"
+                      id="capacity"
                       min="100"
                       name="capacity"
                       onChange={onChange}

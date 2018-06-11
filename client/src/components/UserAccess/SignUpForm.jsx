@@ -151,6 +151,7 @@ const SignUpForm = ({
               className="marg rounded btn text-light btn-outline-light ml-2 border"
               disabled={isLoading}
               id="signupSubmit"
+              type="submit"
             >
               Submit
             </button>

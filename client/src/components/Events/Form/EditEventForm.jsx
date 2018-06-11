@@ -27,7 +27,7 @@ const EditEventForm = ({
   options,
   isLoading
 }) =>
-  (options.length === 0 || updateEventData.length === 0 ? (
+  (options.length === 0 || !updateEventData ? (
     <div className="d-flex justify-content-center pad">
       <Loader color1="#f6682f"
         color2="#f6682f"
@@ -66,6 +66,7 @@ const EditEventForm = ({
                       )}
                       <input
                         className="form-control text-secondary"
+                        id="name"
                         name="name"
                         onChange={onChange}
                         onFocus={handleFocus}

@@ -1,4 +1,3 @@
-/* global expect */
 import moxios from 'moxios';
 import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
@@ -22,7 +21,7 @@ import {
   cancelEvent,
   approveEvent
 } from '../../actions/eventActions';
-import mockLocalStorage from '../__mocks__/mockLocalStoage';
+import mockLocalStorage from '../__mocks__/mockLocalStorage';
 import mockData from '../__mocks__/mockData';
 
 const mockStore = configureStore([thunk]);

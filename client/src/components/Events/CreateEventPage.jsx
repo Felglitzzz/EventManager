@@ -16,7 +16,7 @@ import Prompter from '../../helpers/Prompter';
  *
  * @extends {React.Component}
  */
-class CreateEventPage extends React.Component {
+export class CreateEventPage extends React.Component {
   /**
    * @description - creates an instance of CreateEventPage
    *
@@ -33,10 +33,10 @@ class CreateEventPage extends React.Component {
         centerId: '',
         startDate: '',
         endDate: '',
-        description: '',
         image: ''
       },
       chosenImage: '',
+      chosenImageUrl: '',
       errors: {},
       options: [],
       isLoading: false
@@ -129,15 +129,10 @@ class CreateEventPage extends React.Component {
     const imageReader = new FileReader();
     if (chosenImage) {
       imageReader.onload = () => {
-        const upload = new Image(500, 330);
-        upload.src = imageReader.result;
-        upload.onload = () => {
-          this.setState({
-            uploadHeight: upload.height,
-            uploadWidth: upload.width,
-            chosenImage
-          });
-        };
+        this.setState({
+          chosenImage,
+          chosenImageUrl: imageReader.result
+        });
       };
     }
     imageReader.readAsDataURL(chosenImage);
@@ -241,12 +236,10 @@ CreateEventPage.propTypes = {
  *
  * @return { object } props - returns mapped props from state
  */
-function mapStateToProps(state) {
-  return {
-    options: state.centerReducer,
-    imageUrl: state.imageReducer.image
-  };
-}
+const mapStateToProps = state => ({
+  options: state.centerReducer,
+  imageUrl: state.imageReducer.image
+});
 
 /**
  * @description maps action dispatched to props
@@ -255,12 +248,10 @@ function mapStateToProps(state) {
  *
  * @return { object } props - returns mapped props from dispatch action
  */
-function mapDispatchToProps(dispatch) {
-  return {
-    loadUnpaginatedCenters: () => dispatch(loadUnpaginatedCenters()),
-    addNewEvent: eventData => dispatch(addNewEvent(eventData)),
-    uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
-  };
-}
+export const mapDispatchToProps = dispatch => ({
+  loadUnpaginatedCenters: () => dispatch(loadUnpaginatedCenters()),
+  addNewEvent: eventData => dispatch(addNewEvent(eventData)),
+  uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateEventPage);

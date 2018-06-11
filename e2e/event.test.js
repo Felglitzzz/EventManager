@@ -1,7 +1,7 @@
 const URL = 'http://localhost:1991';
 
 module.exports = {
-  'Logged in User should be able to create event by clicking the \'create event\' button': (browser) => {
+  CreateEvent: (browser) => {
     browser
       .url(`${URL}`)
       .waitForElementVisible('body', 2000)
@@ -37,7 +37,7 @@ module.exports = {
       .end();
   },
 
-  'Logged in User should be able to edit event by clicking edit event button': (browser) => {
+  EditEvent: (browser) => {
     browser
       .url(`${URL}`)
       .waitForElementVisible('body', 2000)
@@ -65,7 +65,7 @@ module.exports = {
       .pause(2000);
   },
 
-  'Logged in user should be able to delete an event': (browser) => {
+  DeleteEvent: (browser) => {
     browser
       .waitForElementVisible('.no-padding-hr.mb-3.hoverable', 2000)
       .assert.visible('.row > div > .card-deck .card')
@@ -80,7 +80,7 @@ module.exports = {
       .end();
   },
 
-  'Logged in User sees no event when none is found': (browser) => {
+  ShowNoEvents: (browser) => {
     browser
       .url(`${URL}`)
       .waitForElementVisible('body', 2000)

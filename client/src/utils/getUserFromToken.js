@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
  *
  * @returns {object} decoded user information
  */
-const getUserInfo = () => {
+const getUserFromToken = () => {
   const token = localStorage.getItem('x-access-token');
 
   if (token) {
@@ -19,5 +19,4 @@ const getUserInfo = () => {
   return { error: 'No Token Provided' };
 };
 
-
-export default getUserInfo;
+export default getUserFromToken;

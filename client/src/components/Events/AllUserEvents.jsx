@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 
 import UserEvent from '../Events/UserEvent';
 import { loadAllEvent, deleteEvent } from '../../actions/eventActions';
-import history from '../../helpers/history';
 import Pagination from '../Pagination/Pagination';
 
 
@@ -18,7 +17,7 @@ import Pagination from '../Pagination/Pagination';
  *
  * @extends {React.Component}
  */
-class AllUserEvents extends React.Component {
+export class AllUserEvents extends React.Component {
   /**
    * @description - creates an instance of AllUserEvents
    *
@@ -43,7 +42,6 @@ class AllUserEvents extends React.Component {
       eventError: ''
     };
 
-    this.redirectToEdit = this.redirectToEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.showNext = this.showNext.bind(this);
     this.showPrevious = this.showPrevious.bind(this);
@@ -100,7 +98,7 @@ class AllUserEvents extends React.Component {
   showNext() {
     const { path } = this.props.match;
     const { currentPage } = this.state.pagination;
-    history.push(`${path}?page=${currentPage + 1}`);
+    this.props.history.push(`${path}?page=${currentPage + 1}`);
   }
 
   /**
@@ -113,16 +111,7 @@ class AllUserEvents extends React.Component {
   showPrevious() {
     const { path } = this.props.match;
     const { currentPage } = this.state.pagination;
-    history.push(`${path}?page=${currentPage - 1}`);
-  }
-
-  /**
-   * @description - handles redirect to edit event page
-   *
-   * @returns {void}
-   */
-  redirectToEdit() {
-    history.push('/dashboard/events/:eventId');
+    this.props.history.push(`${path}?page=${currentPage - 1}`);
   }
 
   /**
@@ -253,7 +242,8 @@ AllUserEvents.propTypes = {
   loadAllEvent: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 
@@ -264,7 +254,7 @@ AllUserEvents.propTypes = {
  *
  * @return { object } props - returns mapped props from state
  */
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   events: state.eventReducer,
 });
 
@@ -275,7 +265,7 @@ const mapStateToProps = state => ({
  *
  * @return { object } props - returns mapped props from dispatch action
  */
-const mapDispatchToProps = dispatch =>
+export const mapDispatchToProps = dispatch =>
   ({
     loadAllEvent: page => dispatch(loadAllEvent(page)),
     deleteEvent: eventId => dispatch(deleteEvent(eventId))

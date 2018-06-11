@@ -1,4 +1,3 @@
-/* global expect */
 import imageReducer from '../../reducers/imageReducer';
 import {
   SAVE_IMAGE_SUCCESS,

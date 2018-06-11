@@ -10,6 +10,7 @@ const Pagination = ({
     <button
       className={!previous ? 'page-of mr-auto' : 'page z-depth-1 mr-auto hoverable'}
       disabled={!previous}
+      id="showPrevious"
       onClick={showPrevious}>
       {!previous ? 'First' : 'Previous'}
     </button>
@@ -27,6 +28,7 @@ const Pagination = ({
     <button
       className={!next ? 'page-of ml-auto' : 'page z-depth-1 ml-auto hoverable'}
       disabled={!next}
+      id="showNext"
       onClick={showNext}>
       {!next ? 'Last' : 'Next'}
     </button>

@@ -15,7 +15,7 @@ import Prompter from '../../helpers/Prompter';
  *
  * @extends {React.Component}
  */
-class SignUpPageModal extends React.Component {
+export class SignUpPageModal extends React.Component {
   /**
    * @description - creates an instance of SignUpPageModal
    *
@@ -134,17 +134,6 @@ SignUpPageModal.propTypes = {
 };
 
 /**
- * @description maps redux state to props
- *
- * @param { object } state - holds redux state
- *
- * @return { object } props - returns mapped props from state
- */
-const mapStateToProps = state => ({
-  userData: state.userAccess
-});
-
-/**
  * @description maps action dispatched to props
  *
  * @param { object } dispatch - holds dispatchable actions
@@ -155,4 +144,4 @@ const mapDispatchToProps = dispatch => ({
   addNewUser: userData => dispatch(addNewUser(userData))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpPageModal);
+export default connect(null, mapDispatchToProps)(SignUpPageModal);

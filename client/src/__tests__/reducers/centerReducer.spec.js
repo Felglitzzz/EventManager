@@ -1,4 +1,3 @@
-/* global expect */
 import centerReducer from '../../reducers/centerReducer';
 import {
   LOAD_ALL_CENTERS_SUCCESS,

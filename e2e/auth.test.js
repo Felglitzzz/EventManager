@@ -1,7 +1,7 @@
 const URL = 'http://localhost:1991';
 
 module.exports = {
-  'User receives error when signup form is not properly filled': (browser) => {
+  ErrorUponSignUp: (browser) => {
     browser
       .url(`${URL}`)
       .waitForElementVisible('body', 2000)
@@ -20,7 +20,7 @@ module.exports = {
       .end();
   },
 
-  'User receives error when signin form is not properly filled': (browser) => {
+  ErrorUponSignIn: (browser) => {
     browser
       .url(`${URL}`)
       .waitForElementVisible('body', 2000)
@@ -34,7 +34,7 @@ module.exports = {
       .waitForElementVisible('.alert-danger', 3000);
   },
 
-  'User gets logged in when input fields are correctly filled': (browser) => {
+  SignIn: (browser) => {
     browser
       .url(`${URL}`)
       .waitForElementVisible('body', 2000)
@@ -47,9 +47,10 @@ module.exports = {
       .assert.visible('.modal-footer #signinSubmit')
       .click('.modal-footer #signinSubmit')
       .waitForElementVisible('.no-padding-hr.mb-3.hoverable', 4000)
+      .pause(2000);
   },
 
-  'Logged in user should be able to log out by clicking the logout button': (browser) => {
+  Logout: (browser) => {
     browser
       .waitForElementVisible('div.sidebar > div > div > ul > li', 3000)
       .assert.containsText('#logout', 'Logout')

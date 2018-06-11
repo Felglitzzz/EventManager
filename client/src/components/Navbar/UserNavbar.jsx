@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import lodash from 'lodash';
 import { logOutUser } from '../../actions/userAccessActions';
-import getUserInfo from '../../utils/getUserFromToken';
+import getUserFromToken from '../../utils/getUserFromToken';
 
 /**
  * @description - Class component for rendering authenticated navbar
@@ -11,7 +11,7 @@ import getUserInfo from '../../utils/getUserFromToken';
  *
  * @returns {jsx} jsx - renders UserNavbar component
  */
-class UserNavbar extends React.Component {
+export class UserNavbar extends React.Component {
   /**
   * @description - renders dynamic navbar for authenticated users
   *
@@ -20,7 +20,7 @@ class UserNavbar extends React.Component {
   * @memberof UserNavbar
   */
   render() {
-    const { username } = getUserInfo();
+    const { username } = getUserFromToken();
     return (
       <div className="no-padding-hr mb-3 hoverable">
         <nav className="navbar navbar-expand-lg d-flex">
@@ -37,7 +37,7 @@ class UserNavbar extends React.Component {
  * @param {func} dispatch
  * @returns {object} dipatched action
  */
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   logOutUser: () => dispatch(logOutUser())
 });
 

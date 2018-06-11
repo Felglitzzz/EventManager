@@ -1,0 +1,255 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` All Center's Page should render stateless child component 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <UnitCenter
+    centers={
+      Object {
+        "count": 13,
+        "rows": Array [
+          Object {
+            "capacity": 900,
+            "createdAt": "2018-06-10",
+            "description": "bnmd",
+            "facilities": Array [
+              "Casino",
+              "Parking Space",
+              "Volley Ball Court",
+              "Salon and Spa",
+              "Basket Ball Court",
+            ],
+            "id": 15,
+            "image": "https://res.cloudinary.com/felglitz/image/upload/v1528623443/no30px0yjsdbzaddtcch.jpg",
+            "location": "Alausa",
+            "name": "jkddkd",
+            "price": 900,
+            "type": "jherlfrihn",
+            "updatedAt": "2018-06-10",
+          },
+        ],
+      }
+    }
+    loadCenters={[Function]}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Array [
+    <div
+      className="col-sm-12 col-md-6 col-lg-4 my-2"
+    >
+      <div
+        className="card-deck"
+      >
+        <div
+          className="card"
+        >
+          <div
+            className="img-fluid deck"
+          >
+            <img
+              alt="jkddkd"
+              className="img-fluid deck"
+              height="264"
+              src="https://res.cloudinary.com/felglitz/image/upload/v1528623443/no30px0yjsdbzaddtcch.jpg"
+              width="400"
+            />
+          </div>
+          <div
+            className="card-body p-2"
+          >
+            <ul
+              className="list-group list-group-flush"
+            >
+              <li
+                className="list-group-item px-2 py-2"
+              >
+                <h4
+                  className="card-title"
+                >
+                  jkddkd
+                </h4>
+              </li>
+              <li
+                className="list-group-item pt-0 pb-2 px-2 border-top-0"
+              >
+                <p
+                  className="card-text"
+                >
+                  Alausa
+                </p>
+              </li>
+              <li
+                className="list-group-item d-flex px-2 py-0"
+              >
+                <p
+                  className="card-text"
+                >
+                  900
+                   capacity
+                </p>
+                <p
+                  className=" ml-auto card-text"
+                >
+                  NGN 
+                  900
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div
+            className="overlay"
+          >
+            <div
+              className="user-icons"
+            >
+              <div
+                className="container pt-2 px-0"
+              >
+                <ul
+                  className="pl-0"
+                >
+                  <li
+                    className="d-flex justify-content-center"
+                  >
+                    <Link
+                      id="viewCenterButton"
+                      replace={false}
+                      to="/dashboard/centers/view/15"
+                    >
+                      <p
+                        className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim"
+                      >
+                        <i
+                          aria-hidden="true"
+                          className="fa fa-eye fa-2x p-2"
+                        />
+                      </p>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>,
+  ],
+  Symbol(enzyme.__nodes__): Array [
+    Array [
+      <div
+        className="col-sm-12 col-md-6 col-lg-4 my-2"
+      >
+        <div
+          className="card-deck"
+        >
+          <div
+            className="card"
+          >
+            <div
+              className="img-fluid deck"
+            >
+              <img
+                alt="jkddkd"
+                className="img-fluid deck"
+                height="264"
+                src="https://res.cloudinary.com/felglitz/image/upload/v1528623443/no30px0yjsdbzaddtcch.jpg"
+                width="400"
+              />
+            </div>
+            <div
+              className="card-body p-2"
+            >
+              <ul
+                className="list-group list-group-flush"
+              >
+                <li
+                  className="list-group-item px-2 py-2"
+                >
+                  <h4
+                    className="card-title"
+                  >
+                    jkddkd
+                  </h4>
+                </li>
+                <li
+                  className="list-group-item pt-0 pb-2 px-2 border-top-0"
+                >
+                  <p
+                    className="card-text"
+                  >
+                    Alausa
+                  </p>
+                </li>
+                <li
+                  className="list-group-item d-flex px-2 py-0"
+                >
+                  <p
+                    className="card-text"
+                  >
+                    900
+                     capacity
+                  </p>
+                  <p
+                    className=" ml-auto card-text"
+                  >
+                    NGN 
+                    900
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div
+              className="overlay"
+            >
+              <div
+                className="user-icons"
+              >
+                <div
+                  className="container pt-2 px-0"
+                >
+                  <ul
+                    className="pl-0"
+                  >
+                    <li
+                      className="d-flex justify-content-center"
+                    >
+                      <Link
+                        id="viewCenterButton"
+                        replace={false}
+                        to="/dashboard/centers/view/15"
+                      >
+                        <p
+                          className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim"
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="fa fa-eye fa-2x p-2"
+                          />
+                        </p>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>,
+    ],
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

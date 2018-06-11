@@ -9,7 +9,6 @@ import EventCenterList from './EventCenterList';
 import { loadOneCenter } from '../../actions/centerActions';
 import { loadEventsByCenterId, cancelEvent, approveEvent } from '../../actions/eventActions';
 import Pagination from '../Pagination/Pagination';
-import history from '../../helpers/history';
 
 /**
  * @description - Container class component for view center page
@@ -18,7 +17,7 @@ import history from '../../helpers/history';
  *
  * @extends {React.Component}
  */
-class ViewCenterPage extends React.Component {
+export class ViewCenterPage extends React.Component {
   /**
    * @description - creates an instance of ViewCenterPage
    *
@@ -140,7 +139,7 @@ class ViewCenterPage extends React.Component {
   showNext() {
     const { url } = this.props.match;
     const { currentPage } = this.state.pagination;
-    history.push(`${url}?page=${currentPage + 1}`);
+    this.props.history.push(`${url}?page=${currentPage + 1}`);
   }
 
   /**
@@ -153,7 +152,7 @@ class ViewCenterPage extends React.Component {
   showPrevious() {
     const { url } = this.props.match;
     const { currentPage } = this.state.pagination;
-    history.push(`${url}?page=${currentPage - 1}`);
+    this.props.history.push(`${url}?page=${currentPage - 1}`);
   }
 
   /**
@@ -311,7 +310,7 @@ class ViewCenterPage extends React.Component {
     }
 
     if (centerError === 'Center Not Found!' || !Number.isInteger(centerId)) {
-      history.push('/dashboard/*');
+      this.props.history.push('/dashboard/*');
       return null;
     }
     return (
@@ -401,7 +400,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   loadOneCenter: centerId => dispatch(loadOneCenter(centerId)),
   loadEventsByCenterId: (centerId, page) => dispatch(loadEventsByCenterId(centerId, page)),
   cancelEvent: eventId => dispatch(cancelEvent(eventId)),

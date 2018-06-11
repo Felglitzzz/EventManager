@@ -1,7 +1,7 @@
 const URL = 'http://localhost:1991';
 
 module.exports = {
-  'Homepage Test': (browser) => {
+  Homepage: (browser) => {
     browser
       .url(`${URL}`)
       .waitForElementVisible('body', 3000)
@@ -24,7 +24,7 @@ module.exports = {
       .end();
   },
 
-  'Show a 404 page for invalid routes': (browser) => {
+  NotFound: (browser) => {
     browser
       .url(`${URL}/invalidroutes`)
       .waitForElementVisible('body', 5000)

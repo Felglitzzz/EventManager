@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import Loader from 'react-md-spinner';
 import { Link } from 'react-router-dom';
 
-import history from '../../helpers/history';
 import UnitCenter from './UnitCenter';
-import { loadCenters, deleteCenter } from '../../actions/centerActions';
+import { loadCenters } from '../../actions/centerActions';
 import Pagination from '../Pagination/Pagination';
 
 
@@ -17,7 +16,7 @@ import Pagination from '../Pagination/Pagination';
  *
  * @extends {React.Component}
  */
-class AllCentersPage extends React.Component {
+export class AllCentersPage extends React.Component {
   /**
    * @description - creates an instance of AllCentersPage
    *
@@ -96,7 +95,7 @@ class AllCentersPage extends React.Component {
   showNext() {
     const { path } = this.props.match;
     const { currentPage } = this.state.pagination;
-    history.push(`${path}?page=${currentPage + 1}`);
+    this.props.history.push(`${path}?page=${currentPage + 1}`);
   }
 
   /**
@@ -109,7 +108,7 @@ class AllCentersPage extends React.Component {
   showPrevious() {
     const { path } = this.props.match;
     const { currentPage } = this.state.pagination;
-    history.push(`${path}?page=${currentPage - 1}`);
+    this.props.history.push(`${path}?page=${currentPage - 1}`);
   }
 
   /**
@@ -211,7 +210,7 @@ AllCentersPage.propTypes = {
   loadCenters: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  deleteCenter: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 
@@ -233,9 +232,8 @@ const mapStateToProps = state => ({
  *
  * @return { object } props - returns mapped props from dispatch action
  */
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   loadCenters: page => dispatch(loadCenters(page)),
-  deleteCenter: centerId => dispatch(deleteCenter(centerId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllCentersPage);

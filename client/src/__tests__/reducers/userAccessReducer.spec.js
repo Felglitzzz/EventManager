@@ -1,4 +1,3 @@
-/* global expect */
 import userAccessReducer from '../../reducers/userAccessReducer';
 import {
   ADD_USER_SUCCESS,

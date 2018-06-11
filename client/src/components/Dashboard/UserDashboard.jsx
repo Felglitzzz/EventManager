@@ -5,7 +5,6 @@ import { Route, Switch, Link, Redirect } from 'react-router-dom';
 
 import UserNavbar from '../Navbar/UserNavbar';
 import AllUserEvents from '../Events/AllUserEvents';
-import history from '../../helpers/history';
 import EditEventPage from '../Events/EditEventPage';
 import AllCentersPage from '../Centers/AllCentersPage';
 import CreateCenterPage from '../Centers/CreateCenterPage';
@@ -24,7 +23,7 @@ import { logOutUser } from '../../actions/userAccessActions';
  *
  * @extends {React.Component}
  */
-class UserDashboard extends React.Component {
+export class UserDashboard extends React.Component {
   /**
    * @description - creates an instance of UserDashboard
    *
@@ -66,14 +65,6 @@ class UserDashboard extends React.Component {
   }
 
   /**
-   * @description - handles redirect to all events page
-   *
-   * @returns {void}
-   */
-  redirectToEvents() {
-    history.push('/dashboard/events');
-  }
-  /**
    * @description handles logout event for a user
    *
    * @param {object} event
@@ -85,7 +76,7 @@ class UserDashboard extends React.Component {
     localStorage.clear();
     this.props.logOutUser();
     Prompter.success('Logged Out Successfully');
-    history.replace('/');
+    this.props.history.replace('/');
   }
 
   /**
@@ -240,7 +231,8 @@ class UserDashboard extends React.Component {
 
 UserDashboard.propTypes = {
   isAuthenticated: PropTypes.object.isRequired,
-  logOutUser: PropTypes.func.isRequired
+  logOutUser: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 /**
@@ -261,10 +253,8 @@ const mapStateToProps = state => ({
  *
  * @return { object } props - returns mapped props from dispatch action
  */
-function mapDispatchToProps(dispatch) {
-  return {
-    logOutUser: () => dispatch(logOutUser()),
-  };
-}
+export const mapDispatchToProps = dispatch => ({
+  logOutUser: () => dispatch(logOutUser()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDashboard);
