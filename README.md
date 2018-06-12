@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/Felglitzzz/EventManager.svg?branch=develop)](https://travis-ci.org/Felglitzzz/EventManager)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/e5c68bb9b0cd8eef37cf/test_coverage)](https://codeclimate.com/github/Felglitzzz/EventManager/test_coverage)
+[![Coverage Status](https://coveralls.io/repos/github/Felglitzzz/EventManager/badge.svg?branch=develop)](https://coveralls.io/github/Felglitzzz/EventManager?branch=develop)
 [![codecov](https://codecov.io/gh/Felglitzzz/EventManager/branch/develop/graph/badge.svg)](https://codecov.io/gh/Felglitzzz/EventManager)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e5c68bb9b0cd8eef37cf/maintainability)](https://codeclimate.com/github/Felglitzzz/EventManager/maintainability)
 [![](https://img.shields.io/badge/Protected_by-Hound-a873d1.svg)](https://houndci.com)
