@@ -388,7 +388,8 @@ ViewCenterPage.propTypes = {
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   cancelEvent: PropTypes.func.isRequired,
-  approveEvent: PropTypes.func.isRequired
+  approveEvent: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => {

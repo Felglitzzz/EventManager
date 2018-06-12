@@ -8,9 +8,8 @@ import Routes from './routes';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../node_modules/toastr/build/toastr.min.css';
-import '../public/css/style.css';
-import '../public/css/animate.css';
-import '../public/css/aos.css';
+import '../public/styles/style.scss';
+import '../public/styles/animate.scss';
 import { store } from './store/configureStore';
 
 render(<Provider store={store}>

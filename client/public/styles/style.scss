@@ -1,0 +1,992 @@
+//colors
+$concrete: #f2f2f2;
+$color_geyser_approx: #dbe2e8;
+$color_orange_approx: #f76125;
+$white: #fff;
+$white_20: rgba(255, 255, 255, 0.2);
+$color_azure_approx: #3b5998;
+$color_dodger_blue_approx: #1da1f2;
+$color_studio_approx: #8a3ab9;
+$black: #000;
+$black_50: rgba(0, 0, 0, 0.5);
+$white_70: rgba(255, 255, 255, 0.7);
+$color_shark_approx: #212529;
+$color_shark_70_approx: rgba(33, 37, 41, 0.7);
+$color_lucky_point_approx: #191f5b;
+$color_amaranth_approx: #dc3545;
+$color_azure_radiance_approx: #007bff;
+$color_burning_orange_approx: #f6682f;
+$color_burning_orange_50_approx: rgba(246, 104, 47, 0.5);
+$color_oslo_gray_approx: #868e96;
+$color_pizazz_approx: #ff8c00;
+$color_tuna_50_approx: rgba(52, 58, 64, 0.5);
+$silver: #c0c0c0;
+$color_gray_nurse_approx: #e9e9e9;
+$color_dove_gray_approx: #717171;
+$white_100: rgba(255,255,255, 1);
+$color_romance_approx: #fefefe;
+$black_60: rgba(0, 0, 0, 0.6);
+$color_gallery_approx: #e9ecef;
+$color_storm_dust_approx: #616161;
+$white_80: rgba(255,255,255, .8);
+$black_16: rgba(0, 0, 0, 0.16);
+$black_12: rgba(0, 0, 0, 0.12);
+$black_20: rgba(0, 0, 0, 0.2);
+$black_19: rgba(0, 0, 0, 0.19);
+$black_24: rgba(0, 0, 0, 0.24);
+$black_22: rgba(0, 0, 0, 0.22);
+$black_21: rgba(0, 0, 0, 0.21);
+$white_40: rgba(255, 255, 255, 0.4);
+$white_30: rgba(255, 255, 255, 0.3);
+$white_50: rgba(255, 255, 255, 0.5);
+
+//fonts
+$font_0: Open Sans;
+$font_1: sans-serif;
+$font_2: Helvetica Neue;
+$font_3: Helvetica;
+$font_4: Arial;
+
+//urls
+$url_0: url(https://res.cloudinary.com/felglitz/image/upload/q_auto:eco/v1515535208/evenn_ymwcen.png);
+
+//@extend-elements
+//original selectors
+//body, html
+%extend_1 {
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+}
+
+//original selectors
+//.sidebar, .main-panel
+%extend_2 {
+	max-height: 100%;
+	height: 100%;
+	//Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+	transition: all 0.5s ease;
+}
+
+//original selectors
+//.page:hover, .page.gradient:hover
+%extend_3 {
+	background: $color_romance_approx;
+	text-decoration: none;
+	color: $color_dove_gray_approx;
+}
+
+//original selectors
+//.table .td, .table .th
+%extend_4 {
+	padding: .75rem;
+	vertical-align: top;
+	border-top: 1px solid $color_gallery_approx;
+}
+
+
+* {
+	font-family: $font_0, $font_1;
+}
+body {
+	@extend %extend_1;
+}
+html {
+	@extend %extend_1;
+}
+a {
+	text-decoration: none !important;
+	//Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+	transition: 1s ease-in;
+}
+.no-border {
+	border: 0 !important;
+}
+.pad {
+	padding-top: 15rem;
+}
+.alert {
+	padding: 0.25rem 1.25rem !important;
+}
+.form-width {
+	max-width: 620px;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 2px 2px 3px 0 rgba(116, 123, 129, 0);
+	border: 1px solid $color_geyser_approx;
+}
+.form-head {
+	border-bottom: 1px solid $color_geyser_approx;
+	padding: 20px;
+	text-transform: uppercase;
+	font-weight: 600;
+}
+.half_screen {
+	background: $url_0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: block;
+	min-height: 65vh;
+	background-attachment: fixed;
+	background-position: center center;
+}
+.fill_screen {
+	background: $url_0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: block;
+	background-attachment: fixed;
+	background-position: center center;
+	min-height: 100vh !important;
+}
+.border-10 {
+	border: 10px solid;
+}
+.border-2 {
+	border: 2px solid;
+}
+.border-orange {
+	border-color: $color_orange_approx !important;
+}
+.border-white {
+	border-color: $white !important;
+}
+.list-group-item {
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 0 !important;
+}
+.button-anim {
+	cursor: pointer;
+	outline: none;
+	color: $white;
+	&:active {
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: translateY(4px);
+	}
+}
+.wrapper {
+	position: relative;
+	top: 0;
+	height: 100vh;
+	max-width: 100%;
+}
+.sidebar {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: auto;
+	left: 0;
+	width: 230px;
+	display: block;
+	z-index: 1;
+	color: $white;
+	font-weight: 200;
+	background-size: cover;
+	background-position: center center;
+	@extend %extend_2;
+	.sidebar-wrapper {
+		position: relative;
+		max-height: calc(100vh - 75px);
+		min-height: 100%;
+		overflow: auto;
+		width: 230px;
+		z-index: 4;
+		padding-bottom: 100px;
+	}
+	.logo {
+		padding: 10px 15px;
+		border-bottom: 1px solid $white_20;
+		p {
+			float: left;
+			font-size: 20px;
+			margin: 10px;
+			color: $white;
+			line-height: 20px;
+			font-family: $font_2, $font_3, $font_4, $font_1;
+		}
+	}
+	.nav {
+		margin-top: 20px;
+		float: none;
+	}
+	.nav-mobile-menu {
+		display: none;
+	}
+}
+#toast-container {
+	position: absolute !important;
+	z-index: 999999;
+	pointer-events: none;
+}
+.toast-message {
+	text-align: center !important;
+	padding: 1em;
+}
+.main-panel {
+	@extend %extend_2;
+	position: relative;
+	z-index: 2;
+	float: right;
+	width: calc(100% - 230px);
+	> .content {
+		padding: 30px 15px;
+		min-height: calc(100% - 123px);
+	}
+}
+.icon {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	line-height: 2.4em;
+	display: inline-block;
+	font-size: 12px;
+	border: 2px solid $color_orange_approx;
+	//Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+	transition: 1s ease-in;
+}
+.iconn {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 2.4em;
+	font-size: 12px;
+	border: 2px solid $color_orange_approx;
+}
+.wrap {
+	flex-wrap: wrap;
+}
+.box {
+	width: calc(33.3333% - 20px);
+	margin: 10px;
+}
+.position-relative {
+	position: relative;
+}
+input[type='submit'] {
+	//Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+	transition: 1s ease-in;
+}
+input[type='button'] {
+	//Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+	transition: 1s ease-in;
+}
+.transparent {
+	background-color: $black_50;
+}
+.form-control {
+	background-color: $white_70 !important;
+}
+.bg-black {
+	background-color: $color_shark_70_approx !important;
+}
+.bg-purp {
+	background-color: $color_lucky_point_approx !important;
+}
+.bg-red {
+	background-color: $color_amaranth_approx !important;
+}
+.bg-orange {
+	background-color: $color_orange_approx !important;
+}
+.bg-blue {
+	background-color: $color_azure_radiance_approx;
+}
+.text-orange {
+	color: $color_burning_orange_approx !important;
+}
+.text-purp {
+	color: $color_lucky_point_approx !important;
+}
+.bg-orange-transparent {
+	background-color: $color_burning_orange_50_approx !important;
+}
+.btn-outline-orange {
+	color: $color_burning_orange_approx;
+	background-color: transparent;
+	background-image: none;
+	border-color: $color_burning_orange_approx;
+	&:hover {
+		color: $white;
+		background-color: $color_burning_orange_approx;
+		border-color: $color_burning_orange_approx !important;
+	}
+}
+.no-underline {
+	color: $color_oslo_gray_approx !important;
+	&:hover {
+		text-decoration: none !important;
+		color: $white !important;
+	}
+}
+.tconform {
+	color: $color_burning_orange_approx !important;
+	&:hover {
+		color: $white !important;
+	}
+}
+.blue-outline {
+	border-color: $color_azure_radiance_approx !important;
+}
+.btn-orange {
+	color: $white;
+	background-color: $color_burning_orange_approx;
+	border-color: $color_burning_orange_approx;
+	&:hover {
+		color: $white;
+		background-color: $color_pizazz_approx;
+		border-color: $color_pizazz_approx;
+	}
+}
+.btn-outline-orange-1 {
+	color: $white;
+	background-color: transparent;
+	background-image: none;
+	border-color: $white !important;
+	&:hover {
+		color: $color_burning_orange_approx;
+		background-color: $white;
+		border-color: $color_burning_orange_approx !important;
+	}
+}
+.testimonial {
+	align-items: center !important;
+	display: flex !important;
+}
+.sidenav-title {
+	padding-left: 1.5rem !important;
+	padding-bottom: 1rem !important;
+	margin-bottom: 0.25rem !important;
+}
+.overlay {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	background-color: $color_tuna_50_approx;
+	//Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+	transition: .5s ease;
+	opacity: 0;
+}
+.user-icons {
+	color: $white;
+	font-size: 20px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+.card {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+	&:hover .overlay {
+		opacity: 1;
+	}
+}
+.icon-lg {
+	width: 60px;
+	height: 60px;
+	text-align: center;
+	line-height: 2.4em;
+	display: inline-block;
+	font-size: 12px;
+	border: 2px solid $color_orange_approx;
+	margin-right: 1.5rem;
+	padding-top: 0.5rem;
+}
+.pagination {
+	position: absolute;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background: $concrete;
+	padding: 20px;
+	margin-bottom: 20px;
+	.page-item.active .page-link {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+	}
+}
+.page-of {
+	cursor: text;
+	display: inline-block;
+	padding: 1em 2em;
+	margin-right: 4px;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 3px;
+	border: solid 1px $silver;
+	background: $color_gray_nurse_approx;
+	font-size: .875em;
+	font-weight: bold;
+	text-decoration: none;
+	color: $color_dove_gray_approx;
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 0 1px 0 $white_100;
+}
+.page {
+	display: inline-block;
+	padding: 1em 2em;
+	margin-right: 4px;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 3px;
+	border: solid 1px $silver;
+	background: $color_gray_nurse_approx;
+	font-size: .875em;
+	font-weight: bold;
+	text-decoration: none;
+	color: $color_dove_gray_approx;
+	//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	text-shadow: 0 1px 0 $white_100;
+	&:hover {
+		@extend %extend_3;
+	}
+	&.active {
+		border: none;
+		background: $color_storm_dust_approx;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: inset 0 0 8px $black_50, 0 1px 0 $white_80;
+		color: $color_gallery_approx;
+		//Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		text-shadow: 0 0 3px $black_50;
+	}
+	&.gradient:hover {
+		@extend %extend_3;
+	}
+}
+.no-padding-hr {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+.txt {
+	padding: .375rem .75rem;
+	line-height: 2.5;
+	color: $white;
+}
+.txt-bg {
+	background-color: $color_orange_approx;
+	border: 1px;
+}
+.pose-relative {
+	position: relative;
+	width: 100%;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	margin-top: 7em;
+}
+.card-deck {
+	min-height: 350px;
+	max-height: 350px;
+}
+.pad-5 {
+	padding: 3rem;
+}
+.deck {
+	height: 200px;
+}
+.w-33 {
+	width: 33%;
+}
+.tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+.tbody {
+	display: table-row-group;
+	vertical-align: middle;
+	border-color: inherit;
+}
+.fourohfour {
+	font-size: 10rem;
+	text-align: center;
+}
+.border-404 {
+	z-index: 4;
+	width: 100%;
+}
+.stat {
+	position: absolute;
+	left: 0;
+	top: 0;
+	border-bottom: 1px solid $black;
+	border-right: 1px solid $black;
+	padding: 1px 2px;
+	background-color: $black_60;
+}
+.table {
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 1rem;
+	background-color: transparent;
+	.td {
+		@extend %extend_4;
+	}
+	.th {
+		@extend %extend_4;
+	}
+}
+#facilities {
+	max-height: 330px;
+	overflow-y: scroll;
+}
+.w-60 {
+	width: 60px;
+}
+.thead {
+	display: table-header-group;
+	vertical-align: middle;
+	border-color: inherit;
+}
+.z-depth-0 {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: none;
+}
+.hoverable {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: none;
+	//Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+	transition: all 0.55s ease-in-out;
+	&:hover {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: 0 8px 17px 0 $black_20, 0 6px 20px 0 $black_19;
+		//Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+		transition: all 0.55s ease-in-out;
+	}
+}
+.modal-dialog {
+	&.cascading-modal {
+		&.modal-avatar .modal-header {
+			//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: none;
+			img {
+				//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+				box-shadow: 0 8px 17px 0 $black_20, 0 6px 20px 0 $black_19;
+			}
+		}
+		.modal-c-tabs .nav-tabs {
+			//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+		}
+	}
+	&.modal-notify .modal-header {
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+	}
+}
+.z-depth-1 {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+}
+.jumbotron {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+}
+.btn {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+	&.disabled {
+		&:active {
+			//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+		}
+		&:focus {
+			//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+		}
+		&:hover {
+			//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+		}
+	}
+	&:disabled {
+		&:active {
+			//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+		}
+		&:focus {
+			//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+		}
+		&:hover {
+			//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+		}
+	}
+}
+.navbar {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+}
+.badge {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+}
+.z-depth-2 {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 8px 17px 0 $black_20, 0 6px 20px 0 $black_19;
+}
+.z-depth-3 {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 12px 15px 0 $black_24, 0 17px 50px 0 $black_19;
+}
+.z-depth-4 {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 16px 28px 0 $black_22, 0 25px 55px 0 $black_21;
+}
+.z-depth-5 {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 27px 24px 0 $black_20, 0 40px 77px 0 $black_22;
+}
+@media(max-width: 320px) {
+	h1 {
+		font-size: 1.25rem !important;
+		padding-left: 5px !important;
+		padding-right: 5px !important;
+	}
+	p {
+		font-size: 0.6rem !important;
+	}
+	.btn-resp {
+		width: 100%;
+	}
+	.btn-resp-height {
+		line-height: 1rem !important;
+		margin-left: 3px !important;
+		margin-right: 3px !important;
+	}
+	.second-section {
+		padding-left: 5px !important;
+		padding-right: 5px !important;
+	}
+	.padd {
+		padding-top: 5px !important;
+	}
+	.homefont {
+		font-size: 0.7em !important;
+	}
+	.no-margin-hr {
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+	.no-padding-hr {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	.mAuto {
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+	.pagination {
+		position: relative;
+		bottom: 0;
+		background: $concrete;
+		padding: 20px;
+		margin-bottom: 20px;
+		width: 100%;
+	}
+	.bloc {
+		display: block !important;
+	}
+}
+@media(min-width: 321px) and(max-width: 565px) {
+	h1 {
+		font-size: 1.5rem !important;
+		padding-top: 5px !important;
+		padding-bottom: 5px !important;
+	}
+	p {
+		font-size: 0.8rem !important;
+	}
+	.breadth-100 {
+		max-width: 100%;
+		height: auto;
+	}
+	.btn-resp-height {
+		line-height: 1rem !important;
+		margin-left: 5px !important;
+		margin-right: 5px !important;
+	}
+	.marg {
+		margin: 5px !important;
+	}
+	.margT {
+		margin-top: 2em;
+	}
+	.homefont {
+		font-size: 1.5em !important;
+	}
+	.modal-breadth {
+		width: 80%;
+	}
+	.mAuto {
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+	.main-panel {
+		position: relative;
+		z-index: 2;
+		width: calc(100% - 100px);
+		margin-left: 100px;
+		float: none;
+	}
+	.no-padding-hr {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	.sidebar {
+		width: 100px;
+	}
+	.padL {
+		padding-left: 0.4em !important;
+	}
+	.page-of {
+		padding: .65em 1em;
+		margin-right: 4px;
+		font-size: .65em;
+	}
+	.page {
+		padding: .65em 1em;
+		margin-right: 4px;
+		font-size: .65em;
+		text-decoration: none;
+	}
+	.txt {
+		font-size: 0.7rem;
+		line-height: 3em;
+	}
+	.pad-5 {
+		padding: 1rem;
+	}
+	.pagination {
+		position: relative;
+		bottom: 0;
+		background: $concrete;
+		padding: 20px;
+		margin-bottom: 20px;
+		width: 100%;
+	}
+	.pose-relative {
+		position: relative;
+		width: 100%;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		margin-top: 0;
+	}
+	.bloc {
+		display: block !important;
+	}
+	.fourohfour {
+		font-size: 7rem;
+		text-align: center;
+	}
+}
+@media(min-width: 566px) and(max-width: 767px) {
+	h1 {
+		font-size: 2.5rem !important;
+	}
+	p {
+		font-size: 0.8rem !important;
+	}
+	.margTl {
+		margin-top: 2em;
+	}
+	.margT {
+		margin-top: 2em;
+	}
+	.homefont {
+		font-size: 1.6em !important;
+	}
+	.mAuto {
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+	.no-padding-hr {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	.bloc {
+		display: block !important;
+	}
+	.fourohfour {
+		font-size: 8rem;
+		text-align: center;
+	}
+}
+@media(min-width: 768px) and(max-width: 991px) {
+	h1 {
+		font-size: 3rem !important;
+	}
+	p {
+		font-size: 0.7rem !important;
+	}
+	.margTl {
+		margin-top: 2em;
+	}
+	.homefont {
+		font-size: 2em !important;
+	}
+	.testfont {
+		font-size: 1.2em !important;
+	}
+	.mAuto {
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+	.myAuto {
+		margin-top: auto !important;
+		margin-bottom: auto !important;
+	}
+	.no-padding-hr {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	.main-panel {
+		position: relative;
+		z-index: 2;
+		width: calc(100% - 230px);
+		margin-left: 230px;
+		float: none;
+	}
+	.perd {
+		padding: 1em;
+	}
+	.breadth-100 {
+		width: 100%;
+	}
+}
+@media(min-width: 992px) and(max-width: 1199px) {
+	h1 {
+		font-size: 3.5rem !important;
+	}
+	p {
+		font-size: 0.9rem !important;
+	}
+	.margTl {
+		margin-top: 2em;
+	}
+	.mAuto {
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+	.testfont {
+		font-size: 1.4em !important;
+	}
+	.myAuto {
+		margin-top: auto !important;
+		margin-bottom: auto !important;
+	}
+	.homefont {
+		font-size: 2em !important;
+	}
+	.perd {
+		padding: 2em;
+	}
+	.the-flex {
+		display: flex;
+		justify-content: center;
+	}
+	.no-padding-hr {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+}
+@media(min-width: 1200px) {
+	h1 {
+		font-size: 3.5rem !important;
+	}
+	.margTl {
+		margin-top: 2em;
+	}
+	.mAuto {
+		margin-left: auto !important;
+		margin-right: auto !important;
+	}
+	.testfont {
+		font-size: 1.6em !important;
+	}
+	.myAuto {
+		margin-top: auto !important;
+		margin-bottom: auto !important;
+	}
+	.homefont {
+		font-size: 2em !important;
+	}
+	.perd {
+		padding: 3em;
+	}
+	.no-padding-hr {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+	}
+	.pad-top {
+		padding-top: 6rem;
+	}
+	.the-flex {
+		display: flex;
+		justify-content: center;
+	}
+}
+.z-depth-anim:active {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: none !important;
+}
+.facebook:hover {
+	background-color: $color_azure_approx !important;
+	border-color: $color_azure_approx !important;
+}
+.twitter:hover {
+	background: $color_dodger_blue_approx;
+	border-color: $color_dodger_blue_approx;
+}
+.ig:hover {
+	background: $color_studio_approx;
+	border-color: $color_studio_approx;
+}
+.envelope:hover {
+	background: $black;
+	border-color: $black;
+}
+.btn-outline-light:hover {
+	color: $color_shark_approx !important;
+	color: $color_burning_orange_approx !important;
+}
+.text-orange-hover:hover {
+	color: $color_burning_orange_approx !important;
+}
+.ddown-outline-items:hover {
+	color: $white !important;
+	background-color: $color_burning_orange_approx !important;
+}
+#wrapper.toggled {
+	.sidebar {
+		width: 0;
+	}
+	#menu {
+		.sidenav-title {
+			padding-left: 0 !important;
+			padding-bottom: 0 !important;
+			margin-bottom: 0 !important;
+		}
+		.padL {
+			padding: 0 !important;
+			text-indent: 100%;
+			white-space: nowrap;
+			overflow: hidden;
+			background-color: $white;
+			border: none;
+		}
+	}
+}
+.media .media-left img {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 0 2px 5px 0 $black_16, 0 2px 10px 0 $black_12;
+}
+.waves-effect.waves-light .waves-ripple {
+	background: $white_40;
+	background: radial-gradient($white_20 0, $white_30 40%, $white_40 50%, $white_50 60%, rgba(255, 255, 255, 0) 70%);
+}
