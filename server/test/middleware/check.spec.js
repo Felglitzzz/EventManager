@@ -29,8 +29,8 @@ describe('MIDDLEWARE TEST', () => {
             const { message } = res.body;
             expect(res).to.have.status(400);
             expect(message).to.equal('End date should come after start date');
-            done();
           });
+        done();
       });
     });
   });
