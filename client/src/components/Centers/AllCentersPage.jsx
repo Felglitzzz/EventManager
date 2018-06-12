@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import Loader from 'react-md-spinner';
 import { Link } from 'react-router-dom';
 
-import history from '../../helpers/history';
 import UnitCenter from './UnitCenter';
-import { loadCenters, deleteCenter } from '../../actions/centerActions';
+import { loadCenters } from '../../actions/centerActions';
 import Pagination from '../Pagination/Pagination';
 
 
@@ -17,13 +16,13 @@ import Pagination from '../Pagination/Pagination';
  *
  * @extends {React.Component}
  */
-class AllCentersPage extends React.Component {
+export class AllCentersPage extends React.Component {
   /**
    * @description - creates an instance of AllCentersPage
    *
-   * @constructor
+   * @param { any } props - contains event component properties
    *
-   * @param { props } props - contains event component properties
+   * @memberof AllCentersPage
    */
   constructor(props) {
     super(props);
@@ -37,10 +36,10 @@ class AllCentersPage extends React.Component {
         currentPage: '',
         currentPageUrl: '',
         totalPages: '',
-      }
+      },
+      centerError: ''
     };
 
-    // this.handleDelete = this.handleDelete.bind(this);
     this.showNext = this.showNext.bind(this);
     this.showPrevious = this.showPrevious.bind(this);
     this.showLoader = this.showLoader.bind(this);
@@ -54,10 +53,7 @@ class AllCentersPage extends React.Component {
    * @returns {void} Nothing
    */
   componentDidMount() {
-    this.props.loadCenters()
-      .catch((error) => {
-        console.log(error);
-      });
+    this.props.loadCenters();
   }
 
   /**
@@ -89,36 +85,6 @@ class AllCentersPage extends React.Component {
     }
   }
 
-  // /**
-  //  * @description -handles delete center
-  //  *
-  //  * @param {object} center
-  //  *
-  //  * @returns {void}
-  //  */
-  // handleDelete(center) {
-  //   const id = parseInt(center.target.id, 10);
-  //   swal({
-  //     title: 'You are about to delete this center?',
-  //     text: 'Do you wish to continue?!',
-  //     icon: 'warning',
-  //     closeOnClickOutside: false,
-  //     closeOnEsc: false,
-  //     buttons: true,
-  //     dangerMode: true,
-  //   })
-  //     .then((willDelete) => {
-  //       if (willDelete) {
-  //         this.props.deleteCenter(id);
-  //         swal('Poof! Your event has been deleted!', {
-  //           icon: 'success',
-  //         });
-  //       } else {
-  //         swal('Your center is safe!');
-  //       }
-  //     });
-  // }
-
   /**
    * @description - Handles fetching of centers on next page request
    *
@@ -129,7 +95,7 @@ class AllCentersPage extends React.Component {
   showNext() {
     const { path } = this.props.match;
     const { currentPage } = this.state.pagination;
-    history.push(`${path}?page=${currentPage + 1}`);
+    this.props.history.push(`${path}?page=${currentPage + 1}`);
   }
 
   /**
@@ -142,7 +108,7 @@ class AllCentersPage extends React.Component {
   showPrevious() {
     const { path } = this.props.match;
     const { currentPage } = this.state.pagination;
-    history.push(`${path}?page=${currentPage - 1}`);
+    this.props.history.push(`${path}?page=${currentPage - 1}`);
   }
 
   /**
@@ -172,7 +138,7 @@ class AllCentersPage extends React.Component {
       <div className="pt-5">
         <div className="d-flex justify-content-center">
           <img className="img-fluid"
-            src="http://res.cloudinary.com/felglitz/image/upload/v1522307912/calendar-with-spring-binder-and-date-blocks_eocce3.png"
+            src="https://res.cloudinary.com/felglitz/image/upload/v1522307912/calendar-with-spring-binder-and-date-blocks_eocce3.png"
           />
         </div>
         <div>
@@ -244,7 +210,7 @@ AllCentersPage.propTypes = {
   loadCenters: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  deleteCenter: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 
@@ -266,9 +232,8 @@ const mapStateToProps = state => ({
  *
  * @return { object } props - returns mapped props from dispatch action
  */
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   loadCenters: page => dispatch(loadCenters(page)),
-  deleteCenter: centerId => dispatch(deleteCenter(centerId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AllCentersPage);

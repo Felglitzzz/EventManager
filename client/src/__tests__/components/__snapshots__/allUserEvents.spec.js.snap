@@ -1,0 +1,277 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` All User's Events Page should render stateless child component 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <UserEvent
+    events={
+      Object {
+        "count": 1,
+        "rows": Array [
+          Object {
+            "center": Object {
+              "id": 6,
+              "location": "Lekki",
+              "name": "Bespoke",
+            },
+            "centerId": 6,
+            "createdAt": "2018-05-23",
+            "endDate": "2018-05-26T00:00:00.000Z",
+            "id": 29,
+            "image": "https://res.cloudinary.com/felglitz/image/upload/v1527113526/gtp7by5ybxchahusanxg.jpg",
+            "name": "ooooooop",
+            "startDate": "2018-05-24T00:00:00.000Z",
+            "status": "cancelled",
+            "updatedAt": "2018-06-02",
+            "userId": 1,
+          },
+        ],
+      }
+    }
+    handleDelete={[Function]}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Array [
+    <div
+      className="col-sm-12 col-md-6 col-lg-4 my-2"
+      id="userevent"
+    >
+      <div
+        className="card-deck"
+      >
+        <div
+          className="card"
+        >
+          <div
+            className="img-fluid deck"
+          >
+            <img
+              alt="ooooooop"
+              className="img-fluid deck"
+              height="264"
+              src="https://res.cloudinary.com/felglitz/image/upload/v1527113526/gtp7by5ybxchahusanxg.jpg"
+              width="400"
+            />
+          </div>
+          <div
+            className="card-body"
+          >
+            <div
+              className="d-flex"
+            >
+              <p
+                className="text-secondary"
+              >
+                May 24th 2018
+              </p>
+            </div>
+            <hr
+              className="my-1"
+            />
+            <h5
+              className="card-title"
+            >
+              ooooooop
+            </h5>
+            <p
+              className="card-text"
+            >
+              Bespoke
+            </p>
+          </div>
+          <div
+            className="stat text-white"
+          >
+            <span
+              className="fa-stac pl-1"
+            >
+              <i
+                className="fa fa-circle fa-stack text-danger"
+              />
+            </span>
+            cancelled
+          </div>
+          <div
+            className="overlay"
+          >
+            <div
+              className="user-icons"
+            >
+              <div
+                className="container pt-2 px-0"
+              >
+                <ul
+                  className="pl-0"
+                >
+                  <li
+                    className="d-flex justify-content-center"
+                  >
+                    <Link
+                      id="editEventButton"
+                      replace={false}
+                      to="/dashboard/events/29"
+                    >
+                      <p
+                        className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim"
+                      >
+                        <i
+                          aria-hidden="true"
+                          className="fa fa-pencil fa-2x p-2"
+                        />
+                      </p>
+                    </Link>
+                    <a
+                      id="deleteEventButton"
+                    >
+                      <p
+                        className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim"
+                        id={29}
+                        onClick={[Function]}
+                      >
+                        <i
+                          aria-hidden="true"
+                          className="fa fa-trash fa-2x p-2"
+                          id={29}
+                        />
+                      </p>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>,
+  ],
+  Symbol(enzyme.__nodes__): Array [
+    Array [
+      <div
+        className="col-sm-12 col-md-6 col-lg-4 my-2"
+        id="userevent"
+      >
+        <div
+          className="card-deck"
+        >
+          <div
+            className="card"
+          >
+            <div
+              className="img-fluid deck"
+            >
+              <img
+                alt="ooooooop"
+                className="img-fluid deck"
+                height="264"
+                src="https://res.cloudinary.com/felglitz/image/upload/v1527113526/gtp7by5ybxchahusanxg.jpg"
+                width="400"
+              />
+            </div>
+            <div
+              className="card-body"
+            >
+              <div
+                className="d-flex"
+              >
+                <p
+                  className="text-secondary"
+                >
+                  May 24th 2018
+                </p>
+              </div>
+              <hr
+                className="my-1"
+              />
+              <h5
+                className="card-title"
+              >
+                ooooooop
+              </h5>
+              <p
+                className="card-text"
+              >
+                Bespoke
+              </p>
+            </div>
+            <div
+              className="stat text-white"
+            >
+              <span
+                className="fa-stac pl-1"
+              >
+                <i
+                  className="fa fa-circle fa-stack text-danger"
+                />
+              </span>
+              cancelled
+            </div>
+            <div
+              className="overlay"
+            >
+              <div
+                className="user-icons"
+              >
+                <div
+                  className="container pt-2 px-0"
+                >
+                  <ul
+                    className="pl-0"
+                  >
+                    <li
+                      className="d-flex justify-content-center"
+                    >
+                      <Link
+                        id="editEventButton"
+                        replace={false}
+                        to="/dashboard/events/29"
+                      >
+                        <p
+                          className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim"
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="fa fa-pencil fa-2x p-2"
+                          />
+                        </p>
+                      </Link>
+                      <a
+                        id="deleteEventButton"
+                      >
+                        <p
+                          className="text-white bg-orange icon-lg mr-1 z-depth-2 z-depth-anim"
+                          id={29}
+                          onClick={[Function]}
+                        >
+                          <i
+                            aria-hidden="true"
+                            className="fa fa-trash fa-2x p-2"
+                            id={29}
+                          />
+                        </p>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>,
+    ],
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

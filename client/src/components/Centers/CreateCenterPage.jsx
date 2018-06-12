@@ -16,13 +16,13 @@ import Validate from '../../helpers/validations/Validate';
  *
  * @extends {React.Component}
  */
-class CreateCenterPage extends React.Component {
+export class CreateCenterPage extends React.Component {
   /**
    * @description - creates an instance of CreateCenterPage
    *
-   * @constructor
-   *
    * @param { props } props - contains create center component properties
+   *
+   * @memberof CreateCenterPage
    */
   constructor(props) {
     super(props);
@@ -38,11 +38,12 @@ class CreateCenterPage extends React.Component {
         image: '',
       },
       chosenImage: '',
+      chosenImageUrl: '',
       uploadHeight: '',
       uploadWidth: '',
       errors: {},
       options: [],
-      isLoading: false
+      isLoading: false,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -136,15 +137,10 @@ class CreateCenterPage extends React.Component {
     const imageReader = new FileReader();
     if (chosenImage) {
       imageReader.onload = () => {
-        const upload = new Image();
-        upload.src = imageReader.result;
-        upload.onload = () => {
-          this.setState({
-            uploadHeight: upload.height,
-            uploadWidth: upload.width,
-            chosenImage
-          });
-        };
+        this.setState({
+          chosenImage,
+          chosenImageUrl: imageReader.result
+        });
       };
     }
     imageReader.readAsDataURL(chosenImage);
@@ -263,11 +259,9 @@ CreateCenterPage.propTypes = {
  *
  * @return { object } props - returns mapped props from state
  */
-function mapStateToProps(state) {
-  return {
-    imageUrl: state.images.image
-  };
-}
+const mapStateToProps = state => ({
+  imageUrl: state.imageReducer.image
+});
 
 /**
  * @description maps action dispatched to props
@@ -276,11 +270,9 @@ function mapStateToProps(state) {
  *
  * @return { object } props - returns mapped props from dispatch action
  */
-function mapDispatchToProps(dispatch) {
-  return {
-    createCenter: centerData => dispatch(createCenter(centerData)),
-    uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
-  };
-}
+export const mapDispatchToProps = dispatch => ({
+  createCenter: centerData => dispatch(createCenter(centerData)),
+  uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateCenterPage);

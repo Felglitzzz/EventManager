@@ -3,16 +3,6 @@ const bcrypt = require('bcrypt');
 module.exports = {
   up(queryInterface) {
     return queryInterface.bulkInsert('users', [
-      // {
-      //   surname: 'admin',
-      //   firstname: 'admin',
-      //   email: 'admin@eventmanager.com',
-      //   username: 'admin',
-      //   password: bcrypt.hashSync('password', 10),
-      //   isAdmin: true,
-      //   createdAt: new Date(),
-      //   updatedAt: new Date()
-      // },
       {
         surname: 'user',
         firstname: 'user',
@@ -33,16 +23,16 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
-      // {
-      //   surname: 'Balogun',
-      //   firstname: 'Delight',
-      //   email: 'delight. balogun@andela.com',
-      //   username: 'abbey',
-      //   password: bcrypt.hashSync('password', 10),
-      //   isAdmin: false,
-      //   createdAt: new Date(),
-      //   updatedAt: new Date()
-      // },
+      {
+        surname: 'Balogun',
+        firstname: 'Delight',
+        email: 'delight. balogun@andela.com',
+        username: 'abbey',
+        password: bcrypt.hashSync('password', 10),
+        isAdmin: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ], { individualHooks: true });
   },
 

@@ -17,7 +17,7 @@ import Prompter from '../../helpers/Prompter';
  *
  * @extends {React.Component}
  */
-class EditCenterPage extends React.Component {
+export class EditCenterPage extends React.Component {
   /**
    * @description - creates an instance of EditCenterPage
    *
@@ -157,15 +157,10 @@ class EditCenterPage extends React.Component {
     const imageReader = new FileReader();
     if (chosenImage) {
       imageReader.onload = () => {
-        const upload = new Image();
-        upload.src = imageReader.result;
-        upload.onload = () => {
-          this.setState({
-            uploadHeight: upload.height,
-            uploadWidth: upload.width,
-            chosenImage
-          });
-        };
+        this.setState({
+          chosenImage,
+          chosenImageUrl: imageReader.result
+        });
       };
     }
     imageReader.readAsDataURL(chosenImage);
@@ -287,13 +282,14 @@ class EditCenterPage extends React.Component {
    */
   render() {
     const { centerLoading, centerError } = this.state;
+    const { centerId } = this.props;
 
     if (centerLoading) {
       return this.showLoader();
     }
 
-    if (centerError === 'Center Not Found!') {
-      history.push('/dashboard/centers');
+    if (centerError === 'Center Not Found!' || !Number.isInteger(centerId)) {
+      history.push('/dashboard/*');
       return null;
     }
 
@@ -330,12 +326,12 @@ EditCenterPage.propTypes = {
  *
  * @return { object } props - returns mapped props from state
  */
-function mapStateToProps(state, ownProps) {
-  const centerId = parseInt(ownProps.match.params.centerId, 10);
+const mapStateToProps = (state, ownProps) => {
+  const centerId = Number(ownProps.match.params.centerId);
   return {
     centerId,
     center: state.centerReducer,
-    imageUrl: state.images.image
+    imageUrl: state.imageReducer.image
   };
 }
 
@@ -346,12 +342,10 @@ function mapStateToProps(state, ownProps) {
  *
  * @return { object } props - returns mapped props from dispatch action
  */
-function mapDispatchToProps(dispatch) {
-  return {
-    loadOneCenter: centerId => dispatch(loadOneCenter(centerId)),
-    updateCenter: updateCenterData => dispatch(updateCenter(updateCenterData)),
-    uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
-  };
-}
+export const mapDispatchToProps = dispatch => ({
+  loadOneCenter: centerId => dispatch(loadOneCenter(centerId)),
+  updateCenter: updateCenterData => dispatch(updateCenter(updateCenterData)),
+  uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditCenterPage);

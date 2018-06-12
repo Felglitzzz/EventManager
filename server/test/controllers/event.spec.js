@@ -10,6 +10,7 @@ chai.use(chaiHttp);
 const request = chai.request(app);
 
 const userToken = tokenData.userToken();
+const adminToken = tokenData.adminToken();
 let eventId;
 
 describe('EVENT API TEST:', () => {
@@ -147,6 +148,72 @@ describe('EVENT API TEST:', () => {
         });
     });
 
+    it('should get events by centerId', (done) => {
+      const centerId = 1;
+      request
+        .get(`/api/v1/events/center/${centerId}`)
+        .set('Authorization', userToken)
+        .set('Accept', 'Application/json')
+        .end((err, res) => {
+          const { message } = res.body;
+          expect(res).to.have.status(200);
+          expect(message).to.equal('Events Found!');
+          done();
+        });
+    });
+
+    it('should cancel events', (done) => {
+      request
+        .put(`/api/v1/events/cancel/${eventId}`)
+        .set('Authorization', adminToken)
+        .set('Accept', 'Application/json')
+        .end((err, res) => {
+          const { message } = res.body;
+          expect(res).to.have.status(200);
+          expect(message).to.equal('Message sent!');
+          done();
+        });
+    });
+
+    it('should return 404 if eventId provided is not in the database for cancel event api', (done) => {
+      const invalidEventId = 9999;
+      request
+        .put(`/api/v1/events/cancel/${invalidEventId}`)
+        .set('Authorization', adminToken)
+        .set('Accept', 'Application/json')
+        .end((err) => {
+          expect(err.status).to.equal(404);
+          expect(err.message).to.equal('Not Found');
+          done();
+        });
+    });
+
+    it('should approve events', (done) => {
+      request
+        .put(`/api/v1/events/approve/${eventId}`)
+        .set('Authorization', adminToken)
+        .set('Accept', 'Application/json')
+        .end((err, res) => {
+          const { message } = res.body;
+          expect(res).to.have.status(200);
+          expect(message).to.equal('Message sent!');
+          done();
+        });
+    });
+
+    it('should return 404 if eventId provided is not in the database for approve event api', (done) => {
+      const invalidEventId = 9999;
+      request
+        .put(`/api/v1/events/cancel/${invalidEventId}`)
+        .set('Authorization', adminToken)
+        .set('Accept', 'Application/json')
+        .end((err) => {
+          expect(err.status).to.equal(404);
+          expect(err.message).to.equal('Not Found');
+          done();
+        });
+    });
+
     it('should delete event and return 200', (done) => {
       request
         .delete(`/api/v1/events/${eventId}`)
@@ -157,6 +224,33 @@ describe('EVENT API TEST:', () => {
           expect(res).to.have.status(200);
           expect(message).to.equal('Event Successfully Deleted!');
           expect(eventId).to.equal(eventId);
+          done();
+        });
+    });
+
+    it('should return 404 if no event is found', (done) => {
+      request
+        .get('/api/v1/events?page=1')
+        .set('Authorization', userToken)
+        .set('Accept', 'Application/json')
+        .end((err, res) => {
+          const { message } = res.body;
+          expect(res).to.have.status(404);
+          expect(message).to.equal('Event Not Found!');
+          done();
+        });
+    });
+
+    it('should return 404 if there is no events slated for a center', (done) => {
+      const centerId = 3;
+      request
+        .get(`/api/v1/events/center/${centerId}`)
+        .set('Authorization', userToken)
+        .set('Accept', 'Application/json')
+        .end((err, res) => {
+          const { message } = res.body;
+          expect(res).to.have.status(404);
+          expect(message).to.equal('Event Not Found!');
           done();
         });
     });

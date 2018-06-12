@@ -72,7 +72,7 @@ router
     InputValidate.editEvent,
     Check.IfEditEventNameIsInDatabase,
     Check.IfEventDateIsPast,
-    // Check.IfEditCenterIsAlreadyBooked,
+    Check.IfEditCenterIsAlreadyBooked,
     Event.modifyEvent
   );
 router
@@ -125,12 +125,6 @@ router
     '/users/login',
     InputValidate.login,
     User.login
-  );
-router
-  .get(
-    '/users/:userId',
-    Auth.verifyUser,
-    User.getOneUser
   );
 
 // catch all route

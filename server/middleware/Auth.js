@@ -3,7 +3,6 @@ import Helper from '../utils/Helper';
 
 
 const userModel = models.user;
-// const secret = process.env.SECRET;
 
 require('dotenv').config();
 
@@ -94,46 +93,4 @@ export default class Auth {
         return res.status(403).json({ err });
       });
   }
-
-  // /**
-  //   * This methods verifies if a user is a regular user
-  //   * @static
-  //   *
-  //   * @param {object} req - express request object
-  //   * @param {object} res - express response object
-  //   * @param {object} next - runs the next function
-  //   *
-  //   * @returns {object} validation error message or passes control to the next item
-  //   *
-  //   * @memberof Auth
-  //   */
-  // static checkIfIdIsEqual(req, res, next) {
-  //   const { authorization } = req.headers;
-  //   if (!authorization) {
-  //     return res.status(401).json({ error: 'You do not have permission to access this page' });
-  //   }
-  //   Helper.decodeToken(authorization)
-  //     .then((decoded) => {
-  //       if (decoded) {
-  //         userModel.findOne({ where: { id: decoded.id } })
-  //           .then((user) => {
-  //             if (user) {
-  //               req.decoded = decoded;
-  //               return next();
-  //             }
-  //           })
-  //           .catch(() => res.status(404).json({ message: 'User not found' }));
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       const { name } = err;
-  //       if (name === 'JsonWebTokenError') {
-  //         return res.status(401).json({ message: 'Invalid Token/Unauthorised!' });
-  //       }
-  //       if (name === 'TokenExpiredError') {
-  //         return res.status(401).json({ essage: 'Session Expired!' });
-  //       }
-  //       return res.status(403).json({ err });
-  //     });
-  // }
 }

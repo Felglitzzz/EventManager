@@ -22,6 +22,30 @@ describe('CENTER API TEST:', () => {
     db.center.create(centerMockData.seedData).then(() => done());
   });
 
+  describe('GET Endpoint', () => {
+    before((done) => {
+      db.center.destroy({
+        truncate: true,
+        cascade: true,
+        restartIdentity: true,
+      }).then(() => done());
+    });
+    it('should return 404 when no center is found', (done) => {
+      request
+        .get('/api/v1/centers?page=1')
+        .end((err, res) => {
+          const { message, center } = res.body;
+          expect(res).to.have.status(404);
+          expect(message).to.equal('Center Not Found!');
+          expect(center).to.equal(center);
+          done();
+        });
+    });
+    after((done) => {
+      db.center.create(centerMockData.seedData).then(() => done());
+    });
+  });
+
   describe('Center\'s ', () => {
     describe('POST Endpont', () => {
       it('should create a center if all input is provided by admin', (done) => {
@@ -36,6 +60,20 @@ describe('CENTER API TEST:', () => {
             expect(res).to.have.status(201);
             expect(message).to.equal('Center created!');
             expect(center).to.equal(center);
+            done();
+          });
+      });
+
+      it('should return 409 and not create center if center input is in the database', (done) => {
+        request
+          .post('/api/v1/centers')
+          .send(centerMockData.valid)
+          .set('Authorization', adminToken)
+          .set('Accept', 'Application/json')
+          .end((err, res) => {
+            const { message } = res.body;
+            expect(res).to.have.status(409);
+            expect(message).to.equal('A center with this name exist');
             done();
           });
       });
@@ -60,6 +98,18 @@ describe('CENTER API TEST:', () => {
       it('should return an array of centers', (done) => {
         request
           .get('/api/v1/centers?page=1')
+          .end((err, res) => {
+            const { message, center } = res.body;
+            expect(res).to.have.status(200);
+            expect(message).to.equal('Centers Found!');
+            expect(center).to.equal(center);
+            done();
+          });
+      });
+
+      it('should get centers that is not paginated', (done) => {
+        request
+          .get('/api/v1/centers/views')
           .end((err, res) => {
             const { message, center } = res.body;
             expect(res).to.have.status(200);

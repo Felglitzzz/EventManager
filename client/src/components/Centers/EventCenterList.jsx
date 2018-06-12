@@ -4,9 +4,22 @@ import moment from 'moment';
 import Loader from 'react-md-spinner';
 import getUserFromToken from '../../utils/getUserFromToken';
 
+/**
+ * @description - Stateless component for rendering events that belong to a center
+ *
+ * @returns {jsx} EventCenterList - Rendered view
+ */
 const EventCenterList = ({
-  events, handleCancelEvent, handleApproveEvent, eventLoading, showLoader, error,
-  approveEventLoading, cancelEventLoading, eventId, showNoEvents
+  events,
+  handleCancelEvent,
+  handleApproveEvent,
+  eventLoading,
+  showLoader,
+  error,
+  approveEventLoading,
+  cancelEventLoading,
+  eventId,
+  showNoEvents
 }) => {
   const { isAdmin } = getUserFromToken();
   events = events.rows;
@@ -17,7 +30,9 @@ const EventCenterList = ({
     return showNoEvents();
   }
   return (
-    <div className="p-3">
+    <div
+      className="p-3"
+      id="eventcenterlist">
       <div className="row border border-top-2 border-bottom-2 py-2">
         <div className={isAdmin ? 'col-3' : 'col-4'}>
           <p className="mt-3 font-weight-bold">Date Booked</p></div>

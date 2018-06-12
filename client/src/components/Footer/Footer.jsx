@@ -13,17 +13,25 @@ export default class Footer extends React.Component {
           <div className="container pt-5">
             <ul className="pl-0">
               <li className="d-flex justify-content-center">
-                <a href="#" className="text-light border-2 border-orange icon facebook mr-1">
-                  <i className="fa fa-facebook" aria-hidden="true" />
+                <a className="text-light border-2 border-orange icon facebook mr-1"
+                  href="#">
+                  <i aria-hidden="true"
+                    className="fa fa-facebook" />
                 </a>
-                <a href="#" className="text-light border-2 border-orange icon twitter mr-1">
-                  <i className="fa fa-twitter" aria-hidden="true" />
+                <a className="text-light border-2 border-orange icon twitter mr-1"
+                  href="#">
+                  <i aria-hidden="true"
+                    className="fa fa-twitter" />
                 </a>
-                <a href="#" className="text-light border-2 border-orange icon ig mr-1">
-                  <i className="fa fa-instagram" aria-hidden="true" />
+                <a className="text-light border-2 border-orange icon ig mr-1"
+                  href="#">
+                  <i aria-hidden="true"
+                    className="fa fa-instagram" />
                 </a>
-                <a href="#" className="text-light border-2 border-orange icon envelope">
-                  <i className="fa fa-envelope" aria-hidden="true" />
+                <a className="text-light border-2 border-orange icon envelope"
+                  href="#">
+                  <i aria-hidden="true"
+                    className="fa fa-envelope" />
                 </a>
               </li>
             </ul>

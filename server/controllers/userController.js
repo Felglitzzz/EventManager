@@ -85,23 +85,4 @@ export default class User {
         }
       });
   }
-
-  /**
-    *Get one user
-    * @static
-    *
-    * @param {object} req express request object
-    * @param {object} res express response object
-    *
-    * @returns {object} error message object or object with the fetched user and success message
-    *
-    * @memberof User
-    */
-  static getOneUser(req, res) {
-    return users
-      .findById(req.decoded.id)
-      .then(user => user
-        .then(res.status(200).json({ message: 'User Found!', user })))
-      .catch(() => res.status(404).send({ message: 'User Not Found!' }));
-  }
 }

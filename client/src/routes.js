@@ -3,7 +3,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import App from './components/App';
 import UserDashboard from './components/Dashboard/UserDashboard';
 import history from './helpers/history';
-import Fourohfour from './components/Fourohfour/Fourohfour';
+import NotFound from './components/NotFound/NotFound';
 
 
 const Routes = () => (
@@ -14,7 +14,7 @@ const Routes = () => (
         path="/" />
       <Route component={UserDashboard}
         path="/dashboard" />
-      <Route component={Fourohfour}
+      <Route component={NotFound}
         path="*" />
     </Switch>
   </Router>

@@ -68,5 +68,20 @@ describe('MODEL TEST:', () => {
         });
     });
   });
+
+  after((done) => {
+    db.event.destroy({
+      truncate: true,
+      cascade: true,
+      restartIdentity: true,
+    });
+
+    db.center.destroy({
+      truncate: true,
+      cascade: true,
+      restartIdentity: true,
+    });
+    done();
+  });
 });
 

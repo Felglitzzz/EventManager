@@ -4,13 +4,36 @@ import Loader from 'react-md-spinner';
 
 import facilities from '../../../utils/facilities';
 
+/**
+ * @description - Stateless component for rendering form for creating center
+ *
+ * @param {func} onChange - handles onchange event for edit event form
+ * @param {func} onSubmit - handles onSubmit event for edit event form
+ * @param {func} handleFocus - handles clearing of input values for edit event form
+ * @param {func} imageOnChange - handles onchange event for image input in edit event form
+ * @param {object} centerData - center details to be created
+ * @param {object} errors - object with input errors
+ * @param {func} selectOnChange - handles onchange event for facilities in create center form
+ * @param {boolean} isLoading boolean
+ *
+ * @returns {jsx} CenterForm - Rendered view
+ */
 const CenterForm = ({
-  onChange, onSubmit, centerData, imageOnChange, isLoading, handleFocus, errors, selectOnChange
+  onChange,
+  onSubmit,
+  handleFocus,
+  imageOnChange,
+  centerData,
+  errors,
+  selectOnChange,
+  isLoading
 }) => (
   <div>
     <div className="py-3">
-      <div className="form-width mx-auto z-depth-1 hoverable">
-        <header className="shadow-down bg-white">
+      <div className="form-width mx-auto z-depth-1 hoverable bg-white">
+        <header
+          className="shadow-down bg-white"
+          id="createcenterform">
           <p className=" form-head text-center text-orange">Create Center</p>
         </header>
         <section className="bg-white">
@@ -29,6 +52,7 @@ const CenterForm = ({
                       {errors.name}</div>}
                     <input
                       className= "form-control text-secondary"
+                      id="name"
                       name="name"
                       onChange={onChange}
                       onFocus={handleFocus}
@@ -67,7 +91,6 @@ const CenterForm = ({
                         onChange={onChange}
                         onFocus={handleFocus}
                         placeholder="Center's Price"
-                        step="500"
                         type="number"
                         value={centerData.price}
                       />
@@ -79,12 +102,10 @@ const CenterForm = ({
                       {errors.capacity}</div>}
                     <input
                       className="form-control text-secondary"
-                      min="100"
                       name="capacity"
                       onChange={onChange}
                       onFocus={handleFocus}
                       placeholder="Center's Capacity"
-                      step="100"
                       type="number"
                       value={centerData.capacity}
                     />
@@ -157,6 +178,7 @@ const CenterForm = ({
                   <div className="form-group">
                     <button className="btn btn-orange w-100 waves-effect z-depth-2"
                       disabled = {!!isLoading}
+                      id="createCenterSubmit"
                       onSubmit={onSubmit}>
                       <span className="pr-4">
                           Submit

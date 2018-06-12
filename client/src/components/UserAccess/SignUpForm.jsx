@@ -9,7 +9,7 @@ const SignUpForm = ({
     aria-hidden="true"
     aria-labelledby="exampleModalLabel"
     className="modal fade"
-    id="exampleModall"
+    id="signupModal"
     role="dialog"
   >
     <div className="modal-dialog"
@@ -41,6 +41,7 @@ const SignUpForm = ({
               )}
               <input
                 className="form-control mb-3"
+                id="surname"
                 name="surname"
                 onChange={onChange}
                 onFocus={handleFocus}
@@ -57,6 +58,7 @@ const SignUpForm = ({
               )}
               <input
                 className="form-control mb-3"
+                id="firstname"
                 name="firstname"
                 onChange={onChange}
                 onFocus={handleFocus}
@@ -73,6 +75,7 @@ const SignUpForm = ({
               )}
               <input
                 className="form-control mb-3"
+                id="username"
                 name="username"
                 onChange={onChange}
                 onFocus={handleFocus}
@@ -89,6 +92,7 @@ const SignUpForm = ({
               )}
               <input
                 className="form-control mb-3"
+                id="email"
                 name="email"
                 onChange={onChange}
                 onFocus={handleFocus}
@@ -146,6 +150,8 @@ const SignUpForm = ({
             <button
               className="marg rounded btn text-light btn-outline-light ml-2 border"
               disabled={isLoading}
+              id="signupSubmit"
+              type="submit"
             >
               Submit
             </button>

@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 import swaggerUi from 'swagger-ui-express';
+import winston from 'winston';
 import router from './routes/index';
 import swaggerDoc from './swagger.json';
 
@@ -31,7 +32,8 @@ app.use('*', express.static('dist-client'));
 // listen for requests
 const port = parseInt(process.env.PORT, 10) || 1991;
 app.listen(port, () => {
-  console.log(`Hi there, magic happens on http://localhost:${port}`);
+  winston.level = 'info';
+  winston.log('info', `Hi there, magic happens on http://localhost:${port}`);
 });
 
 export default app;

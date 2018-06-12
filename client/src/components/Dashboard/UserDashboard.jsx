@@ -5,7 +5,6 @@ import { Route, Switch, Link, Redirect } from 'react-router-dom';
 
 import UserNavbar from '../Navbar/UserNavbar';
 import AllUserEvents from '../Events/AllUserEvents';
-import history from '../../helpers/history';
 import EditEventPage from '../Events/EditEventPage';
 import AllCentersPage from '../Centers/AllCentersPage';
 import CreateCenterPage from '../Centers/CreateCenterPage';
@@ -14,7 +13,7 @@ import ViewCenterPage from '../Centers/ViewCenterPage';
 import getUserFromToken from '../../utils/getUserFromToken';
 import CreateEventPage from '../Events/CreateEventPage';
 import Prompter from '../../helpers/Prompter';
-import Fourohfour from '../Fourohfour/Fourohfour';
+import NotFound from '../NotFound/NotFound';
 import { logOutUser } from '../../actions/userAccessActions';
 
 /**
@@ -24,13 +23,13 @@ import { logOutUser } from '../../actions/userAccessActions';
  *
  * @extends {React.Component}
  */
-class UserDashboard extends React.Component {
+export class UserDashboard extends React.Component {
   /**
    * @description - creates an instance of UserDashboard
    *
-   * @constructor
-   *
    * @param { props } props - contains user dashboard component properties
+   *
+   * @memberof UserDashboard
    */
   constructor(props) {
     super(props);
@@ -66,14 +65,6 @@ class UserDashboard extends React.Component {
   }
 
   /**
-   * @description - handles redirect to all events page
-   *
-   * @returns {void}
-   */
-  redirectToEvents() {
-    history.push('/dashboard/events');
-  }
-  /**
    * @description handles logout event for a user
    *
    * @param {object} event
@@ -85,7 +76,7 @@ class UserDashboard extends React.Component {
     localStorage.clear();
     this.props.logOutUser();
     Prompter.success('Logged Out Successfully');
-    history.replace('/');
+    this.props.history.replace('/');
   }
 
   /**
@@ -114,6 +105,7 @@ class UserDashboard extends React.Component {
         this.redirectToLandingPage()
         :
         <div>
+          <UserNavbar />
           <div className="wrapper top-order"
             id="wrapper"
           >
@@ -163,7 +155,9 @@ class UserDashboard extends React.Component {
                         <p className="font-weight-bold text-orange lead d-inline-flex">{isAdmin ? 'Create Centers' : 'Create Events'}</p>
                       </li>
                     </Link>
-                    <li className="list-group-item text-orange mb-1 bg-dark button-anim padL py-4"
+                    <li
+                      className="list-group-item text-orange mb-1 bg-dark button-anim padL py-4"
+                      id="logout"
                       onClick={this.handleLogout}
                     >
                       <span className="fa-stack mr-2 empty">
@@ -176,7 +170,6 @@ class UserDashboard extends React.Component {
               </div>
             </div>
             <div className="main-panel">
-              <UserNavbar />
               <Switch>
                 <Route
                   component={CreateEventPage}
@@ -224,9 +217,9 @@ class UserDashboard extends React.Component {
                   path="/dashboard/centers/view/:centerId"
                 />
                 <Route
-                  component={Fourohfour}
+                  component={NotFound}
                   exact
-                  path="/dashboard/*"
+                  path="*"
                 />
               </Switch>
             </div>
@@ -238,7 +231,8 @@ class UserDashboard extends React.Component {
 
 UserDashboard.propTypes = {
   isAuthenticated: PropTypes.object.isRequired,
-  logOutUser: PropTypes.func.isRequired
+  logOutUser: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 /**
@@ -259,10 +253,8 @@ const mapStateToProps = state => ({
  *
  * @return { object } props - returns mapped props from dispatch action
  */
-function mapDispatchToProps(dispatch) {
-  return {
-    logOutUser: () => dispatch(logOutUser()),
-  };
-}
+export const mapDispatchToProps = dispatch => ({
+  logOutUser: () => dispatch(logOutUser()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDashboard);

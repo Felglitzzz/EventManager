@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import Loader from 'react-md-spinner';
 
@@ -10,6 +9,7 @@ import { uploadToCloudinary } from '../../actions/imageActions';
 import { loadUnpaginatedCenters } from '../../actions/centerActions';
 import EditEventForm from './Form/EditEventForm';
 import Validate from '../../helpers/validations/Validate';
+import Prompter from '../../helpers/Prompter';
 
 /**
  * @description - Container class component for create event page
@@ -18,7 +18,7 @@ import Validate from '../../helpers/validations/Validate';
  *
  * @extends {React.Component}
  */
-class EditEventPage extends React.Component {
+export class EditEventPage extends React.Component {
   /**
    * @description - creates an instance of EditEventPage
    *
@@ -133,15 +133,10 @@ class EditEventPage extends React.Component {
     const imageReader = new FileReader();
     if (chosenImage) {
       imageReader.onload = () => {
-        const upload = new Image(500, 330);
-        upload.src = imageReader.result;
-        upload.onload = () => {
-          this.setState({
-            uploadHeight: upload.height,
-            uploadWidth: upload.width,
-            chosenImage
-          });
-        };
+        this.setState({
+          chosenImage,
+          chosenImageUrl: imageReader.result
+        });
       };
     }
     imageReader.readAsDataURL(chosenImage);
@@ -219,8 +214,9 @@ class EditEventPage extends React.Component {
       if (updateEventData.image) {
         this.props.updateEvent(updateEventData)
           .then(() => this.redirectToEvents())
-          .catch(() => {
+          .catch((error) => {
             this.setState({ isLoading: false });
+            Prompter.error(error);
           });
       }
       return;
@@ -234,7 +230,7 @@ class EditEventPage extends React.Component {
             .then(() => this.redirectToEvents())
             .catch((error) => {
               this.setState({ isLoading: false });
-              toastr.error(error);
+              Prompter.error(error);
             });
         }
       })
@@ -250,7 +246,7 @@ class EditEventPage extends React.Component {
    */
   redirectToEvents() {
     this.setState({ isLoading: false });
-    toastr.success('Event Updated');
+    Prompter.success('Event Updated');
     history.replace('/dashboard/events');
   }
 
@@ -278,13 +274,14 @@ class EditEventPage extends React.Component {
    */
   render() {
     const { eventLoading, eventError } = this.state;
+    const { eventId } = this.props;
 
     if (eventLoading) {
       return this.showLoader();
     }
 
-    if (eventError === 'Event Not Found!') {
-      history.push('/dashboard/events');
+    if (eventError === 'Event Not Found!' || !Number.isInteger(eventId)) {
+      history.push('/dashboard/*');
       return null;
     }
     return (
@@ -323,13 +320,13 @@ EditEventPage.propTypes = {
  * @return { object } props - returns mapped props from state
  */
 function mapStateToProps(state, ownProps) {
-  const eventId = parseInt(ownProps.match.params.eventId, 10);
+  const eventId = Number(ownProps.match.params.eventId);
 
   return {
     eventId,
     event: state.eventReducer,
     options: state.centerReducer,
-    imageUrl: state.images.image
+    imageUrl: state.imageReducer.image
   };
 }
 
@@ -340,13 +337,11 @@ function mapStateToProps(state, ownProps) {
  *
  * @return { object } props - returns mapped props from dispatch action
  */
-function mapDispatchToProps(dispatch) {
-  return {
-    loadOneEvent: eventId => dispatch(loadOneEvent(eventId)),
-    loadUnpaginatedCenters: () => dispatch(loadUnpaginatedCenters()),
-    updateEvent: updateEventData => dispatch(updateEvent(updateEventData)),
-    uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
-  };
-}
+export const mapDispatchToProps = dispatch => ({
+  loadOneEvent: eventId => dispatch(loadOneEvent(eventId)),
+  loadUnpaginatedCenters: () => dispatch(loadUnpaginatedCenters()),
+  updateEvent: updateEventData => dispatch(updateEvent(updateEventData)),
+  uploadToCloudinary: image => dispatch(uploadToCloudinary(image))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditEventPage);

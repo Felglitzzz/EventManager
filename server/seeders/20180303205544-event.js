@@ -3,7 +3,7 @@ module.exports = {
     queryInterface.bulkInsert('events', [
       {
         name: 'The Nigeria Education Fair',
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+        image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
         startDate: new Date('2019-03-25'),
         endDate: new Date('2019-03-27'),
         status: 'pending',
@@ -14,7 +14,7 @@ module.exports = {
       },
       {
         name: 'The Legacy Awards',
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/awardy_hqtlun.jpg',
+        image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/awardy_hqtlun.jpg',
         startDate: new Date('2018-11-25'),
         endDate: new Date('2018-11-27'),
         status: 'accepted',
@@ -25,7 +25,7 @@ module.exports = {
       },
       {
         name: 'The Legacy',
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/awardy_hqtlun.jpg',
+        image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/awardy_hqtlun.jpg',
         startDate: new Date('2018-11-25'),
         endDate: new Date('2018-11-27'),
         status: 'cancelled',

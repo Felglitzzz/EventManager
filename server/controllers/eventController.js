@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import _ from 'lodash';
 import db from '../models';
 import errorMessages from '../utils/errorMessages';
 import Helper from '../utils/Helper';
@@ -249,7 +250,7 @@ export default class Event {
           }
           return (
             event
-              // updating events details //
+              // updating events details
               .update(Helper.sanitizedEventRequest(req))
               // Send back the updated event too.
               .then(modifiedEvent => res.status(200).json({
@@ -318,11 +319,70 @@ export default class Event {
               from: '"Eventeria" <eventeria.app@gmail.com>',
               to: event.user.email,
               subject: 'Event Cancelled',
-              html: `<p>Hi ${event.user.surname}, 
-            <br> We regret to inform you that your <strong>${event.name}</strong> 
-            has been cancelled.
-            <br>This is due to the inability of you to meet our payment plan for <strong>${event.center.name}</strong> chosen for your event. 
-            <br><br>Kind regards, <br><strong>Eventeria</strong></p>`
+              html:
+              `<div style="padding:20px">
+                <div style="max-width:600px;margin:0 auto">
+                  <div style="
+                    background:#FAFAFA;
+                    font:14px;
+                    color:#fff ;
+                    margin-bottom:10px">
+                    <div style="
+                      background:#f6682f;
+                      color:#ffffff;
+                      border-bottom:1px solid #f2f3f5 ;
+                      padding-bottom:20px;
+                      padding-top:20px">
+                      <h4 style="
+                        padding-top:0;
+                        padding-left:20px;
+                        margin:0;
+                        font-size:20px;
+                        font-family: 'Open Sans', sans-serif;
+                        color:#ffffff;
+                        line-height:1.25;
+                        min-width:300px">
+                        Eventeria
+                      </h4>
+                    </div>
+                    <center>
+                      <img 
+                        src="https://res.cloudinary.com/felglitz/image/upload/c_scale,w_600/v1515535208/evenn_ymwcen.png"
+                        width="600px"
+                        height="300px"
+                      />
+                    </center>
+                    <div style="padding:10px 20px;line-height:1.5em;color:#686f7a ">
+                      <p style="
+                            padding-bottom:20px;
+                            margin:20px 0;
+                            color:#686f7a">
+                        Hi <strong><em>${_.capitalize(event.user.surname)}</em></strong>,   
+                      </p>
+                      <p style="color:#686f7a">We regret to inform you that your <strong>${_.capitalize(event.name)}</strong> 
+                        has been cancelled.
+                      </p>
+                      <p style="color:#686f7a">
+                        This is due to the inability of you to meet our payment plan for <strong>${_.capitalize(event.center.name)}</strong> chosen for your event. 
+                      </p>
+                      <p>
+                        Kind Regards,
+                        <br>Eventeria
+                      </p>
+                    </div>
+                  </div>
+                  <div style=
+                    "font-family:Roboto-Regular,Helvetica,Arial,sans-serif;
+                    font-size:10px;
+                    color:#666666;
+                    line-height:18px;
+                    padding-bottom:10px">
+                    <div style="direction:ltr;text-align:left">
+                      © 2018 Eventeria
+                    </div>
+                  </div>
+                </div>
+              </div>`
             };
 
             transporter.sendMail(mailOptions, (error) => {
@@ -394,11 +454,69 @@ export default class Event {
               from: '"Eventeria" <eventeria.app@gmail.com>', // sender address
               to: event.user.email, // list of receivers
               subject: 'Event Accepted', // Subject line
-              html: `<p>Hi ${event.user.surname}, 
-            <br> We are glad to inform you that your <strong>${event.name}</strong> 
-            has been approved to hold at <strong>${event.center.name}</strong>.
-            <br>Thank you for your patronage.
-            <br><br>Kind regards, <br><strong>Eventeria</strong></p>` // html body
+              html:
+              `<div style="max-width:600px;margin:0 auto">
+                <div style="
+                  background:#FAFAFA;
+                  font:14px sans-serif;
+                  color:#fff ;
+                  margin-bottom:10px">
+                  <div style="
+                    background:#f6682f;
+                    color:#ffffff;
+                    border-bottom:1px solid #f2f3f5 ;
+                    padding-bottom:20px;
+                    padding-top:20px">
+                    <h4 style="
+                      padding-top:0;
+                      padding-left:20px;
+                      margin:0;
+                      font-size:20px;
+                      font-family: 'Open Sans', sans-serif;
+                      color:#ffffff;
+                      line-height:1.25;
+                      min-width:300px">
+                      Eventeria
+                    </h4>
+                  </div>
+                  <center>
+                    <img 
+                      src="https://res.cloudinary.com/felglitz/image/upload/c_scale,w_600/v1515535208/evenn_ymwcen.png"
+                      width="600px"
+                      height="300px"
+                    />
+                  </center>
+                  <div style="padding:10px 20px;line-height:1.5em;color:#686f7a ">
+                    <p style="
+                          padding-bottom:20px;
+                          margin:20px 0;
+                          color:#686f7a ">
+                      Hi <strong><em>${_.capitalize(event.user.surname)}</em></strong>,   
+                    </p>
+                    <p>
+                      We are glad to inform you that your <strong>${_.capitalize(event.name)}</strong> 
+                      has been approved to hold at <strong>${_.capitalize(event.center.name)}</strong>.
+                    </p>
+                    <p>
+                      Thank you for your patronage
+                    </p>
+                    <p>
+                      Kind Regards,
+                      <br>Eventeria
+                    </p>
+                  </div>
+                </div>
+                <div style=
+                  "font-family:Roboto-Regular,Helvetica,Arial,sans-serif;
+                  font-size:10px;
+                  color:#666666;
+                  line-height:18px;
+                  padding-bottom:10px">
+                  <div style="direction:ltr;text-align:left">
+                    © 2018 Eventeria
+                  </div>
+                </div>
+              </div>`
             };
 
             transporter.sendMail(mailOptions, (error) => {

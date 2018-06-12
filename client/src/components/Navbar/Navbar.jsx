@@ -35,7 +35,7 @@ const Navbar = () => (
         <form className="form-inline ml-auto mx-2">
           <button
             className="btn-resp-height btn btn-outline-orange-1 rounded-0 px-3 ml-2 border"
-            data-target="#exampleModal"
+            data-target="#signinModal"
             data-toggle="modal"
             type="button"
           >
@@ -50,7 +50,7 @@ const Navbar = () => (
         <form className="form-inline">
           <button
             className="btn-resp-height btn btn-outline-orange-1 rounded-0 px-3 ml-2 border"
-            data-target="#exampleModall"
+            data-target="#signupModal"
             data-toggle="modal"
             type="button"
           >

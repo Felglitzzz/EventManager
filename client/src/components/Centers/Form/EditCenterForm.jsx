@@ -4,14 +4,36 @@ import Loader from 'react-md-spinner';
 
 import facilities from '../../../utils/facilities';
 
+/**
+ * @description - Stateless component for rendering form for editing center
+ *
+ * @param {func} onChange - handles onchange event for edit event form
+ * @param {func} onSubmit - handles onSubmit event for edit event form
+ * @param {func} handleFocus - handles clearing of input values for edit event form
+ * @param {func} imageOnChange - handles onchange event for image input in edit event form
+ * @param {object} updateCenterData - center details to be created
+ * @param {object} errors - object with input errors
+ * @param {func} selectOnChange - handles onchange event for facilities in create center form
+ * @param {boolean} isLoading boolean
+ *
+ * @returns {jsx} EditCenterForm - Rendered view
+ */
 const EditCenterForm = ({
-  onChange, onSubmit, updateCenterData, errors, handleFocus,
-  isLoading, imageOnChange, selectOnChange
+  onChange,
+  onSubmit,
+  handleFocus,
+  imageOnChange,
+  updateCenterData,
+  errors,
+  selectOnChange,
+  isLoading
 }) => (
   <div>
     <div className="py-3">
       <div className="form-width mx-auto z-depth-1 hoverable">
-        <header className="shadow-down bg-white">
+        <header
+          className="shadow-down bg-white"
+          id="editcenterform">
           <p className=" form-head text-center text-orange">Edit Center</p>
         </header>
         <section className="bg-white">
@@ -30,6 +52,7 @@ const EditCenterForm = ({
                       {errors.name}</div>}
                     <input
                       className= "form-control"
+                      id="name"
                       name="name"
                       onChange={onChange}
                       onFocus={handleFocus}
@@ -44,6 +67,7 @@ const EditCenterForm = ({
                       {errors.location}</div>}
                     <input
                       className="form-control text-secondary"
+                      id="location"
                       name="location"
                       onChange={onChange}
                       onFocus={handleFocus}
@@ -62,6 +86,7 @@ const EditCenterForm = ({
                       </div>
                       <input
                         className="form-control text-secondary"
+                        id="price"
                         name="price"
                         onChange={onChange}
                         onFocus={handleFocus}
@@ -78,6 +103,7 @@ const EditCenterForm = ({
                       {errors.capacity}</div>}
                     <input
                       className="form-control text-secondary"
+                      id="capacity"
                       min="100"
                       name="capacity"
                       onChange={onChange}
@@ -155,8 +181,10 @@ const EditCenterForm = ({
                       </div>))}
                   </div>
                   <div className="form-group">
-                    <button className="btn btn-orange w-100 waves-effect z-depth-2"
+                    <button
+                      className="btn btn-orange w-100 waves-effect z-depth-2"
                       disabled = {!!isLoading}
+                      id="editCenterSubmit"
                       onSubmit={onSubmit}>
                       <span className="pr-4">
                           Submit

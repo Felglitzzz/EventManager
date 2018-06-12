@@ -51,21 +51,32 @@ export default class Check {
         message: 'End date should come after start date'
       });
     }
+
     const query = {
-      where: {
-        centerId: req.body.centerId,
-        $or: {
+      centerId: req.body.centerId,
+      [Sequelize.Op.or]: [
+        {
           startDate: {
-            $between: [eventStartDate, eventEndDate]
+            [Sequelize.Op.between]: [eventStartDate, eventEndDate]
+          }
+        }, {
+          endDate: {
+            [Sequelize.Op.between]: [eventStartDate, eventEndDate]
+          }
+        }, {
+          startDate: {
+            [Sequelize.Op.lte]: eventStartDate,
+            [Sequelize.Op.lte]: eventEndDate
           },
           endDate: {
-            $between: [eventStartDate, eventEndDate]
+            [Sequelize.Op.gte]: eventStartDate,
+            [Sequelize.Op.gte]: eventEndDate
           }
         }
-      }
+      ]
     };
 
-    events.find(query).then((event) => {
+    events.find({ where: query }).then((event) => {
       if (event) {
         return res.status(409).json({
           message: `This center has already being booked from ${moment(event.startDate).format('LL')} to ${moment(event.endDate).format('LL')}, kindly book another date`
@@ -117,6 +128,7 @@ export default class Check {
     const eventEndDate = new Date(req.body.endDate);
 
     const query = {
+      centerId: req.body.centerId,
       [Sequelize.Op.or]: [
         {
           startDate: {
@@ -128,16 +140,18 @@ export default class Check {
           }
         }, {
           startDate: {
-            [Sequelize.Op.lte]: eventStartDate
+            [Sequelize.Op.lte]: eventStartDate,
+            [Sequelize.Op.lte]: eventEndDate
           },
           endDate: {
+            [Sequelize.Op.gte]: eventStartDate,
             [Sequelize.Op.gte]: eventEndDate
           }
         }
       ]
     };
 
-    events.find(query).then((event) => {
+    events.find({ where: query }).then((event) => {
       if (event && event.id !== parseInt(req.params.eventId, 10)) {
         return res.status(409).json({
           message: `This center has already being booked from ${moment(event.startDate).format('LL')} to ${moment(event.endDate).format('LL')}, kindly book another date`

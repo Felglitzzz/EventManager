@@ -9,7 +9,6 @@ import EventCenterList from './EventCenterList';
 import { loadOneCenter } from '../../actions/centerActions';
 import { loadEventsByCenterId, cancelEvent, approveEvent } from '../../actions/eventActions';
 import Pagination from '../Pagination/Pagination';
-import history from '../../helpers/history';
 
 /**
  * @description - Container class component for view center page
@@ -18,7 +17,7 @@ import history from '../../helpers/history';
  *
  * @extends {React.Component}
  */
-class ViewCenterPage extends React.Component {
+export class ViewCenterPage extends React.Component {
   /**
    * @description - creates an instance of ViewCenterPage
    *
@@ -52,7 +51,6 @@ class ViewCenterPage extends React.Component {
     this.handleApproveEvent = this.handleApproveEvent.bind(this);
     this.showLoader = this.showLoader.bind(this);
     this.showNoEvents = this.showNoEvents.bind(this);
-    this.redirectToCenters = this.redirectToCenters.bind(this);
   }
 
   /**
@@ -141,7 +139,7 @@ class ViewCenterPage extends React.Component {
   showNext() {
     const { url } = this.props.match;
     const { currentPage } = this.state.pagination;
-    history.push(`${url}?page=${currentPage + 1}`);
+    this.props.history.push(`${url}?page=${currentPage + 1}`);
   }
 
   /**
@@ -154,7 +152,7 @@ class ViewCenterPage extends React.Component {
   showPrevious() {
     const { url } = this.props.match;
     const { currentPage } = this.state.pagination;
-    history.push(`${url}?page=${currentPage - 1}`);
+    this.props.history.push(`${url}?page=${currentPage - 1}`);
   }
 
   /**
@@ -182,7 +180,9 @@ class ViewCenterPage extends React.Component {
   showNoEvents() {
     const { name } = this.state.center;
     return (
-      <div className="py-3">
+      <div
+        className="py-3"
+        id="shownoevents">
         <p className="text-center text-dark lead">
           {_.capitalize(name)} has no events
         </p>
@@ -297,28 +297,20 @@ class ViewCenterPage extends React.Component {
   }
 
   /**
-   * @description - handles redirect to all centers page
-   *
-   * @returns {void}
-   */
-  redirectToCenters() {
-    return history.push('/dashboard/centers');
-  }
-
-  /**
    * @description - renders edit event form
    *
    * @returns {jsx} edit event component
    */
   render() {
     const { center, centerLoading, centerError } = this.state;
+    const { centerId } = this.props;
 
     if (centerLoading) {
       return this.showLoader();
     }
 
-    if (centerError === 'Center Not Found!') {
-      this.redirectToCenters();
+    if (centerError === 'Center Not Found!' || !Number.isInteger(centerId)) {
+      this.props.history.push('/dashboard/*');
       return null;
     }
     return (
@@ -350,7 +342,9 @@ class ViewCenterPage extends React.Component {
             <p className="text-center p-3 text-justify">{center.description}</p>
           </section>
         </div>
-        <header className="mt-3 bg-light z-depth-1">
+        <header
+          className="mt-3 bg-light z-depth-1"
+          id="centereventlog">
           <p className="form-head text-center text-orange">Center-Event Log</p>
         </header>
 
@@ -398,7 +392,7 @@ ViewCenterPage.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const centerId = parseInt(ownProps.match.params.centerId, 10);
+  const centerId = Number(ownProps.match.params.centerId);
   return {
     center: state.centerReducer,
     events: state.eventReducer,
@@ -406,7 +400,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   loadOneCenter: centerId => dispatch(loadOneCenter(centerId)),
   loadEventsByCenterId: (centerId, page) => dispatch(loadEventsByCenterId(centerId, page)),
   cancelEvent: eventId => dispatch(cancelEvent(eventId)),
