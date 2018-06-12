@@ -74,13 +74,14 @@ describe('MODEL TEST:', () => {
       truncate: true,
       cascade: true,
       restartIdentity: true,
-    }).then(() => done());
+    });
 
     db.center.destroy({
       truncate: true,
       cascade: true,
       restartIdentity: true,
-    }).then(() => done());
+    });
+    done();
   });
 });
 

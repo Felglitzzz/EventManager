@@ -60,7 +60,7 @@ describe('Sign In Page', () => {
   it('should handle input change', () => {
     const value = 'muyiwa';
     const wrapper = mount(<SignInPageModal {...props} />);
-    wrapper.find('#username').simulate('change', {
+    wrapper.find('#loginUsername').simulate('change', {
       target: { name: 'username', value }
     });
     expect(wrapper.state().loginData.username).toBe(value);
@@ -69,7 +69,7 @@ describe('Sign In Page', () => {
   it('should clear input fields after input error is thrown', () => {
     const value = '';
     const wrapper = mount(<SignInPageModal {...props} />);
-    wrapper.find('#username').simulate('focus', {
+    wrapper.find('#loginUsername').simulate('focus', {
       target: { name: 'username', value }
     });
     expect(wrapper.state().loginData.username).toBe(value);

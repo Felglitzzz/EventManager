@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import { ViewCenterPage, mapDispatchToProps } from '../../components/Centers/ViewCenterPage';
-import EventCenterList from '../../components/Centers/EventCenterList';
 import mockLocalStorage from '../__mocks__/mockLocalStorage';
 
 window.localStorage = mockLocalStorage;
@@ -107,64 +106,6 @@ describe(' View Center\'s Page', () => {
   it('should render ViewCenterPage component', () => {
     const wrapper = shallow(<ViewCenterPage {...props} />);
     expect(wrapper.find('section').exists).toBeTruthy();
-  });
-
-  xit('should render stateless child component', () => {
-    const childProps = {
-      loadCenters: () => Promise.resolve(),
-      centers: {
-        count: 13,
-        rows: [
-          {
-            id: 15,
-            name: 'jkddkd',
-            location: 'Alausa',
-            capacity: 900,
-            price: 900,
-            facilities: [
-              'Casino',
-              'Parking Space',
-              'Volley Ball Court',
-              'Salon and Spa',
-              'Basket Ball Court'
-            ],
-            type: 'jherlfrihn',
-            description: 'bnmd',
-            image: 'https://res.cloudinary.com/felglitz/image/upload/v1528623443/no30px0yjsdbzaddtcch.jpg',
-            createdAt: '2018-06-10',
-            updatedAt: '2018-06-10'
-          }
-        ]
-      }
-    };
-    const wrapper = shallow(<EventCenterList {...childProps} />);
-    wrapper.setProps({
-      centers: {
-        count: 13,
-        rows: [
-          {
-            id: 15,
-            name: 'jkddkd',
-            location: 'Alausa',
-            capacity: 900,
-            price: 900,
-            facilities: [
-              'Casino',
-              'Parking Space',
-              'Volley Ball Court',
-              'Salon and Spa',
-              'Basket Ball Court'
-            ],
-            type: 'jherlfrihn',
-            description: 'bnmd',
-            image: 'https://res.cloudinary.com/felglitz/image/upload/v1528623443/no30px0yjsdbzaddtcch.jpg',
-            createdAt: '2018-06-10',
-            updatedAt: '2018-06-10'
-          }
-        ]
-      },
-    });
-    expect(wrapper).toMatchSnapshot();
   });
 
   it('should test componentWillReceiveProps method', () => {

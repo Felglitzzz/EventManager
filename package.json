@@ -13,7 +13,7 @@
     "migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "migrate:test": "sequelize db:migrate --env test",
     "coveralls:report": "nyc report --reporter=text-lcov | coveralls",
-    "server-test": "cross-env NODE_ENV=test nyc --reporter=text --reporter=lcov mocha --timeout 15000 --require babel-polyfill --compilers js:babel-register server/test/index.spec.js",
+    "server-test": "cross-env NODE_ENV=test nyc --reporter=text --reporter=lcov mocha --timeout 20000 --require babel-polyfill --compilers js:babel-register server/test/index.spec.js",
     "client-test": "jest && codecov",
     "test": "npm run server-test && npm run client-test",
     "heroku-postbuild": "npm run build-server && npm run build-client",
