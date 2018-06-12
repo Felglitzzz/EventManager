@@ -150,7 +150,7 @@ export default class InputValidate {
       errors.image = 'Image is Required';
     }
     if (!centerId || centerId === '') {
-      errors.centerId = 'Location is Required';
+      errors.centerId = 'Center is Required';
     }
     if (!startDate || startDate.trim() === '') {
       errors.startDate = 'Start Date is Required';

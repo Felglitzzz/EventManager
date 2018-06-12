@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/Felglitzzz/EventManager.svg?branch=develop)](https://travis-ci.org/Felglitzzz/EventManager)
-[![Coverage Status](https://coveralls.io/repos/github/Felglitzzz/EventManager/badge.svg?branch=develop)](https://coveralls.io/github/Felglitzzz/EventManager?branch=develop)
-[![Maintainability](https://api.codeclimate.com/v1/badges/e5c68bb9b0cd8eef37cf/maintainability)](https://codeclimate.com/github/Felglitzzz/EventManager/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e5c68bb9b0cd8eef37cf/test_coverage)](https://codeclimate.com/github/Felglitzzz/EventManager/test_coverage)
+[![codecov](https://codecov.io/gh/Felglitzzz/EventManager/branch/develop/graph/badge.svg)](https://codecov.io/gh/Felglitzzz/EventManager)
+[![Maintainability](https://api.codeclimate.com/v1/badges/e5c68bb9b0cd8eef37cf/maintainability)](https://codeclimate.com/github/Felglitzzz/EventManager/maintainability)
 [![](https://img.shields.io/badge/Protected_by-Hound-a873d1.svg)](https://houndci.com)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/hyperium/hyper/master/LICENSE)
 
@@ -24,7 +24,6 @@ Click [here](https://eventmanager-app.herokuapp.com/docs) to view our detailed A
 * [ExpressJs](https://expressjs.com/) - A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
 * [Sequelize](http://docs.sequelizejs.com/) - An ORM for Node.js that supports the dialects of PostgreSQL and features solid transaction support an relations.
 * [Postgres](https://www.postgresql.org/) - A powerful, open source object-relational database system.
-* [Semantic-ui-react]() - Official React integration for Semantic UI.
 * [React](https://www.reactjs.org/) - A JavaScript library for building user interfaces by Facebook.
 * [Redux](http://redux.js.org/) - A predictable state container for JavaScript apps.
 
@@ -102,7 +101,7 @@ Click [here](https://eventmanager-app.herokuapp.com/docs) to view our detailed A
 
 - Run both client and server tests together
 
-```sh
+```
     npm test
 ```
 

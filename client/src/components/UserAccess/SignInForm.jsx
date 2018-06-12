@@ -42,7 +42,7 @@ const SignInForm = ({
               <input
                 className="form-control mb-3"
                 error={errors.username}
-                id="username"
+                id="loginUsername"
                 name="username"
                 onChange={onChange}
                 onFocus={handleFocus}
@@ -59,7 +59,7 @@ const SignInForm = ({
               <input
                 className="form-control mb-3"
                 error={errors.password}
-                id="password"
+                id="loginPassword"
                 name="password"
                 onChange={onChange}
                 onFocus={handleFocus}

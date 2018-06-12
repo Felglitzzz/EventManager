@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import Loader from 'react-md-spinner';
 
@@ -10,6 +9,7 @@ import { uploadToCloudinary } from '../../actions/imageActions';
 import { loadUnpaginatedCenters } from '../../actions/centerActions';
 import EditEventForm from './Form/EditEventForm';
 import Validate from '../../helpers/validations/Validate';
+import Prompter from '../../helpers/Prompter';
 
 /**
  * @description - Container class component for create event page
@@ -214,8 +214,9 @@ export class EditEventPage extends React.Component {
       if (updateEventData.image) {
         this.props.updateEvent(updateEventData)
           .then(() => this.redirectToEvents())
-          .catch(() => {
+          .catch((error) => {
             this.setState({ isLoading: false });
+            Prompter.error(error);
           });
       }
       return;
@@ -229,7 +230,7 @@ export class EditEventPage extends React.Component {
             .then(() => this.redirectToEvents())
             .catch((error) => {
               this.setState({ isLoading: false });
-              toastr.error(error);
+              Prompter.error(error);
             });
         }
       })
@@ -245,7 +246,7 @@ export class EditEventPage extends React.Component {
    */
   redirectToEvents() {
     this.setState({ isLoading: false });
-    toastr.success('Event Updated');
+    Prompter.success('Event Updated');
     history.replace('/dashboard/events');
   }
 

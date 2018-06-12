@@ -171,7 +171,7 @@ export class AllUserEvents extends React.Component {
       <div className="pt-5">
         <div className="d-flex justify-content-center">
           <img className="img-fluid"
-            src="http://res.cloudinary.com/felglitz/image/upload/v1522307912/calendar-with-spring-binder-and-date-blocks_eocce3.png"
+            src="https://res.cloudinary.com/felglitz/image/upload/v1522307912/calendar-with-spring-binder-and-date-blocks_eocce3.png"
           />
         </div>
         <div>

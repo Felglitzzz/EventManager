@@ -19,7 +19,7 @@ const componentState = {
     location: 'Maryland',
     capacity: 500,
     price: 1000,
-    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+    image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
     type: 'Marquee',
     description: 'Dammy Center is in maryland',
     facilities: ['bar', 'casino']
@@ -38,12 +38,12 @@ const updatedComponentStateUponSubmit = {
     location: 'Maryland',
     capacity: 500,
     price: 1000,
-    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+    image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
     type: 'Marquee',
     description: 'Dammy Center is in maryland',
     facilities: ['bar', 'casino']
   },
-  chosenImage: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+  chosenImage: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
   isAuthenticated: false,
   isLoading: true,
   uploadHeight: '',
@@ -160,7 +160,7 @@ describe('Create Center Page', () => {
       isLoading: true,
       isAuthenticated: false,
       centerData: componentState.centerData,
-      chosenImage: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
+      chosenImage: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
     });
     wrapper.update();
     wrapper.find('form').simulate('submit', {

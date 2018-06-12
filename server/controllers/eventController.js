@@ -347,7 +347,7 @@ export default class Event {
                     </div>
                     <center>
                       <img 
-                        src="http://res.cloudinary.com/felglitz/image/upload/c_scale,w_600/v1515535208/evenn_ymwcen.png"
+                        src="https://res.cloudinary.com/felglitz/image/upload/c_scale,w_600/v1515535208/evenn_ymwcen.png"
                         width="600px"
                         height="300px"
                       />
@@ -481,7 +481,7 @@ export default class Event {
                   </div>
                   <center>
                     <img 
-                      src="http://res.cloudinary.com/felglitz/image/upload/c_scale,w_600/v1515535208/evenn_ymwcen.png"
+                      src="https://res.cloudinary.com/felglitz/image/upload/c_scale,w_600/v1515535208/evenn_ymwcen.png"
                       width="600px"
                       height="300px"
                     />

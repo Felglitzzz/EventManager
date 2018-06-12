@@ -26,7 +26,7 @@ const componentState = {
     centerId: 1,
     startDate: '2020-09-25',
     endDate: '2020-09-26',
-    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
+    image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
   },
   chosenImage: '',
   isAuthenticated: false,
@@ -42,9 +42,9 @@ const updatedComponentStateUponSubmit = {
     centerId: 1,
     startDate: '2020-09-25',
     endDate: '2020-09-26',
-    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
+    image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
   },
-  chosenImage: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+  chosenImage: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
   isAuthenticated: false,
   isLoading: true,
   errors: {},
@@ -116,7 +116,7 @@ describe('Create Event Page', () => {
       isLoading: true,
       isAuthenticated: false,
       eventData: componentState.eventData,
-      chosenImage: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
+      chosenImage: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
     });
     wrapper.update();
     wrapper.find('form').simulate('submit', {

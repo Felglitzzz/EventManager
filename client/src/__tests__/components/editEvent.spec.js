@@ -37,7 +37,7 @@ const props = {
           location: 'Dubai'
         },
         id: 18,
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
+        image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
       }
     }
   },
@@ -70,7 +70,7 @@ const componentState = {
       location: 'Dubai'
     },
     id: 18,
-    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
+    image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
   },
   chosenImage: '',
   isAuthenticated: false,
@@ -93,11 +93,11 @@ const updatedComponentStateUponSubmit = {
       location: 'Dubai'
     },
     id: 18,
-    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
+    image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
   },
   eventError: '',
   eventLoading: false,
-  chosenImage: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+  chosenImage: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
   isAuthenticated: false,
   isLoading: true,
   errors: {},
@@ -129,7 +129,7 @@ describe('Edit Event Page', () => {
         centerId: 1,
         startDate: '2020-09-25',
         endDate: '2020-09-26',
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
+        image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
       },
       options: [{ id: 1, name: 'Sheraton' }]
     });
@@ -203,7 +203,7 @@ describe('Edit Event Page', () => {
       eventLoading: false,
       isAuthenticated: false,
       updateEventData: componentState.updateEventData,
-      chosenImage: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
+      chosenImage: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
     });
     wrapper.update();
     const event = {
@@ -264,7 +264,7 @@ describe('Edit Event Page', () => {
           location: 'Dubai'
         },
         id: 18,
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
+        image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
       },
       eventError: '',
       eventLoading: false,

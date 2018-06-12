@@ -27,12 +27,12 @@ const updatedComponentStateUponSubmit = {
     location: 'Maryland',
     capacity: 500,
     price: 1000,
-    image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+    image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
     type: 'Marquee',
     description: 'Dammy Center is in maryland',
     facilities: ['bar', 'casino']
   },
-  chosenImage: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+  chosenImage: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
   isAuthenticated: false,
   isLoading: true,
   errors: {},
@@ -52,7 +52,7 @@ describe('Edit Center Page', () => {
         location: 'Maryland',
         capacity: 500,
         price: 1000,
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+        image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
         type: 'Marquee',
         description: 'Dammy Center is in maryland',
         facilities: ['bar', 'casino']
@@ -73,7 +73,7 @@ describe('Edit Center Page', () => {
         location: 'Maryland',
         capacity: 500,
         price: 1000,
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+        image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
         type: 'Marquee',
         description: 'Dammy Center is in maryland',
         facilities: ['bar', 'casino']
@@ -160,7 +160,7 @@ describe('Edit Center Page', () => {
         location: 'Maryland',
         capacity: 500,
         price: 1000,
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+        image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
         type: 'Marquee',
         description: 'Dammy Center is in maryland',
         facilities: ['bar', 'casino']
@@ -192,7 +192,7 @@ describe('Edit Center Page', () => {
         location: 'Maryland',
         capacity: 500,
         price: 1000,
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+        image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
         type: 'Marquee',
         description: 'Dammy Center is in maryland',
         facilities: ['bar', 'casino']
@@ -215,12 +215,12 @@ describe('Edit Center Page', () => {
         location: 'Maryland',
         capacity: 500,
         price: 1000,
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+        image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
         type: 'Marquee',
         description: 'Dammy Center is in maryland',
         facilities: ['bar', 'casino']
       },
-      chosenImage: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
+      chosenImage: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg'
     });
     wrapper.find('#name').simulate('change', {
       target: { name: 'name', value: 'Hephzibah Hall' },
@@ -248,7 +248,7 @@ describe('Edit Center Page', () => {
         location: 'Maryland',
         capacity: 500,
         price: 1000,
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+        image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
         type: 'Marquee',
         description: 'Dammy Center is in maryland',
         facilities: ['bar', 'casino']
@@ -271,7 +271,7 @@ describe('Edit Center Page', () => {
         location: 'Maryland',
         capacity: 500,
         price: 1000,
-        image: 'http://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
+        image: 'https://res.cloudinary.com/felglitz/image/upload/v1515539253/userevent_klrvuu.jpg',
         type: 'Marquee',
         description: 'Dammy Center is in maryland',
         facilities: ['bar', 'casino']

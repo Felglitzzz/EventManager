@@ -1,4 +1,5 @@
 import '../test/middleware/auth.spec';
+import '../test/middleware/check.spec';
 import '../test/controllers/user.spec';
 import '../test/controllers/center.spec';
 import '../test/controllers/event.spec';
