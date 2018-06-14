@@ -1,7 +1,5 @@
 const initialState = {
-  userAccess: {
-    isAuthenticated: false
-  },
+  userAccess: {},
   events: {},
   centers: {},
   images: {}

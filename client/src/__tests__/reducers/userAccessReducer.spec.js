@@ -8,9 +8,7 @@ import {
 import mockData from '../__mocks__/mockData';
 
 const initialState = {
-  userAccess: {
-    isAuthenticated: false
-  }
+  userAccess: {}
 };
 
 describe('UserAccess reducer', () => {

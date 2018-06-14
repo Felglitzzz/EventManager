@@ -289,7 +289,8 @@ export class EditCenterPage extends React.Component {
     }
 
     if (centerError === 'Center Not Found!' || !Number.isInteger(centerId)) {
-      history.push('/dashboard/*');
+      Prompter.error('Center Not Found!');
+      history.push('/dashboard');
       return null;
     }
 
@@ -333,7 +334,7 @@ const mapStateToProps = (state, ownProps) => {
     center: state.centerReducer,
     imageUrl: state.imageReducer.image
   };
-}
+};
 
 /**
  * @description maps action dispatched to props

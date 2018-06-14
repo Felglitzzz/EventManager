@@ -9,6 +9,7 @@ import EventCenterList from './EventCenterList';
 import { loadOneCenter } from '../../actions/centerActions';
 import { loadEventsByCenterId, cancelEvent, approveEvent } from '../../actions/eventActions';
 import Pagination from '../Pagination/Pagination';
+import Prompter from '../../helpers/Prompter';
 
 /**
  * @description - Container class component for view center page
@@ -310,7 +311,8 @@ export class ViewCenterPage extends React.Component {
     }
 
     if (centerError === 'Center Not Found!' || !Number.isInteger(centerId)) {
-      this.props.history.push('/dashboard/*');
+      Prompter.error('Center Not Found!');
+      this.props.history.push('/dashboard');
       return null;
     }
     return (
