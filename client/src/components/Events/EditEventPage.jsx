@@ -281,7 +281,8 @@ export class EditEventPage extends React.Component {
     }
 
     if (eventError === 'Event Not Found!' || !Number.isInteger(eventId)) {
-      history.push('/dashboard/*');
+      Prompter.error('Event Not Found!');
+      history.push('/dashboard');
       return null;
     }
     return (

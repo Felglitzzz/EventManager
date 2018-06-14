@@ -15,7 +15,7 @@ Click [here](https://eventmanager-app.herokuapp.com/docs) to view our detailed A
 
 ## Take a Peek
 
-* API is hosted on https://eventmanager-app.herokuapp.com/api/v1
+* API is hosted on https://eventmanager-app.herokuapp.com/api/v1/home
 * Application is hosted on https://eventmanager-app.herokuapp.com
 
 ## Technologies Used
